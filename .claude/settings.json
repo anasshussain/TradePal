@@ -6,7 +6,8 @@
       "Bash(sed -i 's/\\\\b_FlutterFlowDropDownState\\\\b/_AppDropDownState/g' lib/widgets/app_drop_down.dart)",
       "Bash(sed -i 's/\\\\b_FlutterFlowIconButtonState\\\\b/_AppIconButtonState/g' lib/widgets/app_icon_button.dart)",
       "Bash(sed -i 's/\\\\b_FlutterFlowRadioButtonState\\\\b/_AppRadioButtonState/g' lib/widgets/app_radio_button.dart)",
-      "Bash(echo \"=== exit: $? ===\")"
+      "Bash(echo \"=== exit: $? ===\")",
+      "Bash(grep -iE \"^\\(Error|.*Error:|lib[\\\\\\\\/].*:[0-9]+:[0-9]+:\\)\" /tmp/build.txt)"
     ]
   }
 }

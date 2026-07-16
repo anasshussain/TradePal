@@ -370,7 +370,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                       email: _model.emailTextController.text,
                                       context: context,
                                       redirectTo:
-                                          "https://trade-connect-x1mzbx.flutterflow.app/resetPassword",
+                                          "https://mytradepal.com/resetPassword",
                                     );
                                   } else {
                                     await actions.showToast(
