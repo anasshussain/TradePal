@@ -85,10 +85,10 @@ class AppDropDown<T> extends StatefulWidget {
   final bool optionsHasValueKeys;
 
   @override
-  State<AppDropDown<T>> createState() => _FlutterFlowDropDownState<T>();
+  State<AppDropDown<T>> createState() => _AppDropDownState<T>();
 }
 
-class _FlutterFlowDropDownState<T> extends State<AppDropDown<T>> {
+class _AppDropDownState<T> extends State<AppDropDown<T>> {
   bool get isMultiSelect => widget.isMultiSelect;
   FormFieldController<T?> get controller => widget.controller!;
   FormFieldController<List<T>?> get multiSelectController =>

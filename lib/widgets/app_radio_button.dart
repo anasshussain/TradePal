@@ -76,10 +76,10 @@ class AppRadioButton extends StatefulWidget {
   final bool showBorderAroundRadioButtonAndText;
 
   @override
-  State<AppRadioButton> createState() => _FlutterFlowRadioButtonState();
+  State<AppRadioButton> createState() => _AppRadioButtonState();
 }
 
-class _FlutterFlowRadioButtonState extends State<AppRadioButton> {
+class _AppRadioButtonState extends State<AppRadioButton> {
   bool get enabled => widget.onChanged != null;
   FormFieldController<String> get controller => widget.controller;
   void Function()? _listener;

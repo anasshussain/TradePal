@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i 's/\\\\b_FlutterFlowButtonTabBarState\\\\b/_AppButtonTabBarState/g' lib/widgets/app_button_tab_bar.dart)",
+      "Bash(sed -i 's/\\\\b_FlutterFlowChoiceChipsState\\\\b/_AppChoiceChipsState/g' lib/widgets/app_choice_chips.dart)",
+      "Bash(sed -i 's/\\\\b_FlutterFlowDropDownState\\\\b/_AppDropDownState/g' lib/widgets/app_drop_down.dart)",
+      "Bash(sed -i 's/\\\\b_FlutterFlowIconButtonState\\\\b/_AppIconButtonState/g' lib/widgets/app_icon_button.dart)",
+      "Bash(sed -i 's/\\\\b_FlutterFlowRadioButtonState\\\\b/_AppRadioButtonState/g' lib/widgets/app_radio_button.dart)",
+      "Bash(echo \"=== exit: $? ===\")"
+    ]
+  }
+}

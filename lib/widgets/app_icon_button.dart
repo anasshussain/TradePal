@@ -38,10 +38,10 @@ class AppIconButton extends StatefulWidget {
   final BorderRadius? focusBorderRadius;
 
   @override
-  State<AppIconButton> createState() => _FlutterFlowIconButtonState();
+  State<AppIconButton> createState() => _AppIconButtonState();
 }
 
-class _FlutterFlowIconButtonState extends State<AppIconButton> {
+class _AppIconButtonState extends State<AppIconButton> {
   bool loading = false;
   late double? iconSize;
   late Color? iconColor;

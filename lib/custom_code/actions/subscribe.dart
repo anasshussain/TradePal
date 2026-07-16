@@ -1,4 +1,3 @@
-// Automatic FlutterFlow imports
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
@@ -61,10 +60,10 @@ Future<void> subscribe(
                 final jobId = payload.newRecord['job_id']?.toString();
                 print('Your jobid is $jobId');
                 if (status == 'paid' && jobId != null) {
-                  print('Flutterflow app state execution started successfully');
+                  print('App state execution started successfully');
                   AppState().update(() {
                     AppState().paidJobId = jobId;
-                    print('Flutterflow app state updated successfully');
+                    print('App state updated successfully');
                   });
 
                   await callbackAction();

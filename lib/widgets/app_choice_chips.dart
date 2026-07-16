@@ -66,10 +66,10 @@ class AppChoiceChips extends StatefulWidget {
   final bool wrapped;
 
   @override
-  State<AppChoiceChips> createState() => _FlutterFlowChoiceChipsState();
+  State<AppChoiceChips> createState() => _AppChoiceChipsState();
 }
 
-class _FlutterFlowChoiceChipsState extends State<AppChoiceChips> {
+class _AppChoiceChipsState extends State<AppChoiceChips> {
   late List<String> choiceChipValues;
   List<String> get selectedValues => widget.controller.value ?? [];
 

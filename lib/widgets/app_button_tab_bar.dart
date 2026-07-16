@@ -181,7 +181,7 @@ class _TabBarScrollPosition extends ScrollPositionWithSingleContext {
           oldPosition: oldPosition,
         );
 
-  final _FlutterFlowButtonTabBarState tabBar;
+  final _AppButtonTabBarState tabBar;
 
   bool _viewportDimensionWasNonZero = false;
 
@@ -221,7 +221,7 @@ class _TabBarScrollPosition extends ScrollPositionWithSingleContext {
 class _TabBarScrollController extends ScrollController {
   _TabBarScrollController(this.tabBar);
 
-  final _FlutterFlowButtonTabBarState tabBar;
+  final _AppButtonTabBarState tabBar;
 
   @override
   ScrollPosition createScrollPosition(ScrollPhysics physics,
@@ -235,7 +235,7 @@ class _TabBarScrollController extends ScrollController {
   }
 }
 
-/// A Flutterflow Design widget that displays a horizontal row of tabs.
+/// A widget that displays a horizontal row of tabs.
 class AppButtonTabBar extends StatefulWidget
     implements PreferredSizeWidget {
   /// The [tabs] argument must not be null and its length must match the [controller]'s
@@ -377,10 +377,10 @@ class AppButtonTabBar extends StatefulWidget
 
   @override
   State<AppButtonTabBar> createState() =>
-      _FlutterFlowButtonTabBarState();
+      _AppButtonTabBarState();
 }
 
-class _FlutterFlowButtonTabBarState extends State<AppButtonTabBar>
+class _AppButtonTabBarState extends State<AppButtonTabBar>
     with TickerProviderStateMixin {
   ScrollController? _scrollController;
   TabController? _controller;

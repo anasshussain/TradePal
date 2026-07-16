@@ -20,15 +20,49 @@ class AppState extends ChangeNotifier {
     _instance = AppState._internal();
   }
 
+  // Persisted-state keys. The `ff_`-prefixed names are what shipped builds
+  // wrote, so they are still read once and migrated across; removing that
+  // fallback would silently reset onboarding and drop the FCM device token
+  // for every existing install.
+  static const _kOnboarding = 'onboarding';
+  static const _kCurrentDeviceToken = 'currentDeviceToken';
+  static const _kLegacyOnboarding = 'ff_onboarding';
+  static const _kLegacyCurrentDeviceToken = 'ff_currentDeviceToken';
+
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
+    await _migrateLegacyKeys();
     _safeInit(() {
-      _onboarding = prefs.getBool('ff_onboarding') ?? _onboarding;
+      _onboarding = prefs.getBool(_kOnboarding) ?? _onboarding;
     });
     _safeInit(() {
       _currentDeviceToken =
-          prefs.getString('ff_currentDeviceToken') ?? _currentDeviceToken;
+          prefs.getString(_kCurrentDeviceToken) ?? _currentDeviceToken;
     });
+  }
+
+  /// Moves values written under the legacy `ff_` keys onto the current keys.
+  /// Runs once per install: after the copy the legacy key is removed, and the
+  /// current key already existing means there is nothing left to migrate.
+  Future<void> _migrateLegacyKeys() async {
+    try {
+      if (!prefs.containsKey(_kOnboarding) &&
+          prefs.containsKey(_kLegacyOnboarding)) {
+        final legacy = prefs.getBool(_kLegacyOnboarding);
+        if (legacy != null) await prefs.setBool(_kOnboarding, legacy);
+      }
+      await prefs.remove(_kLegacyOnboarding);
+
+      if (!prefs.containsKey(_kCurrentDeviceToken) &&
+          prefs.containsKey(_kLegacyCurrentDeviceToken)) {
+        final legacy = prefs.getString(_kLegacyCurrentDeviceToken);
+        if (legacy != null) await prefs.setString(_kCurrentDeviceToken, legacy);
+      }
+      await prefs.remove(_kLegacyCurrentDeviceToken);
+    } catch (_) {
+      // A failed migration must not block startup; the fields keep their
+      // defaults and will be repopulated as the user goes on.
+    }
   }
 
   void update(VoidCallback callback) {
@@ -100,7 +134,7 @@ class AppState extends ChangeNotifier {
   bool get onboarding => _onboarding;
   set onboarding(bool value) {
     _onboarding = value;
-    prefs.setBool('ff_onboarding', value);
+    prefs.setBool(_kOnboarding, value);
   }
 
   UserStruct _userProfileCache = UserStruct();
@@ -224,7 +258,7 @@ class AppState extends ChangeNotifier {
   String get currentDeviceToken => _currentDeviceToken;
   set currentDeviceToken(String value) {
     _currentDeviceToken = value;
-    prefs.setString('ff_currentDeviceToken', value);
+    prefs.setString(_kCurrentDeviceToken, value);
   }
 
   String _exception = '';
