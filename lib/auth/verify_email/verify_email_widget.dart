@@ -1,0 +1,638 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
+import 'package:flutter/services.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'verify_email_model.dart';
+export 'verify_email_model.dart';
+
+class VerifyEmailWidget extends StatefulWidget {
+  const VerifyEmailWidget({super.key});
+
+  static String routeName = 'verify_email';
+  static String routePath = '/verifyEmail';
+
+  @override
+  State<VerifyEmailWidget> createState() => _VerifyEmailWidgetState();
+}
+
+class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
+  late VerifyEmailModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => VerifyEmailModel());
+
+    _model.pinCodeFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
+          child: Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Padding(
+              padding: EdgeInsets.all(valueOrDefault<double>(
+                FFAppConstants.parentPagePadding,
+                0.0,
+              )),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                FlutterFlowTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .md),
+                          ),
+                          child: Container(
+                            width: 120.0,
+                            height: 120.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 26.0,
+                                  color: Color(0x372C4EB8),
+                                  offset: Offset(
+                                    0.0,
+                                    0.0,
+                                  ),
+                                  spreadRadius: 25.0,
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(
+                                  FlutterFlowTheme.of(context)
+                                      .designToken
+                                      .radius
+                                      .md),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Icon(
+                                Icons.email_outlined,
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 64.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Verify Your Email',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .displayMedium
+                              .override(
+                                font: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .displayMedium
+                                      .fontStyle,
+                                ),
+                                fontSize: 44.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .displayMedium
+                                    .fontStyle,
+                              ),
+                        ),
+                        Text(
+                          'We\'ve sent a verification code to this address ${currentUserEmail}. Enter it below to confirm your account.',
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).labelLarge.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontStyle,
+                                    lineHeight: 1.5,
+                                  ),
+                        ),
+                        if ((_model.showResendCode ?? true) &&
+                            responsiveVisibility(
+                              context: context,
+                              phone: false,
+                              tablet: false,
+                              tabletLandscape: false,
+                              desktop: false,
+                            ))
+                          Text(
+                            'Resend the code if you have not received it.',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .fontStyle,
+                                  lineHeight: 1.5,
+                                ),
+                          ),
+                      ].divide(SizedBox(height: 16.0)),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        PinCodeTextField(
+                          autoDisposeControllers: false,
+                          appContext: context,
+                          length: 6,
+                          textStyle:
+                              FlutterFlowTheme.of(context).bodyLarge.override(
+                                    font: GoogleFonts.manrope(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
+                                  ),
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          enableActiveFill: false,
+                          autoFocus: true,
+                          focusNode: _model.pinCodeFocusNode,
+                          enablePinAutofill: false,
+                          errorTextSpace: 16.0,
+                          showCursor: true,
+                          cursorColor: FlutterFlowTheme.of(context).primary,
+                          obscureText: false,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          pinTheme: PinTheme(
+                            fieldHeight: 50.0,
+                            fieldWidth: 50.0,
+                            borderWidth: 0.0,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(12.0),
+                              bottomRight: Radius.circular(12.0),
+                              topLeft: Radius.circular(12.0),
+                              topRight: Radius.circular(12.0),
+                            ),
+                            shape: PinCodeFieldShape.box,
+                            activeColor: FlutterFlowTheme.of(context).primary,
+                            inactiveColor:
+                                FlutterFlowTheme.of(context).alternate,
+                            selectedColor: Color(0xFF51576C),
+                          ),
+                          controller: _model.pinCodeController,
+                          onChanged: (_) {},
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: _model.pinCodeControllerValidator
+                              .asValidator(context),
+                        ),
+                        Text(
+                          'Didn\'t receive the email? Check your spam folder or try again.',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .bodySmall
+                              .override(
+                                font: GoogleFonts.manrope(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodySmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodySmall
+                                      .fontStyle,
+                                ),
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .fontStyle,
+                              ),
+                        ),
+                      ].divide(SizedBox(height: 16.0)),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        if (responsiveVisibility(
+                          context: context,
+                          phone: false,
+                          tablet: false,
+                          tabletLandscape: false,
+                          desktop: false,
+                        ))
+                          FFButtonWidget(
+                            onPressed: () {
+                              print('Button pressed ...');
+                            },
+                            text: 'Open email app',
+                            icon: Icon(
+                              Icons.mail_outline,
+                              size: 24.0,
+                            ),
+                            options: FFButtonOptions(
+                              width: 300.0,
+                              height: 50.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconColor: Color(0xFF00AB5A),
+                              color: Colors.transparent,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.manrope(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Color(0xFF00AB5A),
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: Color(0xFF00AB5A),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        FFButtonWidget(
+                          onPressed: () async {
+                            if (_model.pinCodeController!.text != null &&
+                                _model.pinCodeController!.text != '') {
+                              _model.verifyCodeApiResult =
+                                  await SupabaseEdgeFunctionsGroup.verifyOtpCall
+                                      .call(
+                                email: currentUserEmail,
+                                code: _model.pinCodeController!.text,
+                              );
+
+                              if ((_model.verifyCodeApiResult?.succeeded ??
+                                  true)) {
+                                _model.apiResultUserProfile =
+                                    await SupabaseTablesGroup.getUserCall.call(
+                                  userId: currentUserUid,
+                                );
+
+                                if ((_model.apiResultUserProfile?.succeeded ??
+                                    true)) {
+                                  FFAppState().userProfileCache = ((_model
+                                                  .apiResultUserProfile
+                                                  ?.jsonBody ??
+                                              '')
+                                          .toList()
+                                          .map<UserStruct?>(
+                                              UserStruct.maybeFromMap)
+                                          .toList() as Iterable<UserStruct?>)
+                                      .withoutNulls
+                                      .firstOrNull!;
+                                  await actions.checkUserSession(
+                                    context,
+                                  );
+                                } else {
+                                  await actions.checkUserSession(
+                                    context,
+                                  );
+                                }
+                              } else {
+                                await actions.showToast(
+                                  context,
+                                  valueOrDefault<String>(
+                                    SupabaseEdgeFunctionsGroup.verifyOtpCall
+                                        .message(
+                                      (_model.verifyCodeApiResult?.jsonBody ??
+                                          ''),
+                                    ),
+                                    'default value',
+                                  ),
+                                  2,
+                                );
+                              }
+                            } else {
+                              await actions.showToast(
+                                context,
+                                'Please Enter Otp Code',
+                                2,
+                              );
+                            }
+
+                            safeSetState(() {});
+                          },
+                          text: 'VERIFY',
+                          icon: Icon(
+                            Icons.mark_email_read,
+                            size: 24.0,
+                          ),
+                          options: FFButtonOptions(
+                            width: 300.0,
+                            height: 50.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(
+                                FlutterFlowTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .lg),
+                          ),
+                        ),
+                        if (_model.showResendCode ?? true)
+                          FFButtonWidget(
+                            onPressed: () async {
+                              _model.sendOtpResult =
+                                  await SupabaseEdgeFunctionsGroup.sendOtpCall
+                                      .call(
+                                email: currentUserEmail,
+                              );
+
+                              if (SupabaseEdgeFunctionsGroup.sendOtpCall
+                                  .success(
+                                (_model.sendOtpResult?.jsonBody ?? ''),
+                              )!) {
+                                await actions.showToast(
+                                  context,
+                                  valueOrDefault<String>(
+                                    SupabaseEdgeFunctionsGroup.sendOtpCall
+                                        .message(
+                                      (_model.sendOtpResult?.jsonBody ?? ''),
+                                    ),
+                                    'default value',
+                                  ),
+                                  2,
+                                );
+                                safeSetState(() {
+                                  _model.pinCodeController?.clear();
+                                });
+                              } else {
+                                await actions.showToast(
+                                  context,
+                                  valueOrDefault<String>(
+                                    SupabaseEdgeFunctionsGroup.sendOtpCall
+                                        .message(
+                                      (_model.sendOtpResult?.jsonBody ?? ''),
+                                    ),
+                                    'default value',
+                                  ),
+                                  2,
+                                );
+                              }
+
+                              safeSetState(() {});
+                            },
+                            text: 'Resend code',
+                            icon: Icon(
+                              Icons.mark_email_read,
+                              size: 15.0,
+                            ),
+                            options: FFButtonOptions(
+                              width: 300.0,
+                              height: 50.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Colors.transparent,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            GoRouter.of(context).prepareAuthEvent();
+                            await authManager.signOut();
+                            GoRouter.of(context).clearRedirectLocation();
+
+                            context.goNamedAuth(
+                                SignupWidget.routeName, context.mounted);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 50.0,
+                            decoration: BoxDecoration(),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      FlutterFlowTheme.of(context)
+                                          .designToken
+                                          .spacing
+                                          .lg,
+                                      0.0,
+                                      0.0,
+                                      0.0),
+                                  child: Text(
+                                    'Wrong email address?',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodySmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      FlutterFlowTheme.of(context)
+                                          .designToken
+                                          .spacing
+                                          .lg,
+                                      0.0,
+                                      0.0,
+                                      0.0),
+                                  child: Text(
+                                    'Change Email',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          fontSize: 15.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ].divide(SizedBox(height: 12.0)),
+                    ),
+                  ].divide(SizedBox(height: FFAppConstants.spacing)),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

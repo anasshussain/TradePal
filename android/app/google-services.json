@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "684653929102",
+    "project_id": "trade-connect-x1mzbx",
+    "storage_bucket": "trade-connect-x1mzbx.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684653929102:android:f714afd4ccd64abaecdfdf",
+        "android_client_info": {
+          "package_name": "com.mycompany.tradeconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3KAslS8Z5mPjB-KgmwZWAZJ4n8f5gDOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684653929102:android:62b8e8e4da815cf3ecdfdf",
+        "android_client_info": {
+          "package_name": "com.mytradepal.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3KAslS8Z5mPjB-KgmwZWAZJ4n8f5gDOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
