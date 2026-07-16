@@ -1,4 +1,3 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -71,10 +70,10 @@ class AppButton extends StatefulWidget {
   final FocusNode? focusNode;
 
   @override
-  State<AppButton> createState() => _FFButtonWidgetState();
+  State<AppButton> createState() => _AppButtonState();
 }
 
-class _FFButtonWidgetState extends State<AppButton> {
+class _AppButtonState extends State<AppButton> {
   bool loading = false;
   late FocusNode _internalFocusNode;
 
@@ -210,8 +209,11 @@ class _FFButtonWidgetState extends State<AppButton> {
     );
 
     if ((widget.icon != null || widget.iconData != null) && !loading) {
+      // iconData carries a plain IconData, so it renders through Icon. Font
+      // Awesome glyphs arrive pre-wrapped via the `icon` widget instead, since
+      // FaIcon only accepts FaIconData.
       Widget icon = widget.icon ??
-          FaIcon(
+          Icon(
             widget.iconData!,
             size: widget.options.iconSize,
             color: widget.options.iconColor,
@@ -340,10 +342,10 @@ class AppFocusIndicator extends StatefulWidget {
         );
 
   @override
-  State<AppFocusIndicator> createState() => _FFFocusIndicatorState();
+  State<AppFocusIndicator> createState() => _AppFocusIndicatorState();
 }
 
-class _FFFocusIndicatorState extends State<AppFocusIndicator> {
+class _AppFocusIndicatorState extends State<AppFocusIndicator> {
   late FocusNode _focusNode;
   bool _hasFocus = false;
 

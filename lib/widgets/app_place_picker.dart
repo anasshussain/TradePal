@@ -32,10 +32,10 @@ class AppPlacePicker extends StatefulWidget {
   final String? proxyBaseUrl;
 
   @override
-  _FFPlacePickerState createState() => _FFPlacePickerState();
+  _AppPlacePickerState createState() => _AppPlacePickerState();
 }
 
-class _FFPlacePickerState extends State<AppPlacePicker> {
+class _AppPlacePickerState extends State<AppPlacePicker> {
   String? _selectedPlace;
 
   String get googleMapsApiKey {

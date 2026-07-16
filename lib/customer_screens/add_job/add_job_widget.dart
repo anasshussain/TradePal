@@ -599,7 +599,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       filled: true,
                                       fillColor: AppTheme.of(context)
                                           .alternate,
-                                      prefixIcon: Icon(
+                                      prefixIcon: FaIcon(
                                         FontAwesomeIcons.dollarSign,
                                         color: AppTheme.of(context)
                                             .primaryText,
