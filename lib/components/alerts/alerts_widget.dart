@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -53,9 +53,9 @@ class _AlertsWidgetState extends State<AlertsWidget> {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(
           0.0,
-          FlutterFlowTheme.of(context).designToken.spacing.md,
+          AppTheme.of(context).designToken.spacing.md,
           0.0,
-          FlutterFlowTheme.of(context).designToken.spacing.md),
+          AppTheme.of(context).designToken.spacing.md),
       child: Material(
         color: Colors.transparent,
         elevation: 0.0,
@@ -66,10 +66,10 @@ class _AlertsWidgetState extends State<AlertsWidget> {
           width: double.infinity,
           height: 133.0,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).accent3,
+            color: AppTheme.of(context).accent3,
             borderRadius: BorderRadius.circular(0.0),
             border: Border.all(
-              color: FlutterFlowTheme.of(context).alternate,
+              color: AppTheme.of(context).alternate,
             ),
           ),
           child: Row(
@@ -87,7 +87,7 @@ class _AlertsWidgetState extends State<AlertsWidget> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
-                    FFAppConstants.childPadding,
+                    AppConstants.childPadding,
                     0.0,
                   )),
                   child: Column(
@@ -111,47 +111,47 @@ class _AlertsWidgetState extends State<AlertsWidget> {
                             children: [
                               Text(
                                 widget!.title,
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .titleMedium
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .titleMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleMedium
                                             .fontStyle,
                                       ),
                                       color: Color(0xFF914300),
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleMedium
                                           .fontStyle,
                                     ),
                               ),
                               Text(
                                 widget!.description,
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodySmall
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodySmall
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodySmall
                                             .fontStyle,
                                       ),
                                       color:
-                                          FlutterFlowTheme.of(context).accent1,
+                                          AppTheme.of(context).accent1,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodySmall
                                           .fontStyle,
                                     ),
@@ -159,13 +159,13 @@ class _AlertsWidgetState extends State<AlertsWidget> {
                             ],
                           ),
                         ].divide(SizedBox(
-                            width: FlutterFlowTheme.of(context)
+                            width: AppTheme.of(context)
                                 .designToken
                                 .spacing
                                 .md)),
                       ),
                     ].divide(SizedBox(
-                        height: FlutterFlowTheme.of(context)
+                        height: AppTheme.of(context)
                             .designToken
                             .spacing
                             .md)),

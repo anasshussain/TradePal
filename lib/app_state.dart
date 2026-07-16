@@ -5,19 +5,19 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/api_requests/api_manager.dart';
 import 'backend/supabase/supabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 
-class FFAppState extends ChangeNotifier {
-  static FFAppState _instance = FFAppState._internal();
+class AppState extends ChangeNotifier {
+  static AppState _instance = AppState._internal();
 
-  factory FFAppState() {
+  factory AppState() {
     return _instance;
   }
 
-  FFAppState._internal();
+  AppState._internal();
 
   static void reset() {
-    _instance = FFAppState._internal();
+    _instance = AppState._internal();
   }
 
   Future initializePersistedState() async {

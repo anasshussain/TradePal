@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/choose_path_component/choose_path_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
@@ -55,14 +55,14 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Stack(
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: SingleChildScrollView(
@@ -75,16 +75,16 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         'Let\'s get you started',
                         textAlign: TextAlign.center,
                         style:
-                            FlutterFlowTheme.of(context).displaySmall.override(
+                            AppTheme.of(context).displaySmall.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .displaySmall
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .displaySmall
                                       .fontStyle,
                                 ),
@@ -92,19 +92,19 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                       Text(
                         'Choose the path that best describes\nyou to personalise your experience.',
                         textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context)
+                        style: AppTheme.of(context)
                             .titleMedium
                             .override(
                               font: GoogleFonts.manrope(
                                 fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .titleMedium
                                     .fontStyle,
                               ),
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .titleMedium
                                   .fontStyle,
                               lineHeight: 0.0,
@@ -127,18 +127,18 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                           child: ChoosePathComponentWidget(
                             icon: Icon(
                               Icons.search_rounded,
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: AppTheme.of(context).primary,
                             ),
                             title: 'I\'m a Customer',
                             description:
                                 'Find trusted tradespeople for your projects, Request quotes & compare responses',
                             buttonText: 'FIND A PRO',
-                            btnColor: FlutterFlowTheme.of(context).primary,
-                            boxColor: FlutterFlowTheme.of(context).accent1,
+                            btnColor: AppTheme.of(context).primary,
+                            boxColor: AppTheme.of(context).accent1,
                             borderColor:
                                 _model.selectedRole == UserRole.customer
-                                    ? FlutterFlowTheme.of(context).accent1
-                                    : FlutterFlowTheme.of(context)
+                                    ? AppTheme.of(context).accent1
+                                    : AppTheme.of(context)
                                         .secondaryBackground,
                           ),
                         ),
@@ -160,24 +160,24 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                           child: ChoosePathComponentWidget(
                             icon: FaIcon(
                               FontAwesomeIcons.tools,
-                              color: FlutterFlowTheme.of(context).secondary,
+                              color: AppTheme.of(context).secondary,
                             ),
                             title: 'I\'m a Tradesperson',
                             description:
                                 'Find new leads and grow your business.\nRespond to ads and chat with customers',
                             buttonText: 'BROWSE JOBS',
-                            btnColor: FlutterFlowTheme.of(context).secondary,
-                            boxColor: FlutterFlowTheme.of(context).accent2,
+                            btnColor: AppTheme.of(context).secondary,
+                            boxColor: AppTheme.of(context).accent2,
                             borderColor:
                                 _model.selectedRole == UserRole.trades_person
-                                    ? FlutterFlowTheme.of(context).accent2
-                                    : FlutterFlowTheme.of(context)
+                                    ? AppTheme.of(context).accent2
+                                    : AppTheme.of(context)
                                         .secondaryBackground,
                           ),
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: FFAppConstants.spacing))
+                        .divide(SizedBox(height: AppConstants.spacing))
                         .addToEnd(SizedBox(height: 60.0)),
                   ),
                 ),
@@ -197,17 +197,17 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         0.0,
                         0.0,
                         valueOrDefault<double>(
-                          FFAppConstants.childPadding,
+                          AppConstants.childPadding,
                           0.0,
                         )),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: AppTheme.of(context).secondaryBackground,
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 0.0,
-                            color: FlutterFlowTheme.of(context).border,
+                            color: AppTheme.of(context).border,
                             offset: Offset(
                               0.0,
                               -1.0,
@@ -218,45 +218,45 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(valueOrDefault<double>(
-                          FFAppConstants.childPadding,
+                          AppConstants.childPadding,
                           0.0,
                         )),
-                        child: FFButtonWidget(
+                        child: AppButton(
                           onPressed: (_model.selectedRole == null)
                               ? null
                               : () async {},
                           text: 'Continue',
-                          options: FFButtonOptions(
+                          options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context).primary,
+                            textStyle: AppTheme.of(context)
                                 .titleSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                                   color: Colors.white,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),

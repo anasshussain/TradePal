@@ -1,7 +1,7 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/index.dart';
@@ -62,7 +62,7 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
           minHeight: 50.0,
         ),
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: AppTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(2.0),
         ),
         child: Padding(
@@ -98,9 +98,9 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
                 child: Container(
                   height: 30.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: AppTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(valueOrDefault<double>(
-                      FFAppConstants.radius3,
+                      AppConstants.radius3,
                       0.0,
                     )),
                   ),
@@ -108,21 +108,21 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
                     alignment: AlignmentDirectional(0.0, 0.0),
                     child: Text(
                       'Logout',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: AppTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.manrope(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
                             fontSize: 12.0,
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                           ),

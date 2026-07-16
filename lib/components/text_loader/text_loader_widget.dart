@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -78,7 +78,7 @@ class _TextLoaderWidgetState extends State<TextLoaderWidget>
       decoration: BoxDecoration(
         color: Color(0xA8DCE4E8),
         borderRadius: BorderRadius.circular(
-            FlutterFlowTheme.of(context).designToken.radius.full),
+            AppTheme.of(context).designToken.radius.full),
       ),
     ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!);
   }

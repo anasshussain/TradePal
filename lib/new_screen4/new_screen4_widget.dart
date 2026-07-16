@@ -1,9 +1,9 @@
 import '/components/action_tile2/action_tile2_widget.dart';
 import '/components/button6/button6_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
               alignment: AlignmentDirectional(0.0, 1.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  color: AppTheme.of(context).primaryBackground,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(24.0),
                     topRight: Radius.circular(24.0),
@@ -85,7 +85,7 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                               width: 40.0,
                               height: 4.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                                 borderRadius: BorderRadius.circular(9999.0),
                                 shape: BoxShape.rectangle,
                               ),
@@ -99,37 +99,37 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                           children: [
                             Text(
                               'Share Content',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .titleLarge
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleLarge
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleLarge
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .primaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleLarge
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleLarge
                                         .fontStyle,
                                     lineHeight: 1.3,
                                   ),
                             ),
-                            FlutterFlowIconButton(
+                            AppIconButton(
                               borderRadius: 8.0,
                               buttonSize: 40.0,
                               fillColor: Colors.transparent,
                               icon: Icon(
                                 Icons.close_rounded,
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 size: 24.0,
                               ),
                               onPressed: () {
@@ -163,12 +163,12 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                                       bgColor: Color(0x1A635BFF),
                                       icon: Icon(
                                         Icons.photo_library_rounded,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         size: 24.0,
                                       ),
                                       iconColor:
-                                          FlutterFlowTheme.of(context).primary,
+                                          AppTheme.of(context).primary,
                                       label: 'Photos',
                                     ),
                                   ),
@@ -182,12 +182,12 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                                       bgColor: Color(0x1A00D4FF),
                                       icon: Icon(
                                         Icons.photo_camera_rounded,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .tertiary,
                                         size: 24.0,
                                       ),
                                       iconColor:
-                                          FlutterFlowTheme.of(context).tertiary,
+                                          AppTheme.of(context).tertiary,
                                       label: 'Camera',
                                     ),
                                   ),
@@ -201,12 +201,12 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                                       bgColor: Color(0x1A00CA72),
                                       icon: Icon(
                                         Icons.description_rounded,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .success,
                                         size: 24.0,
                                       ),
                                       iconColor:
-                                          FlutterFlowTheme.of(context).success,
+                                          AppTheme.of(context).success,
                                       label: 'Document',
                                     ),
                                   ),
@@ -228,11 +228,11 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                                       icon: Icon(
                                         Icons.location_on_rounded,
                                         color:
-                                            FlutterFlowTheme.of(context).error,
+                                            AppTheme.of(context).error,
                                         size: 24.0,
                                       ),
                                       iconColor:
-                                          FlutterFlowTheme.of(context).error,
+                                          AppTheme.of(context).error,
                                       label: 'Location',
                                     ),
                                   ),
@@ -246,12 +246,12 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                                       bgColor: Color(0x1AFFB84D),
                                       icon: Icon(
                                         Icons.person_rounded,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .warning,
                                         size: 24.0,
                                       ),
                                       iconColor:
-                                          FlutterFlowTheme.of(context).warning,
+                                          AppTheme.of(context).warning,
                                       label: 'Contact',
                                     ),
                                   ),
@@ -265,11 +265,11 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                                       bgColor: Color(0x1A0A2540),
                                       icon: Icon(
                                         Icons.bar_chart_rounded,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .secondary,
                                         size: 24.0,
                                       ),
-                                      iconColor: FlutterFlowTheme.of(context)
+                                      iconColor: AppTheme.of(context)
                                           .secondary,
                                       label: 'Poll',
                                     ),
@@ -286,24 +286,24 @@ class _NewScreen4WidgetState extends State<NewScreen4Widget> {
                           children: [
                             Text(
                               'Recent Files',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .titleSmall
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                     lineHeight: 1.4,

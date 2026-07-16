@@ -25,12 +25,12 @@
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'form_field_controller.dart';
+import '/core/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'flutter_flow_widgets.dart';
+import '/widgets/app_button.dart';
 
-class FlutterFlowRadioButton extends StatefulWidget {
-  const FlutterFlowRadioButton({
+class AppRadioButton extends StatefulWidget {
+  const AppRadioButton({
     super.key,
     required this.options,
     required this.onChanged,
@@ -76,10 +76,10 @@ class FlutterFlowRadioButton extends StatefulWidget {
   final bool showBorderAroundRadioButtonAndText;
 
   @override
-  State<FlutterFlowRadioButton> createState() => _FlutterFlowRadioButtonState();
+  State<AppRadioButton> createState() => _FlutterFlowRadioButtonState();
 }
 
-class _FlutterFlowRadioButtonState extends State<FlutterFlowRadioButton> {
+class _FlutterFlowRadioButtonState extends State<AppRadioButton> {
   bool get enabled => widget.onChanged != null;
   FormFieldController<String> get controller => widget.controller;
   void Function()? _listener;
@@ -97,7 +97,7 @@ class _FlutterFlowRadioButtonState extends State<FlutterFlowRadioButton> {
   }
 
   @override
-  void didUpdateWidget(FlutterFlowRadioButton oldWidget) {
+  void didUpdateWidget(AppRadioButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     final oldWidgetEnabled = oldWidget.onChanged != null;
     if (oldWidgetEnabled != enabled) {
@@ -237,7 +237,7 @@ class RadioButton<T> extends StatelessWidget {
         focusBorderPadding != null;
 
     if (hasFocusBorder && showBorderAroundRadioButtonAndText) {
-      return FFFocusIndicator(
+      return AppFocusIndicator(
         border: focusBorder,
         borderRadius: focusBorderRadius,
         padding: focusBorderPadding,
@@ -257,7 +257,7 @@ class RadioButton<T> extends StatelessWidget {
 
     Widget radioWidget;
     if (hasFocusBorder && !showBorderAroundRadioButtonAndText) {
-      radioWidget = FFFocusIndicator(
+      radioWidget = AppFocusIndicator(
         border: focusBorder,
         borderRadius: focusBorderRadius,
         padding: focusBorderPadding,

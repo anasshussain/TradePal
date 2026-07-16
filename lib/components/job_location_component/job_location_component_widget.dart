@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -86,21 +86,21 @@ class _JobLocationComponentWidgetState
       elevation: 0.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-            FlutterFlowTheme.of(context).designToken.radius.lg),
+            AppTheme.of(context).designToken.radius.lg),
       ),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: AppTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.lg),
+              AppTheme.of(context).designToken.radius.lg),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: AppTheme.of(context).alternate,
           ),
         ),
         child: Padding(
           padding: EdgeInsets.all(valueOrDefault<double>(
-            FFAppConstants.childPadding,
+            AppConstants.childPadding,
             0.0,
           )),
           child: Container(
@@ -111,19 +111,19 @@ class _JobLocationComponentWidgetState
               child: ExpandablePanel(
                 header: Text(
                   'ADDRESS',
-                  style: FlutterFlowTheme.of(context).labelSmall.override(
+                  style: AppTheme.of(context).labelSmall.override(
                         font: GoogleFonts.inter(
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .labelSmall
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).labelSmall.fontStyle,
+                              AppTheme.of(context).labelSmall.fontStyle,
                         ),
                         letterSpacing: 0.0,
                         fontWeight:
-                            FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                            AppTheme.of(context).labelSmall.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelSmall.fontStyle,
+                            AppTheme.of(context).labelSmall.fontStyle,
                       ),
                 ),
                 collapsed: Container(),
@@ -138,22 +138,22 @@ class _JobLocationComponentWidgetState
                               '${_model.location?.street}, ${_model.location?.name},${_model.location?.address}',
                               'Unregistered location',
                             ),
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
@@ -163,7 +163,7 @@ class _JobLocationComponentWidgetState
                             width: double.infinity,
                             height: 30.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           );

@@ -1,7 +1,7 @@
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -88,17 +88,17 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
       child: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: AppTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.circular(10.0),
             shape: BoxShape.rectangle,
             border: Border.all(
-              color: FlutterFlowTheme.of(context).alternate,
+              color: AppTheme.of(context).alternate,
               width: 1.0,
             ),
           ),
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
-              FFAppConstants.parentPagePadding,
+              AppConstants.parentPagePadding,
               0.0,
             )),
             child: Column(
@@ -115,7 +115,7 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                       width: 48.0,
                       height: 48.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondary,
+                        color: AppTheme.of(context).secondary,
                         borderRadius: BorderRadius.circular(6.0),
                         shape: BoxShape.rectangle,
                       ),
@@ -151,28 +151,28 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                                 children: [
                                   Text(
                                     widget!.title,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .primaryText,
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                           lineHeight: 1.4,
@@ -180,7 +180,7 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                                   ),
                                   Icon(
                                     Icons.close,
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .primaryText,
                                     size: 24.0,
                                   ),
@@ -188,24 +188,24 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                               ),
                               Text(
                                 widget!.subtitle,
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodySmall
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodySmall
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodySmall
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryText,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodySmall
                                           .fontStyle,
                                       lineHeight: 1.4,
@@ -220,13 +220,13 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    color: AppTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(6.0),
                     shape: BoxShape.rectangle,
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(valueOrDefault<double>(
-                      FFAppConstants.childPadding,
+                      AppConstants.childPadding,
                       0.0,
                     )),
                     child: Column(
@@ -238,35 +238,35 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0,
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .spacing
                                     .md,
                                 0.0,
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .spacing
                                     .md),
                             child: Text(
                               'Verification Pending',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .primaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                     lineHeight: 1.4,
@@ -280,31 +280,31 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                           children: [
                             Icon(
                               Icons.account_balance_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               size: 20.0,
                             ),
                             Expanded(
                               flex: 1,
                               child: Text(
                                 'Direct Payouts',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .primaryText,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                       lineHeight: 1.4,
@@ -315,9 +315,9 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                               Icons.check_circle_rounded,
                               color: valueOrDefault<Color>(
                                 _model.payoutsEnabled
-                                    ? FlutterFlowTheme.of(context).success
-                                    : FlutterFlowTheme.of(context).alternate,
-                                FlutterFlowTheme.of(context).alternate,
+                                    ? AppTheme.of(context).success
+                                    : AppTheme.of(context).alternate,
+                                AppTheme.of(context).alternate,
                               ),
                               size: 18.0,
                             ),
@@ -330,31 +330,31 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                           children: [
                             Icon(
                               Icons.security_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               size: 20.0,
                             ),
                             Expanded(
                               flex: 1,
                               child: Text(
                                 'Secure Encryption',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .primaryText,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                       lineHeight: 1.4,
@@ -365,9 +365,9 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                               Icons.check_circle_rounded,
                               color: valueOrDefault<Color>(
                                 _model.payoutsEnabled
-                                    ? FlutterFlowTheme.of(context).success
-                                    : FlutterFlowTheme.of(context).alternate,
-                                FlutterFlowTheme.of(context).alternate,
+                                    ? AppTheme.of(context).success
+                                    : AppTheme.of(context).alternate,
+                                AppTheme.of(context).alternate,
                               ),
                               size: 18.0,
                             ),
@@ -379,33 +379,33 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0,
-                      FlutterFlowTheme.of(context).designToken.spacing.md),
-                  child: FFButtonWidget(
+                      AppTheme.of(context).designToken.spacing.md),
+                  child: AppButton(
                     onPressed: () async {},
                     text: widget!.buttonLabel,
-                    options: FFButtonOptions(
+                    options: AppButtonOptions(
                       height: 40.0,
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
+                      color: AppTheme.of(context).primary,
                       textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
+                          AppTheme.of(context).titleSmall.override(
                                 font: GoogleFonts.manrope(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
                                 color: Colors.white,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .titleSmall
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .titleSmall
                                     .fontStyle,
                               ),

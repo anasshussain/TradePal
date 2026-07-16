@@ -1,9 +1,9 @@
 import '/components/download_p_d_f/download_p_d_f_widget.dart';
 import '/components/receipt_row/receipt_row_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -64,13 +64,13 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                 child: Container(
                   child: Align(
                     alignment: AlignmentDirectional(1.0, -1.0),
-                    child: FlutterFlowIconButton(
+                    child: AppIconButton(
                       borderRadius: 8.0,
                       buttonSize: 40.0,
                       fillColor: Colors.transparent,
                       icon: Icon(
                         Icons.close_rounded,
-                        color: FlutterFlowTheme.of(context).secondaryText,
+                        color: AppTheme.of(context).secondaryText,
                         size: 24.0,
                       ),
                       onPressed: () {
@@ -128,23 +128,23 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                     children: [
                                       Text(
                                         'Payment successful',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .headlineMedium
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .headlineMedium
                                                         .fontStyle,
                                               ),
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primaryText,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .headlineMedium
                                                       .fontStyle,
                                               lineHeight: 1.25,
@@ -153,29 +153,29 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                       Text(
                                         'Receipt #SP-94201 sent to alex@example.com',
                                         textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .secondaryText,
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                               lineHeight: 1.5,
@@ -192,28 +192,28 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                 children: [
                                   Text(
                                     'Total Paid',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .labelSmall
                                         .override(
                                           font: GoogleFonts.inter(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .secondaryText,
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontStyle,
                                           lineHeight: 1.3,
@@ -221,23 +221,23 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                   ),
                                   Text(
                                     '\$142.00',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w800,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .primaryText,
                                           fontSize: 42.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w800,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
                                           lineHeight: 1.5,
@@ -247,13 +247,13 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(12.0),
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                     width: 1.0,
                                   ),
                                 ),
@@ -269,24 +269,24 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                       children: [
                                         Text(
                                           'Transaction Details',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .titleSmall
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .primaryText,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontStyle,
                                                 lineHeight: 1.4,
@@ -297,7 +297,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                           thickness: 1.0,
                                           indent: 0.0,
                                           endIndent: 0.0,
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .alternate,
                                         ),
                                         wrapWithModel(
@@ -343,13 +343,13 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(12.0),
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                     width: 1.0,
                                   ),
                                 ),
@@ -365,24 +365,24 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                       children: [
                                         Text(
                                           'Order Summary',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .titleSmall
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .primaryText,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontStyle,
                                                 lineHeight: 1.4,
@@ -433,7 +433,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                   Text(
                                                     'Premium Wireless Headphones',
                                                     maxLines: 1,
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
@@ -442,7 +442,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
@@ -451,7 +451,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
@@ -462,34 +462,34 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                   ),
                                                   Text(
                                                     'Midnight Black',
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .labelSmall
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontStyle,
                                                           ),
-                                                          color: FlutterFlowTheme
+                                                          color: AppTheme
                                                                   .of(context)
                                                               .secondaryText,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontStyle,
@@ -501,7 +501,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                             ),
                                             Text(
                                               '\$142.00',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
@@ -509,7 +509,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .fontStyle,
@@ -517,7 +517,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
@@ -543,7 +543,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                       content: 'Download PDF',
                                       icon: Icon(
                                         Icons.download_rounded,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         size: 16.0,
                                       ),
@@ -563,7 +563,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                       content: 'Contact Support',
                                       icon: Icon(
                                         Icons.help_outline_rounded,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         size: 16.0,
                                       ),
@@ -589,7 +589,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
             ),
             Container(
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
+                color: AppTheme.of(context).secondaryBackground,
                 shape: BoxShape.rectangle,
               ),
               child: Column(
@@ -599,7 +599,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                   Container(
                     height: 1.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).alternate,
+                      color: AppTheme.of(context).alternate,
                       shape: BoxShape.rectangle,
                     ),
                   ),

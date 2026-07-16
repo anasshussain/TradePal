@@ -1,11 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -110,7 +110,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 4.0,
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryBackground,
                                   offset: Offset(
                                     0.5,
@@ -187,7 +187,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                 ),
                               ),
                               unselectedWidgetColor:
-                                  FlutterFlowTheme.of(context).secondaryText,
+                                  AppTheme.of(context).secondaryText,
                             ),
                             child: Checkbox(
                               value: _model.checkboxValue ??=
@@ -223,16 +223,16 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                 }
                               },
                               side:
-                                  (FlutterFlowTheme.of(context).secondaryText !=
+                                  (AppTheme.of(context).secondaryText !=
                                           null)
                                       ? BorderSide(
                                           width: 2,
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .secondaryText!,
                                         )
                                       : null,
-                              activeColor: FlutterFlowTheme.of(context).primary,
-                              checkColor: FlutterFlowTheme.of(context).info,
+                              activeColor: AppTheme.of(context).primary,
+                              checkColor: AppTheme.of(context).info,
                             ),
                           ),
                         ].divide(SizedBox(height: 20.0)),
@@ -243,7 +243,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                     opacity: 0.5,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).success,
+                        color: AppTheme.of(context).success,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10.0),
                           bottomRight: Radius.circular(12.0),
@@ -256,20 +256,20 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                             widget!.bankCardDetail?.bankName,
                             'bank name',
                           ),
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .bodyMedium
                               .override(
                                 font: GoogleFonts.manrope(
                                   fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: AppTheme.of(context).primaryText,
                                 fontSize: 16.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                               ),
@@ -292,7 +292,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                               angle: 270.0 * (math.pi / 180),
                               child: Icon(
                                 Icons.change_history_sharp,
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                                 size: 24.0,
                               ),
                             ),
@@ -314,24 +314,24 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                           children: [
                             Text(
                               '****',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                 font: GoogleFonts.poppins(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                                 color: Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
@@ -341,7 +341,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     blurRadius: 4.0,
                                   ),
                                   Shadow(
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryBackground,
                                     offset: Offset(1.5, 1.5),
                                     blurRadius: 4.0,
@@ -351,24 +351,24 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                             ),
                             Text(
                               '****',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                 font: GoogleFonts.poppins(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                                 color: Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
@@ -378,7 +378,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     blurRadius: 4.0,
                                   ),
                                   Shadow(
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryBackground,
                                     offset: Offset(1.5, 1.5),
                                     blurRadius: 4.0,
@@ -388,24 +388,24 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                             ),
                             Text(
                               '****',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                 font: GoogleFonts.poppins(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                                 color: Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
@@ -415,7 +415,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     blurRadius: 4.0,
                                   ),
                                   Shadow(
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryBackground,
                                     offset: Offset(1.5, 1.5),
                                     blurRadius: 4.0,
@@ -428,24 +428,24 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                 widget!.bankCardDetail?.last4,
                                 '0123',
                               ),
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                 font: GoogleFonts.poppins(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                                 color: Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
@@ -455,7 +455,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     blurRadius: 4.0,
                                   ),
                                   Shadow(
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryBackground,
                                     offset: Offset(1.5, 1.5),
                                     blurRadius: 4.0,
@@ -478,21 +478,21 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                   widget!.bankCardDetail?.country,
                                   'country',
                                 )),
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .primaryText,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
@@ -506,21 +506,21 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                   widget!.bankCardDetail?.currency,
                                   'currency',
                                 ),
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .primaryText,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),

@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -57,12 +57,12 @@ class _TestimonialsComponentWidgetState
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).primaryBackground,
+          color: AppTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Padding(
           padding: EdgeInsets.all(valueOrDefault<double>(
-            FFAppConstants.childPadding,
+            AppConstants.childPadding,
             0.0,
           )),
           child: Column(
@@ -73,17 +73,17 @@ class _TestimonialsComponentWidgetState
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: Text(
                   'What users say',
-                  style: FlutterFlowTheme.of(context).headlineSmall.override(
+                  style: AppTheme.of(context).headlineSmall.override(
                         font: GoogleFonts.manrope(
                           fontWeight: FontWeight.w600,
-                          fontStyle: FlutterFlowTheme.of(context)
+                          fontStyle: AppTheme.of(context)
                               .headlineSmall
                               .fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: AppTheme.of(context).primaryText,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
-                        fontStyle: FlutterFlowTheme.of(context)
+                        fontStyle: AppTheme.of(context)
                             .headlineSmall
                             .fontStyle,
                       ),
@@ -98,14 +98,14 @@ class _TestimonialsComponentWidgetState
                     padding: EdgeInsets.all(4.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: AppTheme.of(context).secondaryBackground,
                         borderRadius:
                             BorderRadius.circular(valueOrDefault<double>(
-                          FFAppConstants.radius2,
+                          AppConstants.radius2,
                           0.0,
                         )),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: AppTheme.of(context).alternate,
                           width: 1.0,
                         ),
                       ),
@@ -119,32 +119,32 @@ class _TestimonialsComponentWidgetState
                                   () => _model.ratingBarValue1 = newValue),
                               itemBuilder: (context, index) => Icon(
                                 Icons.star_rounded,
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                               ),
                               direction: Axis.horizontal,
                               initialRating: _model.ratingBarValue1 ??= 5.0,
                               unratedColor:
-                                  FlutterFlowTheme.of(context).accent1,
+                                  AppTheme.of(context).accent1,
                               itemCount: 5,
                               itemSize: 24.0,
-                              glowColor: FlutterFlowTheme.of(context).primary,
+                              glowColor: AppTheme.of(context).primary,
                             ),
                             Text(
                               '\"Found an amazing electrician through\n\'My Trade Pal\' in just 30 minutes! The whole process was seamless and the work quality was excellent. - Sarah M.',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
@@ -158,14 +158,14 @@ class _TestimonialsComponentWidgetState
                     padding: EdgeInsets.all(4.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: AppTheme.of(context).secondaryBackground,
                         borderRadius:
                             BorderRadius.circular(valueOrDefault<double>(
-                          FFAppConstants.radius2,
+                          AppConstants.radius2,
                           0.0,
                         )),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: AppTheme.of(context).alternate,
                           width: 1.0,
                         ),
                       ),
@@ -179,32 +179,32 @@ class _TestimonialsComponentWidgetState
                                   () => _model.ratingBarValue2 = newValue),
                               itemBuilder: (context, index) => Icon(
                                 Icons.star_rounded,
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                               ),
                               direction: Axis.horizontal,
                               initialRating: _model.ratingBarValue2 ??= 5.0,
                               unratedColor:
-                                  FlutterFlowTheme.of(context).accent1,
+                                  AppTheme.of(context).accent1,
                               itemCount: 5,
                               itemSize: 24.0,
-                              glowColor: FlutterFlowTheme.of(context).primary,
+                              glowColor: AppTheme.of(context).primary,
                             ),
                             Text(
                               'The comments section is still static',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),

@@ -2,9 +2,9 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/applogo_component/applogo_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
@@ -60,7 +60,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -69,14 +69,14 @@ class _LoginWidgetState extends State<LoginWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Padding(
               padding: EdgeInsets.all(valueOrDefault<double>(
-                FFAppConstants.parentPagePadding,
+                AppConstants.parentPagePadding,
                 0.0,
               )),
               child: SingleChildScrollView(
@@ -89,19 +89,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                       elevation: 0.0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            FlutterFlowTheme.of(context).designToken.radius.lg),
+                            AppTheme.of(context).designToken.radius.lg),
                       ),
                       child: Container(
                         decoration: BoxDecoration(
                           color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              AppTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).alternate,
+                            color: AppTheme.of(context).alternate,
                           ),
                         ),
                         child: SingleChildScrollView(
@@ -121,26 +121,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   Text(
                                     'Welcome back',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .headlineSmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .headlineSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .headlineSmall
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineSmall
                                                   .fontStyle,
                                         ),
@@ -148,26 +148,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   Text(
                                     'Please Enter your Credentials to access\nyour trade hub.',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .labelMedium
                                         .override(
                                           font: GoogleFonts.inter(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelMedium
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelMedium
                                                   .fontStyle,
                                         ),
@@ -189,13 +189,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       children: [
                                         Text(
                                           'EMAIL ADDRESS',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .bodySmall
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodySmall
                                                           .fontStyle,
@@ -203,7 +203,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 letterSpacing: 1.0,
                                                 fontWeight: FontWeight.w600,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodySmall
                                                         .fontStyle,
                                               ),
@@ -220,61 +220,61 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             decoration: InputDecoration(
                                               isDense: false,
                                               labelStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                               hintText: 'You@tradepal.uk',
                                               hintStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .hint,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
@@ -289,7 +289,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .primary,
                                                   width: 1.0,
@@ -299,7 +299,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -310,7 +310,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -320,41 +320,41 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               filled: true,
                                               fillColor:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .alternate,
                                               prefixIcon: Icon(
                                                 Icons.email_outlined,
                                               ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                             cursorColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
@@ -363,7 +363,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                         ),
                                       ].divide(SizedBox(
-                                          height: FFAppConstants.childPadding)),
+                                          height: AppConstants.childPadding)),
                                     ),
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -372,13 +372,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       children: [
                                         Text(
                                           'PASSWORD',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .bodySmall
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodySmall
                                                           .fontStyle,
@@ -386,7 +386,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 letterSpacing: 1.0,
                                                 fontWeight: FontWeight.w600,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodySmall
                                                         .fontStyle,
                                               ),
@@ -405,61 +405,61 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             decoration: InputDecoration(
                                               isDense: false,
                                               labelStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .secondaryText,
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                               hintText: '********',
                                               hintStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .hint,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
@@ -474,7 +474,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .primary,
                                                   width: 1.0,
@@ -484,7 +484,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -495,7 +495,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -505,7 +505,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               filled: true,
                                               fillColor:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .alternate,
                                               prefixIcon: Icon(
                                                 Icons.lock_outlined,
@@ -529,35 +529,35 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 ),
                                               ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                             cursorColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
@@ -566,11 +566,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                         ),
                                       ].divide(SizedBox(
-                                          height: FFAppConstants.childPadding)),
+                                          height: AppConstants.childPadding)),
                                     ),
                                   ].divide(SizedBox(
                                       height:
-                                          FFAppConstants.parentPagePadding)),
+                                          AppConstants.parentPagePadding)),
                                 ),
                               ),
                               Padding(
@@ -610,31 +610,31 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         },
                                         child: Text(
                                           'Forgot password?',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .titleSmall
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .secondaryText,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontStyle,
                                               ),
@@ -644,7 +644,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   ],
                                 ),
                               ),
-                              FFButtonWidget(
+                              AppButton(
                                 onPressed: () async {
                                   await action_blocks.tapFeedback(context);
                                   if (_model.formKey.currentState == null ||
@@ -678,7 +678,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       if ((_model.apiResultUserProfile
                                               ?.succeeded ??
                                           true)) {
-                                        FFAppState().userProfileCache = ((_model
+                                        AppState().userProfileCache = ((_model
                                                             .apiResultUserProfile
                                                             ?.jsonBody ??
                                                         '')
@@ -689,10 +689,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 as Iterable<UserStruct?>)
                                             .withoutNulls
                                             .firstOrNull!;
-                                        FFAppState().update(() {});
-                                        if (FFAppState().currentDeviceToken ==
+                                        AppState().update(() {});
+                                        if (AppState().currentDeviceToken ==
                                                 null ||
-                                            FFAppState().currentDeviceToken ==
+                                            AppState().currentDeviceToken ==
                                                 '') {
                                           await action_blocks
                                               .getFcmToken(context);
@@ -714,7 +714,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                                       if ((_model.totalCount?.succeeded ??
                                           true)) {
-                                        FFAppState().totalMessagesCount =
+                                        AppState().totalMessagesCount =
                                             (_model.totalCount?.jsonBody ?? '');
                                       }
                                     }),
@@ -723,7 +723,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   safeSetState(() {});
                                 },
                                 text: 'LOGIN',
-                                options: FFButtonOptions(
+                                options: AppButtonOptions(
                                   width: 300.0,
                                   height: 50.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -731,33 +731,33 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   iconAlignment: IconAlignment.end,
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  textStyle: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context).primary,
+                                  textStyle: AppTheme.of(context)
                                       .labelLarge
                                       .override(
                                         font: GoogleFonts.inter(
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelLarge
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelLarge
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .secondaryBackground,
                                         letterSpacing: 1.4,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .labelLarge
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .labelLarge
                                             .fontStyle,
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .radius
                                           .lg),
@@ -765,9 +765,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                             ]
                                 .divide(SizedBox(
-                                    height: FFAppConstants.parentPagePadding))
+                                    height: AppConstants.parentPagePadding))
                                 .addToEnd(SizedBox(
-                                    height: FFAppConstants.parentPagePadding)),
+                                    height: AppConstants.parentPagePadding)),
                           ),
                         ),
                       ),
@@ -776,7 +776,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(
                           0.0,
                           valueOrDefault<double>(
-                            FFAppConstants.childSpacing,
+                            AppConstants.childSpacing,
                             0.0,
                           ),
                           0.0,
@@ -808,62 +808,62 @@ class _LoginWidgetState extends State<LoginWidget> {
                               children: [
                                 TextSpan(
                                   text: 'Don\'t have an account? ',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
                                 ),
                                 TextSpan(
                                   text: 'Sign Up',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .labelLarge
                                       .override(
                                         font: GoogleFonts.inter(
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelLarge
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .labelLarge
                                             .fontStyle,
                                       ),
                                 )
                               ],
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),

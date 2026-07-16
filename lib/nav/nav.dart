@@ -13,16 +13,16 @@ import '/backend/supabase/supabase.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
+import '/theme/app_theme.dart';
+import '/core/lat_lng.dart';
+import '/core/place.dart';
+import '/core/util.dart';
+import '/nav/serialization_util.dart';
 
 import '/index.dart';
 
 export 'package:go_router/go_router.dart';
-export 'serialization_util.dart';
+export '/nav/serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
 
@@ -90,74 +90,74 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ? SplashScreenWidget()
           : SplashScreenWidget(),
       routes: [
-        FFRoute(
+        AppRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
               ? SplashScreenWidget()
               : SplashScreenWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: HomeWidget.routeName,
           path: HomeWidget.routePath,
           builder: (context, params) => HomeWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: PaymentSuccessWidget.routeName,
           path: PaymentSuccessWidget.routePath,
           builder: (context, params) => PaymentSuccessWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: ProcessingStateWidget.routeName,
           path: ProcessingStateWidget.routePath,
           builder: (context, params) => ProcessingStateWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: CompleteBookingDialogWidget.routeName,
           path: CompleteBookingDialogWidget.routePath,
           builder: (context, params) => CompleteBookingDialogWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: CompleteBookingPageWidget.routeName,
           path: CompleteBookingPageWidget.routePath,
           builder: (context, params) => CompleteBookingPageWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: BottomSheetAttachmentWidget.routeName,
           path: BottomSheetAttachmentWidget.routePath,
           builder: (context, params) => BottomSheetAttachmentWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: StripeConnectAccountSuccessWidget.routeName,
           path: StripeConnectAccountSuccessWidget.routePath,
           builder: (context, params) => StripeConnectAccountSuccessWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: NewScreen4Widget.routeName,
           path: NewScreen4Widget.routePath,
           builder: (context, params) => NewScreen4Widget(),
         ),
-        FFRoute(
+        AppRoute(
           name: StripeConnectAccountRefreshWidget.routeName,
           path: StripeConnectAccountRefreshWidget.routePath,
           builder: (context, params) => StripeConnectAccountRefreshWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: PasswordChangedSuccessPageWidget.routeName,
           path: PasswordChangedSuccessPageWidget.routePath,
           builder: (context, params) => PasswordChangedSuccessPageWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: ChoosePathWidget.routeName,
           path: ChoosePathWidget.routePath,
           builder: (context, params) => ChoosePathWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: BrowseTradePersonWidget.routeName,
           path: BrowseTradePersonWidget.routePath,
           builder: (context, params) => BrowseTradePersonWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: ForgetPasswordWidget.routeName,
           path: ForgetPasswordWidget.routePath,
           builder: (context, params) => ForgetPasswordWidget(
@@ -167,62 +167,62 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
           ),
         ),
-        FFRoute(
+        AppRoute(
           name: BrowseJobsWidget.routeName,
           path: BrowseJobsWidget.routePath,
           builder: (context, params) => BrowseJobsWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: CustomerDashboardWidget.routeName,
           path: CustomerDashboardWidget.routePath,
           builder: (context, params) => CustomerDashboardWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: SignupWidget.routeName,
           path: SignupWidget.routePath,
           builder: (context, params) => SignupWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: VerifyEmailWidget.routeName,
           path: VerifyEmailWidget.routePath,
           builder: (context, params) => VerifyEmailWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: LoginWidget.routeName,
           path: LoginWidget.routePath,
           builder: (context, params) => LoginWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: ResetPasswordWidget.routeName,
           path: ResetPasswordWidget.routePath,
           builder: (context, params) => ResetPasswordWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: TraderProfileWidget.routeName,
           path: TraderProfileWidget.routePath,
           builder: (context, params) => TraderProfileWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: CheckoutPageWidget.routeName,
           path: CheckoutPageWidget.routePath,
           builder: (context, params) => CheckoutPageWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: CustomerProfileWidget.routeName,
           path: CustomerProfileWidget.routePath,
           builder: (context, params) => CustomerProfileWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: BankCardsWidget.routeName,
           path: BankCardsWidget.routePath,
           builder: (context, params) => BankCardsWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: OnboardingWidget.routeName,
           path: OnboardingWidget.routePath,
           builder: (context, params) => OnboardingWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: ReviewWidget.routeName,
           path: ReviewWidget.routePath,
           builder: (context, params) => ReviewWidget(
@@ -244,47 +244,47 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
           ),
         ),
-        FFRoute(
+        AppRoute(
           name: AccountInactiveWidget.routeName,
           path: AccountInactiveWidget.routePath,
           builder: (context, params) => AccountInactiveWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: EditTraderProfileWidget.routeName,
           path: EditTraderProfileWidget.routePath,
           builder: (context, params) => EditTraderProfileWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: EditCustomerProfieWidget.routeName,
           path: EditCustomerProfieWidget.routePath,
           builder: (context, params) => EditCustomerProfieWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: TpMyJobsWidget.routeName,
           path: TpMyJobsWidget.routePath,
           builder: (context, params) => TpMyJobsWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: NotificationPageWidget.routeName,
           path: NotificationPageWidget.routePath,
           builder: (context, params) => NotificationPageWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: CustomerAllJobsWidget.routeName,
           path: CustomerAllJobsWidget.routePath,
           builder: (context, params) => CustomerAllJobsWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: TpInboxWidget.routeName,
           path: TpInboxWidget.routePath,
           builder: (context, params) => TpInboxWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: CustomerInboxWidget.routeName,
           path: CustomerInboxWidget.routePath,
           builder: (context, params) => CustomerInboxWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: ChatPageWidget.routeName,
           path: ChatPageWidget.routePath,
           builder: (context, params) => ChatPageWidget(
@@ -312,7 +312,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
           ),
         ),
-        FFRoute(
+        AppRoute(
           name: AddJobWidget.routeName,
           path: AddJobWidget.routePath,
           builder: (context, params) => AddJobWidget(
@@ -330,12 +330,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
           ),
         ),
-        FFRoute(
+        AppRoute(
           name: SplashScreenWidget.routeName,
           path: SplashScreenWidget.routePath,
           builder: (context, params) => SplashScreenWidget(),
         ),
-        FFRoute(
+        AppRoute(
           name: JobDetailsWidget.routeName,
           path: JobDetailsWidget.routePath,
           builder: (context, params) => JobDetailsWidget(
@@ -431,8 +431,8 @@ extension _GoRouterStateExtensions on GoRouterState {
       : TransitionInfo.appDefault();
 }
 
-class FFParameters {
-  FFParameters(this.state, [this.asyncParams = const {}]);
+class AppRouteParameters {
+  AppRouteParameters(this.state, [this.asyncParams = const {}]);
 
   final GoRouterState state;
   final Map<String, Future<dynamic> Function(String)> asyncParams;
@@ -491,8 +491,8 @@ class FFParameters {
   }
 }
 
-class FFRoute {
-  const FFRoute({
+class AppRoute {
+  const AppRoute({
     required this.name,
     required this.path,
     required this.builder,
@@ -505,7 +505,7 @@ class FFRoute {
   final String path;
   final bool requireAuth;
   final Map<String, Future<dynamic> Function(String)> asyncParams;
-  final Widget Function(BuildContext, FFParameters) builder;
+  final Widget Function(BuildContext, AppRouteParameters) builder;
   final List<GoRoute> routes;
 
   GoRoute toRoute(AppStateNotifier appStateNotifier) => GoRoute(
@@ -526,20 +526,20 @@ class FFRoute {
         },
         pageBuilder: (context, state) {
           fixStatusBarOniOS16AndBelow(context);
-          final ffParams = FFParameters(state, asyncParams);
-          final page = ffParams.hasFutures
+          final routeParams = AppRouteParameters(state, asyncParams);
+          final page = routeParams.hasFutures
               ? FutureBuilder(
-                  future: ffParams.completeFutures(),
-                  builder: (context, _) => builder(context, ffParams),
+                  future: routeParams.completeFutures(),
+                  builder: (context, _) => builder(context, routeParams),
                 )
-              : builder(context, ffParams);
+              : builder(context, routeParams);
           final child = appStateNotifier.loading
               ? Center(
                   child: SizedBox(
                     width: 50.0,
                     height: 50.0,
                     child: SpinKitFadingCube(
-                      color: FlutterFlowTheme.of(context).primary,
+                      color: AppTheme.of(context).primary,
                       size: 50.0,
                     ),
                   ),

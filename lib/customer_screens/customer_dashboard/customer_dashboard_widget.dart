@@ -6,11 +6,11 @@ import '/components/customer_navbar/customer_navbar_widget.dart';
 import '/components/jobs_list/jobs_list_widget.dart';
 import '/components/stats/stats_widget.dart';
 import '/components/text_button/text_button_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -56,7 +56,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -65,9 +65,9 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -77,7 +77,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
               showAction: true,
               actionIcon: Icon(
                 Icons.notifications_rounded,
-                color: FlutterFlowTheme.of(context).secondary,
+                color: AppTheme.of(context).secondary,
                 size: 26.0,
               ),
               action: () async {
@@ -95,7 +95,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: FutureBuilder<ApiCallResponse>(
@@ -111,7 +111,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: SpinKitFadingCube(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: AppTheme.of(context).primary,
                             size: 50.0,
                           ),
                         ),
@@ -127,7 +127,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                             alignment: AlignmentDirectional(-1.0, 0.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                               ),
                               child: Column(
@@ -136,28 +136,28 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                 children: [
                                   Text(
                                     'DASHBOARD',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodyLarge
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .primary,
                                           letterSpacing: 1.6,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontStyle,
                                         ),
@@ -177,8 +177,8 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
                                       colors: [
-                                        FlutterFlowTheme.of(context).primary,
-                                        FlutterFlowTheme.of(context).secondary
+                                        AppTheme.of(context).primary,
+                                        AppTheme.of(context).secondary
                                       ],
                                       stops: [0.0, 1.0],
                                       begin: AlignmentDirectional(-1.0, 0.14),
@@ -186,12 +186,12 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                     ),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .lg),
                                       topRight: Radius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .lg),
@@ -204,12 +204,12 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .lg),
                                       bottomRight: Radius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .lg),
@@ -218,22 +218,22 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                   child: Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryBackground,
                                       boxShadow: [
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .shadow
                                             .sm
                                       ],
                                       borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .radius
                                                 .lg),
                                         bottomRight: Radius.circular(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .radius
                                                 .lg),
@@ -242,7 +242,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                     child: Padding(
                                       padding:
                                           EdgeInsets.all(valueOrDefault<double>(
-                                        FFAppConstants.childPadding,
+                                        AppConstants.childPadding,
                                         0.0,
                                       )),
                                       child: Column(
@@ -252,13 +252,13 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                         children: [
                                           Text(
                                             'Need something done',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .headlineSmall
                                                 .override(
                                                   font: GoogleFonts.inter(
                                                     fontWeight: FontWeight.w800,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .headlineSmall
                                                             .fontStyle,
@@ -266,7 +266,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w800,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .headlineSmall
                                                           .fontStyle,
@@ -274,32 +274,32 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                           ),
                                           Text(
                                             'Post your job and get responses from\ntrusted tradespeople.',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .secondaryText,
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
@@ -307,7 +307,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.all(2.0),
-                                            child: FFButtonWidget(
+                                            child: AppButton(
                                               onPressed: () async {
                                                 context.pushNamed(
                                                     AddJobWidget.routeName);
@@ -317,7 +317,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                 Icons.arrow_forward,
                                                 size: 30.0,
                                               ),
-                                              options: FFButtonOptions(
+                                              options: AppButtonOptions(
                                                 width: double.infinity,
                                                 height: 60.0,
                                                 padding: EdgeInsetsDirectional
@@ -330,21 +330,21 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .primary,
                                                 textStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontStyle,
@@ -352,12 +352,12 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                           color: Colors.white,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontStyle,
@@ -365,7 +365,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                 elevation: 0.0,
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .designToken
                                                             .radius
@@ -375,7 +375,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                           ),
                                         ].divide(SizedBox(
                                             height:
-                                                FFAppConstants.childSpacing)),
+                                                AppConstants.childSpacing)),
                                       ),
                                     ),
                                   ),
@@ -390,12 +390,12 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                               iconBackgroundColor: Color(0x4E2C4EB8),
                               icon: Icon(
                                 Icons.work_outline,
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                                 size: 30.0,
                               ),
-                              value: FFAppState().jobCache.jobs.length,
+                              value: AppState().jobCache.jobs.length,
                               title: 'Active Jobs',
-                              valueColor: FlutterFlowTheme.of(context).primary,
+                              valueColor: AppTheme.of(context).primary,
                             ),
                           ),
                           wrapWithModel(
@@ -403,13 +403,13 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                             updateCallback: () => safeSetState(() {}),
                             child: StatsWidget(
                               iconBackgroundColor:
-                                  FlutterFlowTheme.of(context).accent2,
+                                  AppTheme.of(context).accent2,
                               icon: Icon(
                                 Icons.forum_rounded,
-                                color: FlutterFlowTheme.of(context).secondary,
+                                color: AppTheme.of(context).secondary,
                                 size: 30.0,
                               ),
-                              value: functions.sumList(FFAppState()
+                              value: functions.sumList(AppState()
                                   .jobCache
                                   .jobs
                                   .map((e) => e.applications.firstOrNull?.count)
@@ -417,7 +417,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                   .toList()),
                               title: 'Responses',
                               valueColor:
-                                  FlutterFlowTheme.of(context).secondary,
+                                  AppTheme.of(context).secondary,
                             ),
                           ),
                           Row(
@@ -426,18 +426,18 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                             children: [
                               Text(
                                 'RECENT ACTIVITY',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .headlineSmall
                                     .override(
                                       font: GoogleFonts.inter(
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .headlineSmall
                                             .fontStyle,
                                       ),
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .headlineSmall
                                           .fontStyle,
                                     ),
@@ -447,7 +447,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                 updateCallback: () => safeSetState(() {}),
                                 child: TextButtonWidget(
                                   label: 'View All',
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: AppTheme.of(context).primary,
                                   action: () async {
                                     context.pushNamed(
                                         CustomerAllJobsWidget.routeName);
@@ -464,7 +464,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                             ),
                           ),
                         ]
-                            .divide(SizedBox(height: FFAppConstants.spacing))
+                            .divide(SizedBox(height: AppConstants.spacing))
                             .addToEnd(SizedBox(height: 100.0)),
                       ),
                     );

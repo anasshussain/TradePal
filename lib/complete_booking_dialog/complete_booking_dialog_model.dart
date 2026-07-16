@@ -1,8 +1,8 @@
 import '/components/button4/button4_widget.dart';
 import '/components/trust_bullet3/trust_bullet3_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'complete_booking_dialog_widget.dart' show CompleteBookingDialogWidget;
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class CompleteBookingDialogModel
-    extends FlutterFlowModel<CompleteBookingDialogWidget> {
+    extends AppModel<CompleteBookingDialogWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for TrustBullet.

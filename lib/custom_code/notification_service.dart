@@ -166,7 +166,7 @@ class NotificationService {
   //   print("Incoming rideId: $rideId");
 
   //   if (rideId != null && rideId.isNotEmpty) {
-  //    // FFAppState().requestRideId = rideId;
+  //    // AppState().requestRideId = rideId;
   //   }
 
   //   if (deepLink != null && deepLink.isNotEmpty) {

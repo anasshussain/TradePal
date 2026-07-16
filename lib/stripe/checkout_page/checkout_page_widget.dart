@@ -1,10 +1,10 @@
 import '/components/download_p_d_f/download_p_d_f_widget.dart';
 import '/components/payment_method_item/payment_method_item_widget.dart';
 import '/components/text_field/text_field_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -52,7 +52,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SingleChildScrollView(
           primary: false,
           child: Column(
@@ -62,7 +62,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: AppTheme.of(context).secondaryBackground,
                   shape: BoxShape.rectangle,
                 ),
                 child: Column(
@@ -77,14 +77,14 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            FlutterFlowIconButton(
+                            AppIconButton(
                               borderRadius: 8.0,
                               buttonSize: 40.0,
                               fillColor: Colors.transparent,
                               icon: Icon(
                                 Icons.close_rounded,
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 size: 24.0,
                               ),
                               onPressed: () {
@@ -93,18 +93,18 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                             ),
                             Text(
                               'Checkout',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .titleMedium
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleMedium
                                         .fontStyle,
                                     lineHeight: 1.4,
@@ -120,7 +120,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                     Container(
                       height: 1.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: AppTheme.of(context).alternate,
                         shape: BoxShape.rectangle,
                       ),
                     ),
@@ -140,7 +140,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         borderRadius: BorderRadius.circular(12.0),
                         shape: BoxShape.rectangle,
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: AppTheme.of(context).alternate,
                           width: 1.0,
                         ),
                       ),
@@ -160,28 +160,28 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                 children: [
                                   Text(
                                     'Order Summary',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .labelLarge
                                         .override(
                                           font: GoogleFonts.inter(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelLarge
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelLarge
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .secondaryText,
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelLarge
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelLarge
                                                   .fontStyle,
                                           lineHeight: 1.4,
@@ -189,27 +189,27 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                   ),
                                   Text(
                                     '#SW-9921',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .labelSmall
                                         .override(
                                           font: GoogleFonts.inter(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
                                           color: Color(0xFF1A1F36),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontStyle,
                                           lineHeight: 1.3,
@@ -222,7 +222,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                 thickness: 1.0,
                                 indent: 0.0,
                                 endIndent: 0.0,
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -233,12 +233,12 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                     width: 48.0,
                                     height: 48.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryBackground,
                                       borderRadius: BorderRadius.circular(8.0),
                                       shape: BoxShape.rectangle,
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                         width: 1.0,
                                       ),
@@ -247,7 +247,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                     child: Icon(
                                       Icons.shopping_bag_rounded,
                                       color:
-                                          FlutterFlowTheme.of(context).primary,
+                                          AppTheme.of(context).primary,
                                       size: 24.0,
                                     ),
                                   ),
@@ -263,13 +263,13 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                         Text(
                                           'Pro Plan Subscription',
                                           maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .bodyLarge
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyLarge
                                                           .fontStyle,
@@ -277,7 +277,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyLarge
                                                         .fontStyle,
                                                 lineHeight: 1.5,
@@ -286,31 +286,31 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                         ),
                                         Text(
                                           'Billed monthly',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .bodySmall
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodySmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodySmall
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .secondaryText,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodySmall
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodySmall
                                                         .fontStyle,
                                                 lineHeight: 1.4,
@@ -321,20 +321,20 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                   ),
                                   Text(
                                     '\$29.00',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                           lineHeight: 1.4,
@@ -367,33 +367,33 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           children: [
                                             Text(
                                               'Subtotal',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .bodySmall
                                                   .override(
                                                     font: GoogleFonts.manrope(
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontStyle,
                                                     ),
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .secondaryText,
                                                     letterSpacing: 0.0,
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontStyle,
@@ -402,33 +402,33 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                             ),
                                             Text(
                                               '\$29.00',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .bodySmall
                                                   .override(
                                                     font: GoogleFonts.manrope(
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontStyle,
                                                     ),
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primaryText,
                                                     letterSpacing: 0.0,
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontStyle,
@@ -446,33 +446,33 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           children: [
                                             Text(
                                               'Tax (0%)',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .bodySmall
                                                   .override(
                                                     font: GoogleFonts.manrope(
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontStyle,
                                                     ),
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .secondaryText,
                                                     letterSpacing: 0.0,
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontStyle,
@@ -481,33 +481,33 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                             ),
                                             Text(
                                               '\$0.00',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .bodySmall
                                                   .override(
                                                     font: GoogleFonts.manrope(
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodySmall
                                                               .fontStyle,
                                                     ),
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primaryText,
                                                     letterSpacing: 0.0,
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodySmall
                                                             .fontStyle,
@@ -521,7 +521,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           thickness: 1.0,
                                           indent: 0.0,
                                           endIndent: 0.0,
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .alternate,
                                         ),
                                         Row(
@@ -533,7 +533,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           children: [
                                             Text(
                                               'Total due today',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
@@ -541,7 +541,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .fontStyle,
@@ -549,7 +549,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.bold,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
@@ -558,7 +558,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                             ),
                                             Text(
                                               '\$29.00',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .titleMedium
                                                   .override(
@@ -566,18 +566,18 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                       fontWeight:
                                                           FontWeight.w800,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleMedium
                                                               .fontStyle,
                                                     ),
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primary,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w800,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleMedium
                                                             .fontStyle,
@@ -604,16 +604,16 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         Text(
                           'Payment Method',
                           style:
-                              FlutterFlowTheme.of(context).titleSmall.override(
+                              AppTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                     lineHeight: 1.4,
@@ -625,7 +625,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                           child: PaymentMethodItemWidget(
                             icon: Icon(
                               Icons.credit_card_rounded,
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: AppTheme.of(context).primary,
                               size: 24.0,
                             ),
                             label: 'Credit Card',
@@ -638,7 +638,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                           child: PaymentMethodItemWidget(
                             icon: Icon(
                               Icons.apple,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               size: 24.0,
                             ),
                             label: 'Apple Pay',
@@ -647,12 +647,12 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context)
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(12.0),
                             shape: BoxShape.rectangle,
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                               width: 1.0,
                             ),
                           ),
@@ -791,29 +791,29 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                           children: [
                             Icon(
                               Icons.lock_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               size: 14.0,
                             ),
                             Text(
                               'Payments are secure and encrypted',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .labelSmall
                                   .override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelSmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                     lineHeight: 1.3,
@@ -828,7 +828,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: AppTheme.of(context).secondaryBackground,
                   shape: BoxShape.rectangle,
                 ),
                 child: Column(
@@ -838,7 +838,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                     Container(
                       height: 1.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: AppTheme.of(context).alternate,
                         shape: BoxShape.rectangle,
                       ),
                     ),
@@ -867,24 +867,24 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                             Text(
                               'By confirming your subscription, you allow SwiftPay to charge your card for future payments in accordance with their terms.',
                               textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .labelSmall
                                   .override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelSmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                     lineHeight: 1.3,

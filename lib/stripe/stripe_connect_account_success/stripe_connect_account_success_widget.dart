@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -50,7 +50,7 @@ class _StripeConnectAccountSuccessWidgetState
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
@@ -67,7 +67,7 @@ class _StripeConnectAccountSuccessWidgetState
                       width: 90.0,
                       height: 90.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).success,
+                        color: AppTheme.of(context).success,
                         shape: BoxShape.circle,
                       ),
                       child: Align(
@@ -86,19 +86,19 @@ class _StripeConnectAccountSuccessWidgetState
                         Text(
                           'Stripe Connected!',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .headlineLarge
                               .override(
                                 font: GoogleFonts.manrope(
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .headlineLarge
                                       .fontStyle,
                                 ),
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: AppTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .headlineLarge
                                     .fontStyle,
                               ),
@@ -106,24 +106,24 @@ class _StripeConnectAccountSuccessWidgetState
                         Text(
                           'Your Stripe account has been successfully connected. You can now start accepting payments from your customers.',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .bodyLarge
                               .override(
                                 font: GoogleFonts.manrope(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyLarge
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyLarge
                                       .fontStyle,
                                 ),
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyLarge
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyLarge
                                     .fontStyle,
                                 lineHeight: 1.5,
@@ -137,7 +137,7 @@ class _StripeConnectAccountSuccessWidgetState
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              AppTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Padding(
@@ -151,25 +151,25 @@ class _StripeConnectAccountSuccessWidgetState
                                 children: [
                                   Icon(
                                     Icons.account_balance_wallet,
-                                    color: FlutterFlowTheme.of(context).success,
+                                    color: AppTheme.of(context).success,
                                     size: 24.0,
                                   ),
                                   Text(
                                     'Payment Processing',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w600,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                         ),
@@ -178,56 +178,56 @@ class _StripeConnectAccountSuccessWidgetState
                               ),
                               Text(
                                 'Accept credit cards, debit cards, and digital wallets',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryText,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                               ),
                               Divider(
                                 thickness: 1.0,
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Icon(
                                     Icons.security,
-                                    color: FlutterFlowTheme.of(context).success,
+                                    color: AppTheme.of(context).success,
                                     size: 24.0,
                                   ),
                                   Text(
                                     'Secure Transactions',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w600,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                         ),
@@ -236,56 +236,56 @@ class _StripeConnectAccountSuccessWidgetState
                               ),
                               Text(
                                 'Industry-leading security and fraud protection',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryText,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                               ),
                               Divider(
                                 thickness: 1.0,
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Icon(
                                     Icons.analytics,
-                                    color: FlutterFlowTheme.of(context).success,
+                                    color: AppTheme.of(context).success,
                                     size: 24.0,
                                   ),
                                   Text(
                                     'Real-time Analytics',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w600,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                         ),
@@ -294,24 +294,24 @@ class _StripeConnectAccountSuccessWidgetState
                               ),
                               Text(
                                 'Track payments and revenue in your dashboard',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryText,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),

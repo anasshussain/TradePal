@@ -6,21 +6,21 @@ import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/job_details_loader/job_details_loader_widget.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_place_picker.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/place.dart';
-import '/flutter_flow/upload_data.dart';
+import '/widgets/app_drop_down.dart';
+import '/widgets/app_expanded_image_view.dart';
+import '/widgets/app_icon_button.dart';
+import '/widgets/app_place_picker.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/form_field_controller.dart';
+import '/core/place.dart';
+import '/core/upload_data.dart';
 import 'dart:io';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import 'add_job_widget.dart' show AddJobWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -31,19 +31,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class AddJobModel extends FlutterFlowModel<AddJobWidget> {
+class AddJobModel extends AppModel<AddJobWidget> {
   ///  Local state fields for this page.
 
-  List<FFUploadedFile> selectedImages = [];
-  void addToSelectedImages(FFUploadedFile item) => selectedImages.add(item);
-  void removeFromSelectedImages(FFUploadedFile item) =>
+  List<UploadedFile> selectedImages = [];
+  void addToSelectedImages(UploadedFile item) => selectedImages.add(item);
+  void removeFromSelectedImages(UploadedFile item) =>
       selectedImages.remove(item);
   void removeAtIndexFromSelectedImages(int index) =>
       selectedImages.removeAt(index);
-  void insertAtIndexInSelectedImages(int index, FFUploadedFile item) =>
+  void insertAtIndexInSelectedImages(int index, UploadedFile item) =>
       selectedImages.insert(index, item);
   void updateSelectedImagesAtIndex(
-          int index, Function(FFUploadedFile) updateFn) =>
+          int index, Function(UploadedFile) updateFn) =>
       selectedImages[index] = updateFn(selectedImages[index]);
 
   /// state that contains the data passed in through the params for editing
@@ -128,14 +128,14 @@ class AddJobModel extends FlutterFlowModel<AddJobWidget> {
   String? quotesDropDownValue;
   FormFieldController<String>? quotesDropDownValueController;
   // State field(s) for PlacePicker widget.
-  FFPlace placePickerValue = FFPlace();
+  AppPlace placePickerValue = AppPlace();
   bool isDataUploading_attachedImageLocal = false;
-  List<FFUploadedFile> uploadedLocalFiles_attachedImageLocal = [];
+  List<UploadedFile> uploadedLocalFiles_attachedImageLocal = [];
 
   // Stores action output result for [Validate Form] action in Button widget.
   bool? formValidation;
   bool isDataUploading_uploadedImagesUrl = false;
-  List<FFUploadedFile> uploadedLocalFiles_uploadedImagesUrl = [];
+  List<UploadedFile> uploadedLocalFiles_uploadedImagesUrl = [];
   List<String> uploadedFileUrls_uploadedImagesUrl = [];
 
   // Stores action output result for [Backend Call - API (addJob)] action in Button widget.

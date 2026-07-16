@@ -5,12 +5,12 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:collection/collection.dart';
 
-import 'flutter_flow_widgets.dart';
-import 'lat_lng.dart';
-import 'place.dart';
+import '/widgets/app_button.dart';
+import '/core/lat_lng.dart';
+import '/core/place.dart';
 
-class FlutterFlowPlacePicker extends StatefulWidget {
-  const FlutterFlowPlacePicker({
+class AppPlacePicker extends StatefulWidget {
+  const AppPlacePicker({
     Key? key,
     required this.iOSGoogleMapsApiKey,
     required this.androidGoogleMapsApiKey,
@@ -27,15 +27,15 @@ class FlutterFlowPlacePicker extends StatefulWidget {
   final String webGoogleMapsApiKey;
   final String? defaultText;
   final Widget? icon;
-  final FFButtonOptions buttonOptions;
-  final Function(FFPlace place) onSelect;
+  final AppButtonOptions buttonOptions;
+  final Function(AppPlace place) onSelect;
   final String? proxyBaseUrl;
 
   @override
   _FFPlacePickerState createState() => _FFPlacePickerState();
 }
 
-class _FFPlacePickerState extends State<FlutterFlowPlacePicker> {
+class _FFPlacePickerState extends State<AppPlacePicker> {
   String? _selectedPlace;
 
   String get googleMapsApiKey {
@@ -58,7 +58,7 @@ class _FFPlacePickerState extends State<FlutterFlowPlacePicker> {
   @override
   Widget build(BuildContext context) {
     String? languageCode = Localizations.localeOf(context).languageCode;
-    return FFButtonWidget(
+    return AppButton(
       text: _selectedPlace ?? widget.defaultText ?? 'Search places',
       icon: widget.icon,
       onPressed: () async {
@@ -104,7 +104,7 @@ class _FFPlacePickerState extends State<FlutterFlowPlacePicker> {
     }
 
     widget.onSelect(
-      FFPlace(
+      AppPlace(
         latLng: LatLng(
           detail.result.geometry?.location.lat ?? 0,
           detail.result.geometry?.location.lng ?? 0,

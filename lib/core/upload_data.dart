@@ -8,8 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
 
-import '/flutter_flow/flutter_flow_theme.dart';
-import 'flutter_flow_util.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
 
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
 
@@ -297,7 +297,7 @@ Future<List<SelectedFile>?> selectFiles({
 }
 
 List<SelectedFile> selectedFilesFromUploadedFiles(
-  List<FFUploadedFile> uploadedFiles, {
+  List<UploadedFile> uploadedFiles, {
   String? storageFolderPath,
   bool isMultiData = false,
 }) =>
@@ -371,7 +371,7 @@ void showUploadMessage(
                 child: CircularProgressIndicator(
                   valueColor: Theme.of(context).brightness == Brightness.dark
                       ? AlwaysStoppedAnimation<Color>(
-                          FlutterFlowTheme.of(context).accent4)
+                          AppTheme.of(context).accent4)
                       : null,
                 ),
               ),

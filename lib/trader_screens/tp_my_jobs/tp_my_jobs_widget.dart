@@ -6,9 +6,9 @@ import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/empty_list_component/empty_list_component_widget.dart';
 import '/components/submitted_job_list_item/submitted_job_list_item_widget.dart';
 import '/components/tp_navbar/tp_navbar_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,9 +64,9 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -94,48 +94,48 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                       child: TabBar(
                         isScrollable: true,
                         tabAlignment: TabAlignment.center,
-                        labelColor: FlutterFlowTheme.of(context).primaryText,
+                        labelColor: AppTheme.of(context).primaryText,
                         unselectedLabelColor:
-                            FlutterFlowTheme.of(context).accent1,
+                            AppTheme.of(context).accent1,
                         labelStyle:
-                            FlutterFlowTheme.of(context).titleMedium.override(
+                            AppTheme.of(context).titleMedium.override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleMedium
                                         .fontStyle,
                                   ),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleMedium
                                       .fontStyle,
                                 ),
                         unselectedLabelStyle:
-                            FlutterFlowTheme.of(context).titleMedium.override(
+                            AppTheme.of(context).titleMedium.override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleMedium
                                         .fontStyle,
                                   ),
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleMedium
                                       .fontStyle,
                                 ),
-                        indicatorColor: FlutterFlowTheme.of(context).primary,
+                        indicatorColor: AppTheme.of(context).primary,
                         padding: EdgeInsets.all(6.0),
                         tabs: [
                           Tab(
@@ -160,7 +160,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         children: [
                           Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
-                              FFAppConstants.parentPagePadding,
+                              AppConstants.parentPagePadding,
                               0.0,
                             )),
                             child: FutureBuilder<ApiCallResponse>(
@@ -178,7 +178,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       width: 50.0,
                                       height: 50.0,
                                       child: SpinKitFadingCube(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         size: 50.0,
                                       ),
@@ -211,7 +211,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       return EmptyListComponentWidget(
                                         icon: Icon(
                                           Icons.work_history_sharp,
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .tertiary,
                                           size: 40.0,
                                         ),
@@ -232,7 +232,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       scrollDirection: Axis.vertical,
                                       itemCount: activeJobs.length,
                                       separatorBuilder: (_, __) => SizedBox(
-                                          height: FFAppConstants.childPadding),
+                                          height: AppConstants.childPadding),
                                       itemBuilder: (context, activeJobsIndex) {
                                         final activeJobsItem =
                                             activeJobs[activeJobsIndex];
@@ -250,7 +250,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                           ),
                           Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
-                              FFAppConstants.parentPagePadding,
+                              AppConstants.parentPagePadding,
                               0.0,
                             )),
                             child: FutureBuilder<ApiCallResponse>(
@@ -268,7 +268,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       width: 50.0,
                                       height: 50.0,
                                       child: SpinKitFadingCube(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         size: 50.0,
                                       ),
@@ -301,7 +301,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       return EmptyListComponentWidget(
                                         icon: Icon(
                                           Icons.work_history_sharp,
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .tertiary,
                                           size: 40.0,
                                         ),
@@ -322,7 +322,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       scrollDirection: Axis.vertical,
                                       itemCount: inprogressJobs.length,
                                       separatorBuilder: (_, __) => SizedBox(
-                                          height: FFAppConstants.childPadding),
+                                          height: AppConstants.childPadding),
                                       itemBuilder:
                                           (context, inprogressJobsIndex) {
                                         final inprogressJobsItem =
@@ -341,7 +341,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                           ),
                           Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
-                              FFAppConstants.parentPagePadding,
+                              AppConstants.parentPagePadding,
                               0.0,
                             )),
                             child: FutureBuilder<ApiCallResponse>(
@@ -359,7 +359,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       width: 50.0,
                                       height: 50.0,
                                       child: SpinKitFadingCube(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         size: 50.0,
                                       ),
@@ -392,7 +392,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       return EmptyListComponentWidget(
                                         icon: Icon(
                                           Icons.work_history_sharp,
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .tertiary,
                                           size: 40.0,
                                         ),
@@ -413,7 +413,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       scrollDirection: Axis.vertical,
                                       itemCount: completedJobs.length,
                                       separatorBuilder: (_, __) => SizedBox(
-                                          height: FFAppConstants.childPadding),
+                                          height: AppConstants.childPadding),
                                       itemBuilder:
                                           (context, completedJobsIndex) {
                                         final completedJobsItem =

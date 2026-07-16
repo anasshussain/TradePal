@@ -4,12 +4,12 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/user_preview_component/user_preview_component_widget.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
+import '/widgets/app_expanded_image_view.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/upload_data.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import 'review_widget.dart' show ReviewWidget;
@@ -21,16 +21,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class ReviewModel extends FlutterFlowModel<ReviewWidget> {
+class ReviewModel extends AppModel<ReviewWidget> {
   ///  Local state fields for this page.
 
-  List<FFUploadedFile> photoUrls = [];
-  void addToPhotoUrls(FFUploadedFile item) => photoUrls.add(item);
-  void removeFromPhotoUrls(FFUploadedFile item) => photoUrls.remove(item);
+  List<UploadedFile> photoUrls = [];
+  void addToPhotoUrls(UploadedFile item) => photoUrls.add(item);
+  void removeFromPhotoUrls(UploadedFile item) => photoUrls.remove(item);
   void removeAtIndexFromPhotoUrls(int index) => photoUrls.removeAt(index);
-  void insertAtIndexInPhotoUrls(int index, FFUploadedFile item) =>
+  void insertAtIndexInPhotoUrls(int index, UploadedFile item) =>
       photoUrls.insert(index, item);
-  void updatePhotoUrlsAtIndex(int index, Function(FFUploadedFile) updateFn) =>
+  void updatePhotoUrlsAtIndex(int index, Function(UploadedFile) updateFn) =>
       photoUrls[index] = updateFn(photoUrls[index]);
 
   ///  State fields for stateful widgets in this page.
@@ -50,11 +50,11 @@ class ReviewModel extends FlutterFlowModel<ReviewWidget> {
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   bool isDataUploading_uploadeddImage = false;
-  FFUploadedFile uploadedLocalFile_uploadeddImage =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  UploadedFile uploadedLocalFile_uploadeddImage =
+      UploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
 
   bool isDataUploading_uploadedImageUrls = false;
-  List<FFUploadedFile> uploadedLocalFiles_uploadedImageUrls = [];
+  List<UploadedFile> uploadedLocalFiles_uploadedImageUrls = [];
   List<String> uploadedFileUrls_uploadedImageUrls = [];
 
   // Stores action output result for [Backend Call - API (add review)] action in Button widget.

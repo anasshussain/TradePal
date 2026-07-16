@@ -3,10 +3,10 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/upload_data.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -40,33 +40,33 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
     _model = createModel(context, () => EditCustomerProfieModel());
 
     _model.textController1 ??=
-        TextEditingController(text: FFAppState().userProfileCache.name);
+        TextEditingController(text: AppState().userProfileCache.name);
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??=
-        TextEditingController(text: FFAppState().userProfileCache.email);
+        TextEditingController(text: AppState().userProfileCache.email);
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController3 ??=
-        TextEditingController(text: FFAppState().userProfileCache.phone);
+        TextEditingController(text: AppState().userProfileCache.phone);
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.streetTextController ??= TextEditingController(
-        text: FFAppState().userProfileCache.street == 'EMPTY'
+        text: AppState().userProfileCache.street == 'EMPTY'
             ? ''
-            : FFAppState().userProfileCache.street);
+            : AppState().userProfileCache.street);
     _model.streetFocusNode ??= FocusNode();
 
     _model.streetadressTextController ??= TextEditingController(
-        text: FFAppState().userProfileCache.streetaddress == 'EMPTY'
+        text: AppState().userProfileCache.streetaddress == 'EMPTY'
             ? ''
-            : FFAppState().userProfileCache.streetaddress);
+            : AppState().userProfileCache.streetaddress);
     _model.streetadressFocusNode ??= FocusNode();
 
     _model.postalcodeTextController ??= TextEditingController(
-        text: FFAppState().userProfileCache.zipcode == 'empty'
+        text: AppState().userProfileCache.zipcode == 'empty'
             ? ''
-            : FFAppState().userProfileCache.zipcode);
+            : AppState().userProfileCache.zipcode);
     _model.postalcodeFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -81,7 +81,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -90,7 +90,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: wrapWithModel(
@@ -113,7 +113,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: SingleChildScrollView(
@@ -128,7 +128,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .sm),
@@ -137,10 +137,10 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                               width: 128.0,
                               height: 128.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .sm),
@@ -163,7 +163,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             _model.uploadedFileUrl_uploaded !=
                                                 ''
                                         ? _model.uploadedFileUrl_uploaded
-                                        : FFAppState()
+                                        : AppState()
                                             .userProfileCache
                                             .avatarUrl,
                                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
@@ -196,12 +196,12 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     safeSetState(() =>
                                         _model.isDataUploading_uploaded = true);
                                     var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
+                                        <UploadedFile>[];
 
                                     var downloadUrls = <String>[];
                                     try {
                                       selectedUploadedFiles = selectedMedia
-                                          .map((m) => FFUploadedFile(
+                                          .map((m) => UploadedFile(
                                                 name: m.storagePath
                                                     .split('/')
                                                     .last,
@@ -249,7 +249,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     height: 32.0,
                                     decoration: BoxDecoration(
                                       color:
-                                          FlutterFlowTheme.of(context).primary,
+                                          AppTheme.of(context).primary,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
                                         color: Colors.white,
@@ -272,7 +272,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0,
-                            FlutterFlowTheme.of(context).designToken.spacing.sm,
+                            AppTheme.of(context).designToken.spacing.sm,
                             0.0,
                             0.0),
                         child: RichText(
@@ -281,42 +281,42 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                             children: [
                               TextSpan(
                                 text: 'CHANGE PROFILE PICTURE',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       font: GoogleFonts.manrope(
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .primaryText,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                               )
                             ],
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .bodySmall
                                 .override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodySmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodySmall
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context).accent1,
+                                  color: AppTheme.of(context).accent1,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodySmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodySmall
                                       .fontStyle,
                                 ),
@@ -328,7 +328,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
@@ -336,19 +336,19 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context)
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(FlutterFlowTheme.of(context)
+                            padding: EdgeInsets.all(AppTheme.of(context)
                                 .designToken
                                 .spacing
                                 .xl),
@@ -360,26 +360,26 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   alignment: AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
                                     'FULL NAME',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .labelSmall
                                         .override(
                                           font: GoogleFonts.inter(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontStyle,
                                         ),
@@ -395,11 +395,11 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                     ),
@@ -408,7 +408,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
@@ -424,63 +424,63 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             decoration: InputDecoration(
                                               isDense: true,
                                               labelStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .primaryText,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                               hintText: 'name',
                                               hintStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
@@ -503,7 +503,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -514,7 +514,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -523,35 +523,35 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                             cursorColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
@@ -568,7 +568,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md,
@@ -576,26 +576,26 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                         0.0),
                                     child: Text(
                                       'EMAIL ADDRESS',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelSmall
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
@@ -612,11 +612,11 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                     ),
@@ -625,7 +625,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
@@ -642,60 +642,60 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             decoration: InputDecoration(
                                               isDense: true,
                                               labelStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                               hintText: 'email',
                                               hintStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
@@ -718,7 +718,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -729,7 +729,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -738,35 +738,35 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                             cursorColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
@@ -783,7 +783,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md,
@@ -791,26 +791,26 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                         0.0),
                                     child: Text(
                                       'Email cannot be changed manually. Contact support for assistance.',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelSmall
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
@@ -822,7 +822,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md,
@@ -830,26 +830,26 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                         0.0),
                                     child: Text(
                                       'PHONE NUMBER',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelSmall
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
@@ -866,11 +866,11 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                     ),
@@ -879,7 +879,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
@@ -895,60 +895,60 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             decoration: InputDecoration(
                                               isDense: true,
                                               labelStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                               hintText: 'phone',
                                               hintStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
@@ -971,7 +971,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -982,7 +982,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -991,35 +991,35 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                             cursorColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
@@ -1032,7 +1032,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   ),
                                 ),
                               ].divide(SizedBox(
-                                  height: FlutterFlowTheme.of(context)
+                                  height: AppTheme.of(context)
                                       .designToken
                                       .spacing
                                       .md)),
@@ -1045,7 +1045,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
@@ -1053,19 +1053,19 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context)
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(FlutterFlowTheme.of(context)
+                            padding: EdgeInsets.all(AppTheme.of(context)
                                 .designToken
                                 .spacing
                                 .xl),
@@ -1079,7 +1079,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     Icon(
                                       Icons.location_on_outlined,
                                       color:
-                                          FlutterFlowTheme.of(context).accent1,
+                                          AppTheme.of(context).accent1,
                                       size: 24.0,
                                     ),
                                     Align(
@@ -1087,33 +1087,33 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                           AlignmentDirectional(-1.0, -1.0),
                                       child: Text(
                                         'SERVICE ADDRESS',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .titleSmall
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .titleSmall
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .titleSmall
                                                       .fontStyle,
                                             ),
                                       ),
                                     ),
                                   ].divide(SizedBox(
-                                      width: FlutterFlowTheme.of(context)
+                                      width: AppTheme.of(context)
                                           .designToken
                                           .spacing
                                           .sm)),
@@ -1123,7 +1123,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md,
@@ -1131,26 +1131,26 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                         0.0),
                                     child: Text(
                                       'STREET',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelSmall
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
@@ -1167,11 +1167,11 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                     ),
@@ -1180,7 +1180,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
@@ -1196,59 +1196,59 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             decoration: InputDecoration(
                                               isDense: true,
                                               labelStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                               hintStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
@@ -1271,7 +1271,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -1282,7 +1282,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .error,
                                                   width: 1.0,
@@ -1291,35 +1291,35 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                             cursorColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
@@ -1334,7 +1334,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0,
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .spacing
                                           .md,
@@ -1358,29 +1358,29 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             child: Text(
                                               'STREET ADDRESS',
                                               style:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelSmall
                                                                 .fontStyle,
@@ -1399,12 +1399,12 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               height: 54.0,
                                               decoration: BoxDecoration(
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .alternate,
                                                 borderRadius:
                                                     BorderRadius.circular(0.0),
                                                 border: Border.all(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .alternate,
                                                 ),
@@ -1416,7 +1416,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     0.0, 0.0),
                                                 child: Padding(
                                                   padding: EdgeInsets.all(
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .designToken
                                                           .spacing
@@ -1435,55 +1435,55 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                           InputDecoration(
                                                         isDense: true,
                                                         labelStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
                                                         hintStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
@@ -1518,7 +1518,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                             OutlineInputBorder(
                                                           borderSide:
                                                               BorderSide(
-                                                            color: FlutterFlowTheme
+                                                            color: AppTheme
                                                                     .of(context)
                                                                 .error,
                                                             width: 1.0,
@@ -1532,7 +1532,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                             OutlineInputBorder(
                                                           borderSide:
                                                               BorderSide(
-                                                            color: FlutterFlowTheme
+                                                            color: AppTheme
                                                                     .of(context)
                                                                 .error,
                                                             width: 1.0,
@@ -1544,34 +1544,34 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                         ),
                                                       ),
                                                       style:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .override(
                                                                 font: GoogleFonts
                                                                     .manrope(
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
                                                       cursorColor:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       enableInteractiveSelection:
@@ -1586,7 +1586,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             ),
                                           ),
                                         ].divide(SizedBox(
-                                            height: FlutterFlowTheme.of(context)
+                                            height: AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .md)),
@@ -1604,29 +1604,29 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             child: Text(
                                               'POSTAL CODE',
                                               style:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelSmall
                                                                 .fontStyle,
@@ -1645,12 +1645,12 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               height: 54.0,
                                               decoration: BoxDecoration(
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .alternate,
                                                 borderRadius:
                                                     BorderRadius.circular(0.0),
                                                 border: Border.all(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .alternate,
                                                 ),
@@ -1662,7 +1662,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     0.0, 0.0),
                                                 child: Padding(
                                                   padding: EdgeInsets.all(
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .designToken
                                                           .spacing
@@ -1681,55 +1681,55 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                           InputDecoration(
                                                         isDense: true,
                                                         labelStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
                                                         hintStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
@@ -1764,7 +1764,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                             OutlineInputBorder(
                                                           borderSide:
                                                               BorderSide(
-                                                            color: FlutterFlowTheme
+                                                            color: AppTheme
                                                                     .of(context)
                                                                 .error,
                                                             width: 1.0,
@@ -1778,7 +1778,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                             OutlineInputBorder(
                                                           borderSide:
                                                               BorderSide(
-                                                            color: FlutterFlowTheme
+                                                            color: AppTheme
                                                                     .of(context)
                                                                 .error,
                                                             width: 1.0,
@@ -1790,34 +1790,34 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                         ),
                                                       ),
                                                       style:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .override(
                                                                 font: GoogleFonts
                                                                     .manrope(
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
                                                       cursorColor:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       enableInteractiveSelection:
@@ -1832,7 +1832,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             ),
                                           ),
                                         ].divide(SizedBox(
-                                            height: FlutterFlowTheme.of(context)
+                                            height: AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .md)),
@@ -1841,7 +1841,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   ),
                                 ),
                               ].divide(SizedBox(
-                                  height: FlutterFlowTheme.of(context)
+                                  height: AppTheme.of(context)
                                       .designToken
                                       .spacing
                                       .md)),
@@ -1852,10 +1852,10 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0,
-                            FlutterFlowTheme.of(context).designToken.spacing.md,
+                            AppTheme.of(context).designToken.spacing.md,
                             0.0,
                             0.0),
-                        child: FFButtonWidget(
+                        child: AppButton(
                           onPressed: () async {
                             _model.updateUserResult =
                                 await SupabaseTablesGroup.updateUserCall.call(
@@ -1863,7 +1863,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   _model.uploadedFileUrl_uploaded != null &&
                                           _model.uploadedFileUrl_uploaded != ''
                                       ? _model.uploadedFileUrl_uploaded
-                                      : FFAppState().userProfileCache.avatarUrl,
+                                      : AppState().userProfileCache.avatarUrl,
                               userId: currentUserUid,
                               name: _model.textController1.text,
                               phone: _model.textController3.text,
@@ -1876,7 +1876,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                             if ((_model.updateUserResult?.succeeded ?? true)) {
                               await Future.wait([
                                 Future(() async {
-                                  FFAppState().updateUserProfileCacheStruct(
+                                  AppState().updateUserProfileCacheStruct(
                                     (e) => e
                                       ..avatarUrl = _model
                                                       .uploadedFileUrl_uploaded !=
@@ -1884,7 +1884,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                               _model.uploadedFileUrl_uploaded !=
                                                   ''
                                           ? _model.uploadedFileUrl_uploaded
-                                          : FFAppState()
+                                          : AppState()
                                               .userProfileCache
                                               .avatarUrl
                                       ..name = _model.textController1.text
@@ -1929,37 +1929,37 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                             safeSetState(() {});
                           },
                           text: 'Save',
-                          options: FFButtonOptions(
+                          options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context).primary,
+                            textStyle: AppTheme.of(context)
                                 .titleSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                                   color: Colors.white,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
@@ -1967,7 +1967,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: FFAppConstants.childSpacing))
+                        .divide(SizedBox(height: AppConstants.childSpacing))
                         .addToEnd(SizedBox(height: 50.0)),
                   ),
                 ),

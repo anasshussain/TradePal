@@ -1,7 +1,7 @@
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'add_stripe_widget.dart' show AddStripeWidget;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,7 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AddStripeModel extends FlutterFlowModel<AddStripeWidget> {
+class AddStripeModel extends AppModel<AddStripeWidget> {
   ///  Local state fields for this component.
 
   bool payoutsEnabled = true;

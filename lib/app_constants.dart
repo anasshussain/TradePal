@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 
-abstract class FFAppConstants {
+abstract class AppConstants {
   static const double spacing = 20.0;
   static const double parentPagePadding = 16.0;
   static const double childPadding = 10.0;

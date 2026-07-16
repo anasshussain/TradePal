@@ -5,8 +5,8 @@ import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -22,19 +22,19 @@ Future toast(
       content: Text(
         message!,
         style: TextStyle(
-          color: FlutterFlowTheme.of(context).messageText,
+          color: AppTheme.of(context).messageText,
         ),
       ),
       duration: Duration(milliseconds: 2000),
       backgroundColor: () {
         if (type == MessageType.SUCCESS) {
-          return FlutterFlowTheme.of(context).success;
+          return AppTheme.of(context).success;
         } else if (type == MessageType.ERROR) {
-          return FlutterFlowTheme.of(context).error;
+          return AppTheme.of(context).error;
         } else if (type == MessageType.WARNING) {
-          return FlutterFlowTheme.of(context).warning;
+          return AppTheme.of(context).warning;
         } else {
-          return FlutterFlowTheme.of(context).info;
+          return AppTheme.of(context).info;
         }
       }(),
     ),
@@ -69,14 +69,14 @@ Future userSignUp(
 }) async {}
 
 Future clearAppData(BuildContext context) async {
-  FFAppState().jobSearches = [];
-  FFAppState().recentlyViewedJobs = [];
-  FFAppState().userProfileCache = UserStruct();
-  FFAppState().jobCache = JobCacheStruct.fromSerializableMap(jsonDecode(
+  AppState().jobSearches = [];
+  AppState().recentlyViewedJobs = [];
+  AppState().userProfileCache = UserStruct();
+  AppState().jobCache = JobCacheStruct.fromSerializableMap(jsonDecode(
       '{\"jobs\":\"[]\",\"last_cursor\":\"0\",\"first_cursor\":\"0\",\"has_more\":\"true\"}'));
-  FFAppState().submittedJobListCache = [];
-  FFAppState().totalMessagesCount = 0;
-  FFAppState().currentDeviceToken = '';
+  AppState().submittedJobListCache = [];
+  AppState().totalMessagesCount = 0;
+  AppState().currentDeviceToken = '';
 }
 
 Future insertNotifications(

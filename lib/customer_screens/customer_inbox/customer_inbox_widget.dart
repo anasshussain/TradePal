@@ -6,9 +6,9 @@ import '/components/customer_navbar/customer_navbar_widget.dart';
 import '/components/empty_list_component/empty_list_component_widget.dart';
 import '/components/inbox_item/inbox_item_widget.dart';
 import '/components/page_header_sectiom/page_header_sectiom_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import 'dart:async';
@@ -57,7 +57,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
       await actions.subscribe(
         'conversation_participants',
         'user_id',
-        FFAppState().userProfileCache.userKey,
+        AppState().userProfileCache.userKey,
         'update',
         () async {
           safeSetState(() => _model.apiRequestCompleter = null);
@@ -88,7 +88,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -97,9 +97,9 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -119,7 +119,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: SingleChildScrollView(
@@ -173,42 +173,42 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           obscureText: false,
                           decoration: InputDecoration(
                             isDense: false,
-                            labelStyle: FlutterFlowTheme.of(context)
+                            labelStyle: AppTheme.of(context)
                                 .labelMedium
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryText,
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelMedium
                                       .fontStyle,
                                 ),
                             hintText: 'Search conversations',
-                            hintStyle: FlutterFlowTheme.of(context)
+                            hintStyle: AppTheme.of(context)
                                 .labelMedium
                                 .override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.normal,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context).hint,
+                                  color: AppTheme.of(context).hint,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelMedium
                                       .fontStyle,
                                 ),
@@ -221,27 +221,27 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
+                                color: AppTheme.of(context).error,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
+                                color: AppTheme.of(context).error,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.of(context).alternate,
+                            fillColor: AppTheme.of(context).alternate,
                             suffixIcon: _model
                                     .searchTextController!.text.isNotEmpty
                                 ? InkWell(
@@ -277,31 +277,31 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                     child: Icon(
                                       Icons.clear,
                                       color:
-                                          FlutterFlowTheme.of(context).tertiary,
+                                          AppTheme.of(context).tertiary,
                                       size: 26.0,
                                     ),
                                   )
                                 : null,
                           ),
                           style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
+                              AppTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          cursorColor: AppTheme.of(context).primaryText,
                           enableInteractiveSelection: true,
                           validator: _model.searchTextControllerValidator
                               .asValidator(context),
@@ -326,7 +326,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                   width: 50.0,
                                   height: 50.0,
                                   child: SpinKitFadingCube(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: AppTheme.of(context).primary,
                                     size: 50.0,
                                   ),
                                 ),
@@ -383,7 +383,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                 scrollDirection: Axis.vertical,
                                 itemCount: conversations.length,
                                 separatorBuilder: (_, __) => SizedBox(
-                                    height: FFAppConstants.childSpacing),
+                                    height: AppConstants.childSpacing),
                                 itemBuilder: (context, conversationsIndex) {
                                   final conversationsItem =
                                       conversations[conversationsIndex];
@@ -405,7 +405,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           );
                         },
                       ),
-                    ].divide(SizedBox(height: FFAppConstants.spacing)),
+                    ].divide(SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),

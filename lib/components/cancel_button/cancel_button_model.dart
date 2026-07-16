@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'cancel_button_widget.dart' show CancelButtonWidget;
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class CancelButtonModel extends FlutterFlowModel<CancelButtonWidget> {
+class CancelButtonModel extends AppModel<CancelButtonWidget> {
   @override
   void initState(BuildContext context) {}
 

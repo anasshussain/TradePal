@@ -1,9 +1,9 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -43,7 +43,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
           milliseconds: 3000,
         ),
       );
-      if (FFAppState().onboarding == true) {
+      if (AppState().onboarding == true) {
         await actions.checkUserSession(
           context,
         );
@@ -55,14 +55,14 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
             );
 
             if ((_model.apiResultUserProfile?.succeeded ?? true)) {
-              FFAppState().userProfileCache =
+              AppState().userProfileCache =
                   ((_model.apiResultUserProfile?.jsonBody ?? '')
                           .toList()
                           .map<UserStruct?>(UserStruct.maybeFromMap)
                           .toList() as Iterable<UserStruct?>)
                       .withoutNulls
                       .firstOrNull!;
-              FFAppState().update(() {});
+              AppState().update(() {});
             }
           }),
           Future(() async {
@@ -72,7 +72,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
             );
 
             if ((_model.totalCount?.succeeded ?? true)) {
-              FFAppState().totalMessagesCount =
+              AppState().totalMessagesCount =
                   (_model.totalCount?.jsonBody ?? '');
             }
           }),
@@ -103,7 +103,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -112,7 +112,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Stack(
@@ -121,7 +121,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
-                    FFAppConstants.parentPagePadding,
+                    AppConstants.parentPagePadding,
                     0.0,
                   )),
                   child: Column(
@@ -133,22 +133,22 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context)
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Column(
@@ -159,7 +159,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                 width: 1.0,
                                 height: 20.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                               ),
                               Row(
@@ -171,7 +171,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                     width: 20.0,
                                     height: 1.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                     ),
                                   ),
@@ -196,7 +196,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                     width: 20.0,
                                     height: 1.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                     ),
                                   ),
@@ -206,7 +206,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                 width: 1.0,
                                 height: 20.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                               ),
                             ],
@@ -220,22 +220,22 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                           children: [
                             Text(
                               'My Trade Pal',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .displayMedium
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .displayMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .displayMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .displayMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .displayMedium
                                         .fontStyle,
                                   ),
@@ -249,31 +249,31 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                   height: 2.0,
                                   decoration: BoxDecoration(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                   ),
                                 ),
                                 Text(
                                   'Find Trusted Trades-Or Your Next Job',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .labelSmall
                                       .override(
                                         font: GoogleFonts.inter(
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .labelSmall
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .secondaryText,
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .labelSmall
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .labelSmall
                                             .fontStyle,
                                       ),
@@ -283,11 +283,11 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                   height: 2.0,
                                   decoration: BoxDecoration(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                   ),
                                 ),
                               ].divide(
-                                  SizedBox(width: FFAppConstants.childSpacing)),
+                                  SizedBox(width: AppConstants.childSpacing)),
                             ),
                           ],
                         ),
@@ -296,31 +296,31 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                         'The simplest way to connect skilled tradespeople with homeowners. No stress, no hidden fees, just quality local work.',
                         textAlign: TextAlign.center,
                         style:
-                            FlutterFlowTheme.of(context).labelMedium.override(
+                            AppTheme.of(context).labelMedium.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelMedium
                                       .fontStyle,
                                 ),
                       ),
-                    ].divide(SizedBox(height: FFAppConstants.spacing)),
+                    ].divide(SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: Transform.rotate(
@@ -339,12 +339,12 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                             width: 100.0,
                             height: 93.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
+                              color: AppTheme.of(context)
                                   .primaryBackground,
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 0.0,
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                   offset: Offset(
                                     -1.0,
                                     1.0,
@@ -358,7 +358,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     valueOrDefault<double>(
-                                      FFAppConstants.childPadding,
+                                      AppConstants.childPadding,
                                       0.0,
                                     ),
                                     0.0,
@@ -367,7 +367,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                 child: Text(
                                   'LEVEL 00',
                                   style: GoogleFonts.roboto(
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     fontSize: 9.0,
                                   ),
@@ -381,7 +381,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 valueOrDefault<double>(
-                                  FFAppConstants.childPadding,
+                                  AppConstants.childPadding,
                                   0.0,
                                 ),
                                 0.0,
@@ -391,7 +391,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                               'BASE',
                               style: GoogleFonts.roboto(
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 fontSize: 9.0,
                               ),
                             ),
@@ -409,7 +409,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                   decoration: BoxDecoration(),
                   child: Padding(
                     padding: EdgeInsets.all(valueOrDefault<double>(
-                      FFAppConstants.parentPagePadding,
+                      AppConstants.parentPagePadding,
                       0.0,
                     )),
                     child: Column(
@@ -421,20 +421,20 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                           'System status',
                           textAlign: TextAlign.end,
                           style:
-                              FlutterFlowTheme.of(context).labelSmall.override(
+                              AppTheme.of(context).labelSmall.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelSmall
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
@@ -443,25 +443,25 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                           'Calibrating Workspace',
                           textAlign: TextAlign.end,
                           style:
-                              FlutterFlowTheme.of(context).bodySmall.override(
+                              AppTheme.of(context).bodySmall.override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodySmall
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodySmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodySmall
                                         .fontStyle,
                                   ),
                         ),
-                      ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+                      ].divide(SizedBox(height: AppConstants.childSpacing)),
                     ),
                   ),
                 ),
@@ -470,7 +470,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                 alignment: AlignmentDirectional(-1.0, 1.0),
                 child: Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
-                    FFAppConstants.parentPagePadding,
+                    AppConstants.parentPagePadding,
                     0.0,
                   )),
                   child: Transform.rotate(
@@ -479,9 +479,9 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                       width: 100.0,
                       height: 100.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        color: AppTheme.of(context).primaryBackground,
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: AppTheme.of(context).alternate,
                           width: 1.0,
                         ),
                       ),

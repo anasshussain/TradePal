@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -61,21 +61,21 @@ class _StatsWidgetState extends State<StatsWidget> {
       elevation: 0.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-            FlutterFlowTheme.of(context).designToken.radius.lg),
+            AppTheme.of(context).designToken.radius.lg),
       ),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: AppTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.lg),
+              AppTheme.of(context).designToken.radius.lg),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: AppTheme.of(context).alternate,
           ),
         ),
         child: Padding(
           padding: EdgeInsets.all(valueOrDefault<double>(
-            FFAppConstants.childPadding,
+            AppConstants.childPadding,
             0.0,
           )),
           child: Row(
@@ -90,21 +90,21 @@ class _StatsWidgetState extends State<StatsWidget> {
                       widget!.title,
                       'State',
                     ),
-                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    style: AppTheme.of(context).bodyLarge.override(
                           font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyLarge
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyLarge
                                 .fontStyle,
                           ),
-                          color: FlutterFlowTheme.of(context).secondaryText,
+                          color: AppTheme.of(context).secondaryText,
                           letterSpacing: 0.0,
                           fontWeight:
-                              FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                              AppTheme.of(context).bodyLarge.fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                              AppTheme.of(context).bodyLarge.fontStyle,
                         ),
                   ),
                   Text(
@@ -117,17 +117,17 @@ class _StatsWidgetState extends State<StatsWidget> {
                       ),
                       '00',
                     ),
-                    style: FlutterFlowTheme.of(context).displayMedium.override(
+                    style: AppTheme.of(context).displayMedium.override(
                           font: GoogleFonts.inter(
                             fontWeight: FontWeight.w900,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .displayMedium
                                 .fontStyle,
                           ),
                           color: widget!.valueColor,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w900,
-                          fontStyle: FlutterFlowTheme.of(context)
+                          fontStyle: AppTheme.of(context)
                               .displayMedium
                               .fontStyle,
                         ),
@@ -139,7 +139,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                 elevation: 0.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
-                      FlutterFlowTheme.of(context).designToken.radius.lg),
+                      AppTheme.of(context).designToken.radius.lg),
                 ),
                 child: Container(
                   width: 64.0,
@@ -147,12 +147,12 @@ class _StatsWidgetState extends State<StatsWidget> {
                   decoration: BoxDecoration(
                     color: valueOrDefault<Color>(
                       widget!.iconBackgroundColor,
-                      FlutterFlowTheme.of(context).accent1,
+                      AppTheme.of(context).accent1,
                     ),
                     borderRadius: BorderRadius.circular(
-                        FlutterFlowTheme.of(context).designToken.radius.lg),
+                        AppTheme.of(context).designToken.radius.lg),
                     border: Border.all(
-                      color: FlutterFlowTheme.of(context).alternate,
+                      color: AppTheme.of(context).alternate,
                     ),
                   ),
                   child: widget!.icon!,

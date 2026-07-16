@@ -4,10 +4,10 @@ import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/supabase/supabase.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
 import 'index.dart'; // Imports other custom actions
-import '/flutter_flow/custom_functions.dart'; // Imports custom functions
+import '/core/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -62,8 +62,8 @@ Future<void> subscribe(
                 print('Your jobid is $jobId');
                 if (status == 'paid' && jobId != null) {
                   print('Flutterflow app state execution started successfully');
-                  FFAppState().update(() {
-                    FFAppState().paidJobId = jobId;
+                  AppState().update(() {
+                    AppState().paidJobId = jobId;
                     print('Flutterflow app state updated successfully');
                   });
 

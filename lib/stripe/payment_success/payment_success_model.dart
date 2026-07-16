@@ -1,9 +1,9 @@
 import '/components/download_p_d_f/download_p_d_f_widget.dart';
 import '/components/receipt_row/receipt_row_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'payment_success_widget.dart' show PaymentSuccessWidget;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class PaymentSuccessModel extends FlutterFlowModel<PaymentSuccessWidget> {
+class PaymentSuccessModel extends AppModel<PaymentSuccessWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for ReceiptRow.

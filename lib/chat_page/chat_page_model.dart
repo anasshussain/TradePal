@@ -11,18 +11,18 @@ import '/components/empty_list_component/empty_list_component_widget.dart';
 import '/components/loading_text/loading_text_widget.dart';
 import '/components/unlock_chat_dialogue_box_widget.dart';
 import '/components/user_preview_component/user_preview_component_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
+import '/core/animations.dart';
+import '/widgets/app_expanded_image_view.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/upload_data.dart';
 import 'dart:math';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'chat_page_widget.dart' show ChatPageWidget;
 import 'dart:async';
@@ -36,7 +36,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
+class ChatPageModel extends AppModel<ChatPageWidget> {
   ///  Local state fields for this page.
 
   bool loading = true;
@@ -75,8 +75,8 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
   // Model for LoadingText component.
   late LoadingTextModel loadingTextModel;
   bool isDataUploading_locallyUploadedImage = false;
-  FFUploadedFile uploadedLocalFile_locallyUploadedImage =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  UploadedFile uploadedLocalFile_locallyUploadedImage =
+      UploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
 
   // State field(s) for MessageTextField widget.
   FocusNode? messageTextFieldFocusNode;
@@ -84,8 +84,8 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
   String? Function(BuildContext, String?)?
       messageTextFieldTextControllerValidator;
   bool isDataUploading_uploadedFileImagePath = false;
-  FFUploadedFile uploadedLocalFile_uploadedFileImagePath =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  UploadedFile uploadedLocalFile_uploadedFileImagePath =
+      UploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
   String uploadedFileUrl_uploadedFileImagePath = '';
 
   // Stores action output result for [Backend Call - API (send message)] action in IconButton widget.

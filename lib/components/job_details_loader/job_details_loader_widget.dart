@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -44,7 +44,7 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(valueOrDefault<double>(
-        FFAppConstants.parentPagePadding,
+        AppConstants.parentPagePadding,
         0.0,
       )),
       child: SingleChildScrollView(
@@ -56,7 +56,7 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               width: 100.0,
               height: 30.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).alternate,
+                color: AppTheme.of(context).alternate,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
@@ -64,7 +64,7 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               width: 250.0,
               height: 50.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).alternate,
+                color: AppTheme.of(context).alternate,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
@@ -72,7 +72,7 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               width: 200.0,
               height: 20.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).alternate,
+                color: AppTheme.of(context).alternate,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
@@ -80,7 +80,7 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               width: 200.0,
               height: 20.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).alternate,
+                color: AppTheme.of(context).alternate,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
@@ -88,7 +88,7 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               width: double.infinity,
               height: 200.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).alternate,
+                color: AppTheme.of(context).alternate,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
@@ -96,7 +96,7 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               width: double.infinity,
               height: 200.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).alternate,
+                color: AppTheme.of(context).alternate,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
@@ -104,12 +104,12 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               width: double.infinity,
               height: 200.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).alternate,
+                color: AppTheme.of(context).alternate,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
           ]
-              .divide(SizedBox(height: FFAppConstants.parentPagePadding))
+              .divide(SizedBox(height: AppConstants.parentPagePadding))
               .addToEnd(SizedBox(height: 80.0)),
         ),
       ),

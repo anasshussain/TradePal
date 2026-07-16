@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'onboarding_widget.dart' show OnboardingWidget;
@@ -14,7 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class OnboardingModel extends FlutterFlowModel<OnboardingWidget> {
+class OnboardingModel extends AppModel<OnboardingWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for PageView widget.

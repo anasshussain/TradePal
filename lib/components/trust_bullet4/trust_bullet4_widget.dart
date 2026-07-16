@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -62,7 +62,7 @@ class _TrustBullet4WidgetState extends State<TrustBullet4Widget> {
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Icon(
             Icons.check_rounded,
-            color: FlutterFlowTheme.of(context).info,
+            color: AppTheme.of(context).info,
             size: 14.0,
           ),
         ),
@@ -73,18 +73,18 @@ class _TrustBullet4WidgetState extends State<TrustBullet4Widget> {
               widget!.label,
               'Share photos',
             ),
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
+            style: AppTheme.of(context).bodyMedium.override(
                   font: GoogleFonts.manrope(
                     fontWeight:
-                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        AppTheme.of(context).bodyMedium.fontWeight,
                     fontStyle:
-                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        AppTheme.of(context).bodyMedium.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).secondaryText,
+                  color: AppTheme.of(context).secondaryText,
                   letterSpacing: 0.0,
                   fontWeight:
-                      FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      AppTheme.of(context).bodyMedium.fontWeight,
+                  fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
                   lineHeight: 1.5,
                 ),
           ),

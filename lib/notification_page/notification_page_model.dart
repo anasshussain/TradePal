@@ -5,9 +5,9 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/notification_item_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import '/index.dart';
 import 'notification_page_widget.dart' show NotificationPageWidget;
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class NotificationPageModel extends FlutterFlowModel<NotificationPageWidget> {
+class NotificationPageModel extends AppModel<NotificationPageWidget> {
   ///  Local state fields for this page.
 
   List<NotificationsStruct> notificationsPageState = [];

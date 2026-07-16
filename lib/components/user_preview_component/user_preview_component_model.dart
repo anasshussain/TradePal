@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'dart:ui';
 import 'user_preview_component_widget.dart' show UserPreviewComponentWidget;
@@ -14,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class UserPreviewComponentModel
-    extends FlutterFlowModel<UserPreviewComponentWidget> {
+    extends AppModel<UserPreviewComponentWidget> {
   @override
   void initState(BuildContext context) {}
 

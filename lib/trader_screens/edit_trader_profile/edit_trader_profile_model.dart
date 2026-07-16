@@ -5,12 +5,12 @@ import '/backend/supabase/supabase.dart';
 import '/components/add_skills/add_skills_widget.dart';
 import '/components/alerts/alerts_widget.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
-import '/flutter_flow/flutter_flow_choice_chips.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/upload_data.dart';
+import '/widgets/app_choice_chips.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/form_field_controller.dart';
+import '/core/upload_data.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -24,7 +24,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class EditTraderProfileModel extends FlutterFlowModel<EditTraderProfileWidget> {
+class EditTraderProfileModel extends AppModel<EditTraderProfileWidget> {
   ///  Local state fields for this page.
 
   List<String> selectedSkills = [];
@@ -57,8 +57,8 @@ class EditTraderProfileModel extends FlutterFlowModel<EditTraderProfileWidget> {
   // Model for appbar_component component.
   late AppbarComponentModel appbarComponentModel;
   bool isDataUploading_uploadImg = false;
-  FFUploadedFile uploadedLocalFile_uploadImg =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  UploadedFile uploadedLocalFile_uploadImg =
+      UploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
   String uploadedFileUrl_uploadImg = '';
 
   // State field(s) for name widget.

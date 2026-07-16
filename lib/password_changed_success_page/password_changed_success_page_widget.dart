@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -52,7 +52,7 @@ class _PasswordChangedSuccessPageWidgetState
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Padding(
@@ -82,16 +82,16 @@ class _PasswordChangedSuccessPageWidgetState
                   child: Text(
                     'Password Changed!',
                     textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    style: AppTheme.of(context).headlineMedium.override(
                           font: GoogleFonts.manrope(
                             fontWeight: FontWeight.bold,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .headlineMedium
                                 .fontStyle,
                           ),
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
-                          fontStyle: FlutterFlowTheme.of(context)
+                          fontStyle: AppTheme.of(context)
                               .headlineMedium
                               .fontStyle,
                         ),
@@ -102,22 +102,22 @@ class _PasswordChangedSuccessPageWidgetState
                   child: Text(
                     'Your password has been updated successfully. You can now use your new password to sign in to your account.',
                     textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    style: AppTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.manrope(
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                           ),
-                          color: FlutterFlowTheme.of(context).secondaryText,
+                          color: AppTheme.of(context).secondaryText,
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .bodyMedium
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              AppTheme.of(context).bodyMedium.fontStyle,
                           lineHeight: 1.6,
                         ),
                   ),
@@ -127,7 +127,7 @@ class _PasswordChangedSuccessPageWidgetState
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: AppTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Padding(
@@ -155,19 +155,19 @@ class _PasswordChangedSuccessPageWidgetState
                               children: [
                                 Text(
                                   'Security Tip',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .titleSmall
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleSmall
                                             .fontStyle,
                                       ),
@@ -177,28 +177,28 @@ class _PasswordChangedSuccessPageWidgetState
                                       0.0, 4.0, 0.0, 0.0),
                                   child: Text(
                                     'Never share your password with anyone. Use a unique password for each account.',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodySmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .secondaryText,
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontStyle,
                                           lineHeight: 1.5,

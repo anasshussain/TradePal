@@ -1,9 +1,9 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -57,14 +57,14 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Padding(
               padding: EdgeInsets.all(valueOrDefault<double>(
-                FFAppConstants.parentPagePadding,
+                AppConstants.parentPagePadding,
                 0.0,
               )),
               child: SingleChildScrollView(
@@ -80,7 +80,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .md),
@@ -89,7 +89,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                             width: 120.0,
                             height: 120.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
+                              color: AppTheme.of(context)
                                   .secondaryBackground,
                               boxShadow: [
                                 BoxShadow(
@@ -103,19 +103,19 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                 )
                               ],
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .md),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                             ),
                             child: Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.email_outlined,
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                                 size: 64.0,
                               ),
                             ),
@@ -124,19 +124,19 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                         Text(
                           'Verify Your Email',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .displayMedium
                               .override(
                                 font: GoogleFonts.manrope(
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .displayMedium
                                       .fontStyle,
                                 ),
                                 fontSize: 44.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .displayMedium
                                     .fontStyle,
                               ),
@@ -145,20 +145,20 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                           'We\'ve sent a verification code to this address ${currentUserEmail}. Enter it below to confirm your account.',
                           textAlign: TextAlign.center,
                           style:
-                              FlutterFlowTheme.of(context).labelLarge.override(
+                              AppTheme.of(context).labelLarge.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelLarge
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelLarge
                                         .fontStyle,
                                     lineHeight: 1.5,
@@ -175,22 +175,22 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                           Text(
                             'Resend the code if you have not received it.',
                             textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelLarge
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelLarge
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelLarge
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelLarge
                                       .fontStyle,
                                   lineHeight: 1.5,
@@ -206,20 +206,20 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                           appContext: context,
                           length: 6,
                           textStyle:
-                              FlutterFlowTheme.of(context).bodyLarge.override(
+                              AppTheme.of(context).bodyLarge.override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyLarge
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyLarge
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyLarge
                                         .fontStyle,
                                   ),
@@ -230,7 +230,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                           enablePinAutofill: false,
                           errorTextSpace: 16.0,
                           showCursor: true,
-                          cursorColor: FlutterFlowTheme.of(context).primary,
+                          cursorColor: AppTheme.of(context).primary,
                           obscureText: false,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
@@ -247,9 +247,9 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               topRight: Radius.circular(12.0),
                             ),
                             shape: PinCodeFieldShape.box,
-                            activeColor: FlutterFlowTheme.of(context).primary,
+                            activeColor: AppTheme.of(context).primary,
                             inactiveColor:
-                                FlutterFlowTheme.of(context).alternate,
+                                AppTheme.of(context).alternate,
                             selectedColor: Color(0xFF51576C),
                           ),
                           controller: _model.pinCodeController,
@@ -261,25 +261,25 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                         Text(
                           'Didn\'t receive the email? Check your spam folder or try again.',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .bodySmall
                               .override(
                                 font: GoogleFonts.manrope(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodySmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodySmall
                                       .fontStyle,
                                 ),
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 fontSize: 14.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodySmall
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodySmall
                                     .fontStyle,
                               ),
@@ -296,7 +296,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                           tabletLandscape: false,
                           desktop: false,
                         ))
-                          FFButtonWidget(
+                          AppButton(
                             onPressed: () {
                               print('Button pressed ...');
                             },
@@ -305,7 +305,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               Icons.mail_outline,
                               size: 24.0,
                             ),
-                            options: FFButtonOptions(
+                            options: AppButtonOptions(
                               width: 300.0,
                               height: 50.0,
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -314,12 +314,12 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                   0.0, 0.0, 0.0, 0.0),
                               iconColor: Color(0xFF00AB5A),
                               color: Colors.transparent,
-                              textStyle: FlutterFlowTheme.of(context)
+                              textStyle: AppTheme.of(context)
                                   .titleSmall
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
@@ -327,7 +327,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
@@ -339,7 +339,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
-                        FFButtonWidget(
+                        AppButton(
                           onPressed: () async {
                             if (_model.pinCodeController!.text != null &&
                                 _model.pinCodeController!.text != '') {
@@ -359,7 +359,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
 
                                 if ((_model.apiResultUserProfile?.succeeded ??
                                     true)) {
-                                  FFAppState().userProfileCache = ((_model
+                                  AppState().userProfileCache = ((_model
                                                   .apiResultUserProfile
                                                   ?.jsonBody ??
                                               '')
@@ -406,44 +406,44 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                             Icons.mark_email_read,
                             size: 24.0,
                           ),
-                          options: FFButtonOptions(
+                          options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context).primary,
+                            textStyle: AppTheme.of(context)
                                 .titleSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                                   color: Colors.white,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
                           ),
                         ),
                         if (_model.showResendCode ?? true)
-                          FFButtonWidget(
+                          AppButton(
                             onPressed: () async {
                               _model.sendOtpResult =
                                   await SupabaseEdgeFunctionsGroup.sendOtpCall
@@ -490,7 +490,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               Icons.mark_email_read,
                               size: 15.0,
                             ),
-                            options: FFButtonOptions(
+                            options: AppButtonOptions(
                               width: 300.0,
                               height: 50.0,
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -498,29 +498,29 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: Colors.transparent,
-                              textStyle: FlutterFlowTheme.of(context)
+                              textStyle: AppTheme.of(context)
                                   .titleSmall
                                   .override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: AppTheme.of(context).primary,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                               elevation: 0.0,
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
@@ -548,7 +548,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .spacing
                                           .lg,
@@ -558,29 +558,29 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                   child: Text(
                                     'Wrong email address?',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodySmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .secondaryText,
                                           fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontStyle,
                                         ),
@@ -588,7 +588,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .spacing
                                           .lg,
@@ -598,23 +598,23 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                   child: Text(
                                     'Change Email',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodySmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w600,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .primary,
                                           fontSize: 15.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontStyle,
                                         ),
@@ -626,7 +626,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                         ),
                       ].divide(SizedBox(height: 12.0)),
                     ),
-                  ].divide(SizedBox(height: FFAppConstants.spacing)),
+                  ].divide(SizedBox(height: AppConstants.spacing)),
                 ),
               ),
             ),

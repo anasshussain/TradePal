@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 import 'schema/util/firestore_util.dart';
 
 import 'schema/users_record.dart';
@@ -339,15 +339,15 @@ extension QueryExtension on Query {
           : where(field, arrayContainsAny: list);
 }
 
-class FFFirestorePage<T> {
+class AppFirestorePage<T> {
   final List<T> data;
   final Stream<List<T>>? dataStream;
   final QueryDocumentSnapshot? nextPageMarker;
 
-  FFFirestorePage(this.data, this.dataStream, this.nextPageMarker);
+  AppFirestorePage(this.data, this.dataStream, this.nextPageMarker);
 }
 
-Future<FFFirestorePage<T>> queryCollectionPage<T>(
+Future<AppFirestorePage<T>> queryCollectionPage<T>(
   Query collection,
   RecordBuilder<T> recordBuilder, {
   Query Function(Query)? queryBuilder,
@@ -381,5 +381,5 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
   final data = getDocs(docSnapshot);
   final dataStream = docSnapshotStream?.map(getDocs);
   final nextPageToken = docSnapshot.docs.isEmpty ? null : docSnapshot.docs.last;
-  return FFFirestorePage(data, dataStream, nextPageToken);
+  return AppFirestorePage(data, dataStream, nextPageToken);
 }

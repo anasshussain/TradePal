@@ -1,12 +1,12 @@
 import '/components/appbar_component/appbar_component_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'reset_password_widget.dart' show ResetPasswordWidget;
 import 'package:easy_debounce/easy_debounce.dart';
@@ -15,7 +15,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ResetPasswordModel extends FlutterFlowModel<ResetPasswordWidget> {
+class ResetPasswordModel extends AppModel<ResetPasswordWidget> {
   ///  Local state fields for this page.
 
   String? password;

@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -60,16 +60,16 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
       elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(valueOrDefault<double>(
-          FFAppConstants.radius1,
+          AppConstants.radius1,
           0.0,
         )),
       ),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).primaryBackground,
+          color: AppTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.circular(valueOrDefault<double>(
-            FFAppConstants.radius1,
+            AppConstants.radius1,
             0.0,
           )),
           border: Border.all(
@@ -79,7 +79,7 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
         ),
         child: Padding(
           padding: EdgeInsets.all(valueOrDefault<double>(
-            FFAppConstants.childPadding,
+            AppConstants.childPadding,
             0.0,
           )),
           child: Column(
@@ -97,20 +97,20 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
                         widget!.title,
                         'title',
                       ),
-                      style: FlutterFlowTheme.of(context).titleLarge.override(
+                      style: AppTheme.of(context).titleLarge.override(
                             font: GoogleFonts.manrope(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .titleLarge
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .titleLarge
                                   .fontStyle,
                             ),
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .titleLarge
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .titleLarge
                                 .fontStyle,
                           ),
@@ -121,21 +121,21 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
                         widget!.description,
                         'description',
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: AppTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.manrope(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                            color: AppTheme.of(context).secondaryText,
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                           ),
@@ -152,7 +152,7 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
                   ))
                 ClipRRect(
                   borderRadius: BorderRadius.circular(valueOrDefault<double>(
-                    FFAppConstants.radius3,
+                    AppConstants.radius3,
                     0.0,
                   )),
                   child: CachedNetworkImage(
@@ -170,7 +170,7 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
                     ),
                   ),
                 ),
-            ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+            ].divide(SizedBox(height: AppConstants.childSpacing)),
           ),
         ),
       ),

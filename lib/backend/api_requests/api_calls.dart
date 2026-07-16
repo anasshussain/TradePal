@@ -4,12 +4,12 @@ import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';
 
-import '/flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
 
-const _kPrivateApiFunctionName = 'ffPrivateApiCall';
+const _kPrivateApiFunctionName = 'privateApiCall';
 
 /// Start supabase edge functions Group Code
 
@@ -42,7 +42,7 @@ class SendOtpCall {
   }) async {
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "email": "${email}"
 }''';
@@ -58,7 +58,7 @@ class SendOtpCall {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.TEXT,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -86,7 +86,7 @@ class VerifyOtpCall {
   }) async {
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {"email":"${email}",
 "otp":"${code}"
 }''';
@@ -102,7 +102,7 @@ class VerifyOtpCall {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.TEXT,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -129,7 +129,7 @@ class GetBankAccDetailsCall {
   }) async {
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "stripeAccountId": "${escapeStringForJson(accountId)}"
 }''';
@@ -145,7 +145,7 @@ class GetBankAccDetailsCall {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -164,7 +164,7 @@ class DeleteBankAccountCall {
   }) async {
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "stripeAccountId": "${escapeStringForJson(accountId)}",
   "bankAccountId": "${escapeStringForJson(bankAccountId)}"
@@ -181,7 +181,7 @@ class DeleteBankAccountCall {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -200,7 +200,7 @@ class CreateDefaultAccountCall {
   }) async {
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "acctId": "${escapeStringForJson(accountId)}",
   "externalAccountId": "${escapeStringForJson(bankAccountId)}"
@@ -217,7 +217,7 @@ class CreateDefaultAccountCall {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -239,7 +239,7 @@ class SendPushNotificationCall {
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
     final data = _serializeJson(dataJson);
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "fcm_token": "${escapeStringForJson(deviceToken)}",
   "title": "${escapeStringForJson(title)}",
@@ -258,7 +258,7 @@ class SendPushNotificationCall {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -307,7 +307,7 @@ class OnboardingStripeConnectAccountCall {
   }) async {
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "user_id": "${escapeStringForJson(userId)}",
   "email": "${escapeStringForJson(email)}"
@@ -324,7 +324,7 @@ class OnboardingStripeConnectAccountCall {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -349,7 +349,7 @@ class SupbaseRpcGroup {
   static String getBaseUrl({
     String? token,
   }) {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     return 'https://ykwdjdyhbujnqeytkbmk.supabase.co/rest/v1/rpc/';
   }
 
@@ -390,13 +390,13 @@ class AddJobCall {
     String? name = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupbaseRpcGroup.getBaseUrl(
       token: token,
     );
     final images = _serializeList(imagesList);
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "job_title": "${escapeStringForJson(title)}",
   "lat": ${lat},
@@ -425,7 +425,7 @@ class AddJobCall {
         'apikey': '${token}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -459,13 +459,13 @@ class UpdateJobRpcCall {
     String? status = 'ACTIVE',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupbaseRpcGroup.getBaseUrl(
       token: token,
     );
     final images = _serializeList(imagesList);
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "p_job_id": "${escapeStringForJson(jobId)}",
   "p_user_id": "${escapeStringForJson(userId)}",
@@ -495,7 +495,7 @@ class UpdateJobRpcCall {
         'apikey': '${token}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -516,12 +516,12 @@ class SendMessageCall {
     String? imageUrl = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupbaseRpcGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "p_conversation_id": "${escapeStringForJson(conversationId)}",
   "p_sender_id": "${escapeStringForJson(senderId)}",
@@ -539,7 +539,7 @@ class SendMessageCall {
         'apikey': '${token}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -558,12 +558,12 @@ class GetConversationBetweenUsersCall {
     String? jobId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupbaseRpcGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "user_a": "${escapeStringForJson(userA)}",
   "user_b": "${escapeStringForJson(userB)}",
@@ -579,7 +579,7 @@ class GetConversationBetweenUsersCall {
         'apikey': '${token}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -597,12 +597,12 @@ class MarkConversationReadCall {
     String? authtoken = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupbaseRpcGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "p_conversation_id": "${escapeStringForJson(conversationId)}"
 }''';
@@ -617,7 +617,7 @@ class MarkConversationReadCall {
         'Authorization': 'Bearer ${authtoken}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -635,12 +635,12 @@ class UpdateTradePersonRatingCall {
     String? authtoken = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupbaseRpcGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "p_tradeperson_id": "${escapeStringForJson(pTradepersonId)}"
 }''';
@@ -655,7 +655,7 @@ class UpdateTradePersonRatingCall {
         'Authorization': 'Bearer ${authtoken}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -673,12 +673,12 @@ class SearchConversationsCall {
     String? searchText = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupbaseRpcGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "p_user_id": "${escapeStringForJson(userId)}",
   "p_search": "${escapeStringForJson(searchText)}"
@@ -693,7 +693,7 @@ class SearchConversationsCall {
         'apikey': '${token}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -713,7 +713,7 @@ class SupabaseTablesGroup {
   static String getBaseUrl({
     String? token,
   }) {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     return 'https://ykwdjdyhbujnqeytkbmk.supabase.co/rest/v1';
   }
 
@@ -759,7 +759,7 @@ class GetJobsListCall {
     String? range = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -806,7 +806,7 @@ class GetUserCall {
     String? userId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -886,12 +886,12 @@ class AddNewUserCall {
     String? deviceToken = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "id": "${escapeStringForJson(userId)}",
   "email": "${escapeStringForJson(email)}",
@@ -913,7 +913,7 @@ class AddNewUserCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -932,12 +932,12 @@ class UpdateUserOnboardingCall {
     int? userRole,
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {"onboarding_step":${onboardingStep}, "user_role":${userRole}}''';
     return ApiManager.instance.makeApiCall(
       callName: 'update user onboarding',
@@ -949,7 +949,7 @@ class UpdateUserOnboardingCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -979,13 +979,13 @@ class UpdateUserCall {
     List<String>? skillsList,
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
     final skills = _serializeList(skillsList);
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "avatar_url": "${escapeStringForJson(profileImage)}",
   "name": "${escapeStringForJson(name)}",
@@ -1012,7 +1012,7 @@ class UpdateUserCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1029,7 +1029,7 @@ class GetJobDetailsCall {
     String? jobId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1075,7 +1075,7 @@ class GetJobLocationCall {
     String? locationId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1110,12 +1110,12 @@ class SubmitProposalCall {
     String? status = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "job_id": "${escapeStringForJson(jobId)}",
   "status": "${escapeStringForJson(status)}",
@@ -1134,7 +1134,7 @@ class SubmitProposalCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1151,7 +1151,7 @@ class GetSubmittedProposalsCall {
     String? params = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1182,7 +1182,7 @@ class GetSubmittedJobsListCall {
     String? status = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1213,7 +1213,7 @@ class GetConversationsCall {
     String? userId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1244,7 +1244,7 @@ class GetMessagesCall {
     String? conversationId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1274,7 +1274,7 @@ class TestCall {
   Future<ApiCallResponse> call({
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1305,12 +1305,12 @@ class UpdateProposalStatusCall {
     String? applicationId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "status": "${escapeStringForJson(status)}" 
 }''';
@@ -1324,7 +1324,7 @@ class UpdateProposalStatusCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1342,13 +1342,13 @@ class UpdateJobStatusCall {
     String? params = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
     final payload = _serializeJson(payloadJson);
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 ${payload}''';
     return ApiManager.instance.makeApiCall(
       callName: 'update job  status',
@@ -1360,7 +1360,7 @@ ${payload}''';
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1377,7 +1377,7 @@ class GetStripeRowCall {
     String? userId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1410,13 +1410,13 @@ class UpdateUserSkillsCall {
     String? userId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
     final skills = _serializeList(skillsList);
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
  "skills":${skills} 
  }''';
@@ -1430,7 +1430,7 @@ class UpdateUserSkillsCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1447,7 +1447,7 @@ class GetNotificationsCall {
     String? userId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1532,13 +1532,13 @@ class AddReviewCall {
     List<String>? imageUrlList,
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
     final imageUrl = _serializeList(imageUrlList);
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "job_id": "${escapeStringForJson(jobid)}",
   "reviewer_id": "${escapeStringForJson(reviewerId)}",
@@ -1560,7 +1560,7 @@ class AddReviewCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1583,13 +1583,13 @@ class InsertNotificationCall {
     dynamic? extraDataJson,
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
     final extraData = _serializeJson(extraDataJson);
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "user_id": "${escapeStringForJson(userId)}",
   "type": "${escapeStringForJson(type)}",
@@ -1609,7 +1609,7 @@ class InsertNotificationCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1627,12 +1627,12 @@ class AddDeviceTokenCall {
     String? deviceToken = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "device_token": "${escapeStringForJson(deviceToken)}"
 }''';
@@ -1646,7 +1646,7 @@ class AddDeviceTokenCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1667,13 +1667,13 @@ class InsertJobActivityCall {
     String? createdAt = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
 
     final metadata = _serializeJson(metadataJson);
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "job_id": "${escapeStringForJson(jobId)}",
   "actor_id": "${escapeStringForJson(userId)}",
@@ -1691,7 +1691,7 @@ class InsertJobActivityCall {
         'Prefer': 'return=representation',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1709,7 +1709,7 @@ class GetProposalPaymentCall {
     String? tradepersonId = '',
     String? token,
   }) async {
-    token ??= FFDevEnvironmentValues().authToken;
+    token ??= DevEnvironmentValues().authToken;
     final baseUrl = SupabaseTablesGroup.getBaseUrl(
       token: token,
     );
@@ -1752,7 +1752,7 @@ class CreatePaymentFeeCall {
     String? jobId = '',
     String? token = '',
   }) async {
-    final ffApiRequestBody = '''
+    final apiRequestBody = '''
 {
   "job_id": "${escapeStringForJson(jobId)}"
 }''';
@@ -1766,7 +1766,7 @@ class CreatePaymentFeeCall {
         'Authorization': 'Bearer ${token}',
       },
       params: {},
-      body: ffApiRequestBody,
+      body: apiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,

@@ -1,20 +1,20 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 
-class FFDevEnvironmentValues {
+class DevEnvironmentValues {
   static const String currentEnvironment = 'Production';
   static const String environmentValuesPath =
       'assets/environment_values/environment.json';
 
-  static final FFDevEnvironmentValues _instance =
-      FFDevEnvironmentValues._internal();
+  static final DevEnvironmentValues _instance =
+      DevEnvironmentValues._internal();
 
-  factory FFDevEnvironmentValues() {
+  factory DevEnvironmentValues() {
     return _instance;
   }
 
-  FFDevEnvironmentValues._internal();
+  DevEnvironmentValues._internal();
 
   Future<void> initialize() async {
     try {

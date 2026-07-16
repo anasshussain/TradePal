@@ -1,9 +1,9 @@
 import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/customer_navbar/customer_navbar_widget.dart';
 import '/components/page_header_sectiom/page_header_sectiom_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -52,9 +52,9 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -74,7 +74,7 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: SingleChildScrollView(
@@ -92,7 +92,7 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
                           itemText: 'Vetted Pros',
                         ),
                       ),
-                    ].divide(SizedBox(height: FFAppConstants.spacing)),
+                    ].divide(SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),

@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -87,7 +87,7 @@ class _CustomerProfileComponentWidgetState
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(valueOrDefault<double>(
-                        FFAppConstants.radius1,
+                        AppConstants.radius1,
                         0.0,
                       )),
                     ),
@@ -98,7 +98,7 @@ class _CustomerProfileComponentWidgetState
                         color: widget!.boxColor,
                         borderRadius:
                             BorderRadius.circular(valueOrDefault<double>(
-                          FFAppConstants.radius1,
+                          AppConstants.radius1,
                           0.0,
                         )),
                       ),
@@ -117,16 +117,16 @@ class _CustomerProfileComponentWidgetState
                         widget!.title,
                         'title',
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: AppTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.manrope(
                               fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                           ),
@@ -136,36 +136,36 @@ class _CustomerProfileComponentWidgetState
                         widget!.description,
                         'description',
                       ),
-                      style: FlutterFlowTheme.of(context).labelSmall.override(
+                      style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .labelSmall
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelSmall
                                   .fontStyle,
                             ),
                             fontSize: 10.0,
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .labelSmall
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .labelSmall
                                 .fontStyle,
                           ),
                     ),
                   ].divide(SizedBox(
                       height:
-                          FlutterFlowTheme.of(context).designToken.spacing.xs)),
+                          AppTheme.of(context).designToken.spacing.xs)),
                 ),
               ].divide(SizedBox(
-                  width: FlutterFlowTheme.of(context).designToken.spacing.md)),
+                  width: AppTheme.of(context).designToken.spacing.md)),
             ),
             if (widget!.showSwitchBtn != true)
               Icon(
                 Icons.arrow_forward_ios,
-                color: FlutterFlowTheme.of(context).primaryText,
+                color: AppTheme.of(context).primaryText,
                 size: 24.0,
               ),
           ],

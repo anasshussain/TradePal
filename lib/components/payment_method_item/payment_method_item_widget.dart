@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -57,13 +57,13 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
       decoration: BoxDecoration(
         color: widget!.selected
             ? Color(0x0D635BFF)
-            : FlutterFlowTheme.of(context).secondaryBackground,
+            : AppTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(8.0),
         shape: BoxShape.rectangle,
         border: Border.all(
           color: widget!.selected
-              ? FlutterFlowTheme.of(context).primary
-              : FlutterFlowTheme.of(context).alternate,
+              ? AppTheme.of(context).primary
+              : AppTheme.of(context).alternate,
           width: widget!.selected ? 1.0 : 1.0,
         ),
       ),
@@ -83,20 +83,20 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
                     widget!.label,
                     'Credit Card',
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  style: AppTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.manrope(
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .bodyMedium
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              AppTheme.of(context).bodyMedium.fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: AppTheme.of(context).primaryText,
                         letterSpacing: 0.0,
                         fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                            AppTheme.of(context).bodyMedium.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                            AppTheme.of(context).bodyMedium.fontStyle,
                         lineHeight: 1.5,
                       ),
                 ),
@@ -111,16 +111,16 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
                       Icon(
                         Icons.check_circle_rounded,
                         color: widget!.selected
-                            ? FlutterFlowTheme.of(context).primary
-                            : FlutterFlowTheme.of(context).alternate,
+                            ? AppTheme.of(context).primary
+                            : AppTheme.of(context).alternate,
                         size: 20.0,
                       ),
                     if (widget!.selected ? false : true)
                       Icon(
                         Icons.radio_button_unchecked_rounded,
                         color: widget!.selected
-                            ? FlutterFlowTheme.of(context).primary
-                            : FlutterFlowTheme.of(context).alternate,
+                            ? AppTheme.of(context).primary
+                            : AppTheme.of(context).alternate,
                         size: 20.0,
                       ),
                   ],

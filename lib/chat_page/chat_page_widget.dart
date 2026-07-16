@@ -11,18 +11,18 @@ import '/components/empty_list_component/empty_list_component_widget.dart';
 import '/components/loading_text/loading_text_widget.dart';
 import '/components/unlock_chat_dialogue_box_widget.dart';
 import '/components/user_preview_component/user_preview_component_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
+import '/core/animations.dart';
+import '/widgets/app_expanded_image_view.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/upload_data.dart';
 import 'dart:math';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'dart:async';
 import 'package:flutter/gestures.dart';
@@ -131,7 +131,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
           safeSetState(() {});
         }),
         Future(() async {
-          if (FFAppState().userProfileCache.userRole == 2) {
+          if (AppState().userProfileCache.userRole == 2) {
             _model.paymentStatusRes =
                 await SupabaseTablesGroup.getProposalPaymentCall.call(
               jobId: widget!.jobid,
@@ -249,7 +249,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             curve: Curves.easeInOutQuint,
             delay: 0.0.ms,
             duration: 800.0.ms,
-            color: FlutterFlowTheme.of(context).hint,
+            color: AppTheme.of(context).hint,
             angle: 0.524,
           ),
         ],
@@ -278,7 +278,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return Builder(
       builder: (context) => GestureDetector(
@@ -288,9 +288,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
         },
         child: Scaffold(
           key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            backgroundColor: AppTheme.of(context).primaryBackground,
             automaticallyImplyLeading: false,
             title: wrapWithModel(
               model: _model.appbarComponentModel,
@@ -346,7 +346,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                               ),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
-                                  FFAppConstants.childPadding,
+                                  AppConstants.childPadding,
                                   0.0,
                                 )),
                                 child: Column(
@@ -368,7 +368,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               FaIcon(
                                                 FontAwesomeIcons.tools,
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .primary,
                                                 size: 16.0,
                                               ),
@@ -382,17 +382,17 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       TextSpan(
                                                         text: 'Discussing:',
                                                         style:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontStyle,
@@ -401,11 +401,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                       12.0,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
@@ -417,7 +417,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           _model.jobData?.title,
                                                           '....',
                                                         ),
-                                                        style: FlutterFlowTheme
+                                                        style: AppTheme
                                                                 .of(context)
                                                             .bodyMedium
                                                             .override(
@@ -426,7 +426,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
@@ -438,38 +438,38 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   FontWeight
                                                                       .bold,
                                                               fontStyle:
-                                                                  FlutterFlowTheme.of(
+                                                                  AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
                                                       )
                                                     ],
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           font: GoogleFonts
                                                               .manrope(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
@@ -478,30 +478,30 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                               ),
                                             ].divide(SizedBox(
-                                                width: FFAppConstants
+                                                width: AppConstants
                                                     .childSpacing)),
                                           ),
                                         ),
                                         Text(
                                           'View details',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .bodyMedium
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .secondary,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
@@ -509,12 +509,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                       ]
                                           .divide(SizedBox(
                                               width:
-                                                  FFAppConstants.childSpacing))
+                                                  AppConstants.childSpacing))
                                           .around(SizedBox(
                                               width:
-                                                  FFAppConstants.childSpacing)),
+                                                  AppConstants.childSpacing)),
                                     ),
-                                    if ((FFAppState()
+                                    if ((AppState()
                                                 .userProfileCache
                                                 .userRole ==
                                             1) &&
@@ -525,7 +525,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 Status.IN_PROGRESS)))
                                       Container(
                                         decoration: BoxDecoration(),
-                                        child: FFButtonWidget(
+                                        child: AppButton(
                                           onPressed: () async {
                                             if (_model.jobData?.status ==
                                                 Status.IN_PROGRESS) {
@@ -682,7 +682,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   Status.IN_PROGRESS
                                               ? 'Complete job'
                                               : 'Assign to job',
-                                          options: FFButtonOptions(
+                                          options: AppButtonOptions(
                                             width: 300.0,
                                             height: 50.0,
                                             padding:
@@ -693,22 +693,22 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: _model.jobData?.status ==
                                                     Status.IN_PROGRESS
-                                                ? FlutterFlowTheme.of(context)
+                                                ? AppTheme.of(context)
                                                     .success
-                                                : FlutterFlowTheme.of(context)
+                                                : AppTheme.of(context)
                                                     .primary,
                                             textStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleSmall
                                                     .override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
@@ -716,19 +716,19 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       color: Colors.white,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .fontStyle,
                                                     ),
                                             elevation: 0.0,
                                             borderRadius: BorderRadius.circular(
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .designToken
                                                     .radius
                                                     .lg),
@@ -737,7 +737,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                       ).animateOnPageLoad(animationsMap[
                                           'containerOnPageLoadAnimation2']!),
                                   ].divide(SizedBox(
-                                      height: FFAppConstants.childSpacing)),
+                                      height: AppConstants.childSpacing)),
                                 ),
                               ),
                             ),
@@ -757,17 +757,17 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                         builder: (context) {
                           if (!_model.loading) {
                             return Visibility(
-                              visible: (FFAppState()
+                              visible: (AppState()
                                           .userProfileCache
                                           .userRole ==
                                       1) ||
-                                  ((FFAppState().userProfileCache.userRole ==
+                                  ((AppState().userProfileCache.userRole ==
                                           2) &&
                                       (_model.isProposalPaid == true)) ||
-                                  (FFAppState().paidJobId == widget!.jobid),
+                                  (AppState().paidJobId == widget!.jobid),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
-                                  FFAppConstants.parentPagePadding,
+                                  AppConstants.parentPagePadding,
                                   0.0,
                                 )),
                                 child: FutureBuilder<ApiCallResponse>(
@@ -788,7 +788,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           width: 40.0,
                                           height: 40.0,
                                           child: SpinKitFadingCube(
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .primary,
                                             size: 40.0,
                                           ),
@@ -818,7 +818,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             icon: Icon(
                                               Icons.chat,
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .accent4,
                                               size: 40.0,
                                             ),
@@ -853,7 +853,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           itemCount: messages.length,
                                           separatorBuilder: (_, __) => SizedBox(
                                               height:
-                                                  FFAppConstants.childPadding),
+                                                  AppConstants.childPadding),
                                           itemBuilder:
                                               (context, messagesIndex) {
                                             final messagesItem =
@@ -861,7 +861,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             return Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                if (FFAppState()
+                                                if (AppState()
                                                         .userProfileCache
                                                         .userKey !=
                                                     messagesItem.senderId)
@@ -886,19 +886,19 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 BorderRadius
                                                                     .only(
                                                               topRight: Radius.circular(
-                                                                  FlutterFlowTheme.of(
+                                                                  AppTheme.of(
                                                                           context)
                                                                       .designToken
                                                                       .radius
                                                                       .lg),
                                                               bottomLeft: Radius.circular(
-                                                                  FlutterFlowTheme.of(
+                                                                  AppTheme.of(
                                                                           context)
                                                                       .designToken
                                                                       .radius
                                                                       .lg),
                                                               bottomRight: Radius.circular(
-                                                                  FlutterFlowTheme.of(
+                                                                  AppTheme.of(
                                                                           context)
                                                                       .designToken
                                                                       .radius
@@ -912,26 +912,26 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             ),
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
+                                                              color: AppTheme
                                                                       .of(context)
                                                                   .alternate,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .only(
                                                                 topRight: Radius.circular(
-                                                                    FlutterFlowTheme.of(
+                                                                    AppTheme.of(
                                                                             context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomLeft: Radius.circular(
-                                                                    FlutterFlowTheme.of(
+                                                                    AppTheme.of(
                                                                             context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomRight: Radius.circular(
-                                                                    FlutterFlowTheme.of(
+                                                                    AppTheme.of(
                                                                             context)
                                                                         .designToken
                                                                         .radius
@@ -948,7 +948,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               padding: EdgeInsets.all(
                                                                   valueOrDefault<
                                                                       double>(
-                                                                FFAppConstants
+                                                                AppConstants
                                                                     .childPadding,
                                                                 0.0,
                                                               )),
@@ -985,7 +985,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                             type:
                                                                                 PageTransitionType.fade,
                                                                             child:
-                                                                                FlutterFlowExpandedImageView(
+                                                                                AppExpandedImageView(
                                                                               image: Image.network(
                                                                                 valueOrDefault<String>(
                                                                                   messagesItem.imageUrl,
@@ -1019,11 +1019,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                           borderRadius:
                                                                               BorderRadius.only(
                                                                             topRight:
-                                                                                Radius.circular(FlutterFlowTheme.of(context).designToken.radius.md),
+                                                                                Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                             bottomLeft:
-                                                                                Radius.circular(FlutterFlowTheme.of(context).designToken.radius.md),
+                                                                                Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                             bottomRight:
-                                                                                Radius.circular(FlutterFlowTheme.of(context).designToken.radius.md),
+                                                                                Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                           ),
                                                                           child:
                                                                               Image.network(
@@ -1042,23 +1042,23 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   Text(
                                                                     messagesItem
                                                                         .content,
-                                                                    style: FlutterFlowTheme.of(
+                                                                    style: AppTheme.of(
                                                                             context)
                                                                         .bodyLarge
                                                                         .override(
                                                                           font:
                                                                               GoogleFonts.manrope(
                                                                             fontWeight:
-                                                                                FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                AppTheme.of(context).bodyLarge.fontWeight,
                                                                             fontStyle:
-                                                                                FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                AppTheme.of(context).bodyLarge.fontStyle,
                                                                           ),
                                                                           letterSpacing:
                                                                               0.0,
-                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                          fontWeight: AppTheme.of(context)
                                                                               .bodyLarge
                                                                               .fontWeight,
-                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                          fontStyle: AppTheme.of(context)
                                                                               .bodyLarge
                                                                               .fontStyle,
                                                                         ),
@@ -1081,17 +1081,17 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           )),
                                                           'created at',
                                                         ),
-                                                        style: FlutterFlowTheme
+                                                        style: AppTheme
                                                                 .of(context)
                                                             .labelSmall
                                                             .override(
                                                               font: GoogleFonts
                                                                   .inter(
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontStyle,
@@ -1100,12 +1100,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               letterSpacing:
                                                                   0.0,
                                                               fontWeight:
-                                                                  FlutterFlowTheme.of(
+                                                                  AppTheme.of(
                                                                           context)
                                                                       .labelSmall
                                                                       .fontWeight,
                                                               fontStyle:
-                                                                  FlutterFlowTheme.of(
+                                                                  AppTheme.of(
                                                                           context)
                                                                       .labelSmall
                                                                       .fontStyle,
@@ -1113,7 +1113,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       ),
                                                     ],
                                                   ),
-                                                if (FFAppState()
+                                                if (AppState()
                                                         .userProfileCache
                                                         .userKey ==
                                                     messagesItem.senderId)
@@ -1191,19 +1191,19 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   BorderRadius
                                                                       .only(
                                                                 topRight: Radius.circular(
-                                                                    FlutterFlowTheme.of(
+                                                                    AppTheme.of(
                                                                             context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomLeft: Radius.circular(
-                                                                    FlutterFlowTheme.of(
+                                                                    AppTheme.of(
                                                                             context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomRight: Radius.circular(
-                                                                    FlutterFlowTheme.of(
+                                                                    AppTheme.of(
                                                                             context)
                                                                         .designToken
                                                                         .radius
@@ -1217,26 +1217,26 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               ),
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
+                                                                color: AppTheme.of(
                                                                         context)
                                                                     .primary,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .only(
                                                                   topRight: Radius.circular(
-                                                                      FlutterFlowTheme.of(
+                                                                      AppTheme.of(
                                                                               context)
                                                                           .designToken
                                                                           .radius
                                                                           .lg),
                                                                   bottomLeft: Radius.circular(
-                                                                      FlutterFlowTheme.of(
+                                                                      AppTheme.of(
                                                                               context)
                                                                           .designToken
                                                                           .radius
                                                                           .lg),
                                                                   bottomRight: Radius.circular(
-                                                                      FlutterFlowTheme.of(
+                                                                      AppTheme.of(
                                                                               context)
                                                                           .designToken
                                                                           .radius
@@ -1253,7 +1253,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 padding: EdgeInsets.all(
                                                                     valueOrDefault<
                                                                         double>(
-                                                                  FFAppConstants
+                                                                  AppConstants
                                                                       .childPadding,
                                                                   0.0,
                                                                 )),
@@ -1284,7 +1284,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                             context,
                                                                             PageTransition(
                                                                               type: PageTransitionType.fade,
-                                                                              child: FlutterFlowExpandedImageView(
+                                                                              child: AppExpandedImageView(
                                                                                 image: Image.network(
                                                                                   valueOrDefault<String>(
                                                                                     messagesItem.imageUrl,
@@ -1316,9 +1316,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                               ClipRRect(
                                                                             borderRadius:
                                                                                 BorderRadius.only(
-                                                                              topRight: Radius.circular(FlutterFlowTheme.of(context).designToken.radius.md),
-                                                                              bottomLeft: Radius.circular(FlutterFlowTheme.of(context).designToken.radius.md),
-                                                                              bottomRight: Radius.circular(FlutterFlowTheme.of(context).designToken.radius.md),
+                                                                              topRight: Radius.circular(AppTheme.of(context).designToken.radius.md),
+                                                                              bottomLeft: Radius.circular(AppTheme.of(context).designToken.radius.md),
+                                                                              bottomRight: Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                             ),
                                                                             child:
                                                                                 Image.network(
@@ -1335,23 +1335,23 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     Text(
                                                                       messagesItem
                                                                           .content,
-                                                                      style: FlutterFlowTheme.of(
+                                                                      style: AppTheme.of(
                                                                               context)
                                                                           .bodyLarge
                                                                           .override(
                                                                             font:
                                                                                 GoogleFonts.manrope(
-                                                                              fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                              fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                              fontWeight: AppTheme.of(context).bodyLarge.fontWeight,
+                                                                              fontStyle: AppTheme.of(context).bodyLarge.fontStyle,
                                                                             ),
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).messageText,
+                                                                                AppTheme.of(context).messageText,
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
-                                                                                FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                AppTheme.of(context).bodyLarge.fontWeight,
                                                                             fontStyle:
-                                                                                FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                AppTheme.of(context).bodyLarge.fontStyle,
                                                                           ),
                                                                     ),
                                                                   ],
@@ -1383,18 +1383,18 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         .createdAt),
                                                             'created at',
                                                           ),
-                                                          style: FlutterFlowTheme
+                                                          style: AppTheme
                                                                   .of(context)
                                                               .labelSmall
                                                               .override(
                                                                 font:
                                                                     GoogleFonts
                                                                         .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .labelSmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .labelSmall
                                                                       .fontStyle,
@@ -1402,11 +1402,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 fontSize: 10.0,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontStyle,
@@ -1416,7 +1416,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     ],
                                                   ),
                                               ].divide(SizedBox(
-                                                  height: FFAppConstants
+                                                  height: AppConstants
                                                       .childPadding)),
                                             );
                                           },
@@ -1444,7 +1444,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: AppTheme.of(context).secondaryBackground,
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 4.0,
@@ -1469,7 +1469,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                 return Padding(
                                   padding:
                                       EdgeInsets.all(valueOrDefault<double>(
-                                    FFAppConstants.childPadding,
+                                    AppConstants.childPadding,
                                     0.0,
                                   )),
                                   child: Column(
@@ -1506,7 +1506,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   alignment:
                                                       AlignmentDirectional(
                                                           1.12, -1.07),
-                                                  child: FlutterFlowIconButton(
+                                                  child: AppIconButton(
                                                     borderRadius: 8.0,
                                                     buttonSize: 30.0,
                                                     fillColor:
@@ -1514,7 +1514,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     icon: Icon(
                                                       Icons.close,
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .info,
                                                       size: 14.0,
@@ -1524,7 +1524,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         _model.isDataUploading_locallyUploadedImage =
                                                             false;
                                                         _model.uploadedLocalFile_locallyUploadedImage =
-                                                            FFUploadedFile(
+                                                            UploadedFile(
                                                                 bytes: Uint8List
                                                                     .fromList(
                                                                         []),
@@ -1541,20 +1541,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          FlutterFlowIconButton(
+                                          AppIconButton(
                                             borderRadius: 8.0,
                                             buttonSize: 40.0,
                                             fillColor: Colors.transparent,
                                             disabledColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .alternate,
                                             disabledIconColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .hint,
                                             icon: Icon(
                                               Icons.add_circle_outline_rounded,
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primary,
                                               size: 24.0,
                                             ),
@@ -1610,11 +1610,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                             _model.isDataUploading_locallyUploadedImage =
                                                                                 true);
                                                                         var selectedUploadedFiles =
-                                                                            <FFUploadedFile>[];
+                                                                            <UploadedFile>[];
 
                                                                         try {
                                                                           selectedUploadedFiles = selectedMedia
-                                                                              .map((m) => FFUploadedFile(
+                                                                              .map((m) => UploadedFile(
                                                                                     name: m.storagePath.split('/').last,
                                                                                     bytes: m.bytes,
                                                                                     height: m.dimensions?.height,
@@ -1666,41 +1666,41 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               obscureText: false,
                                               decoration: InputDecoration(
                                                 isDense: false,
-                                                labelStyle: FlutterFlowTheme.of(
+                                                labelStyle: AppTheme.of(
                                                         context)
                                                     .labelMedium
                                                     .override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .secondaryText,
                                                       fontSize: 12.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontStyle,
                                                     ),
                                                 hintText: 'Type a message...',
-                                                hintStyle: FlutterFlowTheme.of(
+                                                hintStyle: AppTheme.of(
                                                         context)
                                                     .labelMedium
                                                     .override(
@@ -1708,20 +1708,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .hint,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontStyle,
@@ -1739,7 +1739,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 focusedBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primary,
                                                     width: 1.0,
@@ -1750,7 +1750,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                                 errorBorder: OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .error,
                                                     width: 1.0,
@@ -1762,7 +1762,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .error,
                                                     width: 1.0,
@@ -1773,40 +1773,40 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                                 filled: true,
                                                 fillColor:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .alternate,
                                               ),
                                               style:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                               cursorColor:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
                                               validator: _model
@@ -1816,26 +1816,26 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           ),
                                           Builder(
                                             builder: (context) =>
-                                                FlutterFlowIconButton(
+                                                AppIconButton(
                                               borderRadius: 8.0,
                                               buttonSize: 48.0,
                                               fillColor:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primary,
                                               icon: Icon(
                                                 Icons.send_rounded,
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .primaryBackground,
                                                 size: 24.0,
                                               ),
                                               showLoadingIndicator: true,
                                               onPressed: () async {
-                                                if ((FFAppState()
+                                                if ((AppState()
                                                             .userProfileCache
                                                             .userRole ==
                                                         1) ||
-                                                    ((FFAppState()
+                                                    ((AppState()
                                                                 .userProfileCache
                                                                 .userRole ==
                                                             2) &&
@@ -1858,7 +1858,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 .isDataUploading_uploadedFileImagePath =
                                                             true);
                                                         var selectedUploadedFiles =
-                                                            <FFUploadedFile>[];
+                                                            <UploadedFile>[];
                                                         var selectedMedia =
                                                             <SelectedFile>[];
                                                         var downloadUrls =
@@ -1872,7 +1872,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   _model
                                                                       .uploadedLocalFile_locallyUploadedImage
                                                                 ]
-                                                              : <FFUploadedFile>[];
+                                                              : <UploadedFile>[];
                                                           selectedMedia =
                                                               selectedFilesFromUploadedFiles(
                                                             selectedUploadedFiles,
@@ -1978,7 +1978,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               _model.isDataUploading_locallyUploadedImage =
                                                                   false;
                                                               _model.uploadedLocalFile_locallyUploadedImage =
-                                                                  FFUploadedFile(
+                                                                  UploadedFile(
                                                                       bytes: Uint8List
                                                                           .fromList(
                                                                               []),
@@ -1993,12 +1993,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               title:
                                                                   'New Message ',
                                                               message:
-                                                                  'You have received a new message from ${FFAppState().userProfileCache.name}',
+                                                                  'You have received a new message from ${AppState().userProfileCache.name}',
                                                               type:
                                                                   NotificationType
                                                                       .CHAT
                                                                       .name,
-                                                              userId: FFAppState()
+                                                              userId: AppState()
                                                                   .userProfileCache
                                                                   .userKey,
                                                               referenceId: widget!
@@ -2012,18 +2012,18 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     <String,
                                                                         dynamic>{
                                                                   'username':
-                                                                      FFAppState()
+                                                                      AppState()
                                                                           .userProfileCache
                                                                           .name,
                                                                   'avatarurl':
-                                                                      FFAppState()
+                                                                      AppState()
                                                                           .userProfileCache
                                                                           .avatarUrl,
                                                                   'jobid':
                                                                       widget!
                                                                           .jobid,
                                                                   'member_id':
-                                                                      FFAppState()
+                                                                      AppState()
                                                                           .userProfileCache
                                                                           .userKey,
                                                                 },
@@ -2041,7 +2041,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               title:
                                                                   'New Message ',
                                                               body:
-                                                                  '${FFAppState().userProfileCache.name} just sent you a new message',
+                                                                  '${AppState().userProfileCache.name} just sent you a new message',
                                                               dataJson: {},
                                                             );
                                                           }),
@@ -2125,10 +2125,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           ),
                                         ].divide(SizedBox(
                                             width:
-                                                FFAppConstants.childSpacing)),
+                                                AppConstants.childSpacing)),
                                       ),
                                     ].divide(SizedBox(
-                                        height: FFAppConstants.childSpacing)),
+                                        height: AppConstants.childSpacing)),
                                   ),
                                 );
                               } else {
@@ -2142,7 +2142,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                     children: [
                                       Icon(
                                         Icons.check_circle,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .success,
                                         size: 24.0,
                                       ),
@@ -2151,38 +2151,38 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           'This job has been completed',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .titleSmall
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .success,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontStyle,
                                               ),
                                         ),
                                       ),
                                     ].divide(SizedBox(
-                                        width: FFAppConstants.childSpacing)),
+                                        width: AppConstants.childSpacing)),
                                   ),
                                 );
                               }
@@ -2193,7 +2193,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                             width: double.infinity,
                             height: 60.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
+                              color: AppTheme.of(context)
                                   .secondaryBackground,
                             ),
                           ).animateOnPageLoad(

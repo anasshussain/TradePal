@@ -7,9 +7,9 @@ import '/backend/schema/util/schema_util.dart';
 import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 
-class MessagesStruct extends FFFirebaseStruct {
+class MessagesStruct extends AppFirebaseStruct {
   MessagesStruct({
     String? id,
     String? conversationId,

@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -71,14 +71,14 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
         elevation: 0.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.sm),
+              AppTheme.of(context).designToken.radius.sm),
         ),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(
-                FlutterFlowTheme.of(context).designToken.radius.sm),
+                AppTheme.of(context).designToken.radius.sm),
             border: Border.all(
               color: Colors.transparent,
             ),
@@ -101,7 +101,7 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
                       shape: RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.circular(valueOrDefault<double>(
-                          FFAppConstants.radius1,
+                          AppConstants.radius1,
                           0.0,
                         )),
                       ),
@@ -109,10 +109,10 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
                         width: 48.0,
                         height: 48.0,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondary,
+                          color: AppTheme.of(context).secondary,
                           borderRadius:
                               BorderRadius.circular(valueOrDefault<double>(
-                            FFAppConstants.radius1,
+                            AppConstants.radius1,
                             0.0,
                           )),
                         ),
@@ -127,48 +127,48 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
                     children: [
                       Text(
                         widget!.title,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        style: AppTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.manrope(
                                 fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                               ),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
                       ),
                       Text(
                         widget!.description,
-                        style: FlutterFlowTheme.of(context).labelSmall.override(
+                        style: AppTheme.of(context).labelSmall.override(
                               font: GoogleFonts.inter(
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .labelSmall
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .labelSmall
                                     .fontStyle,
                               ),
                               fontSize: 10.0,
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .labelSmall
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelSmall
                                   .fontStyle,
                             ),
                       ),
                     ].divide(SizedBox(
-                        height: FlutterFlowTheme.of(context)
+                        height: AppTheme.of(context)
                             .designToken
                             .spacing
                             .sm)),
                   ),
-                ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+                ].divide(SizedBox(width: AppConstants.childSpacing)),
               ),
             ],
           ),

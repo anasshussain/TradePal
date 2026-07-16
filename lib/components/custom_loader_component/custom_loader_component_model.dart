@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'custom_loader_component_widget.dart' show CustomLoaderComponentWidget;
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class CustomLoaderComponentModel
-    extends FlutterFlowModel<CustomLoaderComponentWidget> {
+    extends AppModel<CustomLoaderComponentWidget> {
   @override
   void initState(BuildContext context) {}
 

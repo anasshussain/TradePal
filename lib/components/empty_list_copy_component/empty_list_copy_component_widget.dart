@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -65,16 +65,16 @@ class _EmptyListCopyComponentWidgetState
               widget!.title,
               'No items found',
             ),
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
+            style: AppTheme.of(context).bodyMedium.override(
                   font: GoogleFonts.manrope(
                     fontWeight: FontWeight.w500,
                     fontStyle:
-                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        AppTheme.of(context).bodyMedium.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: AppTheme.of(context).primaryText,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w500,
-                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
           Text(
@@ -82,22 +82,22 @@ class _EmptyListCopyComponentWidgetState
               widget!.description,
               'The items you are looking for might not exist',
             ),
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
+            style: AppTheme.of(context).bodyMedium.override(
                   font: GoogleFonts.manrope(
                     fontWeight:
-                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        AppTheme.of(context).bodyMedium.fontWeight,
                     fontStyle:
-                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        AppTheme.of(context).bodyMedium.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).secondaryText,
+                  color: AppTheme.of(context).secondaryText,
                   fontSize: 12.0,
                   letterSpacing: 0.0,
                   fontWeight:
-                      FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      AppTheme.of(context).bodyMedium.fontWeight,
+                  fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
-        ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+        ].divide(SizedBox(height: AppConstants.childSpacing)),
       ),
     );
   }

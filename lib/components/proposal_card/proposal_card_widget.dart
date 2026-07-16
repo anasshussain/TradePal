@@ -1,7 +1,7 @@
 import '/backend/supabase/supabase.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -54,7 +54,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: AppTheme.of(context).secondaryBackground,
         ),
         child: FutureBuilder<List<UsersRow>>(
           future: UsersTable().querySingleRow(
@@ -71,7 +71,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                   width: 50.0,
                   height: 50.0,
                   child: SpinKitFadingCube(
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: AppTheme.of(context).primary,
                     size: 50.0,
                   ),
                 ),
@@ -121,17 +121,17 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                             'Loading...',
                           ),
                           style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
+                              AppTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     fontSize: 18.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
@@ -165,19 +165,19 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                     widget!.applicationRow?.message,
                                     'No message',
                                   ),
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
@@ -202,13 +202,13 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                         children: [
                                           Text(
                                             'Quote Amount:',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight: FontWeight.w600,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
@@ -216,7 +216,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
@@ -229,13 +229,13 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                                   ?.toString(),
                                               '0',
                                             ),
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight: FontWeight.bold,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
@@ -243,7 +243,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
@@ -258,10 +258,10 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   100.0, 5.0, 0.0, 0.0),
-                                          child: FFButtonWidget(
+                                          child: AppButton(
                                             onPressed: () async {},
                                             text: 'VIEW DETAILS',
-                                            options: FFButtonOptions(
+                                            options: AppButtonOptions(
                                               width: 20.0,
                                               height: 27.0,
                                               padding: EdgeInsetsDirectional
@@ -270,7 +270,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                               iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: Colors.white,
-                                              textStyle: FlutterFlowTheme.of(
+                                              textStyle: AppTheme.of(
                                                       context)
                                                   .titleSmall
                                                   .override(
@@ -278,7 +278,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .fontStyle,
@@ -288,7 +288,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.bold,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleSmall
                                                             .fontStyle,

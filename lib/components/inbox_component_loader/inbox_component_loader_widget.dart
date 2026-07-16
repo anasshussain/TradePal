@@ -1,8 +1,8 @@
 import '/components/text_loader/text_loader_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
       elevation: 0.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-            FlutterFlowTheme.of(context).designToken.radius.lg),
+            AppTheme.of(context).designToken.radius.lg),
       ),
       child: Container(
         width: double.infinity,
@@ -80,16 +80,16 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
           minHeight: 100.0,
         ),
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          color: AppTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.lg),
+              AppTheme.of(context).designToken.radius.lg),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: AppTheme.of(context).alternate,
           ),
         ),
         child: Padding(
           padding: EdgeInsets.all(valueOrDefault<double>(
-            FFAppConstants.childPadding,
+            AppConstants.childPadding,
             0.0,
           )),
           child: Row(
@@ -136,7 +136,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           0.0,
-                          FlutterFlowTheme.of(context).designToken.spacing.md,
+                          AppTheme.of(context).designToken.spacing.md,
                           0.0,
                           0.0),
                       child: wrapWithModel(
@@ -151,7 +151,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
                   ],
                 ),
               ),
-            ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+            ].divide(SizedBox(width: AppConstants.childSpacing)),
           ),
         ),
       ),

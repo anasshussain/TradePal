@@ -1,8 +1,8 @@
 import '/components/countinue_booking/countinue_booking_widget.dart';
 import '/components/trust_bullet4/trust_bullet4_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -51,7 +51,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: Stack(
           alignment: AlignmentDirectional(-1.0, -1.0),
           children: [
@@ -65,7 +65,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
               alignment: AlignmentDirectional(0.0, 1.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: AppTheme.of(context).secondaryBackground,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(28.0),
                     topRight: Radius.circular(28.0),
@@ -90,7 +90,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                               width: 40.0,
                               height: 4.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                                 borderRadius: BorderRadius.circular(9999.0),
                                 shape: BoxShape.rectangle,
                               ),
@@ -113,7 +113,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.lock_person_rounded,
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                                 size: 32.0,
                               ),
                             ),
@@ -125,24 +125,24 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                 Text(
                                   'Complete Booking',
                                   textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .headlineSmall
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineSmall
                                                   .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .headlineSmall
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .headlineSmall
                                             .fontStyle,
                                         lineHeight: 1.3,
@@ -151,26 +151,26 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                 Text(
                                   'To continue with full chat, photos, and contact sharing, complete the booking first.',
                                   textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .secondaryText,
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                         lineHeight: 1.5,
@@ -232,26 +232,26 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                               children: [
                                 Text(
                                   'Booking Fee',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .titleMedium
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primaryText,
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .titleMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleMedium
                                             .fontStyle,
                                         lineHeight: 1.4,
@@ -259,21 +259,21 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                 ),
                                 Text(
                                   '£5',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .titleLarge
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleLarge
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .primary,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleLarge
                                             .fontStyle,
                                         lineHeight: 1.3,
@@ -288,7 +288,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                               children: [
                                 Icon(
                                   Icons.info_outlined,
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryText,
                                   size: 14.0,
                                 ),
@@ -296,28 +296,28 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                   flex: 1,
                                   child: Text(
                                     'This helps keep bookings secure for everyone.',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodySmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .secondaryText,
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontStyle,
                                           lineHeight: 1.4,

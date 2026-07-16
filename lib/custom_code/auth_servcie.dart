@@ -11,7 +11,7 @@ class AuthService {
       final event = data.event;
 
       if (event == AuthChangeEvent.signedOut) {
-        FFAppState.reset();
+        AppState.reset();
         context.go('/login');
       }
 

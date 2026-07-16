@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -102,21 +102,21 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 widget!.label,
                 'Card Number',
               ),
-              style: FlutterFlowTheme.of(context).labelMedium.override(
+              style: AppTheme.of(context).labelMedium.override(
                     font: GoogleFonts.inter(
                       fontWeight:
-                          FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                          AppTheme.of(context).labelMedium.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          AppTheme.of(context).labelMedium.fontStyle,
                     ),
                     color: widget!.error
-                        ? FlutterFlowTheme.of(context).error
-                        : FlutterFlowTheme.of(context).primaryText,
+                        ? AppTheme.of(context).error
+                        : AppTheme.of(context).primaryText,
                     letterSpacing: 0.0,
                     fontWeight:
-                        FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        AppTheme.of(context).labelMedium.fontWeight,
                     fontStyle:
-                        FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                        AppTheme.of(context).labelMedium.fontStyle,
                     lineHeight: 1.4,
                   ),
             ),
@@ -125,7 +125,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             decoration: BoxDecoration(
               color: () {
                 if (widget!.variant == 'filled') {
-                  return FlutterFlowTheme.of(context).secondaryBackground;
+                  return AppTheme.of(context).secondaryBackground;
                 } else if (widget!.variant == 'ghost') {
                   return Colors.transparent;
                 } else {
@@ -186,13 +186,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               border: Border.all(
                 color: () {
                   if (widget!.error) {
-                    return FlutterFlowTheme.of(context).error;
+                    return AppTheme.of(context).error;
                   } else if (widget!.variant == 'filled') {
                     return Colors.transparent;
                   } else if (widget!.variant == 'ghost') {
                     return Colors.transparent;
                   } else {
-                    return FlutterFlowTheme.of(context).alternate;
+                    return AppTheme.of(context).alternate;
                   }
                 }(),
                 width: () {
@@ -280,31 +280,31 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                           widget!.hint,
                           '0000 0000 0000 0000',
                         ),
-                        hintStyle: FlutterFlowTheme.of(context)
+                        hintStyle: AppTheme.of(context)
                             .bodyMedium
                             .override(
                               font: GoogleFonts.manrope(
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                               ),
                               color: () {
                                 if (widget!.variant == 'filled') {
-                                  return FlutterFlowTheme.of(context).accent3;
+                                  return AppTheme.of(context).accent3;
                                 } else if (widget!.variant == 'ghost') {
-                                  return FlutterFlowTheme.of(context).accent3;
+                                  return AppTheme.of(context).accent3;
                                 } else {
-                                  return FlutterFlowTheme.of(context).accent3;
+                                  return AppTheme.of(context).accent3;
                                 }
                               }(),
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                               lineHeight: 1.5,
@@ -314,29 +314,29 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                         errorBorder: InputBorder.none,
                         focusedErrorBorder: InputBorder.none,
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      style: AppTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.manrope(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
                             color: () {
                               if (widget!.variant == 'filled') {
-                                return FlutterFlowTheme.of(context).primaryText;
+                                return AppTheme.of(context).primaryText;
                               } else if (widget!.variant == 'ghost') {
-                                return FlutterFlowTheme.of(context).primaryText;
+                                return AppTheme.of(context).primaryText;
                               } else {
-                                return FlutterFlowTheme.of(context).primaryText;
+                                return AppTheme.of(context).primaryText;
                               }
                             }(),
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                             lineHeight: 1.5,
@@ -360,20 +360,20 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           ))
             Text(
               widget!.helper,
-              style: FlutterFlowTheme.of(context).bodySmall.override(
+              style: AppTheme.of(context).bodySmall.override(
                     font: GoogleFonts.manrope(
                       fontWeight:
-                          FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                          AppTheme.of(context).bodySmall.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                          AppTheme.of(context).bodySmall.fontStyle,
                     ),
                     color: widget!.error
-                        ? FlutterFlowTheme.of(context).error
-                        : FlutterFlowTheme.of(context).secondaryText,
+                        ? AppTheme.of(context).error
+                        : AppTheme.of(context).secondaryText,
                     letterSpacing: 0.0,
                     fontWeight:
-                        FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                        AppTheme.of(context).bodySmall.fontWeight,
+                    fontStyle: AppTheme.of(context).bodySmall.fontStyle,
                     lineHeight: 1.4,
                   ),
             ),

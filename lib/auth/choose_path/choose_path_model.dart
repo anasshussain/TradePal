@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/components/choose_path_component/choose_path_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import 'choose_path_widget.dart' show ChoosePathWidget;
@@ -13,7 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ChoosePathModel extends FlutterFlowModel<ChoosePathWidget> {
+class ChoosePathModel extends AppModel<ChoosePathWidget> {
   ///  Local state fields for this page.
 
   UserRole? selectedRole = UserRole.customer;

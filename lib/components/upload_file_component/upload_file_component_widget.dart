@@ -1,8 +1,8 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/upload_data.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -104,22 +104,22 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: FlutterFlowIconButton(
-                        borderColor: FlutterFlowTheme.of(context).error,
+                      child: AppIconButton(
+                        borderColor: AppTheme.of(context).error,
                         borderRadius: 40.0,
                         borderWidth: 2.0,
                         buttonSize: 40.0,
                         fillColor: Colors.transparent,
                         icon: Icon(
                           Icons.clear_rounded,
-                          color: FlutterFlowTheme.of(context).error,
+                          color: AppTheme.of(context).error,
                           size: 24.0,
                         ),
                         onPressed: () async {
                           safeSetState(() {
                             _model.isDataUploading_localUploadedPhoto = false;
                             _model.uploadedLocalFile_localUploadedPhoto =
-                                FFUploadedFile(
+                                UploadedFile(
                                     bytes: Uint8List.fromList([]),
                                     originalFilename: '');
                           });
@@ -146,11 +146,11 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                     if (selectedFiles != null) {
                       safeSetState(() =>
                           _model.isDataUploading_localUploadedPhoto = true);
-                      var selectedUploadedFiles = <FFUploadedFile>[];
+                      var selectedUploadedFiles = <UploadedFile>[];
 
                       try {
                         selectedUploadedFiles = selectedFiles
-                            .map((m) => FFUploadedFile(
+                            .map((m) => UploadedFile(
                                   name: m.storagePath.split('/').last,
                                   bytes: m.bytes,
                                   originalFilename: m.originalFilename,
@@ -194,13 +194,13 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                       ),
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         width: 2.0,
                       ),
                     ),
                     child: Icon(
                       Icons.add_photo_alternate_outlined,
-                      color: FlutterFlowTheme.of(context).accent1,
+                      color: AppTheme.of(context).accent1,
                       size: 30.0,
                     ),
                   ),

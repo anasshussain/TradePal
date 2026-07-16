@@ -1,8 +1,8 @@
 import '/components/text_loader/text_loader_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'dart:ui';
 import 'inbox_component_loader_widget.dart' show InboxComponentLoaderWidget;
@@ -14,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class InboxComponentLoaderModel
-    extends FlutterFlowModel<InboxComponentLoaderWidget> {
+    extends AppModel<InboxComponentLoaderWidget> {
   ///  State fields for stateful widgets in this component.
 
   // Model for textLoader component.

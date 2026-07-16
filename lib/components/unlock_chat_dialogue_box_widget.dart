@@ -1,8 +1,8 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
@@ -57,11 +57,11 @@ class _UnlockChatDialogueBoxWidgetState
     return Container(
       width: 320.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: AppTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(10.0),
         shape: BoxShape.rectangle,
         border: Border.all(
-          color: FlutterFlowTheme.of(context).alternate,
+          color: AppTheme.of(context).alternate,
           width: 1.0,
         ),
       ),
@@ -84,7 +84,7 @@ class _UnlockChatDialogueBoxWidgetState
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: Icon(
                   Icons.lock_open_rounded,
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: AppTheme.of(context).primary,
                   size: 32.0,
                 ),
               ),
@@ -96,44 +96,44 @@ class _UnlockChatDialogueBoxWidgetState
                   Text(
                     'Unlock Customer Chat',
                     textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).titleLarge.override(
+                    style: AppTheme.of(context).titleLarge.override(
                           font: GoogleFonts.manrope(
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .titleLarge
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .titleLarge
                                 .fontStyle,
                           ),
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: AppTheme.of(context).primaryText,
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .titleLarge
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                              AppTheme.of(context).titleLarge.fontStyle,
                           lineHeight: 1.4,
                         ),
                   ),
                   Text(
                     'Your proposal has been accepted. Pay the access fee to start chatting with the customer.',
                     textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    style: AppTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.manrope(
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                           ),
-                          color: FlutterFlowTheme.of(context).secondaryText,
+                          color: AppTheme.of(context).secondaryText,
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .bodyMedium
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              AppTheme.of(context).bodyMedium.fontStyle,
                           lineHeight: 1.4,
                         ),
                   ),
@@ -141,7 +141,7 @@ class _UnlockChatDialogueBoxWidgetState
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  color: AppTheme.of(context).primaryBackground,
                   borderRadius: BorderRadius.circular(6.0),
                   shape: BoxShape.rectangle,
                 ),
@@ -156,24 +156,24 @@ class _UnlockChatDialogueBoxWidgetState
                       children: [
                         Text(
                           'Access Fee',
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .labelMedium
                               .override(
                                 font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelMedium
                                       .fontStyle,
                                 ),
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .labelMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .labelMedium
                                     .fontStyle,
                                 lineHeight: 1.4,
@@ -181,19 +181,19 @@ class _UnlockChatDialogueBoxWidgetState
                         ),
                         Text(
                           '£7.99',
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .titleMedium
                               .override(
                                 font: GoogleFonts.manrope(
                                   fontWeight: FontWeight.bold,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleMedium
                                       .fontStyle,
                                 ),
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: AppTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .titleMedium
                                     .fontStyle,
                                 lineHeight: 1.4,
@@ -210,7 +210,7 @@ class _UnlockChatDialogueBoxWidgetState
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FFButtonWidget(
+                    AppButton(
                       onPressed: () async {
                         await actions.unsubscribe(
                           'proposal_payments',
@@ -248,31 +248,31 @@ class _UnlockChatDialogueBoxWidgetState
                         safeSetState(() {});
                       },
                       text: 'Pay Now',
-                      options: FFButtonOptions(
+                      options: AppButtonOptions(
                         width: 150.0,
                         height: 40.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
+                            AppTheme.of(context).titleSmall.override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                                   color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
@@ -280,12 +280,12 @@ class _UnlockChatDialogueBoxWidgetState
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    FFButtonWidget(
+                    AppButton(
                       onPressed: () async {
                         Navigator.pop(context);
                       },
                       text: 'Maybe Later',
-                      options: FFButtonOptions(
+                      options: AppButtonOptions(
                         width: 150.0,
                         height: 40.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -294,22 +294,22 @@ class _UnlockChatDialogueBoxWidgetState
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: Colors.transparent,
                         textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
+                            AppTheme.of(context).titleSmall.override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: AppTheme.of(context).primary,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),

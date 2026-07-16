@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -69,12 +69,12 @@ class _AppbarComponentWidgetState extends State<AppbarComponentWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   if (getCurrentRouteStack(context).length > 1)
-                    FlutterFlowIconButton(
+                    AppIconButton(
                       borderRadius: 8.0,
                       buttonSize: 40.0,
                       icon: FaIcon(
                         FontAwesomeIcons.chevronLeft,
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: AppTheme.of(context).primaryText,
                         size: 24.0,
                       ),
                       onPressed: () async {
@@ -109,22 +109,22 @@ class _AppbarComponentWidgetState extends State<AppbarComponentWidget> {
                               'Page title',
                             ),
                             textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .titleLarge
                                 .override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleLarge
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleLarge
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleLarge
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleLarge
                                       .fontStyle,
                                 ),
@@ -137,7 +137,7 @@ class _AppbarComponentWidgetState extends State<AppbarComponentWidget> {
               ),
             ),
             if (widget!.showAction)
-              FlutterFlowIconButton(
+              AppIconButton(
                 borderRadius: 8.0,
                 buttonSize: 40.0,
                 icon: widget!.actionIcon!,
@@ -150,7 +150,7 @@ class _AppbarComponentWidgetState extends State<AppbarComponentWidget> {
         Divider(
           height: 3.0,
           thickness: 1.0,
-          color: FlutterFlowTheme.of(context).alternate,
+          color: AppTheme.of(context).alternate,
         ),
       ],
     );

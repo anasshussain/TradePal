@@ -1,8 +1,8 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -60,9 +60,9 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -86,7 +86,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
             alignment: AlignmentDirectional(0.0, -1.0),
             child: Padding(
               padding: EdgeInsets.all(valueOrDefault<double>(
-                FFAppConstants.parentPagePadding,
+                AppConstants.parentPagePadding,
                 0.0,
               )),
               child: SingleChildScrollView(
@@ -99,24 +99,24 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                       elevation: 0.0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            FlutterFlowTheme.of(context).designToken.radius.lg),
+                            AppTheme.of(context).designToken.radius.lg),
                       ),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              AppTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).alternate,
+                            color: AppTheme.of(context).alternate,
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(FlutterFlowTheme.of(context)
+                          padding: EdgeInsets.all(AppTheme.of(context)
                               .designToken
                               .spacing
                               .md),
@@ -126,44 +126,44 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                             children: [
                               Text(
                                 widget!.headingTitle,
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .headlineLarge
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .headlineLarge
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .headlineLarge
                                             .fontStyle,
                                       ),
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .headlineLarge
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .headlineLarge
                                           .fontStyle,
                                     ),
                               ),
                               Text(
                                 'Enter your email address and we\'ll send you a link to reset your password.',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodyLarge
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyLarge
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyLarge
                                             .fontStyle,
                                       ),
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyLarge
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyLarge
                                           .fontStyle,
                                     ),
@@ -177,20 +177,20 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                   children: [
                                     Text(
                                       'EMAIL ADDRESS',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .bodySmall
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.w600,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodySmall
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 1.0,
                                             fontWeight: FontWeight.w600,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
@@ -206,55 +206,55 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                         decoration: InputDecoration(
                                           isDense: false,
                                           labelText: 'Email address',
-                                          labelStyle: FlutterFlowTheme.of(
+                                          labelStyle: AppTheme.of(
                                                   context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .secondaryText,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
-                                          hintStyle: FlutterFlowTheme.of(
+                                          hintStyle: AppTheme.of(
                                                   context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
@@ -269,7 +269,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primary,
                                               width: 1.0,
                                             ),
@@ -279,7 +279,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .error,
                                               width: 1.0,
                                             ),
@@ -290,7 +290,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .error,
                                               width: 1.0,
                                             ),
@@ -299,37 +299,37 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .alternate,
                                           prefixIcon: Icon(
                                             Icons.email_outlined,
                                           ),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
                                         cursorColor:
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
@@ -339,16 +339,16 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                     ),
                                   ]
                                       .divide(SizedBox(
-                                          height: FFAppConstants.childPadding))
+                                          height: AppConstants.childPadding))
                                       .addToStart(SizedBox(
                                           height:
-                                              FFAppConstants.parentPagePadding))
+                                              AppConstants.parentPagePadding))
                                       .addToEnd(SizedBox(
-                                          height: FFAppConstants
+                                          height: AppConstants
                                               .parentPagePadding)),
                                 ),
                               ),
-                              FFButtonWidget(
+                              AppButton(
                                 onPressed: () async {
                                   _model.emailRegx = await actions.isValidEmail(
                                     _model.emailTextController.text,
@@ -387,7 +387,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                   Icons.send_rounded,
                                   size: 24.0,
                                 ),
-                                options: FFButtonOptions(
+                                options: AppButtonOptions(
                                   width: 300.0,
                                   height: 50.0,
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -395,33 +395,33 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                   iconAlignment: IconAlignment.end,
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  iconColor: FlutterFlowTheme.of(context).info,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  textStyle: FlutterFlowTheme.of(context)
+                                  iconColor: AppTheme.of(context).info,
+                                  color: AppTheme.of(context).primary,
+                                  textStyle: AppTheme.of(context)
                                       .titleSmall
                                       .override(
                                         font: GoogleFonts.inter(
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
                                         ),
                                         color: Colors.white,
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleSmall
                                             .fontStyle,
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .radius
                                           .lg),
@@ -429,9 +429,9 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                               ),
                             ]
                                 .divide(SizedBox(
-                                    height: FFAppConstants.parentPagePadding))
+                                    height: AppConstants.parentPagePadding))
                                 .addToStart(SizedBox(
-                                    height: FFAppConstants.parentPagePadding))
+                                    height: AppConstants.parentPagePadding))
                                 .addToEnd(SizedBox(height: 20.0)),
                           ),
                         ),
@@ -443,33 +443,33 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                       children: [
                         Icon(
                           Icons.security,
-                          color: FlutterFlowTheme.of(context).secondaryText,
+                          color: AppTheme.of(context).secondaryText,
                           size: 24.0,
                         ),
                         Text(
                           'SECURE ARTISAN AUTHENTICATION',
                           style:
-                              FlutterFlowTheme.of(context).labelSmall.override(
+                              AppTheme.of(context).labelSmall.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelSmall
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
                         ),
-                      ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+                      ].divide(SizedBox(width: AppConstants.childSpacing)),
                     ),
-                  ].divide(SizedBox(height: FFAppConstants.spacing)),
+                  ].divide(SizedBox(height: AppConstants.spacing)),
                 ),
               ),
             ),

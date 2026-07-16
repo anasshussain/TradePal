@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -50,17 +50,17 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return Container(
       width: double.infinity,
       height: 60.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).primaryBackground,
+        color: AppTheme.of(context).primaryBackground,
         boxShadow: [
           BoxShadow(
             blurRadius: 0.0,
-            color: FlutterFlowTheme.of(context).border,
+            color: AppTheme.of(context).border,
             offset: Offset(
               0.0,
               -1.0,
@@ -104,26 +104,26 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                     Icon(
                       Icons.list,
                       color: widget!.selectedIndex == 0
-                          ? FlutterFlowTheme.of(context).primary
-                          : FlutterFlowTheme.of(context).secondaryText,
+                          ? AppTheme.of(context).primary
+                          : AppTheme.of(context).secondaryText,
                       size: 26.0,
                     ),
                     Text(
                       'Browse',
-                      style: FlutterFlowTheme.of(context).labelSmall.override(
+                      style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelSmall
                                   .fontStyle,
                             ),
                             color: widget!.selectedIndex == 0
-                                ? FlutterFlowTheme.of(context).primary
-                                : FlutterFlowTheme.of(context).secondaryText,
+                                ? AppTheme.of(context).primary
+                                : AppTheme.of(context).secondaryText,
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .labelSmall
                                 .fontStyle,
                           ),
@@ -162,26 +162,26 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                     Icon(
                       Icons.work_rounded,
                       color: widget!.selectedIndex == 1
-                          ? FlutterFlowTheme.of(context).primary
-                          : FlutterFlowTheme.of(context).secondaryText,
+                          ? AppTheme.of(context).primary
+                          : AppTheme.of(context).secondaryText,
                       size: 26.0,
                     ),
                     Text(
                       'My jobs',
-                      style: FlutterFlowTheme.of(context).labelSmall.override(
+                      style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelSmall
                                   .fontStyle,
                             ),
                             color: widget!.selectedIndex == 1
-                                ? FlutterFlowTheme.of(context).primary
-                                : FlutterFlowTheme.of(context).secondaryText,
+                                ? AppTheme.of(context).primary
+                                : AppTheme.of(context).secondaryText,
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .labelSmall
                                 .fontStyle,
                           ),
@@ -224,36 +224,36 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                           Icon(
                             Icons.comment_rounded,
                             color: widget!.selectedIndex == 2
-                                ? FlutterFlowTheme.of(context).primary
-                                : FlutterFlowTheme.of(context).secondaryText,
+                                ? AppTheme.of(context).primary
+                                : AppTheme.of(context).secondaryText,
                             size: 26.0,
                           ),
                           Text(
                             'Chats',
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelSmall
                                 .override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
                                   color: widget!.selectedIndex == 2
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context)
+                                      ? AppTheme.of(context).primary
+                                      : AppTheme.of(context)
                                           .secondaryText,
                                   fontSize: 10.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelSmall
                                       .fontStyle,
                                 ),
                           ),
                         ],
                       ),
-                      if (FFAppState().totalMessagesCount > 0)
+                      if (AppState().totalMessagesCount > 0)
                         Container(
                           width: 14.0,
                           height: 14.0,
@@ -266,26 +266,26 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
-                                FFAppState().totalMessagesCount.toString(),
+                                AppState().totalMessagesCount.toString(),
                                 '0',
                               ),
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     fontSize: 10.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
@@ -327,26 +327,26 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                     Icon(
                       Icons.person_3,
                       color: widget!.selectedIndex == 3
-                          ? FlutterFlowTheme.of(context).primary
-                          : FlutterFlowTheme.of(context).secondaryText,
+                          ? AppTheme.of(context).primary
+                          : AppTheme.of(context).secondaryText,
                       size: 26.0,
                     ),
                     Text(
                       'Profie',
-                      style: FlutterFlowTheme.of(context).labelSmall.override(
+                      style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelSmall
                                   .fontStyle,
                             ),
                             color: widget!.selectedIndex == 3
-                                ? FlutterFlowTheme.of(context).primary
-                                : FlutterFlowTheme.of(context).secondaryText,
+                                ? AppTheme.of(context).primary
+                                : AppTheme.of(context).secondaryText,
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .labelSmall
                                 .fontStyle,
                           ),

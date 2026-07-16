@@ -1,12 +1,12 @@
 import '/components/appbar_component/appbar_component_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +61,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -87,7 +87,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: SingleChildScrollView(
@@ -95,13 +95,13 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      FlutterFlowIconButton(
+                      AppIconButton(
                         borderRadius: 8.0,
                         buttonSize: 60.0,
-                        fillColor: FlutterFlowTheme.of(context).alternate,
+                        fillColor: AppTheme.of(context).alternate,
                         icon: Icon(
                           Icons.lock_reset,
-                          color: FlutterFlowTheme.of(context).secondaryText,
+                          color: AppTheme.of(context).secondaryText,
                           size: 32.0,
                         ),
                         onPressed: () async {
@@ -116,20 +116,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       Text(
                         'Reset Password',
                         style:
-                            FlutterFlowTheme.of(context).headlineLarge.override(
+                            AppTheme.of(context).headlineLarge.override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .headlineLarge
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .headlineLarge
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .headlineLarge
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .headlineLarge
                                       .fontStyle,
                                 ),
@@ -137,20 +137,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       Text(
                         'Create a new, secure password for your\naccount.',
                         textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        style: AppTheme.of(context).bodyLarge.override(
                               font: GoogleFonts.manrope(
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyLarge
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyLarge
                                     .fontStyle,
                               ),
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyLarge
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyLarge
                                   .fontStyle,
                             ),
@@ -160,7 +160,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
@@ -168,20 +168,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context)
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
-                              FFAppConstants.parentPagePadding,
+                              AppConstants.parentPagePadding,
                               0.0,
                             )),
                             child: Column(
@@ -197,20 +197,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           AlignmentDirectional(-1.0, -1.0),
                                       child: Text(
                                         'NEW PASSWORD',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodySmall
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w600,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodySmall
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodySmall
                                                       .fontStyle,
                                             ),
@@ -236,56 +236,56 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                         obscureText: !_model.passwordVisibility,
                                         decoration: InputDecoration(
                                           isDense: false,
-                                          labelStyle: FlutterFlowTheme.of(
+                                          labelStyle: AppTheme.of(
                                                   context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .secondaryText,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
                                           hintText: '********',
-                                          hintStyle: FlutterFlowTheme.of(
+                                          hintStyle: AppTheme.of(
                                                   context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
@@ -300,7 +300,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primary,
                                               width: 1.0,
                                             ),
@@ -310,7 +310,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .error,
                                               width: 1.0,
                                             ),
@@ -321,7 +321,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .error,
                                               width: 1.0,
                                             ),
@@ -330,7 +330,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .alternate,
                                           suffixIcon: InkWell(
                                             onTap: () async {
@@ -349,31 +349,31 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                             ),
                                           ),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
                                         cursorColor:
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
@@ -383,20 +383,20 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                     ),
                                     Text(
                                       'CONFIRM NEW PASSWORD',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .bodySmall
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.w600,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodySmall
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 1.0,
                                             fontWeight: FontWeight.w600,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
@@ -413,56 +413,56 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                             !_model.cPasswordVisibility,
                                         decoration: InputDecoration(
                                           isDense: false,
-                                          labelStyle: FlutterFlowTheme.of(
+                                          labelStyle: AppTheme.of(
                                                   context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .secondaryText,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
                                           hintText: '********',
-                                          hintStyle: FlutterFlowTheme.of(
+                                          hintStyle: AppTheme.of(
                                                   context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .fontStyle,
                                               ),
@@ -477,7 +477,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primary,
                                               width: 1.0,
                                             ),
@@ -487,7 +487,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .error,
                                               width: 1.0,
                                             ),
@@ -498,7 +498,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .error,
                                               width: 1.0,
                                             ),
@@ -507,7 +507,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .alternate,
                                           suffixIcon: InkWell(
                                             onTap: () async {
@@ -526,31 +526,31 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                             ),
                                           ),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
                                         cursorColor:
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
@@ -559,7 +559,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                       ),
                                     ),
                                   ].divide(SizedBox(
-                                      height: FlutterFlowTheme.of(context)
+                                      height: AppTheme.of(context)
                                           .designToken
                                           .spacing
                                           .lg)),
@@ -569,29 +569,29 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                   elevation: 0.0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .radius
                                             .md),
                                   ),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryBackground,
                                       borderRadius: BorderRadius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .md),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                     ),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.all(valueOrDefault<double>(
-                                        FFAppConstants.parentPagePadding,
+                                        AppConstants.parentPagePadding,
                                         0.0,
                                       )),
                                       child: Column(
@@ -601,29 +601,29 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                         children: [
                                           Text(
                                             'SECURITY CHECK',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .labelMedium
                                                 .override(
                                                   font: GoogleFonts.inter(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .labelMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .labelMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .labelMedium
                                                           .fontStyle,
@@ -638,7 +638,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .radius
@@ -648,11 +648,11 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                   width: 24.0,
                                                   height: 24.0,
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .secondaryBackground,
                                                     boxShadow: [
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .designToken
                                                           .shadow
@@ -660,14 +660,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                     ],
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .designToken
                                                                 .radius
                                                                 .sm),
                                                     border: Border.all(
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .alternate,
                                                     ),
@@ -679,10 +679,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                                     .passwordTextController
                                                                     .text) ==
                                                             true
-                                                        ? FlutterFlowTheme.of(
+                                                        ? AppTheme.of(
                                                                 context)
                                                             .primary
-                                                        : FlutterFlowTheme.of(
+                                                        : AppTheme.of(
                                                                 context)
                                                             .alternate,
                                                     size: 16.0,
@@ -691,18 +691,18 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               ),
                                               Text(
                                                 'At least 8 characters long',
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .labelMedium
                                                     .override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
@@ -712,27 +712,27 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                                       .passwordTextController
                                                                       .text) ==
                                                               true
-                                                          ? FlutterFlowTheme.of(
+                                                          ? AppTheme.of(
                                                                   context)
                                                               .primaryText
-                                                          : FlutterFlowTheme.of(
+                                                          : AppTheme.of(
                                                                   context)
                                                               .secondaryText,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontStyle,
                                                     ),
                                               ),
                                             ].divide(SizedBox(
-                                                width: FFAppConstants
+                                                width: AppConstants
                                                     .childPadding)),
                                           ),
                                           Row(
@@ -744,7 +744,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .radius
@@ -754,11 +754,11 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                   width: 24.0,
                                                   height: 24.0,
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .secondaryBackground,
                                                     boxShadow: [
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .designToken
                                                           .shadow
@@ -766,14 +766,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                     ],
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .designToken
                                                                 .radius
                                                                 .sm),
                                                     border: Border.all(
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .alternate,
                                                     ),
@@ -785,10 +785,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                                     .passwordTextController
                                                                     .text) ==
                                                             true
-                                                        ? FlutterFlowTheme.of(
+                                                        ? AppTheme.of(
                                                                 context)
                                                             .primary
-                                                        : FlutterFlowTheme.of(
+                                                        : AppTheme.of(
                                                                 context)
                                                             .alternate,
                                                     size: 16.0,
@@ -797,18 +797,18 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               ),
                                               Text(
                                                 'Must include a symbol or\nnumber',
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .labelMedium
                                                     .override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
@@ -818,27 +818,27 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                                       .passwordTextController
                                                                       .text) ==
                                                               true
-                                                          ? FlutterFlowTheme.of(
+                                                          ? AppTheme.of(
                                                                   context)
                                                               .primaryText
-                                                          : FlutterFlowTheme.of(
+                                                          : AppTheme.of(
                                                                   context)
                                                               .secondaryText,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontStyle,
                                                     ),
                                               ),
                                             ].divide(SizedBox(
-                                                width: FFAppConstants
+                                                width: AppConstants
                                                     .childPadding)),
                                           ),
                                           Row(
@@ -850,7 +850,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .radius
@@ -860,11 +860,11 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                   width: 24.0,
                                                   height: 24.0,
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .secondaryBackground,
                                                     boxShadow: [
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .designToken
                                                           .shadow
@@ -872,14 +872,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                     ],
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .designToken
                                                                 .radius
                                                                 .sm),
                                                     border: Border.all(
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .alternate,
                                                     ),
@@ -896,10 +896,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                                         .passwordTextController
                                                                         .text) ==
                                                                 true)
-                                                        ? FlutterFlowTheme.of(
+                                                        ? AppTheme.of(
                                                                 context)
                                                             .primary
-                                                        : FlutterFlowTheme.of(
+                                                        : AppTheme.of(
                                                                 context)
                                                             .alternate,
                                                     size: 16.0,
@@ -908,18 +908,18 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                               ),
                                               Text(
                                                 'Upper and lowercase letters',
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .labelMedium
                                                     .override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
@@ -932,31 +932,31 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                                       .passwordTextController
                                                                       .text) ==
                                                                   true)
-                                                          ? FlutterFlowTheme.of(
+                                                          ? AppTheme.of(
                                                                   context)
                                                               .primaryText
-                                                          : FlutterFlowTheme.of(
+                                                          : AppTheme.of(
                                                                   context)
                                                               .secondaryText,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .labelMedium
                                                               .fontStyle,
                                                     ),
                                               ),
                                             ].divide(SizedBox(
-                                                width: FFAppConstants
+                                                width: AppConstants
                                                     .childPadding)),
                                           ),
                                         ].divide(SizedBox(
-                                            height: FlutterFlowTheme.of(context)
+                                            height: AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .md)),
@@ -964,7 +964,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                     ),
                                   ),
                                 ),
-                                FFButtonWidget(
+                                AppButton(
                                   onPressed: () async {
                                     await action_blocks.tapFeedback(context);
                                     _model.validationResult =
@@ -1001,7 +1001,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                     safeSetState(() {});
                                   },
                                   text: 'Reset Password',
-                                  options: FFButtonOptions(
+                                  options: AppButtonOptions(
                                     width: 300.0,
                                     height: 50.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1009,34 +1009,34 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                     iconAlignment: IconAlignment.end,
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context).primary,
+                                    textStyle: AppTheme.of(context)
                                         .titleSmall
                                         .override(
                                           font: GoogleFonts.inter(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
                                           color: Colors.white,
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
                                         ),
                                     elevation: 0.0,
                                     borderRadius: BorderRadius.circular(
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .radius
                                             .lg),
@@ -1044,9 +1044,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 ),
                               ]
                                   .divide(SizedBox(
-                                      height: FFAppConstants.parentPagePadding))
+                                      height: AppConstants.parentPagePadding))
                                   .addToStart(SizedBox(
-                                      height: FFAppConstants.parentPagePadding))
+                                      height: AppConstants.parentPagePadding))
                                   .addToEnd(SizedBox(height: 20.0)),
                             ),
                           ),
@@ -1054,7 +1054,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                       ),
                     ]
                         .divide(SizedBox(
-                            height: FlutterFlowTheme.of(context)
+                            height: AppTheme.of(context)
                                 .designToken
                                 .spacing
                                 .md))
@@ -1066,7 +1066,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    color: AppTheme.of(context).primaryBackground,
                   ),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1074,7 +1074,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                         0.0,
                         0.0,
                         valueOrDefault<double>(
-                          FFAppConstants.parentPagePadding,
+                          AppConstants.parentPagePadding,
                           0.0,
                         )),
                     child: Row(
@@ -1086,27 +1086,27 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           children: [
                             Icon(
                               Icons.security,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               size: 24.0,
                             ),
                             Text(
                               'SECURE',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
@@ -1118,27 +1118,27 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           children: [
                             Icon(
                               Icons.security,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               size: 24.0,
                             ),
                             Text(
                               'VETTED',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
@@ -1150,27 +1150,27 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           children: [
                             Icon(
                               Icons.security,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               size: 24.0,
                             ),
                             Text(
                               'END-TO-END',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
@@ -1178,7 +1178,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           ],
                         ),
                       ].divide(
-                          SizedBox(width: FFAppConstants.parentPagePadding)),
+                          SizedBox(width: AppConstants.parentPagePadding)),
                     ),
                   ),
                 ),

@@ -2,8 +2,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class FFButtonOptions {
-  const FFButtonOptions({
+class AppButtonOptions {
+  const AppButtonOptions({
     this.textAlign,
     this.textStyle,
     this.elevation,
@@ -50,8 +50,8 @@ class FFButtonOptions {
   final double? hoverElevation;
 }
 
-class FFButtonWidget extends StatefulWidget {
-  const FFButtonWidget({
+class AppButton extends StatefulWidget {
+  const AppButton({
     super.key,
     required this.text,
     required this.onPressed,
@@ -66,15 +66,15 @@ class FFButtonWidget extends StatefulWidget {
   final Widget? icon;
   final IconData? iconData;
   final Function()? onPressed;
-  final FFButtonOptions options;
+  final AppButtonOptions options;
   final bool showLoadingIndicator;
   final FocusNode? focusNode;
 
   @override
-  State<FFButtonWidget> createState() => _FFButtonWidgetState();
+  State<AppButton> createState() => _FFButtonWidgetState();
 }
 
-class _FFButtonWidgetState extends State<FFButtonWidget> {
+class _FFButtonWidgetState extends State<AppButton> {
   bool loading = false;
   late FocusNode _internalFocusNode;
 
@@ -314,7 +314,7 @@ double? _getTextWidth(String? text, TextStyle? style, int maxLines) =>
             .width
         : null;
 
-class FFFocusIndicator extends StatefulWidget {
+class AppFocusIndicator extends StatefulWidget {
   final Widget Function(FocusNode focusNode)? builder;
   final Widget? child;
   final Border? border;
@@ -324,7 +324,7 @@ class FFFocusIndicator extends StatefulWidget {
   final void Function()? onLongPress;
   final void Function()? onDoubleTap;
 
-  const FFFocusIndicator({
+  const AppFocusIndicator({
     super.key,
     this.builder,
     this.child,
@@ -340,10 +340,10 @@ class FFFocusIndicator extends StatefulWidget {
         );
 
   @override
-  State<FFFocusIndicator> createState() => _FFFocusIndicatorState();
+  State<AppFocusIndicator> createState() => _FFFocusIndicatorState();
 }
 
-class _FFFocusIndicatorState extends State<FFFocusIndicator> {
+class _FFFocusIndicatorState extends State<AppFocusIndicator> {
   late FocusNode _focusNode;
   bool _hasFocus = false;
 

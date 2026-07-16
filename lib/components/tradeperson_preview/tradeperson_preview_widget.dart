@@ -4,12 +4,12 @@ import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/labels/labels_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -84,29 +84,29 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return Material(
       color: Colors.transparent,
       elevation: 0.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-            FlutterFlowTheme.of(context).designToken.radius.md),
+            AppTheme.of(context).designToken.radius.md),
       ),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: [FlutterFlowTheme.of(context).designToken.shadow.sm],
+          color: AppTheme.of(context).secondaryBackground,
+          boxShadow: [AppTheme.of(context).designToken.shadow.sm],
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.md),
+              AppTheme.of(context).designToken.radius.md),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: AppTheme.of(context).alternate,
           ),
         ),
         child: Padding(
           padding: EdgeInsets.all(valueOrDefault<double>(
-            FFAppConstants.parentPagePadding,
+            AppConstants.parentPagePadding,
             0.0,
           )),
           child: Column(
@@ -122,18 +122,18 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                       _model.user?.profession,
                       'profession',
                     ),
-                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                    style: AppTheme.of(context).bodySmall.override(
                           font: GoogleFonts.manrope(
                             fontWeight: FontWeight.bold,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodySmall
                                 .fontStyle,
                           ),
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: AppTheme.of(context).primary,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                              AppTheme.of(context).bodySmall.fontStyle,
                         ),
                   ),
                   if ((widget!.proposalsItem?.status == Status.REJECTED.name) ||
@@ -148,8 +148,8 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                                   'status',
                                 ) ==
                                 Status.ACCEPTED.name
-                            ? FlutterFlowTheme.of(context).success
-                            : FlutterFlowTheme.of(context).error,
+                            ? AppTheme.of(context).success
+                            : AppTheme.of(context).error,
                         backroundColor: valueOrDefault<String>(
                                   widget!.proposalsItem?.status,
                                   'status',
@@ -170,21 +170,21 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                       widget!.proposalsItem?.quoteAmount?.toString(),
                       'amount',
                     )}',
-                    style: FlutterFlowTheme.of(context).titleLarge.override(
+                    style: AppTheme.of(context).titleLarge.override(
                           font: GoogleFonts.inter(
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .titleLarge
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .titleLarge
                                 .fontStyle,
                           ),
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .titleLarge
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                              AppTheme.of(context).titleLarge.fontStyle,
                         ),
                   ),
                   Text(
@@ -192,21 +192,21 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                       widget!.proposalsItem?.createdAt,
                       'created at',
                     )),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    style: AppTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.manrope(
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                           ),
                           letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .bodyMedium
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              AppTheme.of(context).bodyMedium.fontStyle,
                         ),
                   ),
                 ],
@@ -226,19 +226,19 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                     widget!.proposalsItem?.duration,
                     'duration',
                   )}',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  style: AppTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.inter(
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .bodyMedium
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              AppTheme.of(context).bodyMedium.fontStyle,
                         ),
                         letterSpacing: 0.0,
                         fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                            AppTheme.of(context).bodyMedium.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                            AppTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               Text(
@@ -246,18 +246,18 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                   widget!.proposalsItem?.message,
                   'No description',
                 ),
-                style: FlutterFlowTheme.of(context).labelMedium.override(
+                style: AppTheme.of(context).labelMedium.override(
                       font: GoogleFonts.inter(
                         fontWeight:
-                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                            AppTheme.of(context).labelMedium.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            AppTheme.of(context).labelMedium.fontStyle,
                       ),
                       letterSpacing: 0.0,
                       fontWeight:
-                          FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                          AppTheme.of(context).labelMedium.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          AppTheme.of(context).labelMedium.fontStyle,
                     ),
               ),
               Row(
@@ -290,18 +290,18 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                               _model.user?.name,
                               'name',
                             ),
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   font: GoogleFonts.manrope(
                                     fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
@@ -311,7 +311,7 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                             children: [
                               Icon(
                                 Icons.star_sharp,
-                                color: FlutterFlowTheme.of(context).tertiary,
+                                color: AppTheme.of(context).tertiary,
                                 size: 14.0,
                               ),
                               RichText(
@@ -325,20 +325,20 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                                             ?.toString(),
                                         '0.0',
                                       ),
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
@@ -350,45 +350,45 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                                             ?.toString(),
                                         '0',
                                       )} reviews)',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.normal,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .secondaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
                                     )
                                   ],
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
@@ -396,9 +396,9 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                               ),
                             ],
                           ),
-                        ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+                        ].divide(SizedBox(height: AppConstants.childSpacing)),
                       ),
-                    ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+                    ].divide(SizedBox(width: AppConstants.childSpacing)),
                   ),
                 ],
               ),
@@ -406,7 +406,7 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                 width: double.infinity,
                 height: 1.0,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).alternate,
+                  color: AppTheme.of(context).alternate,
                 ),
               ),
               if ((widget!.proposalsItem?.status != Status.REJECTED.name) &&
@@ -416,7 +416,7 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: FFButtonWidget(
+                      child: AppButton(
                         onPressed: () async {
                           await widget.onAccept?.call();
                         },
@@ -425,36 +425,36 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                           Icons.check_circle,
                           size: 26.0,
                         ),
-                        options: FFButtonOptions(
+                        options: AppButtonOptions(
                           width: 300.0,
                           height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: AppTheme.of(context).primary,
                           textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
+                              AppTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
                                     color: Colors.white,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
@@ -462,7 +462,7 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                       ),
                     ),
                     Expanded(
-                      child: FFButtonWidget(
+                      child: AppButton(
                         onPressed: () async {
                           await widget.onReject?.call();
                         },
@@ -471,51 +471,51 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                           Icons.cancel_rounded,
                           size: 24.0,
                         ),
-                        options: FFButtonOptions(
+                        options: AppButtonOptions(
                           width: 300.0,
                           height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          iconColor: FlutterFlowTheme.of(context).error,
+                          iconColor: AppTheme.of(context).error,
                           color: Colors.transparent,
                           textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
+                              AppTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context).error,
+                                    color: AppTheme.of(context).error,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                           elevation: 0.0,
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).error,
+                            color: AppTheme.of(context).error,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),
-                  ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+                  ].divide(SizedBox(width: AppConstants.childSpacing)),
                 ),
-              if ((FFAppState().userProfileCache.userRole == 1) &&
+              if ((AppState().userProfileCache.userRole == 1) &&
                   (widget!.proposalsItem?.status == Status.ACCEPTED.name) &&
                   (widget!.jobViewType != JobDetailsView.chat))
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
-                  child: FFButtonWidget(
+                  child: AppButton(
                     onPressed: () async {
                       _model.startChat = await SupbaseRpcGroup
                           .getConversationBetweenUsersCall
@@ -670,7 +670,7 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                       Icons.message_rounded,
                       size: 30.0,
                     ),
-                    options: FFButtonOptions(
+                    options: AppButtonOptions(
                       width: 300.0,
                       height: 50.0,
                       padding:
@@ -679,34 +679,34 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: Colors.transparent,
                       textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
+                          AppTheme.of(context).titleSmall.override(
                                 font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: AppTheme.of(context).primary,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .titleSmall
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .titleSmall
                                     .fontStyle,
                               ),
                       elevation: 0.0,
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),
-            ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+            ].divide(SizedBox(height: AppConstants.childSpacing)),
           ),
         ),
       ),

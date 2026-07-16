@@ -1,12 +1,12 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -106,21 +106,21 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
         elevation: 0.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.lg),
+              AppTheme.of(context).designToken.radius.lg),
         ),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: AppTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.circular(
-                FlutterFlowTheme.of(context).designToken.radius.lg),
+                AppTheme.of(context).designToken.radius.lg),
             border: Border.all(
-              color: FlutterFlowTheme.of(context).alternate,
+              color: AppTheme.of(context).alternate,
             ),
           ),
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
-              FFAppConstants.childPadding,
+              AppConstants.childPadding,
               0.0,
             )),
             child: Row(
@@ -161,16 +161,16 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                               'name',
                             ),
                             style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                AppTheme.of(context).bodyLarge.override(
                                       font: GoogleFonts.inter(
                                         fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodyLarge
                                             .fontStyle,
                                       ),
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyLarge
                                           .fontStyle,
                                     ),
@@ -184,20 +184,20 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                               )),
                               'created time',
                             ),
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: AppTheme.of(context).primary,
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
@@ -205,22 +205,22 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                         ],
                       ),
                       AnimatedDefaultTextStyle(
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        style: AppTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.manrope(
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               fontSize: 12.0,
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
@@ -237,7 +237,7 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                     ],
                   ),
                 ),
-              ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+              ].divide(SizedBox(width: AppConstants.childSpacing)),
             ),
           ),
         ),

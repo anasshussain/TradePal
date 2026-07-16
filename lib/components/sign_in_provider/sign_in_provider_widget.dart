@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -78,10 +78,10 @@ class _SignInProviderWidgetState extends State<SignInProviderWidget> {
             decoration: BoxDecoration(
               color: valueOrDefault<Color>(
                 widget!.color,
-                FlutterFlowTheme.of(context).alternate,
+                AppTheme.of(context).alternate,
               ),
               borderRadius: BorderRadius.circular(
-                  FlutterFlowTheme.of(context).designToken.radius.lg),
+                  AppTheme.of(context).designToken.radius.lg),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -93,20 +93,20 @@ class _SignInProviderWidgetState extends State<SignInProviderWidget> {
                     widget!.title,
                     'title',
                   ),
-                  style: FlutterFlowTheme.of(context).labelMedium.override(
+                  style: AppTheme.of(context).labelMedium.override(
                         font: GoogleFonts.inter(
                           fontWeight: FontWeight.bold,
-                          fontStyle: FlutterFlowTheme.of(context)
+                          fontStyle: AppTheme.of(context)
                               .labelMedium
                               .fontStyle,
                         ),
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            AppTheme.of(context).labelMedium.fontStyle,
                       ),
                 ),
-              ].divide(SizedBox(width: FFAppConstants.childPadding)),
+              ].divide(SizedBox(width: AppConstants.childPadding)),
             ),
           ),
         ),

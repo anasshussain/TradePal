@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
@@ -54,12 +54,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
-              FFAppConstants.parentPagePadding,
+              AppConstants.parentPagePadding,
               0.0,
             )),
             child: Column(
@@ -84,26 +84,26 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         Text(
                           'My Trade Pal',
                           style:
-                              FlutterFlowTheme.of(context).titleMedium.override(
+                              AppTheme.of(context).titleMedium.override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleMedium
                                         .fontStyle,
                                   ),
                         ),
                       ].divide(SizedBox(
-                          width: FlutterFlowTheme.of(context)
+                          width: AppTheme.of(context)
                               .designToken
                               .spacing
                               .sm)),
@@ -115,7 +115,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          FFAppState().onboarding = true;
+                          AppState().onboarding = true;
                           safeSetState(() {});
 
                           context.goNamed(LoginWidget.routeName);
@@ -127,18 +127,18 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             'Skip',
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelLarge
                                 .override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelLarge
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelLarge
                                       .fontStyle,
                                 ),
@@ -163,23 +163,23 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               elevation: 0.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .lg),
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .radius
                                           .lg),
                                   border: Border.all(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                   ),
                                 ),
                                 child: Padding(
@@ -214,7 +214,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   width: 150.0,
                                                   height: 40.0,
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .secondaryBackground,
                                                     borderRadius:
@@ -243,7 +243,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         'VETTED EXPERT',
                                                         style:
                                                             GoogleFonts.roboto(
-                                                          color: FlutterFlowTheme
+                                                          color: AppTheme
                                                                   .of(context)
                                                               .primaryText,
                                                           fontSize: 12.0,
@@ -251,7 +251,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                     ].divide(SizedBox(
                                                         width:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .designToken
                                                                 .spacing
@@ -265,7 +265,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         Padding(
                                           padding: EdgeInsets.all(
                                               valueOrDefault<double>(
-                                            FFAppConstants.childPadding,
+                                            AppConstants.childPadding,
                                             0.0,
                                           )),
                                           child: Column(
@@ -278,7 +278,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0,
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .spacing
@@ -287,31 +287,31 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           0.0),
                                                   child: Text(
                                                     'Find Verified\nProfessionals',
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .headlineMedium
                                                         .override(
                                                           font: GoogleFonts
                                                               .manrope(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .headlineMedium
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .headlineMedium
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .headlineMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .headlineMedium
                                                                   .fontStyle,
@@ -324,31 +324,31 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     -1.0, -1.0),
                                                 child: Text(
                                                   'We test every professional\n before they join our app.\n Quality is guaranteed.',
-                                                  style: FlutterFlowTheme.of(
+                                                  style: AppTheme.of(
                                                           context)
                                                       .bodyLarge
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyLarge
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyLarge
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyLarge
                                                                 .fontStyle,
@@ -359,13 +359,13 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0,
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .designToken
                                                             .spacing
                                                             .md,
                                                         0.0,
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .designToken
                                                             .spacing
@@ -384,7 +384,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         padding: EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 0.0,
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .spacing
@@ -401,7 +401,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 BorderRadius.circular(
                                                                     valueOrDefault<
                                                                         double>(
-                                                              FFAppConstants
+                                                              AppConstants
                                                                   .radius3,
                                                               0.0,
                                                             )),
@@ -417,7 +417,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   BorderRadius.circular(
                                                                       valueOrDefault<
                                                                           double>(
-                                                                FFAppConstants
+                                                                AppConstants
                                                                     .radius3,
                                                                 0.0,
                                                               )),
@@ -456,28 +456,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   -1.0, -1.0),
                                                           child: Text(
                                                             'Precision Matching',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .titleSmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .titleSmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .titleSmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontStyle,
@@ -490,28 +490,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   -1.0, -1.0),
                                                           child: Text(
                                                             'Our system instantly finds\n the best person for\n your work.',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
@@ -520,7 +520,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         ),
                                                       ].divide(SizedBox(
                                                           height:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
@@ -528,7 +528,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .spacing
@@ -537,7 +537,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               ),
                                             ].divide(SizedBox(
                                                 height:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .md)),
@@ -546,17 +546,17 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         Container(
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .alternate,
                                             borderRadius: BorderRadius.circular(
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .designToken
                                                     .radius
                                                     .md),
                                           ),
                                           child: Padding(
                                             padding: EdgeInsets.all(
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .designToken
                                                     .spacing
                                                     .lg),
@@ -569,31 +569,31 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           -1.0, -1.0),
                                                   child: Text(
                                                     'TRUSTED ACTIONS',
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .labelSmall
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontStyle,
@@ -607,12 +607,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
+                                                        color: AppTheme
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -624,35 +624,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Hire With Confidence',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -664,12 +664,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
+                                                        color: AppTheme
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -681,35 +681,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Trusted Professionals',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -720,7 +720,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .spacing
@@ -733,12 +733,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
+                                                        color: AppTheme
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -750,35 +750,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Quality Work',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -790,12 +790,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
+                                                        color: AppTheme
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -807,35 +807,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Trusted Experts',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -846,7 +846,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .spacing
@@ -859,12 +859,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
+                                                        color: AppTheme
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -876,35 +876,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Verified & Reliable',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -916,12 +916,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
+                                                        color: AppTheme
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -933,35 +933,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Trusted Local Services',
-                                                            style: FlutterFlowTheme
+                                                            style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -972,14 +972,14 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .spacing
                                                               .md)),
                                                 ),
                                               ].divide(SizedBox(
-                                                  height: FlutterFlowTheme.of(
+                                                  height: AppTheme.of(
                                                           context)
                                                       .designToken
                                                       .spacing
@@ -1000,26 +1000,26 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   Text(
                                     'Manage Jobs\nEffortlessly',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .headlineLarge
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .headlineLarge
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .headlineLarge
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineLarge
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineLarge
                                                   .fontStyle,
                                         ),
@@ -1027,26 +1027,26 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   Text(
                                     'Enjoy a smooth, smart dashboard experience. Track live bids and monitor your project in real time.',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodyLarge
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontStyle,
                                         ),
@@ -1056,7 +1056,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     elevation: 0.0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .lg),
@@ -1064,21 +1064,21 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .secondaryBackground,
                                         borderRadius: BorderRadius.circular(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .radius
                                                 .lg),
                                         border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .alternate,
                                         ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .lg),
@@ -1093,34 +1093,34 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               children: [
                                                 Text(
                                                   'My Trade pal',
-                                                  style: FlutterFlowTheme.of(
+                                                  style: AppTheme.of(
                                                           context)
                                                       .labelLarge
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelLarge
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelLarge
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .primary,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelLarge
                                                                 .fontStyle,
@@ -1145,7 +1145,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             color: Color(
                                                                 0xFF4169E1),
                                                             borderRadius: BorderRadius.circular(
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -1159,7 +1159,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Text(
                                                           'IN PROGRESS',
-                                                          style: FlutterFlowTheme
+                                                          style: AppTheme
                                                                   .of(context)
                                                               .bodySmall
                                                               .override(
@@ -1168,12 +1168,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
                                                                 ),
-                                                                color: FlutterFlowTheme.of(
+                                                                color: AppTheme.of(
                                                                         context)
                                                                     .primaryText,
                                                                 letterSpacing:
@@ -1181,7 +1181,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .bodySmall
                                                                     .fontStyle,
@@ -1198,30 +1198,30 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   -1.0, -1.0),
                                               child: Text(
                                                 'Kitchen\nRenovation',
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .titleMedium
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleMedium
                                                                 .fontStyle,
                                                       ),
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleMedium
                                                               .fontStyle,
@@ -1233,11 +1233,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               height: 84.0,
                                               decoration: BoxDecoration(
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .alternate,
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .designToken
                                                             .radius
@@ -1254,7 +1254,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     height: 42.0,
                                                     decoration: BoxDecoration(
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .accent1,
                                                       borderRadius:
@@ -1291,28 +1291,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         'Active Bids',
                                                         style:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .titleSmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .titleSmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontStyle,
@@ -1321,28 +1321,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         '3 qualified contractors\nresponding',
                                                         style:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -1352,7 +1352,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   Icon(
                                                     Icons.arrow_forward_ios,
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primaryText,
                                                     size: 24.0,
@@ -1365,11 +1365,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               height: 84.0,
                                               decoration: BoxDecoration(
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .alternate,
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .designToken
                                                             .radius
@@ -1386,7 +1386,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     height: 42.0,
                                                     decoration: BoxDecoration(
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .accent1,
                                                       borderRadius:
@@ -1423,28 +1423,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         'Project\nMilestones',
                                                         style:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .titleSmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .titleSmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontStyle,
@@ -1453,28 +1453,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         'Foundation & Framing\ncomplete',
                                                         style:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
                                                                       .manrope(
-                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                    fontWeight: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                    fontStyle: AppTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .fontStyle,
                                                                   ),
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodySmall
                                                                       .fontStyle,
@@ -1484,7 +1484,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   Icon(
                                                     Icons.arrow_forward_ios,
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primaryText,
                                                     size: 24.0,
@@ -1496,7 +1496,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0,
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .designToken
                                                           .spacing
@@ -1518,7 +1518,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .radius
@@ -1527,38 +1527,38 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   Text(
                                                     '\"The platform handles the noise,\nallowing me to focus on the structure\nand design of my home.\"',
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .bodySmall
                                                         .override(
                                                           font: GoogleFonts
                                                               .manrope(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .bodySmall
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .bodySmall
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodySmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodySmall
                                                                   .fontStyle,
                                                         ),
                                                   ),
                                                 ].divide(SizedBox(
-                                                    width: FlutterFlowTheme.of(
+                                                    width: AppTheme.of(
                                                             context)
                                                         .designToken
                                                         .spacing
@@ -1574,7 +1574,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .radius
@@ -1583,12 +1583,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 child: Container(
                                                   width: double.infinity,
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .alternate,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .designToken
                                                                 .radius
@@ -1597,7 +1597,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   child: Padding(
                                                     padding: EdgeInsets.all(
                                                         valueOrDefault<double>(
-                                                      FFAppConstants
+                                                      AppConstants
                                                           .childSpacing,
                                                       0.0,
                                                     )),
@@ -1628,7 +1628,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         ),
                                                         Padding(
                                                           padding: EdgeInsets.all(
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
@@ -1683,16 +1683,16 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                         child:
                                                                             Text(
                                                                           'SK',
-                                                                          style: FlutterFlowTheme.of(context)
+                                                                          style: AppTheme.of(context)
                                                                               .titleSmall
                                                                               .override(
                                                                                 font: GoogleFonts.manrope(
-                                                                                  fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                  fontWeight: AppTheme.of(context).titleSmall.fontWeight,
+                                                                                  fontStyle: AppTheme.of(context).titleSmall.fontStyle,
                                                                                 ),
                                                                                 letterSpacing: 0.0,
-                                                                                fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                                                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                fontWeight: AppTheme.of(context).titleSmall.fontWeight,
+                                                                                fontStyle: AppTheme.of(context).titleSmall.fontStyle,
                                                                               ),
                                                                         ),
                                                                       ),
@@ -1705,26 +1705,26 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                             -1.0),
                                                                     child: Text(
                                                                       '— Sarah J.',
-                                                                      style: FlutterFlowTheme.of(
+                                                                      style: AppTheme.of(
                                                                               context)
                                                                           .titleSmall
                                                                           .override(
                                                                             font:
                                                                                 GoogleFonts.manrope(
-                                                                              fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                                                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                              fontWeight: AppTheme.of(context).titleSmall.fontWeight,
+                                                                              fontStyle: AppTheme.of(context).titleSmall.fontStyle,
                                                                             ),
                                                                             letterSpacing:
                                                                                 0.0,
                                                                             fontWeight:
-                                                                                FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                AppTheme.of(context).titleSmall.fontWeight,
                                                                             fontStyle:
-                                                                                FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                AppTheme.of(context).titleSmall.fontStyle,
                                                                           ),
                                                                     ),
                                                                   ),
                                                                 ].divide(SizedBox(
-                                                                    width: FlutterFlowTheme.of(
+                                                                    width: AppTheme.of(
                                                                             context)
                                                                         .designToken
                                                                         .spacing
@@ -1732,33 +1732,33 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                               ),
                                                               Text(
                                                                 '\"Found a great plumber in\nminutes. The verification\nbadge gave me peace of\nmind.\"',
-                                                                style: FlutterFlowTheme.of(
+                                                                style: AppTheme.of(
                                                                         context)
                                                                     .bodyLarge
                                                                     .override(
                                                                       font: GoogleFonts
                                                                           .manrope(
-                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                        fontWeight: AppTheme.of(context)
                                                                             .bodyLarge
                                                                             .fontWeight,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                        fontStyle: AppTheme.of(context)
                                                                             .bodyLarge
                                                                             .fontStyle,
                                                                       ),
                                                                       letterSpacing:
                                                                           0.0,
-                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                      fontWeight: AppTheme.of(
                                                                               context)
                                                                           .bodyLarge
                                                                           .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                      fontStyle: AppTheme.of(
                                                                               context)
                                                                           .bodyLarge
                                                                           .fontStyle,
                                                                     ),
                                                               ),
                                                             ].divide(SizedBox(
-                                                                height: FlutterFlowTheme.of(
+                                                                height: AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .spacing
@@ -1767,7 +1767,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         ),
                                                       ].divide(SizedBox(
                                                           height:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
@@ -1779,7 +1779,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             ),
                                           ].divide(SizedBox(
                                               height:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -1789,7 +1789,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   ),
                                 ]
                                     .divide(SizedBox(
-                                        height: FlutterFlowTheme.of(context)
+                                        height: AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .lg))
@@ -1846,26 +1846,26 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   Text(
                                     'Secure Payments &\nTrust',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .headlineLarge
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .headlineLarge
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .headlineLarge
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineLarge
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineLarge
                                                   .fontStyle,
                                         ),
@@ -1873,26 +1873,26 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   Text(
                                     'Every transaction is protected by\ninstitutional-grade encryption, ensuring\nyour professional integrity is never\ncompromised.',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodyLarge
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontStyle,
                                         ),
@@ -1902,28 +1902,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     elevation: 0.0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .lg),
                                     ),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .secondaryBackground,
                                         borderRadius: BorderRadius.circular(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .radius
                                                 .lg),
                                         border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .alternate,
                                         ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .lg),
@@ -1950,30 +1950,30 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               'Safe Holding',
                                               textAlign: TextAlign.center,
                                               style:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .titleSmall
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
@@ -1983,30 +1983,30 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               'Funds are kept secure and released only after milestone approval. Our system ensures safe, transparent payments for both clients and contractors.\nFunds are kept secure and released only after milestone approval. Our system ensures safe, transparent payments for both clients and contractors.',
                                               textAlign: TextAlign.start,
                                               style:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyLarge
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyLarge
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyLarge
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyLarge
                                                                 .fontStyle,
@@ -2020,12 +2020,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               children: [
                                                 Container(
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .alternate,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .designToken
                                                                 .radius
@@ -2033,7 +2033,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding: EdgeInsets.all(
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .designToken
                                                             .radius
@@ -2047,7 +2047,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       children: [
                                                         Icon(
                                                           Icons.check,
-                                                          color: FlutterFlowTheme
+                                                          color: AppTheme
                                                                   .of(context)
                                                               .primaryText,
                                                           size: 14.0,
@@ -2056,35 +2056,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           'ENCRYPTED',
                                                           textAlign:
                                                               TextAlign.start,
-                                                          style: FlutterFlowTheme
+                                                          style: AppTheme
                                                                   .of(context)
                                                               .titleSmall
                                                               .override(
                                                                 font: GoogleFonts
                                                                     .manrope(
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontStyle,
                                                                 ),
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontStyle,
                                                               ),
                                                         ),
                                                       ].divide(SizedBox(
-                                                          width: FlutterFlowTheme
+                                                          width: AppTheme
                                                                   .of(context)
                                                               .designToken
                                                               .spacing
@@ -2094,12 +2094,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 ),
                                                 Container(
                                                   decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .alternate,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .designToken
                                                                 .radius
@@ -2107,7 +2107,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding: EdgeInsets.all(
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .designToken
                                                             .radius
@@ -2121,7 +2121,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       children: [
                                                         Icon(
                                                           Icons.check,
-                                                          color: FlutterFlowTheme
+                                                          color: AppTheme
                                                                   .of(context)
                                                               .primaryText,
                                                           size: 14.0,
@@ -2130,35 +2130,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           'Milestone-based',
                                                           textAlign:
                                                               TextAlign.start,
-                                                          style: FlutterFlowTheme
+                                                          style: AppTheme
                                                                   .of(context)
                                                               .titleSmall
                                                               .override(
                                                                 font: GoogleFonts
                                                                     .manrope(
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontStyle,
                                                                 ),
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontStyle,
                                                               ),
                                                         ),
                                                       ].divide(SizedBox(
-                                                          width: FlutterFlowTheme
+                                                          width: AppTheme
                                                                   .of(context)
                                                               .designToken
                                                               .spacing
@@ -2170,7 +2170,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             ),
                                           ].divide(SizedBox(
                                               height:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -2181,17 +2181,17 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                       borderRadius: BorderRadius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .md),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .spacing
                                               .lg),
@@ -2220,46 +2220,46 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 Icon(
                                               Icons.star_rounded,
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primary,
                                             ),
                                             direction: Axis.horizontal,
                                             initialRating:
                                                 _model.ratingBarValue ??= 4.0,
                                             unratedColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .accent1,
                                             itemCount: 5,
                                             itemSize: 20.0,
                                             glowColor:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .primary,
                                           ),
                                           Text(
                                             '\"The payment system is\ntransparent and secure. I felt\nconfident hiring through the\napp.\"',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .titleMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleMedium
                                                           .fontStyle,
@@ -2267,39 +2267,39 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                           ),
                                           Text(
                                             '— ELENA R.',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .titleMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleMedium
                                                             .fontStyle,
                                                   ),
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .accent1,
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleMedium
                                                           .fontStyle,
                                                 ),
                                           ),
                                         ].divide(SizedBox(
-                                            height: FlutterFlowTheme.of(context)
+                                            height: AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .lg)),
@@ -2309,7 +2309,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md,
@@ -2319,10 +2319,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                       width: double.infinity,
                                       height: 84.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                         borderRadius: BorderRadius.circular(
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .designToken
                                                 .radius
                                                 .md),
@@ -2334,35 +2334,35 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         children: [
                                           Icon(
                                             Icons.security,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .accent1,
                                             size: 22.0,
                                           ),
                                           Text(
                                             'Active Bids',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .titleSmall
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleSmall
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleSmall
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontStyle,
@@ -2371,13 +2371,13 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         ]
                                             .divide(SizedBox(
                                                 width:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .lg))
                                             .around(SizedBox(
                                                 width:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .lg)),
@@ -2388,10 +2388,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     width: double.infinity,
                                     height: 84.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                       borderRadius: BorderRadius.circular(
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .radius
                                               .md),
@@ -2403,34 +2403,34 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                       children: [
                                         Icon(
                                           Icons.support_agent_outlined,
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .accent1,
                                           size: 22.0,
                                         ),
                                         Text(
                                           '24/7 Dispute Resolution',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .titleSmall
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleSmall
                                                         .fontStyle,
                                               ),
@@ -2438,13 +2438,13 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                       ]
                                           .divide(SizedBox(
                                               width:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .lg))
                                           .around(SizedBox(
                                               width:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .lg)),
@@ -2452,7 +2452,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   ),
                                 ]
                                     .divide(SizedBox(
-                                        height: FlutterFlowTheme.of(context)
+                                        height: AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md))
@@ -2484,9 +2484,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 radius: 8.0,
                                 dotWidth: 8.0,
                                 dotHeight: 8.0,
-                                dotColor: FlutterFlowTheme.of(context).accent1,
+                                dotColor: AppTheme.of(context).accent1,
                                 activeDotColor:
-                                    FlutterFlowTheme.of(context).primary,
+                                    AppTheme.of(context).primary,
                                 paintStyle: PaintingStyle.stroke,
                               ),
                             ),
@@ -2499,21 +2499,21 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(
                       0.0,
-                      FlutterFlowTheme.of(context).designToken.spacing.lg,
+                      AppTheme.of(context).designToken.spacing.lg,
                       0.0,
-                      FlutterFlowTheme.of(context).designToken.spacing.lg),
+                      AppTheme.of(context).designToken.spacing.lg),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       if (_model.pageViewCurrentIndex > 0)
-                        FlutterFlowIconButton(
+                        AppIconButton(
                           borderRadius: 8.0,
                           buttonSize: 56.0,
                           fillColor: Colors.transparent,
                           icon: Icon(
                             Icons.arrow_back,
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: AppTheme.of(context).primary,
                             size: 24.0,
                           ),
                           onPressed: () async {
@@ -2527,21 +2527,21 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       Container(
                         decoration: BoxDecoration(
                           color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              AppTheme.of(context).secondaryBackground,
                         ),
                       ),
-                      FlutterFlowIconButton(
+                      AppIconButton(
                         borderRadius: 8.0,
                         buttonSize: 56.0,
-                        fillColor: FlutterFlowTheme.of(context).primary,
+                        fillColor: AppTheme.of(context).primary,
                         icon: Icon(
                           Icons.arrow_forward,
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: AppTheme.of(context).alternate,
                           size: 24.0,
                         ),
                         onPressed: () async {
                           if (_model.pageViewCurrentIndex != 2) {
-                            FFAppState().onboarding = true;
+                            AppState().onboarding = true;
                             await _model.pageViewController?.nextPage(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.ease,

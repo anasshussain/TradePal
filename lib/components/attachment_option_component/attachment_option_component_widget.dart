@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -57,25 +57,25 @@ class _AttachmentOptionComponentWidgetState
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.md),
+              AppTheme.of(context).designToken.radius.md),
           topRight: Radius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.md),
+              AppTheme.of(context).designToken.radius.md),
         ),
       ),
       child: Container(
         width: double.infinity,
         height: 100.0,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: [FlutterFlowTheme.of(context).designToken.shadow.sm],
+          color: AppTheme.of(context).secondaryBackground,
+          boxShadow: [AppTheme.of(context).designToken.shadow.sm],
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(
-                FlutterFlowTheme.of(context).designToken.radius.md),
+                AppTheme.of(context).designToken.radius.md),
             topRight: Radius.circular(
-                FlutterFlowTheme.of(context).designToken.radius.md),
+                AppTheme.of(context).designToken.radius.md),
           ),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: AppTheme.of(context).alternate,
           ),
         ),
         child: Row(
@@ -95,13 +95,13 @@ class _AttachmentOptionComponentWidgetState
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      FlutterFlowIconButton(
+                      AppIconButton(
                         borderRadius: 0.0,
                         buttonSize: 50.0,
                         fillColor: Colors.transparent,
                         icon: FaIcon(
                           FontAwesomeIcons.image,
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: AppTheme.of(context).primary,
                           size: 34.0,
                         ),
                         onPressed: () async {
@@ -111,20 +111,20 @@ class _AttachmentOptionComponentWidgetState
                       Text(
                         'Photos',
                         style:
-                            FlutterFlowTheme.of(context).labelMedium.override(
+                            AppTheme.of(context).labelMedium.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelMedium
                                       .fontStyle,
                                 ),
@@ -140,13 +140,13 @@ class _AttachmentOptionComponentWidgetState
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    FlutterFlowIconButton(
+                    AppIconButton(
                       borderRadius: 0.0,
                       buttonSize: 50.0,
                       fillColor: Colors.transparent,
                       icon: FaIcon(
                         FontAwesomeIcons.fileAlt,
-                        color: FlutterFlowTheme.of(context).secondary,
+                        color: AppTheme.of(context).secondary,
                         size: 34.0,
                       ),
                       onPressed: () {
@@ -155,20 +155,20 @@ class _AttachmentOptionComponentWidgetState
                     ),
                     Text(
                       'Files',
-                      style: FlutterFlowTheme.of(context).labelMedium.override(
+                      style: AppTheme.of(context).labelMedium.override(
                             font: GoogleFonts.inter(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .labelMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelMedium
                                   .fontStyle,
                             ),
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .labelMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .labelMedium
                                 .fontStyle,
                           ),

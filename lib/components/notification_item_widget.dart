@@ -1,9 +1,9 @@
 import '/backend/schema/enums/enums.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -108,7 +108,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                           width: 48.0,
                           height: 48.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).success,
+                            color: AppTheme.of(context).success,
                             borderRadius: BorderRadius.circular(10.0),
                             shape: BoxShape.rectangle,
                           ),
@@ -123,7 +123,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                           width: 48.0,
                           height: 48.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: AppTheme.of(context).primary,
                             borderRadius: BorderRadius.circular(10.0),
                             shape: BoxShape.rectangle,
                           ),
@@ -160,25 +160,25 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                                   'New Proposal Received',
                                 ),
                                 maxLines: 1,
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .titleSmall
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .titleSmall
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleSmall
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .primaryText,
                                       fontSize: 14.0,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
@@ -190,24 +190,24 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                                 functions.timeAgo(widget!.time),
                                 '2m ago',
                               ),
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .labelSmall
                                   .override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelSmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                     lineHeight: 1.4,
@@ -218,25 +218,25 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                         Text(
                           widget!.body,
                           maxLines: 4,
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .bodyMedium
                               .override(
                                 font: GoogleFonts.manrope(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 fontSize: 12.0,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                                 lineHeight: 1.4,
@@ -253,7 +253,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
           Container(
             height: 1.0,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).alternate,
+              color: AppTheme.of(context).alternate,
               shape: BoxShape.rectangle,
             ),
           ),

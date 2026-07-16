@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -80,15 +80,15 @@ class _Button4WidgetState extends State<Button4Widget> {
         decoration: BoxDecoration(
           color: () {
             if (widget!.variant == 'secondary') {
-              return FlutterFlowTheme.of(context).secondary;
+              return AppTheme.of(context).secondary;
             } else if (widget!.variant == 'outline') {
               return Colors.transparent;
             } else if (widget!.variant == 'ghost') {
               return Colors.transparent;
             } else if (widget!.variant == 'destructive') {
-              return FlutterFlowTheme.of(context).error;
+              return AppTheme.of(context).error;
             } else {
-              return FlutterFlowTheme.of(context).primary;
+              return AppTheme.of(context).primary;
             }
           }(),
           borderRadius: BorderRadius.only(
@@ -144,7 +144,7 @@ class _Button4WidgetState extends State<Button4Widget> {
           shape: BoxShape.rectangle,
           border: Border.all(
             color: widget!.variant == 'outline'
-                ? FlutterFlowTheme.of(context).alternate
+                ? AppTheme.of(context).alternate
                 : Colors.transparent,
             width: widget!.variant == 'outline' ? 1.0 : 0.0,
           ),
@@ -220,12 +220,12 @@ class _Button4WidgetState extends State<Button4Widget> {
                         'Continue Booking',
                       ),
                       maxLines: 1,
-                      style: FlutterFlowTheme.of(context).labelMedium.override(
+                      style: AppTheme.of(context).labelMedium.override(
                             font: GoogleFonts.inter(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .labelMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelMedium
                                   .fontStyle,
                             ),
@@ -233,9 +233,9 @@ class _Button4WidgetState extends State<Button4Widget> {
                               if (widget!.variant == 'secondary') {
                                 return Colors.white;
                               } else if (widget!.variant == 'outline') {
-                                return FlutterFlowTheme.of(context).primaryText;
+                                return AppTheme.of(context).primaryText;
                               } else if (widget!.variant == 'ghost') {
-                                return FlutterFlowTheme.of(context).primary;
+                                return AppTheme.of(context).primary;
                               } else if (widget!.variant == 'destructive') {
                                 return Colors.white;
                               } else {
@@ -243,10 +243,10 @@ class _Button4WidgetState extends State<Button4Widget> {
                               }
                             }(),
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .labelMedium
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .labelMedium
                                 .fontStyle,
                             lineHeight: 1.4,
@@ -273,16 +273,16 @@ class _Button4WidgetState extends State<Button4Widget> {
                   if (widget!.variant == 'secondary') {
                     return Colors.white;
                   } else if (widget!.variant == 'outline') {
-                    return FlutterFlowTheme.of(context).primaryText;
+                    return AppTheme.of(context).primaryText;
                   } else if (widget!.variant == 'ghost') {
-                    return FlutterFlowTheme.of(context).primary;
+                    return AppTheme.of(context).primary;
                   } else if (widget!.variant == 'destructive') {
                     return Colors.white;
                   } else {
                     return Colors.white;
                   }
                 }(),
-                backgroundColor: FlutterFlowTheme.of(context).alternate,
+                backgroundColor: AppTheme.of(context).alternate,
               ),
           ],
         ),

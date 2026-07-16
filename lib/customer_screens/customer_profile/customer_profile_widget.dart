@@ -3,9 +3,9 @@ import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/customer_navbar/customer_navbar_widget.dart';
 import '/components/settings_component/settings_component_widget.dart';
 import '/components/theme_picker/theme_picker_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/index.dart';
@@ -49,7 +49,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -58,9 +58,9 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -82,7 +82,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: SingleChildScrollView(
@@ -97,7 +97,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .md),
@@ -106,15 +106,15 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               width: 128.0,
                               height: 128.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .md),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                   width: 2.0,
                                 ),
                               ),
@@ -125,7 +125,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .md),
@@ -134,25 +134,25 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               width: 120.0,
                               height: 120.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: CachedNetworkImageProvider(
-                                    FFAppState().userProfileCache.avatarUrl !=
+                                    AppState().userProfileCache.avatarUrl !=
                                                 null &&
-                                            FFAppState()
+                                            AppState()
                                                     .userProfileCache
                                                     .avatarUrl !=
                                                 ''
-                                        ? FFAppState()
+                                        ? AppState()
                                             .userProfileCache
                                             .avatarUrl
                                         : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
                                   ),
                                 ),
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .md),
@@ -167,25 +167,25 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                       ),
                       Text(
                         valueOrDefault<String>(
-                          FFAppState().userProfileCache.name,
+                          AppState().userProfileCache.name,
                           'Guest user',
                         ),
                         style:
-                            FlutterFlowTheme.of(context).displaySmall.override(
+                            AppTheme.of(context).displaySmall.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w800,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .displaySmall
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w800,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .displaySmall
                                       .fontStyle,
                                 ),
                       ),
-                      FFButtonWidget(
+                      AppButton(
                         onPressed: () async {
                           context.pushNamed(
                             EditCustomerProfieWidget.routeName,
@@ -202,7 +202,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           Icons.edit_rounded,
                           size: 26.0,
                         ),
-                        options: FFButtonOptions(
+                        options: AppButtonOptions(
                           width: 300.0,
                           height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -211,27 +211,27 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               0.0, 0.0, 0.0, 0.0),
                           color: Colors.transparent,
                           textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
+                              AppTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleSmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: AppTheme.of(context).primary,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                           elevation: 0.0,
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: AppTheme.of(context).primary,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
@@ -242,7 +242,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .lg,
@@ -250,22 +250,22 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               0.0),
                           child: Text(
                             'ACCOUNT DETAILS',
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelSmall
                                       .fontStyle,
                                 ),
@@ -275,7 +275,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0,
-                            FlutterFlowTheme.of(context).designToken.spacing.md,
+                            AppTheme.of(context).designToken.spacing.md,
                             0.0,
                             0.0),
                         child: Material(
@@ -283,7 +283,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
@@ -291,20 +291,20 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
+                              color: AppTheme.of(context)
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(valueOrDefault<double>(
-                                FFAppConstants.childPadding,
+                                AppConstants.childPadding,
                                 0.0,
                               )),
                               child: Column(
@@ -317,7 +317,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       icon: Icon(
                                         Icons.person_sharp,
                                         color:
-                                            FlutterFlowTheme.of(context).info,
+                                            AppTheme.of(context).info,
                                       ),
                                       title: 'Personal information',
                                       description:
@@ -333,7 +333,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                     width: double.infinity,
                                     height: 1.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                     ),
                                   ),
@@ -344,7 +344,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       icon: Icon(
                                         Icons.credit_card_outlined,
                                         color:
-                                            FlutterFlowTheme.of(context).info,
+                                            AppTheme.of(context).info,
                                       ),
                                       title: 'Payment methods',
                                       description:
@@ -355,9 +355,9 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                   ),
                                 ]
                                     .divide(SizedBox(
-                                        height: FFAppConstants.childSpacing))
+                                        height: AppConstants.childSpacing))
                                     .around(SizedBox(
-                                        height: FFAppConstants.childSpacing)),
+                                        height: AppConstants.childSpacing)),
                               ),
                             ),
                           ),
@@ -368,7 +368,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .lg,
@@ -376,22 +376,22 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               0.0),
                           child: Text(
                             'MARKETPLACE ACTIVITY',
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelSmall
                                       .fontStyle,
                                 ),
@@ -401,7 +401,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0,
-                            FlutterFlowTheme.of(context).designToken.spacing.md,
+                            AppTheme.of(context).designToken.spacing.md,
                             0.0,
                             0.0),
                         child: Material(
@@ -409,7 +409,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
@@ -417,20 +417,20 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
+                              color: AppTheme.of(context)
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(valueOrDefault<double>(
-                                FFAppConstants.childPadding,
+                                AppConstants.childPadding,
                                 0.0,
                               )),
                               child: Column(
@@ -443,7 +443,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       icon: Icon(
                                         Icons.construction_rounded,
                                         color:
-                                            FlutterFlowTheme.of(context).info,
+                                            AppTheme.of(context).info,
                                       ),
                                       title: 'My jobs',
                                       description:
@@ -456,7 +456,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                     ),
                                   ),
                                 ].divide(SizedBox(
-                                    height: FFAppConstants.childSpacing)),
+                                    height: AppConstants.childSpacing)),
                               ),
                             ),
                           ),
@@ -467,7 +467,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .lg,
@@ -475,22 +475,22 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               0.0),
                           child: Text(
                             'PREFERENCES & SECURITY',
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelSmall
                                       .fontStyle,
                                 ),
@@ -500,7 +500,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0,
-                            FlutterFlowTheme.of(context).designToken.spacing.md,
+                            AppTheme.of(context).designToken.spacing.md,
                             0.0,
                             0.0),
                         child: Material(
@@ -508,7 +508,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
@@ -516,15 +516,15 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
+                              color: AppTheme.of(context)
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                             ),
                             child: Column(
@@ -533,7 +533,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                 Padding(
                                   padding:
                                       EdgeInsets.all(valueOrDefault<double>(
-                                    FFAppConstants.childPadding,
+                                    AppConstants.childPadding,
                                     0.0,
                                   )),
                                   child: Column(
@@ -546,7 +546,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.notifications_sharp,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .info,
                                           ),
                                           title: 'Notifications',
@@ -562,7 +562,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       ),
                                       Divider(
                                         thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                       wrapWithModel(
@@ -572,7 +572,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.security,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .info,
                                           ),
                                           title: 'Security',
@@ -584,7 +584,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       ),
                                       Divider(
                                         thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                       wrapWithModel(
@@ -594,7 +594,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.password,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .info,
                                           ),
                                           title: 'Change Password',
@@ -609,7 +609,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       ),
                                       Divider(
                                         thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                       wrapWithModel(
@@ -619,7 +619,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.help,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .info,
                                           ),
                                           title: 'Help & Support',
@@ -631,7 +631,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       ),
                                       Divider(
                                         thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .alternate,
                                       ),
                                       Builder(
@@ -643,7 +643,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                             icon: Icon(
                                               Icons.dark_mode_outlined,
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .info,
                                             ),
                                             title: 'Appearances',
@@ -687,10 +687,10 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                     ]
                                         .divide(SizedBox(
                                             height:
-                                                FFAppConstants.childPadding))
+                                                AppConstants.childPadding))
                                         .around(SizedBox(
                                             height:
-                                                FFAppConstants.childPadding)),
+                                                AppConstants.childPadding)),
                                   ),
                                 ),
                               ],
@@ -716,7 +716,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         child: Container(
                           decoration: BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsets.all(FlutterFlowTheme.of(context)
+                            padding: EdgeInsets.all(AppTheme.of(context)
                                 .designToken
                                 .spacing
                                 .lg),
@@ -733,34 +733,34 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Text(
                                     'LOGOUT FROM DEVICE',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleSmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
                                           color: Color(0xFFBA1A1A),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
                                         ),
                                   ),
                                 ),
                               ].divide(SizedBox(
-                                  width: FlutterFlowTheme.of(context)
+                                  width: AppTheme.of(context)
                                       .designToken
                                       .spacing
                                       .md)),
@@ -769,7 +769,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: FFAppConstants.childSpacing))
+                        .divide(SizedBox(height: AppConstants.childSpacing))
                         .addToEnd(SizedBox(height: 50.0)),
                   ),
                 ),

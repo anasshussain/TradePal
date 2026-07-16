@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: Padding(
           padding: EdgeInsets.all(24.0),
           child: Column(
@@ -72,29 +72,29 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                         children: [
                           Icon(
                             Icons.lock_rounded,
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                            color: AppTheme.of(context).secondaryText,
                             size: 14.0,
                           ),
                           Text(
                             'SwiftPay Secure Checkout',
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryText,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelSmall
                                       .fontStyle,
                                   lineHeight: 1.3,
@@ -135,9 +135,9 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                           lineWidth: 4.0,
                           animation: true,
                           animateFromLastPercent: true,
-                          progressColor: FlutterFlowTheme.of(context).primary,
+                          progressColor: AppTheme.of(context).primary,
                           backgroundColor:
-                              FlutterFlowTheme.of(context).alternate,
+                              AppTheme.of(context).alternate,
                         ),
                       ],
                     ),
@@ -148,19 +148,19 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                       children: [
                         Text(
                           'Processing payment',
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .headlineSmall
                               .override(
                                 font: GoogleFonts.manrope(
                                   fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .headlineSmall
                                       .fontStyle,
                                 ),
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: AppTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .headlineSmall
                                     .fontStyle,
                                 lineHeight: 1.3,
@@ -169,24 +169,24 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                         Text(
                           'Please don\'t close this window or refresh the page.',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .bodyMedium
                               .override(
                                 font: GoogleFonts.manrope(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                                 lineHeight: 1.5,
@@ -201,11 +201,11 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
               Container(
                 width: 320.0,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: AppTheme.of(context).secondaryBackground,
                   borderRadius: BorderRadius.circular(12.0),
                   shape: BoxShape.rectangle,
                   border: Border.all(
-                    color: FlutterFlowTheme.of(context).alternate,
+                    color: AppTheme.of(context).alternate,
                     width: 1.0,
                   ),
                 ),
@@ -224,24 +224,24 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                           children: [
                             Text(
                               'Total amount',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .labelMedium
                                   .override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                     lineHeight: 1.4,
@@ -249,20 +249,20 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                             ),
                             Text(
                               '\$142.00',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .titleMedium
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .primaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleMedium
                                         .fontStyle,
                                     lineHeight: 1.4,
@@ -275,7 +275,7 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                           thickness: 1.0,
                           indent: 0.0,
                           endIndent: 0.0,
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: AppTheme.of(context).alternate,
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -293,30 +293,30 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.credit_card_rounded,
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: AppTheme.of(context).primaryText,
                                 size: 14.0,
                               ),
                             ),
                             Text(
                               'Visa •••• 4242',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodySmall
                                   .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodySmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodySmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodySmall
                                         .fontStyle,
                                     lineHeight: 1.4,
@@ -340,24 +340,24 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                       children: [
                         Text(
                           'Powered by',
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .labelSmall
                               .override(
                                 font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelSmall
                                       .fontStyle,
                                 ),
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                    AppTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .labelSmall
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .labelSmall
                                     .fontStyle,
                                 lineHeight: 1.3,

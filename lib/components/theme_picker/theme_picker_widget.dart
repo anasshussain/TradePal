@@ -1,8 +1,8 @@
-import '/flutter_flow/flutter_flow_radio_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/widgets/app_radio_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/form_field_controller.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -44,18 +44,18 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return Container(
       width: 300.0,
       height: 170.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: AppTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(13.0),
       ),
       child: Padding(
         padding: EdgeInsets.all(valueOrDefault<double>(
-          FFAppConstants.childPadding,
+          AppConstants.childPadding,
           0.0,
         )),
         child: Column(
@@ -64,25 +64,25 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
           children: [
             Text(
               'Choose Theme',
-              style: FlutterFlowTheme.of(context).titleSmall.override(
+              style: AppTheme.of(context).titleSmall.override(
                     font: GoogleFonts.manrope(
                       fontWeight:
-                          FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                          AppTheme.of(context).titleSmall.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                          AppTheme.of(context).titleSmall.fontStyle,
                     ),
                     letterSpacing: 0.0,
                     fontWeight:
-                        FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                        AppTheme.of(context).titleSmall.fontWeight,
                     fontStyle:
-                        FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        AppTheme.of(context).titleSmall.fontStyle,
                   ),
             ),
-            FlutterFlowRadioButton(
+            AppRadioButton(
               options: ['Dark Mode', 'Light Mode', 'System Default'].toList(),
               onChanged: (val) async {
                 safeSetState(() {});
-                FFAppState().selectedTheme = _model.radioButtonValue!;
+                AppState().selectedTheme = _model.radioButtonValue!;
                 safeSetState(() {});
                 if (_model.radioButtonValue == 'Dark Mode') {
                   setDarkModeSetting(context, ThemeMode.dark);
@@ -93,44 +93,44 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
                 }
               },
               controller: _model.radioButtonValueController ??=
-                  FormFieldController<String>(FFAppState().selectedTheme),
+                  FormFieldController<String>(AppState().selectedTheme),
               optionHeight: 32.0,
-              textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+              textStyle: AppTheme.of(context).bodyLarge.override(
                     font: GoogleFonts.manrope(
                       fontWeight:
-                          FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                          AppTheme.of(context).bodyLarge.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                          AppTheme.of(context).bodyLarge.fontStyle,
                     ),
                     letterSpacing: 0.0,
                     fontWeight:
-                        FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                    fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                        AppTheme.of(context).bodyLarge.fontWeight,
+                    fontStyle: AppTheme.of(context).bodyLarge.fontStyle,
                   ),
               selectedTextStyle:
-                  FlutterFlowTheme.of(context).bodyMedium.override(
+                  AppTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.manrope(
                           fontWeight: FontWeight.bold,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              AppTheme.of(context).bodyMedium.fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: AppTheme.of(context).primaryText,
                         fontSize: 18.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
                         fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                            AppTheme.of(context).bodyMedium.fontStyle,
                       ),
               buttonPosition: RadioButtonPosition.left,
               direction: Axis.vertical,
-              radioButtonColor: FlutterFlowTheme.of(context).primaryText,
+              radioButtonColor: AppTheme.of(context).primaryText,
               inactiveRadioButtonColor:
-                  FlutterFlowTheme.of(context).secondaryText,
+                  AppTheme.of(context).secondaryText,
               toggleable: false,
               horizontalAlignment: WrapAlignment.start,
               verticalAlignment: WrapCrossAlignment.start,
             ),
-          ].divide(SizedBox(height: FFAppConstants.spacing)),
+          ].divide(SizedBox(height: AppConstants.spacing)),
         ),
       ),
     );

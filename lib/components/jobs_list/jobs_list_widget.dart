@@ -4,9 +4,9 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/empty_list_component/empty_list_component_widget.dart';
 import '/components/job_item/job_item_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
         _model.browseJobsRes = await SupabaseTablesGroup.getJobsListCall.call();
 
         if ((_model.browseJobsRes?.succeeded ?? true)) {
-          FFAppState().jobCache = JobCacheStruct(
+          AppState().jobCache = JobCacheStruct(
             jobs: ((_model.browseJobsRes?.jsonBody ?? '')
                     .toList()
                     .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
@@ -80,7 +80,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
         );
 
         if ((_model.dashboardJobsRes?.succeeded ?? true)) {
-          FFAppState().jobCache = JobCacheStruct(
+          AppState().jobCache = JobCacheStruct(
             jobs: ((_model.dashboardJobsRes?.jsonBody ?? '')
                     .toList()
                     .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
@@ -110,7 +110,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -156,38 +156,38 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                   decoration: InputDecoration(
                     isDense: false,
                     labelStyle:
-                        FlutterFlowTheme.of(context).labelMedium.override(
+                        AppTheme.of(context).labelMedium.override(
                               font: GoogleFonts.inter(
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .labelMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .labelMedium
                                     .fontStyle,
                               ),
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: AppTheme.of(context).secondaryText,
                               fontSize: 12.0,
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .labelMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelMedium
                                   .fontStyle,
                             ),
                     hintText: 'Search jobs',
                     hintStyle:
-                        FlutterFlowTheme.of(context).labelMedium.override(
+                        AppTheme.of(context).labelMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .labelMedium
                                     .fontStyle,
                               ),
-                              color: FlutterFlowTheme.of(context).hint,
+                              color: AppTheme.of(context).hint,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelMedium
                                   .fontStyle,
                             ),
@@ -200,27 +200,27 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: AppTheme.of(context).error,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
+                        color: AppTheme.of(context).error,
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     filled: true,
-                    fillColor: FlutterFlowTheme.of(context).alternate,
+                    fillColor: AppTheme.of(context).alternate,
                     suffixIcon: _model.searchTextController!.text.isNotEmpty
                         ? InkWell(
                             onTap: () async {
@@ -249,27 +249,27 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                             },
                             child: Icon(
                               Icons.clear,
-                              color: FlutterFlowTheme.of(context).tertiary,
+                              color: AppTheme.of(context).tertiary,
                               size: 26.0,
                             ),
                           )
                         : null,
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  style: AppTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.manrope(
-                          fontWeight: FlutterFlowTheme.of(context)
+                          fontWeight: AppTheme.of(context)
                               .bodyMedium
                               .fontWeight,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                              AppTheme.of(context).bodyMedium.fontStyle,
                         ),
                         letterSpacing: 0.0,
                         fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                            AppTheme.of(context).bodyMedium.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                            AppTheme.of(context).bodyMedium.fontStyle,
                       ),
-                  cursorColor: FlutterFlowTheme.of(context).primaryText,
+                  cursorColor: AppTheme.of(context).primaryText,
                   enableInteractiveSelection: true,
                   validator:
                       _model.searchTextControllerValidator.asValidator(context),
@@ -280,7 +280,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
         ),
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0.0,
-              FlutterFlowTheme.of(context).designToken.spacing.lg, 0.0, 0.0),
+              AppTheme.of(context).designToken.spacing.lg, 0.0, 0.0),
           child: Builder(
             builder: (context) {
               final jobList = () {
@@ -295,14 +295,14 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                     } else if ((widget!.jobViewType ==
                             JobsViewType.DASHBOARD) &&
                         !_model.showSearchList) {
-                      return FFAppState()
+                      return AppState()
                           .jobCache
                           .jobs
                           .sortedList(keyOf: (e) => e.createdAt, desc: true)
                           .take(5)
                           .toList();
                     } else {
-                      return FFAppState()
+                      return AppState()
                           .jobCache
                           .jobs
                           .sortedList(keyOf: (e) => e.createdAt, desc: true);
@@ -315,7 +315,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                   child: EmptyListComponentWidget(
                     icon: Icon(
                       Icons.work_history_sharp,
-                      color: FlutterFlowTheme.of(context).tertiary,
+                      color: AppTheme.of(context).tertiary,
                       size: 40.0,
                     ),
                     title: valueOrDefault<String>(
@@ -339,7 +339,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                 scrollDirection: Axis.vertical,
                 itemCount: jobList.length,
                 separatorBuilder: (_, __) =>
-                    SizedBox(height: FFAppConstants.childPadding),
+                    SizedBox(height: AppConstants.childPadding),
                 itemBuilder: (context, jobListIndex) {
                   final jobListItem = jobList[jobListIndex];
                   return JobItemWidget(

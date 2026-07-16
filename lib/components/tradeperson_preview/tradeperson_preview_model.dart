@@ -4,12 +4,12 @@ import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/labels/labels_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'tradeperson_preview_widget.dart' show TradepersonPreviewWidget;
 import 'package:flutter/gestures.dart';
@@ -20,7 +20,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class TradepersonPreviewModel
-    extends FlutterFlowModel<TradepersonPreviewWidget> {
+    extends AppModel<TradepersonPreviewWidget> {
   ///  Local state fields for this component.
 
   UserStruct? user;

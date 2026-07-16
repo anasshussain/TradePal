@@ -7,9 +7,9 @@ import '/backend/schema/util/schema_util.dart';
 import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 
-class SubmittedJobsListStruct extends FFFirebaseStruct {
+class SubmittedJobsListStruct extends AppFirebaseStruct {
   SubmittedJobsListStruct({
     JobsStruct? jobs,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),

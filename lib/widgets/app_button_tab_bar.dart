@@ -236,7 +236,7 @@ class _TabBarScrollController extends ScrollController {
 }
 
 /// A Flutterflow Design widget that displays a horizontal row of tabs.
-class FlutterFlowButtonTabBar extends StatefulWidget
+class AppButtonTabBar extends StatefulWidget
     implements PreferredSizeWidget {
   /// The [tabs] argument must not be null and its length must match the [controller]'s
   /// [TabController.length].
@@ -244,7 +244,7 @@ class FlutterFlowButtonTabBar extends StatefulWidget
   /// If a [TabController] is not provided, then there must be a
   /// [DefaultTabController] ancestor.
   ///
-  const FlutterFlowButtonTabBar({
+  const AppButtonTabBar({
     Key? key,
     required this.tabs,
     this.controller,
@@ -286,7 +286,7 @@ class FlutterFlowButtonTabBar extends StatefulWidget
   /// Whether this tab bar can be scrolled horizontally.
   ///
   /// If [isScrollable] is true, then each tab is as wide as needed for its label
-  /// and the entire [FlutterFlowButtonTabBar] is scrollable. Otherwise each tab gets an equal
+  /// and the entire [AppButtonTabBar] is scrollable. Otherwise each tab gets an equal
   /// share of the available space.
   final bool isScrollable;
 
@@ -376,11 +376,11 @@ class FlutterFlowButtonTabBar extends StatefulWidget
   }
 
   @override
-  State<FlutterFlowButtonTabBar> createState() =>
+  State<AppButtonTabBar> createState() =>
       _FlutterFlowButtonTabBarState();
 }
 
-class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
+class _FlutterFlowButtonTabBarState extends State<AppButtonTabBar>
     with TickerProviderStateMixin {
   ScrollController? _scrollController;
   TabController? _controller;
@@ -474,7 +474,7 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
   }
 
   @override
-  void didUpdateWidget(FlutterFlowButtonTabBar oldWidget) {
+  void didUpdateWidget(AppButtonTabBar oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       _updateTabController();

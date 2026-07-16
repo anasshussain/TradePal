@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -58,7 +58,7 @@ class _LabelsWidgetState extends State<LabelsWidget> {
       decoration: BoxDecoration(
         color: widget!.backroundColor,
         borderRadius: BorderRadius.circular(
-            FlutterFlowTheme.of(context).designToken.radius.full),
+            AppTheme.of(context).designToken.radius.full),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -74,24 +74,24 @@ class _LabelsWidgetState extends State<LabelsWidget> {
               widget!.labelText,
               'unknown',
             ),
-            style: FlutterFlowTheme.of(context).bodySmall.override(
+            style: AppTheme.of(context).bodySmall.override(
                   font: GoogleFonts.inter(
                     fontWeight: FontWeight.bold,
-                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                    fontStyle: AppTheme.of(context).bodySmall.fontStyle,
                   ),
                   color: valueOrDefault<Color>(
                     widget!.textcolor,
-                    FlutterFlowTheme.of(context).secondaryText,
+                    AppTheme.of(context).secondaryText,
                   ),
                   fontSize: 10.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
-                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                  fontStyle: AppTheme.of(context).bodySmall.fontStyle,
                 ),
           ),
         ]
-            .divide(SizedBox(width: FFAppConstants.childSpacing))
-            .around(SizedBox(width: FFAppConstants.childSpacing)),
+            .divide(SizedBox(width: AppConstants.childSpacing))
+            .around(SizedBox(width: AppConstants.childSpacing)),
       ),
     );
   }

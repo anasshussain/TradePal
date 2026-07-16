@@ -3,10 +3,10 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/bank_card_component/bank_card_component_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
@@ -96,7 +96,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         body: SingleChildScrollView(
           primary: false,
           child: Column(
@@ -117,12 +117,12 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          FlutterFlowIconButton(
+                          AppIconButton(
                             borderRadius: 8.0,
                             buttonSize: 40.0,
                             icon: FaIcon(
                               FontAwesomeIcons.chevronLeft,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: AppTheme.of(context).primaryText,
                               size: 24.0,
                             ),
                             onPressed: () async {
@@ -139,22 +139,22 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                                 children: [
                                   Text(
                                     'My Cards',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .headlineMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .headlineMedium
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .primaryText,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .headlineMedium
                                                   .fontStyle,
                                           lineHeight: 1.4,
@@ -164,24 +164,24 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                               ),
                               Text(
                                 'Manage your payment methods',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodySmall
                                     .override(
                                       font: GoogleFonts.manrope(
-                                        fontWeight: FlutterFlowTheme.of(context)
+                                        fontWeight: AppTheme.of(context)
                                             .bodySmall
                                             .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodySmall
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondaryText,
                                       letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodySmall
                                           .fontStyle,
                                       lineHeight: 1.4,
@@ -189,14 +189,14 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                               ),
                             ].divide(SizedBox(height: 2.0)),
                           ),
-                          FlutterFlowIconButton(
+                          AppIconButton(
                             borderRadius: 10.0,
                             buttonSize: 40.0,
-                            fillColor: FlutterFlowTheme.of(context)
+                            fillColor: AppTheme.of(context)
                                 .secondaryBackground,
                             icon: Icon(
                               Icons.add_rounded,
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: AppTheme.of(context).primary,
                               size: 24.0,
                             ),
                             onPressed: () async {
@@ -236,7 +236,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0,
                                 valueOrDefault<double>(
-                                  FFAppConstants.parentPagePadding,
+                                  AppConstants.parentPagePadding,
                                   0.0,
                                 ),
                                 0.0,
@@ -251,7 +251,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                                   scrollDirection: Axis.vertical,
                                   itemCount: bank.length,
                                   separatorBuilder: (_, __) => SizedBox(
-                                      height: FlutterFlowTheme.of(context)
+                                      height: AppTheme.of(context)
                                           .designToken
                                           .spacing
                                           .lg),

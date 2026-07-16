@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -57,11 +57,11 @@ class _ActionTile2WidgetState extends State<ActionTile2Widget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: AppTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(12.0),
         shape: BoxShape.rectangle,
         border: Border.all(
-          color: FlutterFlowTheme.of(context).alternate,
+          color: AppTheme.of(context).alternate,
           width: 1.0,
         ),
       ),
@@ -93,19 +93,19 @@ class _ActionTile2WidgetState extends State<ActionTile2Widget> {
                   'Photos',
                 ),
                 textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
+                style: AppTheme.of(context).labelMedium.override(
                       font: GoogleFonts.inter(
                         fontWeight:
-                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                            AppTheme.of(context).labelMedium.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            AppTheme.of(context).labelMedium.fontStyle,
                       ),
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: AppTheme.of(context).primaryText,
                       letterSpacing: 0.0,
                       fontWeight:
-                          FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                          AppTheme.of(context).labelMedium.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          AppTheme.of(context).labelMedium.fontStyle,
                       lineHeight: 1.4,
                     ),
               ),

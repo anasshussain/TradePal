@@ -5,9 +5,9 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/notification_item_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -76,7 +76,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
@@ -97,7 +97,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
           top: true,
           child: Padding(
             padding: EdgeInsets.all(
-                FlutterFlowTheme.of(context).designToken.spacing.lg),
+                AppTheme.of(context).designToken.spacing.lg),
             child: Builder(
               builder: (context) {
                 final notification = _model.notificationsPageState.toList();

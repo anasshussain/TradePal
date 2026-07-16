@@ -5,11 +5,11 @@ import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/settings_component/settings_component_widget.dart';
 import '/components/theme_picker/theme_picker_widget.dart';
 import '/components/tp_navbar/tp_navbar_widget.dart';
-import '/flutter_flow/flutter_flow_choice_chips.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/widgets/app_choice_chips.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/form_field_controller.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/index.dart';
@@ -54,7 +54,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -63,9 +63,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -87,7 +87,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.all(valueOrDefault<double>(
-                  FFAppConstants.parentPagePadding,
+                  AppConstants.parentPagePadding,
                   0.0,
                 )),
                 child: SingleChildScrollView(
@@ -102,7 +102,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .md),
@@ -111,16 +111,16 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               width: 128.0,
                               height: 128.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: Image.network(
-                                    FFAppState().userProfileCache.avatarUrl,
+                                    AppState().userProfileCache.avatarUrl,
                                   ).image,
                                 ),
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .md),
@@ -142,7 +142,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
                                       valueOrDefault<double>(
-                                    FFAppConstants.radius1,
+                                    AppConstants.radius1,
                                     0.0,
                                   )),
                                 ),
@@ -150,10 +150,10 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   width: 30.0,
                                   height: 30.0,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: AppTheme.of(context).primary,
                                     borderRadius: BorderRadius.circular(
                                         valueOrDefault<double>(
-                                      FFAppConstants.radius1,
+                                      AppConstants.radius1,
                                       0.0,
                                     )),
                                   ),
@@ -175,20 +175,20 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                       ),
                       Text(
                         valueOrDefault<String>(
-                          FFAppState().userProfileCache.name,
+                          AppState().userProfileCache.name,
                           'user name',
                         ),
                         style:
-                            FlutterFlowTheme.of(context).displaySmall.override(
+                            AppTheme.of(context).displaySmall.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w800,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .displaySmall
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w800,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .displaySmall
                                       .fontStyle,
                                 ),
@@ -198,11 +198,11 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             0.0,
                             0.0,
                             0.0,
-                            FlutterFlowTheme.of(context)
+                            AppTheme.of(context)
                                 .designToken
                                 .spacing
                                 .md),
-                        child: FFButtonWidget(
+                        child: AppButton(
                           onPressed: () async {
                             context
                                 .pushNamed(EditTraderProfileWidget.routeName);
@@ -212,7 +212,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             Icons.edit_rounded,
                             size: 26.0,
                           ),
-                          options: FFButtonOptions(
+                          options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -220,29 +220,29 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: Colors.transparent,
-                            textStyle: FlutterFlowTheme.of(context)
+                            textStyle: AppTheme.of(context)
                                 .titleSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: AppTheme.of(context).primary,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
                             elevation: 0.0,
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: AppTheme.of(context).primary,
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -254,7 +254,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
@@ -262,20 +262,20 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context)
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
-                              FFAppConstants.childPadding,
+                              AppConstants.childPadding,
                               0.0,
                             )),
                             child: Column(
@@ -284,19 +284,19 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               children: [
                                 Text(
                                   'Personal Details',
-                                  style: FlutterFlowTheme.of(context)
+                                  style: AppTheme.of(context)
                                       .titleMedium
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleMedium
                                             .fontStyle,
                                       ),
@@ -307,52 +307,52 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   children: [
                                     Text(
                                       'FULL NAME',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelSmall
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
                                     ),
                                     Text(
                                       valueOrDefault<String>(
-                                        FFAppState().userProfileCache.name,
+                                        AppState().userProfileCache.name,
                                         'name',
                                       ),
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .bodyLarge
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w500,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyLarge
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
-                                if (FFAppState().userProfileCache.profession !=
+                                if (AppState().userProfileCache.profession !=
                                         null &&
-                                    FFAppState().userProfileCache.profession !=
+                                    AppState().userProfileCache.profession !=
                                         '')
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -361,54 +361,54 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     children: [
                                       Text(
                                         'REGISTRATION NUMBER',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .labelSmall
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelSmall
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                       ),
                                       Text(
                                         valueOrDefault<String>(
-                                          FFAppState()
+                                          AppState()
                                               .userProfileCache
                                               .registrationNumber,
                                           'reg no',
                                         ),
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodyLarge
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight: FontWeight.w500,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyLarge
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyLarge
                                                       .fontStyle,
                                             ),
                                       ),
                                     ],
                                   ),
-                                if (FFAppState().userProfileCache.serviceArea !=
+                                if (AppState().userProfileCache.serviceArea !=
                                         null &&
-                                    FFAppState().userProfileCache.serviceArea !=
+                                    AppState().userProfileCache.serviceArea !=
                                         '')
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -417,54 +417,54 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     children: [
                                       Text(
                                         'SERVICE AREA',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .labelSmall
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelSmall
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                       ),
                                       Text(
                                         valueOrDefault<String>(
-                                          FFAppState()
+                                          AppState()
                                               .userProfileCache
                                               .serviceArea,
                                           'service area',
                                         ),
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodyLarge
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight: FontWeight.w500,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyLarge
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyLarge
                                                       .fontStyle,
                                             ),
                                       ),
                                     ],
                                   ),
-                                if (FFAppState().userProfileCache.phone !=
+                                if (AppState().userProfileCache.phone !=
                                         null &&
-                                    FFAppState().userProfileCache.phone != '')
+                                    AppState().userProfileCache.phone != '')
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -472,43 +472,43 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     children: [
                                       Text(
                                         'PHONE',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .labelSmall
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelSmall
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
                                       ),
                                       Text(
                                         valueOrDefault<String>(
-                                          FFAppState().userProfileCache.phone,
+                                          AppState().userProfileCache.phone,
                                           'Phone',
                                         ),
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .bodyLarge
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight: FontWeight.w500,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyLarge
                                                         .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyLarge
                                                       .fontStyle,
                                             ),
@@ -516,7 +516,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     ],
                                   ),
                               ].divide(SizedBox(
-                                  height: FFAppConstants.childSpacing)),
+                                  height: AppConstants.childSpacing)),
                             ),
                           ),
                         ),
@@ -533,7 +533,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
@@ -541,19 +541,19 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: AppTheme.of(context).primary,
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(valueOrDefault<double>(
-                                FFAppConstants.childPadding,
+                                AppConstants.childPadding,
                                 0.0,
                               )),
                               child: Column(
@@ -563,7 +563,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .lg,
@@ -582,7 +582,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md,
@@ -590,27 +590,27 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                         0.0),
                                     child: Text(
                                       'Earnings Dashboard',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .titleMedium
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .titleMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .titleMedium
                                                       .fontStyle,
                                             ),
                                             color: Colors.white,
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
@@ -620,27 +620,27 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     opacity: 0.8,
                                     child: Text(
                                       'View your recent payouts and financial analytics.',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelMedium
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .fontStyle,
                                             ),
                                             color: Colors.white,
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontStyle,
                                           ),
@@ -651,7 +651,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0,
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .spacing
                                               .lg,
@@ -659,27 +659,27 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                           0.0),
                                       child: Text(
                                         'CURRENT BALANCE',
-                                        style: FlutterFlowTheme.of(context)
+                                        style: AppTheme.of(context)
                                             .labelSmall
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelSmall
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelSmall
                                                         .fontStyle,
                                               ),
                                               color: Colors.white,
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .fontStyle,
                                             ),
@@ -689,12 +689,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .sm,
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md),
@@ -710,18 +710,18 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             children: [
                                               TextSpan(
                                                 text: '£',
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .headlineLarge
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .headlineLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .headlineLarge
                                                                 .fontStyle,
@@ -730,12 +730,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       fontSize: 30.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .headlineLarge
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .headlineLarge
                                                               .fontStyle,
@@ -746,17 +746,17 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                 style: TextStyle(),
                                               )
                                             ],
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .headlineLarge
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .headlineLarge
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .headlineLarge
                                                             .fontStyle,
@@ -765,12 +765,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   fontSize: 30.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .headlineLarge
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .headlineLarge
                                                           .fontStyle,
@@ -787,7 +787,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(
                                                       valueOrDefault<double>(
-                                                FFAppConstants.radius1,
+                                                AppConstants.radius1,
                                                 0.0,
                                               )),
                                             ),
@@ -796,12 +796,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               height: 40.0,
                                               decoration: BoxDecoration(
                                                 color:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .secondary,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         valueOrDefault<double>(
-                                                  FFAppConstants.radius1,
+                                                  AppConstants.radius1,
                                                   0.0,
                                                 )),
                                               ),
@@ -819,7 +819,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     ),
                                   ),
                                 ].divide(SizedBox(
-                                    height: FlutterFlowTheme.of(context)
+                                    height: AppTheme.of(context)
                                         .designToken
                                         .spacing
                                         .sm)),
@@ -827,11 +827,11 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             ),
                           ),
                         ),
-                      if (FFAppState().userProfileCache.skills.isNotEmpty)
+                      if (AppState().userProfileCache.skills.isNotEmpty)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .md,
@@ -842,7 +842,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
@@ -850,20 +850,20 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .lg),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
-                                  FFAppConstants.childPadding,
+                                  AppConstants.childPadding,
                                   0.0,
                                 )),
                                 child: Column(
@@ -873,7 +873,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0,
-                                          FlutterFlowTheme.of(context)
+                                          AppTheme.of(context)
                                               .designToken
                                               .spacing
                                               .lg,
@@ -894,43 +894,43 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                           ),
                                           Text(
                                             'Skills & Expertise',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .titleMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .titleMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleMedium
                                                           .fontStyle,
                                                 ),
                                           ),
                                         ].divide(SizedBox(
-                                            width: FlutterFlowTheme.of(context)
+                                            width: AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm)),
                                       ),
                                     ),
-                                    FlutterFlowChoiceChips(
-                                      options: FFAppState()
+                                    AppChoiceChips(
+                                      options: AppState()
                                           .userProfileCache
                                           .skills
                                           .map((label) => ChipData(label))
@@ -940,31 +940,31 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               val?.firstOrNull),
                                       selectedChipStyle: ChipStyle(
                                         backgroundColor:
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .secondaryBackground,
-                                        textStyle: FlutterFlowTheme.of(context)
+                                        textStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .secondaryText,
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
@@ -976,31 +976,31 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       ),
                                       unselectedChipStyle: ChipStyle(
                                         backgroundColor:
-                                            FlutterFlowTheme.of(context)
+                                            AppTheme.of(context)
                                                 .secondaryBackground,
-                                        textStyle: FlutterFlowTheme.of(context)
+                                        textStyle: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .secondaryText,
                                               letterSpacing: 0.0,
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
@@ -1022,7 +1022,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       wrapped: true,
                                     ),
                                   ].divide(SizedBox(
-                                      height: FlutterFlowTheme.of(context)
+                                      height: AppTheme.of(context)
                                           .designToken
                                           .spacing
                                           .sm)),
@@ -1031,13 +1031,13 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             ),
                           ),
                         ),
-                      if (FFAppState().userProfileCache.insuranceCompany !=
+                      if (AppState().userProfileCache.insuranceCompany !=
                               null &&
-                          FFAppState().userProfileCache.insuranceCompany != '')
+                          AppState().userProfileCache.insuranceCompany != '')
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .md,
@@ -1048,7 +1048,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
@@ -1057,15 +1057,15 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               width: double.infinity,
                               height: 218.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .lg),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                               ),
                               child: Row(
@@ -1077,7 +1077,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     height: 218.0,
                                     decoration: BoxDecoration(
                                       color:
-                                          FlutterFlowTheme.of(context).primary,
+                                          AppTheme.of(context).primary,
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(8.0),
                                         bottomLeft: Radius.circular(8.0),
@@ -1088,7 +1088,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     child: Padding(
                                       padding:
                                           EdgeInsets.all(valueOrDefault<double>(
-                                        FFAppConstants.childPadding,
+                                        AppConstants.childPadding,
                                         0.0,
                                       )),
                                       child: Column(
@@ -1122,38 +1122,38 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   ),
                                                   Text(
                                                     'Insurance Status',
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .titleMedium
                                                         .override(
                                                           font: GoogleFonts
                                                               .manrope(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .titleMedium
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .titleMedium
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleMedium
                                                                   .fontStyle,
                                                         ),
                                                   ),
                                                 ].divide(SizedBox(
-                                                    width: FlutterFlowTheme.of(
+                                                    width: AppTheme.of(
                                                             context)
                                                         .designToken
                                                         .spacing
@@ -1163,12 +1163,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                 width: 54.0,
                                                 height: 19.0,
                                                 decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .primary,
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .radius
@@ -1180,19 +1180,19 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                           0.0, 0.0),
                                                   child: Text(
                                                     'ACTIVE',
-                                                    style: FlutterFlowTheme.of(
+                                                    style: AppTheme.of(
                                                             context)
                                                         .bodySmall
                                                         .override(
                                                           font: GoogleFonts
                                                               .manrope(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .bodySmall
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .bodySmall
                                                                     .fontStyle,
@@ -1202,12 +1202,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                           fontSize: 10.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodySmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodySmall
                                                                   .fontStyle,
@@ -1217,7 +1217,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               ),
                                             ].divide(SizedBox(
                                                 width:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .sm)),
@@ -1232,51 +1232,51 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               Text(
                                                 'Provider',
                                                 style:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                               ),
                                               Text(
-                                                FFAppState()
+                                                AppState()
                                                     .userProfileCache
                                                     .insuranceCompany,
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .titleSmall
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
@@ -1284,12 +1284,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       fontSize: 14.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .fontStyle,
@@ -1299,7 +1299,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                           ),
                                           Divider(
                                             thickness: 1.0,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .alternate,
                                           ),
                                           Row(
@@ -1312,30 +1312,30 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               Text(
                                                 'Coverage',
                                                 style:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
@@ -1350,17 +1350,17 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                     TextSpan(
                                                       text: '£',
                                                       style:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .override(
                                                                 font: GoogleFonts
                                                                     .manrope(
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .fontStyle,
@@ -1368,36 +1368,36 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                                 fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .titleSmall
                                                                     .fontStyle,
                                                               ),
                                                     ),
                                                     TextSpan(
-                                                      text: FFAppState()
+                                                      text: AppState()
                                                           .userProfileCache
                                                           .insuranceAmount,
                                                       style: TextStyle(),
                                                     )
                                                   ],
-                                                  style: FlutterFlowTheme.of(
+                                                  style: AppTheme.of(
                                                           context)
                                                       .titleSmall
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontStyle,
@@ -1405,12 +1405,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
@@ -1421,7 +1421,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                           ),
                                           Divider(
                                             thickness: 1.0,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .alternate,
                                           ),
                                           Row(
@@ -1434,51 +1434,51 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               Text(
                                                 'Expires',
                                                 style:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelMedium
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                               ),
                                               Text(
-                                                FFAppState()
+                                                AppState()
                                                     .userProfileCache
                                                     .insuranceExpiry,
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .titleSmall
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
@@ -1486,12 +1486,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       fontSize: 14.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleSmall
                                                               .fontStyle,
@@ -1501,11 +1501,11 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                           ),
                                           Divider(
                                             thickness: 1.0,
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .alternate,
                                           ),
                                         ].divide(SizedBox(
-                                            height: FlutterFlowTheme.of(context)
+                                            height: AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .md)),
@@ -1529,7 +1529,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
@@ -1537,20 +1537,20 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
+                              color: AppTheme.of(context)
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: AppTheme.of(context).alternate,
                               ),
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(valueOrDefault<double>(
-                                FFAppConstants.childPadding,
+                                AppConstants.childPadding,
                                 0.0,
                               )),
                               child: Column(
@@ -1560,7 +1560,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .lg,
@@ -1573,17 +1573,17 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       children: [
                                         Text(
                                           'Portfolio\nHighlights',
-                                          style: FlutterFlowTheme.of(context)
+                                          style: AppTheme.of(context)
                                               .titleLarge
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleLarge
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .titleLarge
                                                           .fontStyle,
@@ -1591,11 +1591,11 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                 fontSize: 20.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleLarge
                                                         .fontWeight,
                                                 fontStyle:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .titleLarge
                                                         .fontStyle,
                                               ),
@@ -1615,7 +1615,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             ),
                                             Text(
                                               'MANAGE\nGALLERY',
-                                              style: FlutterFlowTheme.of(
+                                              style: AppTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
@@ -1623,7 +1623,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .fontStyle,
@@ -1632,7 +1632,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
@@ -1640,20 +1640,20 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             ),
                                           ]
                                               .divide(SizedBox(
-                                                  width: FlutterFlowTheme.of(
+                                                  width: AppTheme.of(
                                                           context)
                                                       .designToken
                                                       .spacing
                                                       .lg))
                                               .around(SizedBox(
-                                                  width: FlutterFlowTheme.of(
+                                                  width: AppTheme.of(
                                                           context)
                                                       .designToken
                                                       .spacing
                                                       .lg)),
                                         ),
                                       ].divide(SizedBox(
-                                          width: FlutterFlowTheme.of(context)
+                                          width: AppTheme.of(context)
                                               .designToken
                                               .spacing
                                               .sm)),
@@ -1662,7 +1662,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .lg,
@@ -1704,12 +1704,12 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .md,
                                         0.0,
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .spacing
                                             .lg),
@@ -1726,15 +1726,15 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                         width: 131.0,
                                         height: 120.0,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
+                                          color: AppTheme.of(context)
                                               .secondaryBackground,
                                           borderRadius: BorderRadius.circular(
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .designToken
                                                   .radius
                                                   .md),
                                           border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
+                                            color: AppTheme.of(context)
                                                 .border,
                                             width: 1.0,
                                           ),
@@ -1747,36 +1747,36 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             Icon(
                                               Icons.camera_enhance,
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .primaryText,
                                               size: 24.0,
                                             ),
                                             Text(
                                               'ADD PROJECT',
                                               style:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelSmall
                                                                 .fontStyle,
@@ -1784,7 +1784,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             ),
                                           ].divide(SizedBox(
                                               height:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .sm)),
@@ -1793,7 +1793,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     ),
                                   ),
                                 ].divide(SizedBox(
-                                    height: FlutterFlowTheme.of(context)
+                                    height: AppTheme.of(context)
                                         .designToken
                                         .spacing
                                         .sm)),
@@ -1806,27 +1806,27 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .radius
                                   .lg),
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
+                            color: AppTheme.of(context)
                                 .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                FlutterFlowTheme.of(context)
+                                AppTheme.of(context)
                                     .designToken
                                     .radius
                                     .lg),
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
-                              FFAppConstants.childPadding,
+                              AppConstants.childPadding,
                               0.0,
                             )),
                             child: Column(
@@ -1856,7 +1856,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   child: Divider(
                                     thickness: 1.0,
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                   ),
                                 ),
                                 wrapWithModel(
@@ -1879,7 +1879,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   child: Divider(
                                     thickness: 1.0,
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                   ),
                                 ),
                                 wrapWithModel(
@@ -1906,7 +1906,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   child: Divider(
                                     thickness: 1.0,
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        AppTheme.of(context).alternate,
                                   ),
                                 ),
                                 wrapWithModel(
@@ -1926,7 +1926,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 ),
                                 Divider(
                                   thickness: 2.0,
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                                 wrapWithModel(
                                   model: _model.settingsComponentModel5,
@@ -1934,7 +1934,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   child: SettingsComponentWidget(
                                     icon: Icon(
                                       Icons.password,
-                                      color: FlutterFlowTheme.of(context).info,
+                                      color: AppTheme.of(context).info,
                                     ),
                                     title: 'Change Password',
                                     description:
@@ -1948,7 +1948,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 ),
                                 Divider(
                                   thickness: 2.0,
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                                 Builder(
                                   builder: (context) => wrapWithModel(
@@ -1995,7 +1995,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   ),
                                 ),
                               ].divide(SizedBox(
-                                  height: FFAppConstants.childSpacing)),
+                                  height: AppConstants.childSpacing)),
                             ),
                           ),
                         ),
@@ -2018,7 +2018,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                         child: Container(
                           decoration: BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsets.all(FlutterFlowTheme.of(context)
+                            padding: EdgeInsets.all(AppTheme.of(context)
                                 .designToken
                                 .spacing
                                 .lg),
@@ -2035,34 +2035,34 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Text(
                                     'LOGOUT FROM DEVICE',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleSmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleSmall
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
                                           color: Color(0xFFBA1A1A),
                                           letterSpacing: 0.0,
                                           fontWeight:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontWeight,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
                                         ),
                                   ),
                                 ),
                               ].divide(SizedBox(
-                                  width: FlutterFlowTheme.of(context)
+                                  width: AppTheme.of(context)
                                       .designToken
                                       .spacing
                                       .md)),
@@ -2071,7 +2071,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: FFAppConstants.childSpacing))
+                        .divide(SizedBox(height: AppConstants.childSpacing))
                         .addToEnd(SizedBox(height: 50.0)),
                   ),
                 ),

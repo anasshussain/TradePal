@@ -10,10 +10,10 @@ import 'auth/supabase_auth/auth_util.dart';
 
 import '/backend/supabase/supabase.dart';
 import 'backend/firebase/firebase_config.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import 'flutter_flow/flutter_flow_util.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'flutter_flow/nav/nav.dart';
+import '/nav/nav.dart';
 import 'index.dart';
 
 import 'package:my_trade_pal/custom_code/actions/init_stripe.dart';
@@ -28,9 +28,9 @@ import 'auth/supabase_auth/auth_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'backend/firebase/firebase_config.dart';
 import 'custom_code/notification_service.dart';
-import 'flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'flutter_flow/nav/nav.dart';
+import '/nav/nav.dart';
 import 'index.dart';
 //import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -39,7 +39,7 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
-  final environmentValues = FFDevEnvironmentValues();
+  final environmentValues = DevEnvironmentValues();
   await environmentValues.initialize();
 
   await initFirebase();
@@ -48,9 +48,9 @@ void main() async {
 
   await SupaFlow.initialize();
 
-  await FlutterFlowTheme.initialize();
+  await AppTheme.initialize();
 
-  final appState = FFAppState(); // Initialize FFAppState
+  final appState = AppState(); // Initialize AppState
   await appState.initializePersistedState();
   initStripe();
   runApp(ChangeNotifierProvider(
@@ -78,7 +78,7 @@ class MyAppScrollBehavior extends MaterialScrollBehavior {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+  ThemeMode _themeMode = AppTheme.themeMode;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
+        AppTheme.saveThemeMode(mode);
       });
 
   @override

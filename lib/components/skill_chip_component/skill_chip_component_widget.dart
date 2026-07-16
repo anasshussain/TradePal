@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -74,21 +74,21 @@ class _SkillChipComponentWidgetState extends State<SkillChipComponentWidget> {
         elevation: 1.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.sm),
+              AppTheme.of(context).designToken.radius.sm),
         ),
         child: Container(
           width: 120.0,
           height: 34.0,
           decoration: BoxDecoration(
             color: !widget!.callAction
-                ? FlutterFlowTheme.of(context).primary
+                ? AppTheme.of(context).primary
                 : Color(0x00000000),
             borderRadius: BorderRadius.circular(
-                FlutterFlowTheme.of(context).designToken.radius.sm),
+                AppTheme.of(context).designToken.radius.sm),
             border: Border.all(
               color: !widget!.callAction
                   ? Colors.transparent
-                  : FlutterFlowTheme.of(context).border,
+                  : AppTheme.of(context).border,
               width: !widget!.callAction ? 0.0 : 1.0,
             ),
           ),
@@ -107,21 +107,21 @@ class _SkillChipComponentWidgetState extends State<SkillChipComponentWidget> {
                         widget!.title,
                         'title',
                       ),
-                      style: FlutterFlowTheme.of(context).labelSmall.override(
+                      style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .labelSmall
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .labelSmall
                                   .fontStyle,
                             ),
                             color: Colors.white,
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .labelSmall
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .labelSmall
                                 .fontStyle,
                           ),
@@ -135,7 +135,7 @@ class _SkillChipComponentWidgetState extends State<SkillChipComponentWidget> {
                     size: 16.0,
                   ),
               ].divide(SizedBox(
-                  width: FlutterFlowTheme.of(context).designToken.spacing.sm)),
+                  width: AppTheme.of(context).designToken.spacing.sm)),
             ),
           ),
         ),

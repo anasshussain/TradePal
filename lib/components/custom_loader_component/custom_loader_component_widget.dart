@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -95,17 +95,17 @@ class _CustomLoaderComponentWidgetState
       children: [
         Icon(
           Icons.handyman,
-          color: FlutterFlowTheme.of(context).primary,
+          color: AppTheme.of(context).primary,
           size: 24.0,
         ).animateOnPageLoad(animationsMap['iconOnPageLoadAnimation1']!),
         Icon(
           Icons.electric_bolt,
-          color: FlutterFlowTheme.of(context).tertiary,
+          color: AppTheme.of(context).tertiary,
           size: 24.0,
         ).animateOnPageLoad(animationsMap['iconOnPageLoadAnimation2']!),
         Icon(
           Icons.plumbing_outlined,
-          color: FlutterFlowTheme.of(context).success,
+          color: AppTheme.of(context).success,
           size: 24.0,
         ).animateOnPageLoad(animationsMap['iconOnPageLoadAnimation3']!),
       ],

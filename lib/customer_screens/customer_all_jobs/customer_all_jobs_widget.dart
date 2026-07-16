@@ -5,9 +5,9 @@ import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/empty_list_component/empty_list_component_widget.dart';
 import '/components/job_item/job_item_widget.dart';
 import '/components/loading_component/loading_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
       );
 
       if ((_model.viewAllJobsApi?.succeeded ?? true)) {
-        FFAppState().jobCache = JobCacheStruct(
+        AppState().jobCache = JobCacheStruct(
           jobs: ((_model.viewAllJobsApi?.jsonBody ?? '')
                   .toList()
                   .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
@@ -91,7 +91,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -100,9 +100,9 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -122,7 +122,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
           top: true,
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
-              FFAppConstants.parentPagePadding,
+              AppConstants.parentPagePadding,
               0.0,
             )),
             child: SingleChildScrollView(
@@ -173,42 +173,42 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                             obscureText: false,
                             decoration: InputDecoration(
                               isDense: false,
-                              labelStyle: FlutterFlowTheme.of(context)
+                              labelStyle: AppTheme.of(context)
                                   .labelMedium
                                   .override(
                                     font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                                      fontWeight: AppTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     fontSize: 12.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
                               hintText: 'Search jobs',
-                              hintStyle: FlutterFlowTheme.of(context)
+                              hintStyle: AppTheme.of(context)
                                   .labelMedium
                                   .override(
                                     font: GoogleFonts.inter(
                                       fontWeight: FontWeight.normal,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context).hint,
+                                    color: AppTheme.of(context).hint,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
@@ -221,27 +221,27 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: AppTheme.of(context).primary,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
+                                  color: AppTheme.of(context).error,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
+                                  color: AppTheme.of(context).error,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               filled: true,
-                              fillColor: FlutterFlowTheme.of(context).alternate,
+                              fillColor: AppTheme.of(context).alternate,
                               suffixIcon: _model
                                       .searchTextController!.text.isNotEmpty
                                   ? InkWell(
@@ -277,34 +277,34 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                       },
                                       child: Icon(
                                         Icons.clear,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .tertiary,
                                         size: 26.0,
                                       ),
                                     )
                                   : null,
                             ),
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                             cursorColor:
-                                FlutterFlowTheme.of(context).primaryText,
+                                AppTheme.of(context).primaryText,
                             enableInteractiveSelection: true,
                             validator: _model.searchTextControllerValidator
                                 .asValidator(context),
@@ -319,7 +319,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
-                              FlutterFlowTheme.of(context)
+                              AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .lg,
@@ -342,7 +342,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                               ?.sortedList(
                                                   keyOf: (e) => e.createdAt,
                                                   desc: true)
-                                          : FFAppState()
+                                          : AppState()
                                               .jobCache
                                               .jobs
                                               .sortedList(
@@ -358,7 +358,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                     child: EmptyListComponentWidget(
                                       icon: Icon(
                                         Icons.work_history_sharp,
-                                        color: FlutterFlowTheme.of(context)
+                                        color: AppTheme.of(context)
                                             .tertiary,
                                         size: 40.0,
                                       ),
@@ -377,7 +377,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                 scrollDirection: Axis.vertical,
                                 itemCount: jobList.length,
                                 separatorBuilder: (_, __) => SizedBox(
-                                    height: FFAppConstants.childPadding),
+                                    height: AppConstants.childPadding),
                                 itemBuilder: (context, jobListIndex) {
                                   final jobListItem = jobList[jobListIndex];
                                   return JobItemWidget(

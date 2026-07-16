@@ -1,8 +1,8 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/upload_data.dart';
 import 'dart:ui';
 import 'upload_file_component_widget.dart' show UploadFileComponentWidget;
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class UploadFileComponentModel
-    extends FlutterFlowModel<UploadFileComponentWidget> {
+    extends AppModel<UploadFileComponentWidget> {
   ///  Local state fields for this component.
 
   bool hasData = false;
@@ -20,8 +20,8 @@ class UploadFileComponentModel
   ///  State fields for stateful widgets in this component.
 
   bool isDataUploading_localUploadedPhoto = false;
-  FFUploadedFile uploadedLocalFile_localUploadedPhoto =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  UploadedFile uploadedLocalFile_localUploadedPhoto =
+      UploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
 
   @override
   void initState(BuildContext context) {}

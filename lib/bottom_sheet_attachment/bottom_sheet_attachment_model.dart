@@ -1,9 +1,9 @@
 import '/components/action_tile3/action_tile3_widget.dart';
 import '/components/cancel_button/cancel_button_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'bottom_sheet_attachment_widget.dart' show BottomSheetAttachmentWidget;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class BottomSheetAttachmentModel
-    extends FlutterFlowModel<BottomSheetAttachmentWidget> {
+    extends AppModel<BottomSheetAttachmentWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for ActionTile.

@@ -7,9 +7,9 @@ import '/backend/schema/util/schema_util.dart';
 import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 
-class FutureRequirementsStruct extends FFFirebaseStruct {
+class FutureRequirementsStruct extends AppFirebaseStruct {
   FutureRequirementsStruct({
     List<String>? currentlyDue,
     List<String>? errors,

@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -91,7 +91,7 @@ class _UserPreviewComponentWidgetState extends State<UserPreviewComponentWidget>
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(valueOrDefault<double>(
-          FFAppConstants.radius3,
+          AppConstants.radius3,
           0.0,
         )),
         border: Border.all(
@@ -101,7 +101,7 @@ class _UserPreviewComponentWidgetState extends State<UserPreviewComponentWidget>
       ),
       child: Padding(
         padding: EdgeInsets.all(valueOrDefault<double>(
-          FFAppConstants.childPadding,
+          AppConstants.childPadding,
           0.0,
         )),
         child: Row(
@@ -114,7 +114,7 @@ class _UserPreviewComponentWidgetState extends State<UserPreviewComponentWidget>
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.0),
                 border: Border.all(
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: AppTheme.of(context).primary,
                   width: 2.0,
                 ),
               ),
@@ -146,21 +146,21 @@ class _UserPreviewComponentWidgetState extends State<UserPreviewComponentWidget>
                         widget!.name,
                         'TradePal',
                       ),
-                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                      style: AppTheme.of(context).bodyLarge.override(
                             font: GoogleFonts.manrope(
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyLarge
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyLarge
                                   .fontStyle,
                             ),
                             fontSize: 18.0,
                             letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
+                            fontWeight: AppTheme.of(context)
                                 .bodyLarge
                                 .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
+                            fontStyle: AppTheme.of(context)
                                 .bodyLarge
                                 .fontStyle,
                           ),

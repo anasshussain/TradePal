@@ -1,9 +1,9 @@
 import '/components/action_tile2/action_tile2_widget.dart';
 import '/components/button6/button6_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'new_screen4_widget.dart' show NewScreen4Widget;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class NewScreen4Model extends FlutterFlowModel<NewScreen4Widget> {
+class NewScreen4Model extends AppModel<NewScreen4Widget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for ActionTile.

@@ -7,9 +7,9 @@ import '/backend/schema/util/schema_util.dart';
 import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import '/core/util.dart';
 
-class JobsListItemStruct extends FFFirebaseStruct {
+class JobsListItemStruct extends AppFirebaseStruct {
   JobsListItemStruct({
     String? id,
     String? customerId,

@@ -3,10 +3,10 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/appbar_component/appbar_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/upload_data.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
@@ -18,7 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class EditCustomerProfieModel
-    extends FlutterFlowModel<EditCustomerProfieWidget> {
+    extends AppModel<EditCustomerProfieWidget> {
   ///  Local state fields for this page.
 
   List<String> addSkills = [
@@ -57,8 +57,8 @@ class EditCustomerProfieModel
   // Model for appbar_component component.
   late AppbarComponentModel appbarComponentModel;
   bool isDataUploading_uploaded = false;
-  FFUploadedFile uploadedLocalFile_uploaded =
-      FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
+  UploadedFile uploadedLocalFile_uploaded =
+      UploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
   String uploadedFileUrl_uploaded = '';
 
   // State field(s) for TextField widget.

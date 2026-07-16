@@ -7,16 +7,16 @@ import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/job_details_loader/job_details_loader_widget.dart';
 import '/components/job_location_component/job_location_component_widget.dart';
 import '/components/tradeperson_preview/tradeperson_preview_widget.dart';
-import '/flutter_flow/flutter_flow_choice_chips.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import '/widgets/app_choice_chips.dart';
+import '/widgets/app_expanded_image_view.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
+import '/core/form_field_controller.dart';
 import 'dart:ui';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -185,7 +185,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
+    context.watch<AppState>();
 
     return GestureDetector(
       onTap: () {
@@ -194,9 +194,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -207,7 +207,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                   (_model.fetchedJob?.status == Status.ACTIVE),
               actionIcon: Icon(
                 Icons.edit_rounded,
-                color: FlutterFlowTheme.of(context).secondaryText,
+                color: AppTheme.of(context).secondaryText,
                 size: 26.0,
               ),
               action: () async {
@@ -244,7 +244,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
               if (!_model.loading!) {
                 return Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
-                    FFAppConstants.parentPagePadding,
+                    AppConstants.parentPagePadding,
                     0.0,
                   )),
                   child: SingleChildScrollView(
@@ -260,47 +260,47 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 _model.fetchedJob?.category,
                                 'Unknown category',
                               ),
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodySmall
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodySmall
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: AppTheme.of(context).primary,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodySmall
                                         .fontStyle,
                                   ),
                             ),
                           ].divide(SizedBox(
-                              width: FFAppConstants.parentPagePadding)),
+                              width: AppConstants.parentPagePadding)),
                         ),
                         Text(
                           valueOrDefault<String>(
                             _model.fetchedJob?.title,
                             'Unknown Title',
                           ),
-                          style: FlutterFlowTheme.of(context)
+                          style: AppTheme.of(context)
                               .displaySmall
                               .override(
                                 font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .displaySmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .displaySmall
                                       .fontStyle,
                                 ),
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .displaySmall
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .displaySmall
                                     .fontStyle,
                               ),
@@ -310,7 +310,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                           children: [
                             Icon(
                               Icons.watch_later_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: AppTheme.of(context).primaryText,
                               size: 24.0,
                             ),
                             Text(
@@ -318,24 +318,24 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   "relative",
                                   functions.convertDateStringtoDateTIme(
                                       _model.fetchedJob!.createdAt)),
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.normal,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
                             ),
                           ].divide(SizedBox(
-                              width: FlutterFlowTheme.of(context)
+                              width: AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .sm)),
@@ -345,7 +345,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                           children: [
                             Icon(
                               Icons.currency_pound,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: AppTheme.of(context).primaryText,
                               size: 24.0,
                             ),
                             Text(
@@ -353,26 +353,26 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 _model.fetchedJob?.budgetMin?.toString(),
                                 'Unknown category',
                               )}',
-                              style: FlutterFlowTheme.of(context)
+                              style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
                             ),
                           ].divide(SizedBox(
-                              width: FlutterFlowTheme.of(context)
+                              width: AppTheme.of(context)
                                   .designToken
                                   .spacing
                                   .sm)),
@@ -383,7 +383,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .md),
@@ -391,20 +391,20 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .md),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
-                                  FFAppConstants.childPadding,
+                                  AppConstants.childPadding,
                                   0.0,
                                 )),
                                 child: Column(
@@ -413,58 +413,58 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   children: [
                                     Text(
                                       'SCOPE OF WORK',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelMedium
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontStyle,
                                           ),
                                     ),
                                     Text(
                                       _model.fetchedJob!.description,
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyMedium
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
                                     ),
                                   ].divide(SizedBox(
-                                      height: FFAppConstants.childSpacing)),
+                                      height: AppConstants.childSpacing)),
                                 ),
                               ),
                             ),
@@ -477,7 +477,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  FlutterFlowTheme.of(context)
+                                  AppTheme.of(context)
                                       .designToken
                                       .radius
                                       .lg),
@@ -485,20 +485,20 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
+                                color: AppTheme.of(context)
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    FlutterFlowTheme.of(context)
+                                    AppTheme.of(context)
                                         .designToken
                                         .radius
                                         .lg),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: AppTheme.of(context).alternate,
                                 ),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
-                                  FFAppConstants.childPadding,
+                                  AppConstants.childPadding,
                                   0.0,
                                 )),
                                 child: Column(
@@ -507,26 +507,26 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   children: [
                                     Text(
                                       'GALLERY',
-                                      style: FlutterFlowTheme.of(context)
+                                      style: AppTheme.of(context)
                                           .labelMedium
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .fontWeight,
                                               fontStyle:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .labelMedium
                                                       .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
                                             fontWeight:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontWeight,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .labelMedium
                                                     .fontStyle,
                                           ),
@@ -538,9 +538,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             [];
 
                                         return Wrap(
-                                          spacing: FFAppConstants.childSpacing,
+                                          spacing: AppConstants.childSpacing,
                                           runSpacing:
-                                              FFAppConstants.childSpacing,
+                                              AppConstants.childSpacing,
                                           alignment: WrapAlignment.start,
                                           crossAxisAlignment:
                                               WrapCrossAlignment.start,
@@ -566,7 +566,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     type:
                                                         PageTransitionType.fade,
                                                     child:
-                                                        FlutterFlowExpandedImageView(
+                                                        AppExpandedImageView(
                                                       image: CachedNetworkImage(
                                                         fadeInDuration:
                                                             Duration(
@@ -627,7 +627,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       },
                                     ),
                                   ].divide(SizedBox(
-                                      height: FFAppConstants.childSpacing)),
+                                      height: AppConstants.childSpacing)),
                                 ),
                               ),
                             ),
@@ -650,8 +650,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
-                                      FlutterFlowTheme.of(context).primary,
-                                      FlutterFlowTheme.of(context).secondary
+                                      AppTheme.of(context).primary,
+                                      AppTheme.of(context).secondary
                                     ],
                                     stops: [0.0, 1.0],
                                     begin: AlignmentDirectional(-1.0, 0.14),
@@ -659,12 +659,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   ),
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .radius
                                             .lg),
                                     topRight: Radius.circular(
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .radius
                                             .lg),
@@ -676,7 +676,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 elevation: 0.0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .radius
                                           .md),
@@ -684,21 +684,21 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 child: Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
+                                    color: AppTheme.of(context)
                                         .secondaryBackground,
                                     boxShadow: [
-                                      FlutterFlowTheme.of(context)
+                                      AppTheme.of(context)
                                           .designToken
                                           .shadow
                                           .sm
                                     ],
                                     borderRadius: BorderRadius.circular(
-                                        FlutterFlowTheme.of(context)
+                                        AppTheme.of(context)
                                             .designToken
                                             .radius
                                             .md),
                                     border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .alternate,
                                     ),
                                   ),
@@ -708,7 +708,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                     child: Padding(
                                       padding:
                                           EdgeInsets.all(valueOrDefault<double>(
-                                        FFAppConstants.parentPagePadding,
+                                        AppConstants.parentPagePadding,
                                         0.0,
                                       )),
                                       child: Column(
@@ -723,30 +723,30 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             children: [
                                               Text(
                                                 'Submit Proposal',
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .titleLarge
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleLarge
                                                                 .fontStyle,
                                                       ),
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleLarge
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .titleLarge
                                                               .fontStyle,
@@ -754,30 +754,30 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               ),
                                               Text(
                                                 'Secure this project by providing your best\nquote and timeline.',
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .bodyMedium
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .fontStyle,
@@ -785,7 +785,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               ),
                                             ].divide(SizedBox(
                                                 height:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .md)),
@@ -798,30 +798,30 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               Text(
                                                 'YOUR PROPOSED QUOTE',
                                                 style:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelSmall
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontStyle,
@@ -837,59 +837,59 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 obscureText: false,
                                                 decoration: InputDecoration(
                                                   isDense: true,
-                                                  labelStyle: FlutterFlowTheme
+                                                  labelStyle: AppTheme
                                                           .of(context)
                                                       .labelMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                                   hintText: '100',
-                                                  hintStyle: FlutterFlowTheme
+                                                  hintStyle: AppTheme
                                                           .of(context)
                                                       .labelMedium
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .labelMedium
                                                                 .fontStyle,
@@ -918,7 +918,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .error,
                                                       width: 1.0,
@@ -931,7 +931,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                       color:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .error,
                                                       width: 1.0,
@@ -942,47 +942,47 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ),
                                                   filled: true,
                                                   fillColor:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .alternate,
                                                   prefixIcon: Icon(
                                                     Icons
                                                         .currency_pound_outlined,
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .secondaryText,
                                                   ),
                                                 ),
-                                                style: FlutterFlowTheme.of(
+                                                style: AppTheme.of(
                                                         context)
                                                     .bodyMedium
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .bodyMedium
                                                               .fontStyle,
                                                     ),
                                                 cursorColor:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .primaryText,
                                                 enableInteractiveSelection:
                                                     true,
@@ -992,7 +992,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               ),
                                             ].divide(SizedBox(
                                                 height:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .md)),
@@ -1005,36 +1005,36 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               Text(
                                                 'ESTIMATED TIMELINE',
                                                 style:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .labelSmall
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelSmall
                                                                     .fontStyle,
                                                           ),
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelSmall
                                                                   .fontStyle,
                                                         ),
                                               ),
-                                              FlutterFlowChoiceChips(
+                                              AppChoiceChips(
                                                 options: [
                                                   ChipData('0-3 days'),
                                                   ChipData('3-5 days'),
@@ -1047,44 +1047,44 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         val?.firstOrNull),
                                                 selectedChipStyle: ChipStyle(
                                                   backgroundColor:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .primary,
-                                                  textStyle: FlutterFlowTheme
+                                                  textStyle: AppTheme
                                                           .of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .info,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                                   iconColor:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .info,
                                                   iconSize: 16.0,
@@ -1095,38 +1095,38 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 ),
                                                 unselectedChipStyle: ChipStyle(
                                                   backgroundColor:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .accent1,
-                                                  textStyle: FlutterFlowTheme
+                                                  textStyle: AppTheme
                                                           .of(context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .secondaryText,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
@@ -1152,36 +1152,36 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               ),
                                             ].divide(SizedBox(
                                                 height:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .md)),
                                           ),
                                           Text(
                                             'COVER LETTER / QUOTE DETAILS',
-                                            style: FlutterFlowTheme.of(context)
+                                            style: AppTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        FlutterFlowTheme.of(
+                                                        AppTheme.of(
                                                                 context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .bodyMedium
                                                           .fontStyle,
@@ -1192,12 +1192,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             height: 200.0,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .alternate,
                                             ),
                                             child: Padding(
                                               padding: EdgeInsets.all(
-                                                  FlutterFlowTheme.of(context)
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .md),
@@ -1213,35 +1213,35 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: false,
-                                                    labelStyle: FlutterFlowTheme
+                                                    labelStyle: AppTheme
                                                             .of(context)
                                                         .labelMedium
                                                         .override(
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontWeight,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontStyle,
                                                           ),
-                                                          color: FlutterFlowTheme
+                                                          color: AppTheme
                                                                   .of(context)
                                                               .secondaryText,
                                                           fontSize: 12.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
@@ -1257,7 +1257,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       ),
                                                       'title',
                                                     )}',
-                                                    hintStyle: FlutterFlowTheme
+                                                    hintStyle: AppTheme
                                                             .of(context)
                                                         .labelMedium
                                                         .override(
@@ -1267,19 +1267,19 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                 FontWeight
                                                                     .normal,
                                                             fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontStyle,
                                                           ),
-                                                          color: FlutterFlowTheme
+                                                          color: AppTheme
                                                                   .of(context)
                                                               .hint,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .labelMedium
                                                                   .fontStyle,
@@ -1329,38 +1329,38 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                               0.0),
                                                     ),
                                                   ),
-                                                  style: FlutterFlowTheme.of(
+                                                  style: AppTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                                   maxLines: 5,
                                                   cursorColor:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .primaryText,
                                                   enableInteractiveSelection:
@@ -1378,7 +1378,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: FFButtonWidget(
+                                              child: AppButton(
                                                 onPressed: () async {
                                                   _model.formResult = true;
                                                   if (_model.formKey
@@ -1425,7 +1425,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                 'New Proposal Recieved',
                                                             message:
                                                                 '${valueOrDefault<String>(
-                                                              FFAppState()
+                                                              AppState()
                                                                   .userProfileCache
                                                                   .name,
                                                               'You',
@@ -1491,7 +1491,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             title:
                                                                 'New Proposal Received',
                                                             body:
-                                                                '${FFAppState().userProfileCache.name} has sent a job proposal',
+                                                                '${AppState().userProfileCache.name} has sent a job proposal',
                                                             dataJson: {},
                                                           );
                                                         }),
@@ -1521,7 +1521,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   Icons.send,
                                                   size: 30.0,
                                                 ),
-                                                options: FFButtonOptions(
+                                                options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
                                                   padding: EdgeInsetsDirectional
@@ -1533,21 +1533,21 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .primary,
-                                                  textStyle: FlutterFlowTheme
+                                                  textStyle: AppTheme
                                                           .of(context)
                                                       .titleSmall
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontStyle,
@@ -1555,12 +1555,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         color: Colors.white,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
@@ -1568,7 +1568,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   elevation: 0.0,
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .radius
@@ -1576,7 +1576,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 ),
                                               ),
                                             ),
-                                          if (((FFAppState()
+                                          if (((AppState()
                                                           .userProfileCache
                                                           .userRole ==
                                                       2) &&
@@ -1601,12 +1601,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       JobDetailsView.chat) &&
                                                   (_model.isPaymentPaid ==
                                                       true)) ||
-                                              (FFAppState().paidJobId ==
+                                              (AppState().paidJobId ==
                                                   widget!.jobId))
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: FFButtonWidget(
+                                              child: AppButton(
                                                 onPressed: () async {
                                                   _model.startChat =
                                                       await SupbaseRpcGroup
@@ -1770,7 +1770,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   Icons.message_rounded,
                                                   size: 30.0,
                                                 ),
-                                                options: FFButtonOptions(
+                                                options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
                                                   padding: EdgeInsetsDirectional
@@ -1781,41 +1781,41 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: Colors.transparent,
-                                                  textStyle: FlutterFlowTheme
+                                                  textStyle: AppTheme
                                                           .of(context)
                                                       .titleSmall
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .primary,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
                                                       ),
                                                   elevation: 0.0,
                                                   borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primary,
                                                     width: 1.0,
@@ -1831,7 +1831,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: FFButtonWidget(
+                                              child: AppButton(
                                                 onPressed:
                                                     _model.isProposalSubmitted!
                                                         ? null
@@ -1879,7 +1879,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   Icons.check_circle_rounded,
                                                   size: 30.0,
                                                 ),
-                                                options: FFButtonOptions(
+                                                options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
                                                   padding: EdgeInsetsDirectional
@@ -1890,40 +1890,40 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   iconColor:
-                                                      FlutterFlowTheme.of(
+                                                      AppTheme.of(
                                                               context)
                                                           .primary,
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .alternate,
-                                                  textStyle: FlutterFlowTheme
+                                                  textStyle: AppTheme
                                                           .of(context)
                                                       .titleSmall
                                                       .override(
                                                         font: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .primaryText,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
@@ -1931,7 +1931,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   elevation: 0.0,
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          FlutterFlowTheme.of(
+                                                          AppTheme.of(
                                                                   context)
                                                               .designToken
                                                               .radius
@@ -1958,10 +1958,10 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: FFButtonWidget(
+                                              child: AppButton(
                                                 onPressed: (_model
                                                             .isPaymentPaid! ||
-                                                        (FFAppState()
+                                                        (AppState()
                                                                 .paidJobId ==
                                                             widget!.jobId))
                                                     ? null
@@ -2015,12 +2015,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         safeSetState(() {});
                                                       },
                                                 text: _model.isPaymentPaid! ||
-                                                        (FFAppState()
+                                                        (AppState()
                                                                 .paidJobId ==
                                                             widget!.jobId)
                                                     ? 'Payment Paid'
                                                     : 'Pay now',
-                                                options: FFButtonOptions(
+                                                options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
                                                   padding: EdgeInsetsDirectional
@@ -2030,22 +2030,22 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
+                                                  color: AppTheme.of(
                                                           context)
                                                       .primary,
-                                                  textStyle: FlutterFlowTheme
+                                                  textStyle: AppTheme
                                                           .of(context)
                                                       .titleSmall
                                                       .override(
                                                         font:
                                                             GoogleFonts.manrope(
                                                           fontWeight:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontWeight,
                                                           fontStyle:
-                                                              FlutterFlowTheme.of(
+                                                              AppTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .fontStyle,
@@ -2053,19 +2053,19 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         color: Colors.white,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            FlutterFlowTheme.of(
+                                                            AppTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .fontStyle,
                                                       ),
                                                   elevation: 0.0,
                                                   borderSide: BorderSide(
-                                                    color: FlutterFlowTheme.of(
+                                                    color: AppTheme.of(
                                                             context)
                                                         .primaryText,
                                                   ),
@@ -2078,12 +2078,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         ]
                                             .divide(SizedBox(
                                                 height:
-                                                    FlutterFlowTheme.of(context)
+                                                    AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .xl))
                                             .addToEnd(SizedBox(
-                                                height: FFAppConstants
+                                                height: AppConstants
                                                     .parentPagePadding)),
                                       ),
                                     ),
@@ -2104,7 +2104,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 scrollDirection: Axis.vertical,
                                 itemCount: proposals.length,
                                 separatorBuilder: (_, __) => SizedBox(
-                                    height: FlutterFlowTheme.of(context)
+                                    height: AppTheme.of(context)
                                         .designToken
                                         .spacing
                                         .md),
@@ -2402,7 +2402,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             },
                           ),
                       ]
-                          .divide(SizedBox(height: FFAppConstants.childSpacing))
+                          .divide(SizedBox(height: AppConstants.childSpacing))
                           .addToEnd(SizedBox(height: 80.0)),
                     ),
                   ),

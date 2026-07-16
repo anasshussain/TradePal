@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -68,16 +68,16 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
           if (widget!.tag != null && widget!.tag != '')
             Text(
               widget!.tag!,
-              style: FlutterFlowTheme.of(context).bodySmall.override(
+              style: AppTheme.of(context).bodySmall.override(
                     font: GoogleFonts.manrope(
                       fontWeight: FontWeight.bold,
                       fontStyle:
-                          FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                          AppTheme.of(context).bodySmall.fontStyle,
                     ),
-                    color: FlutterFlowTheme.of(context).primary,
+                    color: AppTheme.of(context).primary,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.bold,
-                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                    fontStyle: AppTheme.of(context).bodySmall.fontStyle,
                   ),
             ),
           if (valueOrDefault<String>(
@@ -92,17 +92,17 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
                   '')
             Text(
               widget!.title!,
-              style: FlutterFlowTheme.of(context).displayMedium.override(
+              style: AppTheme.of(context).displayMedium.override(
                     font: GoogleFonts.inter(
                       fontWeight: FontWeight.w900,
                       fontStyle:
-                          FlutterFlowTheme.of(context).displayMedium.fontStyle,
+                          AppTheme.of(context).displayMedium.fontStyle,
                     ),
                     fontSize: 38.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.w900,
                     fontStyle:
-                        FlutterFlowTheme.of(context).displayMedium.fontStyle,
+                        AppTheme.of(context).displayMedium.fontStyle,
                     lineHeight: 1.0,
                   ),
             ),
@@ -119,17 +119,17 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
             Text(
               widget!.subtitle!,
               textAlign: TextAlign.start,
-              style: FlutterFlowTheme.of(context).titleSmall.override(
+              style: AppTheme.of(context).titleSmall.override(
                     font: GoogleFonts.inter(
                       fontWeight: FontWeight.normal,
                       fontStyle:
-                          FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                          AppTheme.of(context).titleSmall.fontStyle,
                     ),
-                    color: FlutterFlowTheme.of(context).secondaryText,
+                    color: AppTheme.of(context).secondaryText,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
                     fontStyle:
-                        FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        AppTheme.of(context).titleSmall.fontStyle,
                   ),
             ),
           if (widget!.numberOfItems != null)
@@ -144,12 +144,12 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
                   color: Color(0x4D214FC7),
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(
-                    color: FlutterFlowTheme.of(context).alternate,
+                    color: AppTheme.of(context).alternate,
                   ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
-                    FFAppConstants.childPadding,
+                    AppConstants.childPadding,
                     0.0,
                   )),
                   child: Row(
@@ -157,36 +157,36 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
                     children: [
                       Icon(
                         Icons.circle,
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         size: 14.0,
                       ),
                       Text(
                         '${widget!.numberOfItems?.toString()} ${widget!.itemText}',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        style: AppTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.manrope(
-                                fontWeight: FlutterFlowTheme.of(context)
+                                fontWeight: AppTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: AppTheme.of(context).primary,
                               letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
+                              fontWeight: AppTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
                       ),
-                    ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+                    ].divide(SizedBox(width: AppConstants.childSpacing)),
                   ),
                 ),
               ),
             ),
-        ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+        ].divide(SizedBox(height: AppConstants.childSpacing)),
       ),
     );
   }

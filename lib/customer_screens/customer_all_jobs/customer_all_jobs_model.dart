@@ -5,9 +5,9 @@ import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/empty_list_component/empty_list_component_widget.dart';
 import '/components/job_item/job_item_widget.dart';
 import '/components/loading_component/loading_component_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'customer_all_jobs_widget.dart' show CustomerAllJobsWidget;
 import 'package:easy_debounce/easy_debounce.dart';
@@ -17,7 +17,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CustomerAllJobsModel extends FlutterFlowModel<CustomerAllJobsWidget> {
+class CustomerAllJobsModel extends AppModel<CustomerAllJobsWidget> {
   ///  Local state fields for this page.
 
   bool loading = true;

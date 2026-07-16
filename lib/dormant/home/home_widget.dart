@@ -3,11 +3,11 @@ import '/backend/supabase/supabase.dart';
 import '/components/applogo_component/applogo_component_widget.dart';
 import '/components/info_cards_component/info_cards_component_widget.dart';
 import '/components/testimonials_component/testimonials_component_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/core/animations.dart';
+import '/widgets/app_icon_button.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:math';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
@@ -91,12 +91,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: AppTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
-              FFAppConstants.parentPagePadding,
+              AppConstants.parentPagePadding,
               0.0,
             )),
             child: SingleChildScrollView(
@@ -120,14 +120,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      FlutterFlowIconButton(
+                      AppIconButton(
                         borderRadius: 8.0,
                         buttonSize: 40.0,
                         fillColor:
-                            FlutterFlowTheme.of(context).primaryBackground,
+                            AppTheme.of(context).primaryBackground,
                         icon: Icon(
                           Icons.logout_sharp,
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: AppTheme.of(context).primary,
                           size: 24.0,
                         ),
                         onPressed: () async {
@@ -143,15 +143,15 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      color: AppTheme.of(context).primaryBackground,
                       borderRadius: BorderRadius.circular(12.0),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).border,
+                        color: AppTheme.of(context).border,
                       ),
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(valueOrDefault<double>(
-                        FFAppConstants.childPadding,
+                        AppConstants.childPadding,
                         0.0,
                       )),
                       child: Column(
@@ -161,29 +161,29 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                           Text(
                             'Whether you’re a customer looking for trusted tradespeople or a professional seeking new work, \'My Trade Pal\' makes it simple.',
                             textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   font: GoogleFonts.manrope(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
+                                  color: AppTheme.of(context)
                                       .secondaryText,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .bodyMedium
                                       .fontStyle,
                                 ),
                           ),
-                        ].divide(SizedBox(height: FFAppConstants.spacing)),
+                        ].divide(SizedBox(height: AppConstants.spacing)),
                       ),
                     ),
                   ),
@@ -193,7 +193,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     child: InfoCardsComponentWidget(
                       icon: Icon(
                         Icons.info_rounded,
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         size: 24.0,
                       ),
                       title: 'How My Trade Pal works',
@@ -209,7 +209,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     child: InfoCardsComponentWidget(
                       icon: Icon(
                         Icons.info_rounded,
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         size: 24.0,
                       ),
                       title: 'Why choose Trade-Pal',
@@ -225,7 +225,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     child: InfoCardsComponentWidget(
                       icon: Icon(
                         Icons.verified_rounded,
-                        color: FlutterFlowTheme.of(context).success,
+                        color: AppTheme.of(context).success,
                         size: 24.0,
                       ),
                       title: 'Trusted and secure',
@@ -237,7 +237,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                   ),
                   Align(
                     alignment: AlignmentDirectional(0.0, 0.0),
-                    child: FFButtonWidget(
+                    child: AppButton(
                       onPressed: () async {
                         await UsersTable().update(
                           data: {
@@ -257,36 +257,36 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         FontAwesomeIcons.share,
                         size: 15.0,
                       ),
-                      options: FFButtonOptions(
+                      options: AppButtonOptions(
                         width: 300.0,
                         height: 50.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
+                            AppTheme.of(context).titleSmall.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .titleSmall
                                         .fontStyle,
                                   ),
                                   color: Colors.white,
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .titleSmall
                                       .fontStyle,
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(
-                            FlutterFlowTheme.of(context).designToken.radius.lg),
+                            AppTheme.of(context).designToken.radius.lg),
                       ),
                     ),
                   ),

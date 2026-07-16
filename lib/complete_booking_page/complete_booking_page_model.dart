@@ -1,8 +1,8 @@
 import '/components/countinue_booking/countinue_booking_widget.dart';
 import '/components/trust_bullet4/trust_bullet4_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'complete_booking_page_widget.dart' show CompleteBookingPageWidget;
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class CompleteBookingPageModel
-    extends FlutterFlowModel<CompleteBookingPageWidget> {
+    extends AppModel<CompleteBookingPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for TrustBullet.

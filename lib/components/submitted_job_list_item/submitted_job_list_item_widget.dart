@@ -1,11 +1,11 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/text_button/text_button_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/theme/app_theme.dart';
+import '/core/util.dart';
+import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/core/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -86,22 +86,22 @@ class _SubmittedJobListItemWidgetState
         elevation: 0.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-              FlutterFlowTheme.of(context).designToken.radius.md),
+              AppTheme.of(context).designToken.radius.md),
         ),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
-            boxShadow: [FlutterFlowTheme.of(context).designToken.shadow.sm],
+            color: AppTheme.of(context).secondaryBackground,
+            boxShadow: [AppTheme.of(context).designToken.shadow.sm],
             borderRadius: BorderRadius.circular(
-                FlutterFlowTheme.of(context).designToken.radius.md),
+                AppTheme.of(context).designToken.radius.md),
             border: Border.all(
-              color: FlutterFlowTheme.of(context).alternate,
+              color: AppTheme.of(context).alternate,
             ),
           ),
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
-              FFAppConstants.childPadding,
+              AppConstants.childPadding,
               0.0,
             )),
             child: Column(
@@ -110,17 +110,17 @@ class _SubmittedJobListItemWidgetState
               children: [
                 Text(
                   widget!.jobData!.category,
-                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                  style: AppTheme.of(context).bodySmall.override(
                         font: GoogleFonts.manrope(
                           fontWeight: FontWeight.bold,
                           fontStyle:
-                              FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                              AppTheme.of(context).bodySmall.fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: AppTheme.of(context).primary,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
                         fontStyle:
-                            FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                            AppTheme.of(context).bodySmall.fontStyle,
                       ),
                 ),
                 Flexible(
@@ -131,17 +131,17 @@ class _SubmittedJobListItemWidgetState
                     children: [
                       Text(
                         widget!.jobData!.title,
-                        style: FlutterFlowTheme.of(context).titleLarge.override(
+                        style: AppTheme.of(context).titleLarge.override(
                               font: GoogleFonts.manrope(
                                 fontWeight: FontWeight.bold,
-                                fontStyle: FlutterFlowTheme.of(context)
+                                fontStyle: AppTheme.of(context)
                                     .titleLarge
                                     .fontStyle,
                               ),
                               fontSize: 20.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
-                              fontStyle: FlutterFlowTheme.of(context)
+                              fontStyle: AppTheme.of(context)
                                   .titleLarge
                                   .fontStyle,
                             ),
@@ -151,7 +151,7 @@ class _SubmittedJobListItemWidgetState
                         children: [
                           Icon(
                             Icons.access_time,
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                            color: AppTheme.of(context).secondaryText,
                             size: 14.0,
                           ),
                           Text(
@@ -159,27 +159,27 @@ class _SubmittedJobListItemWidgetState
                                 "relative",
                                 functions.convertDateStringtoDateTIme(
                                     widget!.jobData!.createdAt)),
-                            style: FlutterFlowTheme.of(context)
+                            style: AppTheme.of(context)
                                 .labelSmall
                                 .override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
+                                    fontWeight: AppTheme.of(context)
                                         .labelSmall
                                         .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
+                                  fontWeight: AppTheme.of(context)
                                       .labelSmall
                                       .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
+                                  fontStyle: AppTheme.of(context)
                                       .labelSmall
                                       .fontStyle,
                                 ),
                           ),
-                        ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+                        ].divide(SizedBox(width: AppConstants.childSpacing)),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -191,19 +191,19 @@ class _SubmittedJobListItemWidgetState
                             children: [
                               Text(
                                 'FIXED PRICE',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .bodySmall
                                     .override(
                                       font: GoogleFonts.manrope(
                                         fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .bodySmall
                                             .fontStyle,
                                       ),
                                       fontSize: 10.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .bodySmall
                                           .fontStyle,
                                     ),
@@ -216,20 +216,20 @@ class _SubmittedJobListItemWidgetState
                                   format: '0.0',
                                   locale: 'en',
                                 )}',
-                                style: FlutterFlowTheme.of(context)
+                                style: AppTheme.of(context)
                                     .titleMedium
                                     .override(
                                       font: GoogleFonts.manrope(
                                         fontWeight: FontWeight.bold,
-                                        fontStyle: FlutterFlowTheme.of(context)
+                                        fontStyle: AppTheme.of(context)
                                             .titleMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
+                                      color: AppTheme.of(context)
                                           .secondary,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                      fontStyle: AppTheme.of(context)
                                           .titleMedium
                                           .fontStyle,
                                     ),
@@ -250,13 +250,13 @@ class _SubmittedJobListItemWidgetState
                                 children: [
                                   Text(
                                     'BUDGET RANGE',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodySmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
@@ -264,27 +264,27 @@ class _SubmittedJobListItemWidgetState
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontStyle,
                                         ),
                                   ),
                                   Text(
                                     '\$100 - \$200',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                         ),
@@ -306,13 +306,13 @@ class _SubmittedJobListItemWidgetState
                                 children: [
                                   Text(
                                     'PROPOSALS',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .bodySmall
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .bodySmall
                                                     .fontStyle,
                                           ),
@@ -320,27 +320,27 @@ class _SubmittedJobListItemWidgetState
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .bodySmall
                                                   .fontStyle,
                                         ),
                                   ),
                                   Text(
                                     '3 sent',
-                                    style: FlutterFlowTheme.of(context)
+                                    style: AppTheme.of(context)
                                         .titleMedium
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.bold,
                                             fontStyle:
-                                                FlutterFlowTheme.of(context)
+                                                AppTheme.of(context)
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
-                                              FlutterFlowTheme.of(context)
+                                              AppTheme.of(context)
                                                   .titleMedium
                                                   .fontStyle,
                                         ),
@@ -353,16 +353,16 @@ class _SubmittedJobListItemWidgetState
                             updateCallback: () => safeSetState(() {}),
                             child: TextButtonWidget(
                               label: 'View details',
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: AppTheme.of(context).primary,
                               action: () async {},
                             ),
                           ),
-                        ].divide(SizedBox(width: FFAppConstants.childSpacing)),
+                        ].divide(SizedBox(width: AppConstants.childSpacing)),
                       ),
-                    ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+                    ].divide(SizedBox(height: AppConstants.childSpacing)),
                   ),
                 ),
-              ].divide(SizedBox(height: FFAppConstants.childSpacing)),
+              ].divide(SizedBox(height: AppConstants.childSpacing)),
             ),
           ),
         ),

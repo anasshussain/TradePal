@@ -9,7 +9,7 @@ const kThemeModeKey = '__theme_mode__';
 
 SharedPreferences? _prefs;
 
-abstract class FlutterFlowTheme {
+abstract class AppTheme {
   static Future initialize() async =>
       _prefs = await SharedPreferences.getInstance();
 
@@ -26,7 +26,7 @@ abstract class FlutterFlowTheme {
       ? _prefs?.remove(kThemeModeKey)
       : _prefs?.setBool(kThemeModeKey, mode == ThemeMode.dark);
 
-  static FlutterFlowTheme of(BuildContext context) {
+  static AppTheme of(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark
         ? DarkModeTheme()
         : LightModeTheme();
@@ -60,7 +60,7 @@ abstract class FlutterFlowTheme {
   late Color hint;
   late Color messageText;
 
-  FFDesignTokens get designToken => FFDesignTokens(this);
+  AppDesignTokens get designToken => AppDesignTokens(this);
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -137,10 +137,10 @@ abstract class FlutterFlowTheme {
   bool get bodySmallIsCustom => typography.bodySmallIsCustom;
   TextStyle get bodySmall => typography.bodySmall;
 
-  Typography get typography => ThemeTypography(this);
+  AppTypography get typography => AppThemeTypography(this);
 }
 
-class LightModeTheme extends FlutterFlowTheme {
+class LightModeTheme extends AppTheme {
   @Deprecated('Use primary instead')
   Color get primaryColor => primary;
   @Deprecated('Use secondary instead')
@@ -170,7 +170,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color messageText = const Color(0xFFFFFFFF);
 }
 
-abstract class Typography {
+abstract class AppTypography {
   String get displayLargeFamily;
   bool get displayLargeIsCustom;
   TextStyle get displayLarge;
@@ -218,10 +218,10 @@ abstract class Typography {
   TextStyle get bodySmall;
 }
 
-class ThemeTypography extends Typography {
-  ThemeTypography(this.theme);
+class AppThemeTypography extends AppTypography {
+  AppThemeTypography(this.theme);
 
-  final FlutterFlowTheme theme;
+  final AppTheme theme;
 
   String get displayLargeFamily => 'Manrope';
   bool get displayLargeIsCustom => false;
@@ -330,7 +330,7 @@ class ThemeTypography extends Typography {
       );
 }
 
-class DarkModeTheme extends FlutterFlowTheme {
+class DarkModeTheme extends AppTheme {
   @Deprecated('Use primary instead')
   Color get primaryColor => primary;
   @Deprecated('Use secondary instead')
@@ -360,16 +360,16 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color messageText = const Color(0xFFFFFFFF);
 }
 
-class FFDesignTokens {
-  const FFDesignTokens(this.theme);
-  final FlutterFlowTheme theme;
-  FFSpacing get spacing => const FFSpacing();
-  FFRadius get radius => const FFRadius();
-  FFShadows get shadow => FFShadows(theme);
+class AppDesignTokens {
+  const AppDesignTokens(this.theme);
+  final AppTheme theme;
+  AppSpacing get spacing => const AppSpacing();
+  AppRadius get radius => const AppRadius();
+  AppShadows get shadow => AppShadows(theme);
 }
 
-class FFSpacing {
-  const FFSpacing();
+class AppSpacing {
+  const AppSpacing();
   double get xs => 2.0;
   double get sm => 4.0;
   double get md => 10.0;
@@ -377,17 +377,17 @@ class FFSpacing {
   double get xl => 32.0;
 }
 
-class FFRadius {
-  const FFRadius();
+class AppRadius {
+  const AppRadius();
   double get sm => 4.0;
   double get md => 6.0;
   double get lg => 10.0;
   double get full => 9999.0;
 }
 
-class FFShadows {
-  const FFShadows(this.theme);
-  final FlutterFlowTheme theme;
+class AppShadows {
+  const AppShadows(this.theme);
+  final AppTheme theme;
   BoxShadow get sm => const BoxShadow(
       blurRadius: 3.0,
       color: const Color(0x1A000000),
