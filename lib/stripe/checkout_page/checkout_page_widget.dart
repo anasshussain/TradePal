@@ -1,17 +1,17 @@
-import '/components/download_p_d_f/download_p_d_f_widget.dart';
-import '/components/payment_method_item/payment_method_item_widget.dart';
-import '/components/text_field/text_field_widget.dart';
+import '/widgets/components/download_p_d_f/download_p_d_f_widget.dart';
+import '/widgets/components/payment_method_item/payment_method_item_widget.dart';
+import '/widgets/components/text_field/text_field_widget.dart';
 import '/widgets/app_icon_button.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'checkout_page_model.dart';
-export 'checkout_page_model.dart';
+import '/viewmodels/checkout_page_model.dart';
+export '/viewmodels/checkout_page_model.dart';
 
 class CheckoutPageWidget extends StatefulWidget {
   const CheckoutPageWidget({super.key});

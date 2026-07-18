@@ -1,17 +1,17 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/supabase/supabase.dart';
-import '/components/applogo_component/applogo_component_widget.dart';
-import '/components/info_cards_component/info_cards_component_widget.dart';
-import '/components/testimonials_component/testimonials_component_widget.dart';
+import '/repositories/supabase/supabase.dart';
+import '/widgets/components/applogo_component/applogo_component_widget.dart';
+import '/widgets/components/info_cards_component/info_cards_component_widget.dart';
+import '/widgets/components/testimonials_component/testimonials_component_widget.dart';
 import '/core/animations.dart';
 import '/widgets/app_icon_button.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:math';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
-import '/index.dart';
+import '/utils/custom_code/actions/index.dart' as actions;
+import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -19,8 +19,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'home_model.dart';
-export 'home_model.dart';
+import '/viewmodels/home_model.dart';
+export '/viewmodels/home_model.dart';
 
 /// create me a home page for my trade app that has a heading for my app name.
 ///

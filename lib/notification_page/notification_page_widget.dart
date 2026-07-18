@@ -1,21 +1,21 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/notification_item_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/repositories/backend.dart';
+import '/utils/enums/enums.dart';
+import '/models/structs/index.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/notification_item_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/index.dart';
+import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'notification_page_model.dart';
-export 'notification_page_model.dart';
+import '/viewmodels/notification_page_model.dart';
+export '/viewmodels/notification_page_model.dart';
 
 /// create a notification page
 class NotificationPageWidget extends StatefulWidget {

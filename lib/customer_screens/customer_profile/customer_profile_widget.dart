@@ -1,21 +1,21 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/customer_navbar/customer_navbar_widget.dart';
-import '/components/settings_component/settings_component_widget.dart';
-import '/components/theme_picker/theme_picker_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
+import '/widgets/components/settings_component/settings_component_widget.dart';
+import '/widgets/components/theme_picker/theme_picker_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
-import '/index.dart';
+import '/utils/action_blocks/actions.dart' as action_blocks;
+import '/core/routes/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'customer_profile_model.dart';
-export 'customer_profile_model.dart';
+import '/viewmodels/customer_profile_model.dart';
+export '/viewmodels/customer_profile_model.dart';
 
 class CustomerProfileWidget extends StatefulWidget {
   const CustomerProfileWidget({super.key});

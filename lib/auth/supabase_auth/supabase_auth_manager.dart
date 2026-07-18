@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '/auth/auth_manager.dart';
-import '/backend/supabase/supabase.dart';
-import '/core/util.dart';
-import 'email_auth.dart';
+import '/repositories/supabase/supabase.dart';
+import '/utils/util.dart';
+import '/auth/supabase_auth/email_auth.dart';
 
-import 'supabase_user_provider.dart';
+import '/auth/supabase_auth/supabase_user_provider.dart';
 
 export '/auth/base_auth_user_provider.dart';
 

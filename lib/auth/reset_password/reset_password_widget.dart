@@ -1,20 +1,20 @@
-import '/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/app_icon_button.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
-import '/custom_code/actions/index.dart' as actions;
-import '/core/custom_functions.dart' as functions;
-import '/index.dart';
+import '/utils/action_blocks/actions.dart' as action_blocks;
+import '/utils/custom_code/actions/index.dart' as actions;
+import '/utils/custom_functions.dart' as functions;
+import '/core/routes/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'reset_password_model.dart';
-export 'reset_password_model.dart';
+import '/viewmodels/reset_password_model.dart';
+export '/viewmodels/reset_password_model.dart';
 
 class ResetPasswordWidget extends StatefulWidget {
   const ResetPasswordWidget({super.key});

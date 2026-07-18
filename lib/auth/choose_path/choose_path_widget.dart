@@ -1,18 +1,18 @@
-import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
-import '/components/choose_path_component/choose_path_component_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/repositories/backend.dart';
+import '/utils/enums/enums.dart';
+import '/widgets/components/choose_path_component/choose_path_component_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
+import '/utils/action_blocks/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'choose_path_model.dart';
-export 'choose_path_model.dart';
+import '/viewmodels/choose_path_model.dart';
+export '/viewmodels/choose_path_model.dart';
 
 /// create me a page where the user can either choose if theyre a tradesperson
 /// or customer via buttons

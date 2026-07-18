@@ -1,0 +1,187 @@
+// ignore_for_file: unnecessary_getters_setters
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '/models/util/firestore_util.dart';
+import '/models/util/schema_util.dart';
+import '/utils/enums/enums.dart';
+
+import '/models/structs/index.dart';
+import '/utils/util.dart';
+
+class CustomerStruct extends AppFirebaseStruct {
+  CustomerStruct({
+    String? id,
+    String? name,
+    String? deviceToken,
+    FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
+  })  : _id = id,
+        _name = name,
+        _deviceToken = deviceToken,
+        super(firestoreUtilData);
+
+  // "id" field.
+  String? _id;
+  String get id => _id ?? '';
+  set id(String? val) => _id = val;
+
+  bool hasId() => _id != null;
+
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  set name(String? val) => _name = val;
+
+  bool hasName() => _name != null;
+
+  // "device_token" field.
+  String? _deviceToken;
+  String get deviceToken => _deviceToken ?? '';
+  set deviceToken(String? val) => _deviceToken = val;
+
+  bool hasDeviceToken() => _deviceToken != null;
+
+  static CustomerStruct fromMap(Map<String, dynamic> data) => CustomerStruct(
+        id: data['id'] as String?,
+        name: data['name'] as String?,
+        deviceToken: data['device_token'] as String?,
+      );
+
+  static CustomerStruct? maybeFromMap(dynamic data) =>
+      data is Map ? CustomerStruct.fromMap(data.cast<String, dynamic>()) : null;
+
+  Map<String, dynamic> toMap() => {
+        'id': _id,
+        'name': _name,
+        'device_token': _deviceToken,
+      }.withoutNulls;
+
+  @override
+  Map<String, dynamic> toSerializableMap() => {
+        'id': serializeParam(
+          _id,
+          ParamType.String,
+        ),
+        'name': serializeParam(
+          _name,
+          ParamType.String,
+        ),
+        'device_token': serializeParam(
+          _deviceToken,
+          ParamType.String,
+        ),
+      }.withoutNulls;
+
+  static CustomerStruct fromSerializableMap(Map<String, dynamic> data) =>
+      CustomerStruct(
+        id: deserializeParam(
+          data['id'],
+          ParamType.String,
+          false,
+        ),
+        name: deserializeParam(
+          data['name'],
+          ParamType.String,
+          false,
+        ),
+        deviceToken: deserializeParam(
+          data['device_token'],
+          ParamType.String,
+          false,
+        ),
+      );
+
+  @override
+  String toString() => 'CustomerStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is CustomerStruct &&
+        id == other.id &&
+        name == other.name &&
+        deviceToken == other.deviceToken;
+  }
+
+  @override
+  int get hashCode => const ListEquality().hash([id, name, deviceToken]);
+}
+
+CustomerStruct createCustomerStruct({
+  String? id,
+  String? name,
+  String? deviceToken,
+  Map<String, dynamic> fieldValues = const {},
+  bool clearUnsetFields = true,
+  bool create = false,
+  bool delete = false,
+}) =>
+    CustomerStruct(
+      id: id,
+      name: name,
+      deviceToken: deviceToken,
+      firestoreUtilData: FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+        delete: delete,
+        fieldValues: fieldValues,
+      ),
+    );
+
+CustomerStruct? updateCustomerStruct(
+  CustomerStruct? customer, {
+  bool clearUnsetFields = true,
+  bool create = false,
+}) =>
+    customer
+      ?..firestoreUtilData = FirestoreUtilData(
+        clearUnsetFields: clearUnsetFields,
+        create: create,
+      );
+
+void addCustomerStructData(
+  Map<String, dynamic> firestoreData,
+  CustomerStruct? customer,
+  String fieldName, [
+  bool forFieldValue = false,
+]) {
+  firestoreData.remove(fieldName);
+  if (customer == null) {
+    return;
+  }
+  if (customer.firestoreUtilData.delete) {
+    firestoreData[fieldName] = FieldValue.delete();
+    return;
+  }
+  final clearFields =
+      !forFieldValue && customer.firestoreUtilData.clearUnsetFields;
+  if (clearFields) {
+    firestoreData[fieldName] = <String, dynamic>{};
+  }
+  final customerData = getCustomerFirestoreData(customer, forFieldValue);
+  final nestedData = customerData.map((k, v) => MapEntry('$fieldName.$k', v));
+
+  final mergeFields = customer.firestoreUtilData.create || clearFields;
+  firestoreData
+      .addAll(mergeFields ? mergeNestedFields(nestedData) : nestedData);
+}
+
+Map<String, dynamic> getCustomerFirestoreData(
+  CustomerStruct? customer, [
+  bool forFieldValue = false,
+]) {
+  if (customer == null) {
+    return {};
+  }
+  final firestoreData = mapToFirestore(customer.toMap());
+
+  // Add any Firestore field values
+  mapToFirestore(customer.firestoreUtilData.fieldValues)
+      .forEach((k, v) => firestoreData[k] = v);
+
+  return forFieldValue ? mergeNestedFields(firestoreData) : firestoreData;
+}
+
+List<Map<String, dynamic>> getCustomerListFirestoreData(
+  List<CustomerStruct>? customers,
+) =>
+    customers?.map((e) => getCustomerFirestoreData(e, true)).toList() ?? [];

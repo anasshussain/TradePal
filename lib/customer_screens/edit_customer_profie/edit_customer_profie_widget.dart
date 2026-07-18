@@ -1,22 +1,22 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
-import '/backend/supabase/supabase.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/models/structs/index.dart';
+import '/repositories/supabase/supabase.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/upload_data.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
-import '/index.dart';
+import '/utils/custom_code/actions/index.dart' as actions;
+import '/core/routes/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'edit_customer_profie_model.dart';
-export 'edit_customer_profie_model.dart';
+import '/viewmodels/edit_customer_profie_model.dart';
+export '/viewmodels/edit_customer_profie_model.dart';
 
 class EditCustomerProfieWidget extends StatefulWidget {
   const EditCustomerProfieWidget({super.key});

@@ -1,21 +1,21 @@
-import '/backend/schema/enums/enums.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/jobs_list/jobs_list_widget.dart';
-import '/components/page_header_sectiom/page_header_sectiom_widget.dart';
-import '/components/tp_navbar/tp_navbar_widget.dart';
+import '/utils/enums/enums.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/jobs_list/jobs_list_widget.dart';
+import '/widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
+import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/widgets/app_drop_down.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/form_field_controller.dart';
 import 'dart:ui';
-import '/index.dart';
+import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'browse_jobs_model.dart';
-export 'browse_jobs_model.dart';
+import '/viewmodels/browse_jobs_model.dart';
+export '/viewmodels/browse_jobs_model.dart';
 
 class BrowseJobsWidget extends StatefulWidget {
   const BrowseJobsWidget({super.key});

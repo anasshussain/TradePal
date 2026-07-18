@@ -1,26 +1,26 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/settings_component/settings_component_widget.dart';
-import '/components/theme_picker/theme_picker_widget.dart';
-import '/components/tp_navbar/tp_navbar_widget.dart';
+import '/repositories/backend.dart';
+import '/models/structs/index.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/settings_component/settings_component_widget.dart';
+import '/widgets/components/theme_picker/theme_picker_widget.dart';
+import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/widgets/app_choice_chips.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/form_field_controller.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
-import '/index.dart';
+import '/utils/action_blocks/actions.dart' as action_blocks;
+import '/core/routes/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'trader_profile_model.dart';
-export 'trader_profile_model.dart';
+import '/viewmodels/trader_profile_model.dart';
+export '/viewmodels/trader_profile_model.dart';
 
 class TraderProfileWidget extends StatefulWidget {
   const TraderProfileWidget({super.key});

@@ -1,13 +1,13 @@
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'account_inactive_model.dart';
-export 'account_inactive_model.dart';
+import '/viewmodels/account_inactive_model.dart';
+export '/viewmodels/account_inactive_model.dart';
 
 /// Create a page to navigate the user to when their account is
 /// inactive/blocked/suspended

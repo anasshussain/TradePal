@@ -1,16 +1,16 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/customer_navbar/customer_navbar_widget.dart';
-import '/components/empty_list_component/empty_list_component_widget.dart';
-import '/components/inbox_item/inbox_item_widget.dart';
-import '/components/page_header_sectiom/page_header_sectiom_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/models/structs/index.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
+import '/widgets/components/empty_list_component/empty_list_component_widget.dart';
+import '/widgets/components/inbox_item/inbox_item_widget.dart';
+import '/widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
+import '/utils/custom_code/actions/index.dart' as actions;
 import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +18,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'customer_inbox_model.dart';
-export 'customer_inbox_model.dart';
+import '/viewmodels/customer_inbox_model.dart';
+export '/viewmodels/customer_inbox_model.dart';
 
 /// could you design me an all chats inbox page with 2 list views.
 ///
