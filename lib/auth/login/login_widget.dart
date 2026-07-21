@@ -93,13 +93,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color:
-                              AppTheme.of(context).secondaryBackground,
+                          color: AppTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context)
-                                  .designToken
-                                  .radius
-                                  .lg),
+                              AppTheme.of(context).designToken.radius.lg),
                           border: Border.all(
                             color: AppTheme.of(context).alternate,
                           ),
@@ -125,24 +121,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         .headlineSmall
                                         .override(
                                           font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                            fontWeight: AppTheme.of(context)
+                                                .headlineSmall
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .headlineSmall
+                                                .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .headlineSmall
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .headlineSmall
-                                                  .fontStyle,
+                                          fontWeight: AppTheme.of(context)
+                                              .headlineSmall
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .headlineSmall
+                                              .fontStyle,
                                         ),
                                   ),
                                   Text(
@@ -152,24 +144,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         .labelMedium
                                         .override(
                                           font: GoogleFonts.inter(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
+                                            fontWeight: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                          fontWeight: AppTheme.of(context)
+                                              .labelMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
                                         ),
                                   ),
                                 ].divide(SizedBox(height: 8.0)),
@@ -195,17 +183,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .bodySmall
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 1.0,
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                         ),
                                         Container(
@@ -219,66 +205,54 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: false,
-                                              labelStyle:
-                                                  AppTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
+                                              labelStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    font: GoogleFonts.inter(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    color: AppTheme.of(context)
+                                                        .secondaryText,
+                                                    fontSize: 12.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
                                               hintText: 'You@tradepal.uk',
-                                              hintStyle:
-                                                  AppTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .hint,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
+                                              hintStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    font: GoogleFonts.inter(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    color: AppTheme.of(context)
+                                                        .hint,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0x00000000),
@@ -289,8 +263,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(
-                                                          context)
+                                                  color: AppTheme.of(context)
                                                       .primary,
                                                   width: 1.0,
                                                 ),
@@ -299,8 +272,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(
-                                                          context)
+                                                  color: AppTheme.of(context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -310,8 +282,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(
-                                                          context)
+                                                  color: AppTheme.of(context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -319,9 +290,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               filled: true,
-                                              fillColor:
-                                                  AppTheme.of(context)
-                                                      .alternate,
+                                              fillColor: AppTheme.of(context)
+                                                  .alternate,
                                               prefixIcon: Icon(
                                                 Icons.email_outlined,
                                               ),
@@ -331,31 +301,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor:
-                                                AppTheme.of(context)
-                                                    .primaryText,
+                                            cursorColor: AppTheme.of(context)
+                                                .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .emailTextControllerValidator
@@ -378,17 +343,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .bodySmall
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 1.0,
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                         ),
                                         Container(
@@ -404,66 +367,54 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 !_model.passwordVisibility,
                                             decoration: InputDecoration(
                                               isDense: false,
-                                              labelStyle:
-                                                  AppTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
+                                              labelStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    font: GoogleFonts.inter(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    color: AppTheme.of(context)
+                                                        .secondaryText,
+                                                    fontSize: 12.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
                                               hintText: '********',
-                                              hintStyle:
-                                                  AppTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .hint,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
+                                              hintStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    font: GoogleFonts.inter(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    color: AppTheme.of(context)
+                                                        .hint,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: Color(0x00000000),
@@ -474,8 +425,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(
-                                                          context)
+                                                  color: AppTheme.of(context)
                                                       .primary,
                                                   width: 1.0,
                                                 ),
@@ -484,8 +434,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(
-                                                          context)
+                                                  color: AppTheme.of(context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -495,8 +444,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(
-                                                          context)
+                                                  color: AppTheme.of(context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -504,9 +452,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               filled: true,
-                                              fillColor:
-                                                  AppTheme.of(context)
-                                                      .alternate,
+                                              fillColor: AppTheme.of(context)
+                                                  .alternate,
                                               prefixIcon: Icon(
                                                 Icons.lock_outlined,
                                               ),
@@ -534,31 +481,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor:
-                                                AppTheme.of(context)
-                                                    .primaryText,
+                                            cursorColor: AppTheme.of(context)
+                                                .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .passwordTextControllerValidator
@@ -569,8 +511,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           height: AppConstants.childPadding)),
                                     ),
                                   ].divide(SizedBox(
-                                      height:
-                                          AppConstants.parentPagePadding)),
+                                      height: AppConstants.parentPagePadding)),
                                 ),
                               ),
                               Padding(
@@ -615,28 +556,23 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .secondaryText,
+                                                color: AppTheme.of(context)
+                                                    .secondaryText,
                                                 letterSpacing: 0.0,
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .titleSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .titleSmall
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -706,16 +642,21 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     }),
                                     Future(() async {
                                       _model.totalCount =
-                                          await SupabaseEdgeFunctionsGroup
+                                          await SupbaseRpcGroup
                                               .getTotalUnreadCall
                                               .call(
                                         authtoken: currentJwtToken,
                                       );
+                                      debugPrint(
+                                          'Total Count: ${_model.totalCount?.jsonBody}');
 
                                       if ((_model.totalCount?.succeeded ??
                                           true)) {
                                         AppState().totalMessagesCount =
-                                            (_model.totalCount?.jsonBody ?? '');
+                                            SupbaseRpcGroup.getTotalUnreadCall
+                                                    .totalCount(_model
+                                                        .totalCount?.jsonBody) ??
+                                                0;
                                       }
                                     }),
                                   ]);
@@ -732,29 +673,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: AppTheme.of(context).primary,
-                                  textStyle: AppTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight:
-                                              AppTheme.of(context)
+                                  textStyle:
+                                      AppTheme.of(context).labelLarge.override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: AppTheme.of(context)
                                                   .labelLarge
                                                   .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
+                                              fontStyle: AppTheme.of(context)
                                                   .labelLarge
                                                   .fontStyle,
-                                        ),
-                                        color: AppTheme.of(context)
-                                            .secondaryBackground,
-                                        letterSpacing: 1.4,
-                                        fontWeight: AppTheme.of(context)
-                                            .labelLarge
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .labelLarge
-                                            .fontStyle,
-                                      ),
+                                            ),
+                                            color: AppTheme.of(context)
+                                                .secondaryBackground,
+                                            letterSpacing: 1.4,
+                                            fontWeight: AppTheme.of(context)
+                                                .labelLarge
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelLarge
+                                                .fontStyle,
+                                          ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(
                                       AppTheme.of(context)
@@ -808,49 +746,42 @@ class _LoginWidgetState extends State<LoginWidget> {
                               children: [
                                 TextSpan(
                                   text: 'Don\'t have an account? ',
-                                  style: AppTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.manrope(
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              AppTheme.of(context)
+                                  style:
+                                      AppTheme.of(context).bodyMedium.override(
+                                            font: GoogleFonts.manrope(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: AppTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
                                 ),
                                 TextSpan(
                                   text: 'Sign Up',
-                                  style: AppTheme.of(context)
-                                      .labelLarge
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              AppTheme.of(context)
+                                  style:
+                                      AppTheme.of(context).labelLarge.override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: AppTheme.of(context)
                                                   .labelLarge
                                                   .fontStyle,
-                                        ),
-                                        color: AppTheme.of(context)
-                                            .primary,
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: AppTheme.of(context)
-                                            .labelLarge
-                                            .fontStyle,
-                                      ),
+                                            ),
+                                            color: AppTheme.of(context).primary,
+                                            fontSize: 14.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelLarge
+                                                .fontStyle,
+                                          ),
                                 )
                               ],
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                              style: AppTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: AppTheme.of(context)
                                           .bodyMedium

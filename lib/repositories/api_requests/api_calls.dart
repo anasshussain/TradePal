@@ -31,7 +31,6 @@ class SupabaseEdgeFunctionsGroup {
       CreateDefaultAccountCall();
   static SendPushNotificationCall sendPushNotificationCall =
       SendPushNotificationCall();
-  static GetTotalUnreadCall getTotalUnreadCall = GetTotalUnreadCall();
   static OnboardingStripeConnectAccountCall onboardingStripeConnectAccountCall =
       OnboardingStripeConnectAccountCall();
 }
@@ -270,36 +269,6 @@ class SendPushNotificationCall {
   }
 }
 
-class GetTotalUnreadCall {
-  Future<ApiCallResponse> call({
-    String? authtoken = '',
-  }) async {
-    final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
-
-    return ApiManager.instance.makeApiCall(
-      callName: 'get total unread',
-      apiUrl: '${baseUrl}get_total_unread',
-      callType: ApiCallType.POST,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
-        'Authorization': 'Bearer ${authtoken}',
-      },
-      params: {},
-      bodyType: BodyType.NONE,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
 class OnboardingStripeConnectAccountCall {
   Future<ApiCallResponse> call({
     String? userId = '',
@@ -369,6 +338,7 @@ class SupbaseRpcGroup {
       UpdateTradePersonRatingCall();
   static SearchConversationsCall searchConversationsCall =
       SearchConversationsCall();
+  static GetTotalUnreadCall getTotalUnreadCall = GetTotalUnreadCall();
 }
 
 class AddJobCall {
@@ -627,6 +597,44 @@ class MarkConversationReadCall {
       alwaysAllowBody: false,
     );
   }
+}
+
+class GetTotalUnreadCall {
+  Future<ApiCallResponse> call({
+    String? authtoken = '',
+    String? token,
+  }) async {
+    token ??= DevEnvironmentValues().authToken;
+    final baseUrl = SupbaseRpcGroup.getBaseUrl(
+      token: token,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'get total unread',
+      apiUrl: '${baseUrl}get_total_unread',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+        'Prefer': 'return=representation',
+        'apikey': '${token}',
+        'Authorization': 'Bearer ${authtoken}',
+      },
+      params: {},
+      body: '{}',
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? totalCount(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$''',
+      ));
 }
 
 class UpdateTradePersonRatingCall {
