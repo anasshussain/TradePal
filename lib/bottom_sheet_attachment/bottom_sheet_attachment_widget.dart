@@ -1,8 +1,8 @@
-import '/components/action_tile3/action_tile3_widget.dart';
-import '/components/cancel_button/cancel_button_widget.dart';
+import '/widgets/components/action_tile3/action_tile3_widget.dart';
+import '/widgets/components/cancel_button/cancel_button_widget.dart';
 import '/widgets/app_icon_button.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'bottom_sheet_attachment_model.dart';
-export 'bottom_sheet_attachment_model.dart';
+import '/viewmodels/bottom_sheet_attachment_model.dart';
+export '/viewmodels/bottom_sheet_attachment_model.dart';
 
 class BottomSheetAttachmentWidget extends StatefulWidget {
   const BottomSheetAttachmentWidget({super.key});

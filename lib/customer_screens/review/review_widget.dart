@@ -1,17 +1,17 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/enums/enums.dart';
-import '/backend/supabase/supabase.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/user_preview_component/user_preview_component_widget.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/utils/enums/enums.dart';
+import '/repositories/supabase/supabase.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/user_preview_component/user_preview_component_widget.dart';
 import '/widgets/app_expanded_image_view.dart';
 import '/widgets/app_icon_button.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/upload_data.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
+import '/utils/action_blocks/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,8 +19,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'review_model.dart';
-export 'review_model.dart';
+import '/viewmodels/review_model.dart';
+export '/viewmodels/review_model.dart';
 
 class ReviewWidget extends StatefulWidget {
   const ReviewWidget({

@@ -5,33 +5,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'auth/supabase_auth/supabase_user_provider.dart';
-import 'auth/supabase_auth/auth_util.dart';
+import '/auth/supabase_auth/supabase_user_provider.dart';
+import '/auth/supabase_auth/auth_util.dart';
 
-import '/backend/supabase/supabase.dart';
-import 'backend/firebase/firebase_config.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/repositories/supabase/supabase.dart';
+import '/core/firebase/firebase_config.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '/nav/nav.dart';
-import 'index.dart';
+import '/core/routes/nav.dart';
+import '/core/routes/index.dart';
 
-import 'package:my_trade_pal/custom_code/actions/init_stripe.dart';
+import 'package:my_trade_pal/utils/custom_code/actions/init_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'auth/supabase_auth/supabase_user_provider.dart';
-import 'auth/supabase_auth/auth_util.dart';
+import '/auth/supabase_auth/supabase_user_provider.dart';
+import '/auth/supabase_auth/auth_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'backend/firebase/firebase_config.dart';
-import 'custom_code/notification_service.dart';
-import '/core/util.dart';
+import '/core/firebase/firebase_config.dart';
+import '/utils/custom_code/notification_service.dart';
+import '/utils/util.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '/nav/nav.dart';
-import 'index.dart';
+import '/core/routes/nav.dart';
+import '/core/routes/index.dart';
 //import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {

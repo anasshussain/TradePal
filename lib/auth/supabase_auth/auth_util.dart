@@ -1,8 +1,8 @@
-import '/backend/supabase/supabase.dart';
-import 'supabase_auth_manager.dart';
-import 'supabase_user_provider.dart';
+import '/repositories/supabase/supabase.dart';
+import '/auth/supabase_auth/supabase_auth_manager.dart';
+import '/auth/supabase_auth/supabase_user_provider.dart';
 
-export 'supabase_auth_manager.dart';
+export '/auth/supabase_auth/supabase_auth_manager.dart';
 
 final _authManager = SupabaseAuthManager();
 SupabaseAuthManager get authManager => _authManager;

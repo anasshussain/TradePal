@@ -1,21 +1,21 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/applogo_component/applogo_component_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/models/structs/index.dart';
+import '/widgets/components/applogo_component/applogo_component_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
-import '/custom_code/actions/index.dart' as actions;
-import '/index.dart';
+import '/utils/action_blocks/actions.dart' as action_blocks;
+import '/utils/custom_code/actions/index.dart' as actions;
+import '/core/routes/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import '/viewmodels/login_model.dart';
+export '/viewmodels/login_model.dart';
 
 /// design me a create account and log in page which has a button that says
 /// create account and a button that says log in.

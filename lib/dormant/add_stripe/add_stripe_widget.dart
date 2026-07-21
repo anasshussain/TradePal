@@ -1,6 +1,6 @@
-import '/backend/schema/structs/index.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/models/structs/index.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,8 +10,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'add_stripe_model.dart';
-export 'add_stripe_model.dart';
+import '/viewmodels/add_stripe_model.dart';
+export '/viewmodels/add_stripe_model.dart';
 
 /// this is dormant
 class AddStripeWidget extends StatefulWidget {

@@ -1,5 +1,5 @@
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,8 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
-import 'processing_state_model.dart';
-export 'processing_state_model.dart';
+import '/viewmodels/processing_state_model.dart';
+export '/viewmodels/processing_state_model.dart';
 
 class ProcessingStateWidget extends StatefulWidget {
   const ProcessingStateWidget({super.key});

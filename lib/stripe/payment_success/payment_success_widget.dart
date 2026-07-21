@@ -1,8 +1,8 @@
-import '/components/download_p_d_f/download_p_d_f_widget.dart';
-import '/components/receipt_row/receipt_row_widget.dart';
+import '/widgets/components/download_p_d_f/download_p_d_f_widget.dart';
+import '/widgets/components/receipt_row/receipt_row_widget.dart';
 import '/widgets/app_icon_button.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'payment_success_model.dart';
-export 'payment_success_model.dart';
+import '/viewmodels/payment_success_model.dart';
+export '/viewmodels/payment_success_model.dart';
 
 class PaymentSuccessWidget extends StatefulWidget {
   const PaymentSuccessWidget({super.key});

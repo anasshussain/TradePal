@@ -8,8 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
 
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
 

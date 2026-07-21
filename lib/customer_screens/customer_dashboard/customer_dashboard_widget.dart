@@ -1,24 +1,24 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/enums/enums.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/customer_navbar/customer_navbar_widget.dart';
-import '/components/jobs_list/jobs_list_widget.dart';
-import '/components/stats/stats_widget.dart';
-import '/components/text_button/text_button_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/utils/enums/enums.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
+import '/widgets/components/jobs_list/jobs_list_widget.dart';
+import '/widgets/components/stats/stats_widget.dart';
+import '/widgets/components/text_button/text_button_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/core/custom_functions.dart' as functions;
-import '/index.dart';
+import '/utils/custom_functions.dart' as functions;
+import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'customer_dashboard_model.dart';
-export 'customer_dashboard_model.dart';
+import '/viewmodels/customer_dashboard_model.dart';
+export '/viewmodels/customer_dashboard_model.dart';
 
 class CustomerDashboardWidget extends StatefulWidget {
   const CustomerDashboardWidget({super.key});

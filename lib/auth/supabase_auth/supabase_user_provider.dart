@@ -1,9 +1,9 @@
 import 'package:rxdart/rxdart.dart';
 
-import '/backend/supabase/supabase.dart';
-import '../base_auth_user_provider.dart';
+import '/repositories/supabase/supabase.dart';
+import '/auth/base_auth_user_provider.dart';
 
-export '../base_auth_user_provider.dart';
+export '/auth/base_auth_user_provider.dart';
 
 class MyTradePalSupabaseUser extends BaseAuthUser {
   MyTradePalSupabaseUser(this.user);

@@ -1,23 +1,23 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
-import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/components/job_details_loader/job_details_loader_widget.dart';
-import '/components/job_location_component/job_location_component_widget.dart';
-import '/components/tradeperson_preview/tradeperson_preview_widget.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/repositories/backend.dart';
+import '/utils/enums/enums.dart';
+import '/models/structs/index.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/components/job_details_loader/job_details_loader_widget.dart';
+import '/widgets/components/job_location_component/job_location_component_widget.dart';
+import '/widgets/components/tradeperson_preview/tradeperson_preview_widget.dart';
 import '/widgets/app_choice_chips.dart';
 import '/widgets/app_expanded_image_view.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/form_field_controller.dart';
 import 'dart:ui';
-import '/actions/actions.dart' as action_blocks;
-import '/custom_code/actions/index.dart' as actions;
-import '/core/custom_functions.dart' as functions;
-import '/index.dart';
+import '/utils/action_blocks/actions.dart' as action_blocks;
+import '/utils/custom_code/actions/index.dart' as actions;
+import '/utils/custom_functions.dart' as functions;
+import '/core/routes/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -25,8 +25,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'job_details_model.dart';
-export 'job_details_model.dart';
+import '/viewmodels/job_details_model.dart';
+export '/viewmodels/job_details_model.dart';
 
 class JobDetailsWidget extends StatefulWidget {
   const JobDetailsWidget({

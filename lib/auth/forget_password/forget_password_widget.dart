@@ -1,17 +1,17 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/components/appbar_component/appbar_component_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
-import '/index.dart';
+import '/utils/custom_code/actions/index.dart' as actions;
+import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'forget_password_model.dart';
-export 'forget_password_model.dart';
+import '/viewmodels/forget_password_model.dart';
+export '/viewmodels/forget_password_model.dart';
 
 class ForgetPasswordWidget extends StatefulWidget {
   const ForgetPasswordWidget({

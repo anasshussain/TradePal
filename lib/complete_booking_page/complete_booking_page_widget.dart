@@ -1,15 +1,15 @@
-import '/components/countinue_booking/countinue_booking_widget.dart';
-import '/components/trust_bullet4/trust_bullet4_widget.dart';
-import '/theme/app_theme.dart';
-import '/core/util.dart';
+import '/widgets/components/countinue_booking/countinue_booking_widget.dart';
+import '/widgets/components/trust_bullet4/trust_bullet4_widget.dart';
+import '/core/theme/app_theme.dart';
+import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'complete_booking_page_model.dart';
-export 'complete_booking_page_model.dart';
+import '/viewmodels/complete_booking_page_model.dart';
+export '/viewmodels/complete_booking_page_model.dart';
 
 class CompleteBookingPageWidget extends StatefulWidget {
   const CompleteBookingPageWidget({super.key});
