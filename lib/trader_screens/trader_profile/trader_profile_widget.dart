@@ -1,6 +1,4 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/repositories/backend.dart';
-import '/models/structs/index.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/settings_component/settings_component_widget.dart';
 import '/widgets/components/theme_picker/theme_picker_widget.dart';
@@ -10,12 +8,9 @@ import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/form_field_controller.dart';
-import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/core/routes/index.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -1675,7 +1670,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                         return GridView.builder(
                                           padding: EdgeInsets.zero,
                                           gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                             const SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount: 2,
                                             crossAxisSpacing: 12.0,
                                             mainAxisSpacing: 12.0,

@@ -8,10 +8,8 @@ import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/form_field_controller.dart';
-import 'dart:ui';
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/viewmodels/browse_jobs_model.dart';
@@ -60,6 +58,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
+          backgroundColor: AppTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,

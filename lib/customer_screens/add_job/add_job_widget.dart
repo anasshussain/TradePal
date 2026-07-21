@@ -14,16 +14,13 @@ import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/form_field_controller.dart';
-import '/core/place.dart';
 import '/core/upload_data.dart';
-import 'dart:io';
 import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/utils/custom_code/actions/index.dart' as actions;
 import '/utils/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,11 +29,6 @@ import 'package:provider/provider.dart';
 import '/viewmodels/add_job_model.dart';
 export '/viewmodels/add_job_model.dart';
 
-/// tradetype-Dropdown
-/// description of work
-/// Location
-/// no of quotes
-/// images
 class AddJobWidget extends StatefulWidget {
   const AddJobWidget({
     super.key,
@@ -562,8 +554,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                     .fontStyle,
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
+                                        borderSide: const BorderSide(
+                                          color: Color(0xff00000000),
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -599,36 +591,44 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       filled: true,
                                       fillColor: AppTheme.of(context)
                                           .alternate,
-                                      prefixIcon: FaIcon(
-                                        FontAwesomeIcons.dollarSign,
-                                        color: AppTheme.of(context)
-                                            .primaryText,
-                                        size: 14.0,
+                                      prefixIcon: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 0.0, 0.0),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.dollarSign,
+                                          color: AppTheme.of(context)
+                                              .primaryText,
+                                          size: 14.0,
+                                        ),
+                                      ),
+                                      prefixIconConstraints: const BoxConstraints(
+                                        minWidth: 0,
+                                        minHeight: 0,
                                       ),
                                     ),
                                     style: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                      font: GoogleFonts.manrope(
+                                        fontWeight:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     cursorColor: AppTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
@@ -636,7 +636,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .budgetTextControllerValidator
                                         .asValidator(context),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                               Column(

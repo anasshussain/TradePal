@@ -1,38 +1,17 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-
 import '/auth/supabase_auth/supabase_user_provider.dart';
 import '/auth/supabase_auth/auth_util.dart';
-
 import '/repositories/supabase/supabase.dart';
 import '/core/firebase/firebase_config.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '/core/routes/nav.dart';
-import '/core/routes/index.dart';
-
 import 'package:my_trade_pal/utils/custom_code/actions/init_stripe.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/gestures.dart';
-
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
-
-import '/auth/supabase_auth/supabase_user_provider.dart';
-import '/auth/supabase_auth/auth_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import '/core/firebase/firebase_config.dart';
 import '/utils/custom_code/notification_service.dart';
-import '/utils/util.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '/core/routes/nav.dart';
-import '/core/routes/index.dart';
-//import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,10 +23,9 @@ void main() async {
 
   await initFirebase();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  await NotificationService.instance.init();
+  // await NotificationService.instance.init();
 
   await SupaFlow.initialize();
-
   await AppTheme.initialize();
 
   final appState = AppState(); // Initialize AppState
@@ -109,7 +87,7 @@ class _MyAppState extends State<MyApp> {
       });
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      Duration(milliseconds: 1000),
+      const Duration(milliseconds: 1000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
@@ -125,7 +103,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'My Trade Pal',
       scrollBehavior: MyAppScrollBehavior(),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -136,15 +114,15 @@ class _MyAppState extends State<MyApp> {
         scrollbarTheme: ScrollbarThemeData(
           thumbVisibility: MaterialStateProperty.all(false),
           thickness: MaterialStateProperty.all(2.0),
-          radius: Radius.circular(12.0),
+          radius: const Radius.circular(12.0),
           thumbColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.dragged)) {
-              return Color(4278236083);
+              return const Color(4278236083);
             }
             if (states.contains(MaterialState.hovered)) {
-              return Color(4278236083);
+              return const Color(4278236083);
             }
-            return Color(4278236083);
+            return const Color(4278236083);
           }),
         ),
       ),
@@ -153,15 +131,15 @@ class _MyAppState extends State<MyApp> {
         scrollbarTheme: ScrollbarThemeData(
           thumbVisibility: MaterialStateProperty.all(false),
           thickness: MaterialStateProperty.all(2.0),
-          radius: Radius.circular(12.0),
+          radius: const Radius.circular(12.0),
           thumbColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.dragged)) {
-              return Color(4283292892);
+              return const Color(4283292892);
             }
             if (states.contains(MaterialState.hovered)) {
-              return Color(4283292892);
+              return const Color(4283292892);
             }
-            return Color(4283292892);
+            return const Color(4283292892);
           }),
         ),
       ),
