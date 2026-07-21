@@ -39,7 +39,11 @@ dependencies:
   collection: 1.19.1
   cross_file: 0.3.5+1
   csslib: 1.0.2
-  dropdown_button2: ^2.3.9
+  dropdown_button2: 
+    git:
+      url: https://github.com/FlutterFlow/dropdown_button2.git
+      ref: 514178337dfbea442f617daed39c704b57593fc9
+      path: packages/dropdown_button2
   easy_debounce: 2.0.1
   equatable: 2.0.7
   expandable: 5.0.1
@@ -74,20 +78,22 @@ dependencies:
   hive: 2.2.3
   html: 0.15.6
   http: 1.4.0
-  image_picker: 1.1.2
-  image_picker_android: 0.8.12+23
-  image_picker_for_web: 3.0.6
-  image_picker_ios: 0.8.12+2
-  image_picker_linux: 0.2.1+2
-  image_picker_macos: 0.2.1+2
-  image_picker_platform_interface: 2.10.1
-  image_picker_windows: 0.2.1+1
+  # image_picker: 1.1.2
+  image_picker: ^1.2.3
+  image_picker_android: ^0.8.13 
+  image_picker_platform_interface: ^2.11.0 
+  # image_picker_for_web: 3.0.6
+  image_picker_ios: ^0.8.13
+  # image_picker_linux: 0.2.1+2
+  # image_picker_macos: 0.2.1+2
+  # image_picker_platform_interface: 2.10.1
+  # image_picker_windows: 0.2.1+1
   intl: 0.20.2
   json_path: 0.7.2
   mime_type: 1.0.0
   package_info_plus: 8.0.2
   package_info_plus_platform_interface: 3.0.1
-  page_transition: ^2.2.2
+  page_transition: 2.1.0
   path_provider: 2.1.4
   path_provider_android: 2.2.10
   path_provider_foundation: 2.4.0
@@ -167,7 +173,6 @@ flutter_launcher_icons:
     generate: true
   image_path: 'assets/images/app_launcher_icon.png'
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -217,4 +222,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-

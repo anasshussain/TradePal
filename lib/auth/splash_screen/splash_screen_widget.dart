@@ -67,13 +67,15 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
           }),
           Future(() async {
             _model.totalCount =
-                await SupabaseEdgeFunctionsGroup.getTotalUnreadCall.call(
+                await SupbaseRpcGroup.getTotalUnreadCall.call(
               authtoken: currentJwtToken,
             );
-
+            debugPrint('Total Count: ${_model.totalCount?.jsonBody}');
             if ((_model.totalCount?.succeeded ?? true)) {
-              AppState().totalMessagesCount =
-                  (_model.totalCount?.jsonBody ?? '');
+              AppState().totalMessagesCount = SupbaseRpcGroup
+                      .getTotalUnreadCall
+                      .totalCount(_model.totalCount?.jsonBody) ??
+                  0;
             }
           }),
         ]);
@@ -133,20 +135,13 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context)
-                                  .designToken
-                                  .radius
-                                  .lg),
+                              AppTheme.of(context).designToken.radius.lg),
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppTheme.of(context)
-                                .secondaryBackground,
+                            color: AppTheme.of(context).secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context)
-                                    .designToken
-                                    .radius
-                                    .lg),
+                                AppTheme.of(context).designToken.radius.lg),
                             border: Border.all(
                               color: AppTheme.of(context).alternate,
                             ),
@@ -171,8 +166,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                     width: 20.0,
                                     height: 1.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context)
-                                          .alternate,
+                                      color: AppTheme.of(context).alternate,
                                     ),
                                   ),
                                   Material(
@@ -196,8 +190,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                     width: 20.0,
                                     height: 1.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context)
-                                          .alternate,
+                                      color: AppTheme.of(context).alternate,
                                     ),
                                   ),
                                 ],
@@ -220,25 +213,24 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                           children: [
                             Text(
                               'My Trade Pal',
-                              style: AppTheme.of(context)
-                                  .displayMedium
-                                  .override(
-                                    font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .displayMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .displayMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .displayMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .displayMedium
-                                        .fontStyle,
-                                  ),
+                              style:
+                                  AppTheme.of(context).displayMedium.override(
+                                        font: GoogleFonts.manrope(
+                                          fontWeight: AppTheme.of(context)
+                                              .displayMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .displayMedium
+                                              .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: AppTheme.of(context)
+                                            .displayMedium
+                                            .fontWeight,
+                                        fontStyle: AppTheme.of(context)
+                                            .displayMedium
+                                            .fontStyle,
+                                      ),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
@@ -248,8 +240,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                   width: MediaQuery.sizeOf(context).width * 0.1,
                                   height: 2.0,
                                   decoration: BoxDecoration(
-                                    color:
-                                        AppTheme.of(context).alternate,
+                                    color: AppTheme.of(context).alternate,
                                   ),
                                 ),
                                 Text(
@@ -258,17 +249,15 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                       .labelSmall
                                       .override(
                                         font: GoogleFonts.inter(
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .labelSmall
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .labelSmall
-                                                  .fontStyle,
+                                          fontWeight: AppTheme.of(context)
+                                              .labelSmall
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .labelSmall
+                                              .fontStyle,
                                         ),
-                                        color: AppTheme.of(context)
-                                            .secondaryText,
+                                        color:
+                                            AppTheme.of(context).secondaryText,
                                         letterSpacing: 0.0,
                                         fontWeight: AppTheme.of(context)
                                             .labelSmall
@@ -282,8 +271,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                   width: MediaQuery.sizeOf(context).width * 0.1,
                                   height: 2.0,
                                   decoration: BoxDecoration(
-                                    color:
-                                        AppTheme.of(context).alternate,
+                                    color: AppTheme.of(context).alternate,
                                   ),
                                 ),
                               ].divide(
@@ -295,24 +283,19 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                       Text(
                         'The simplest way to connect skilled tradespeople with homeowners. No stress, no hidden fees, just quality local work.',
                         textAlign: TextAlign.center,
-                        style:
-                            AppTheme.of(context).labelMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: AppTheme.of(context)
-                                        .labelMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
+                        style: AppTheme.of(context).labelMedium.override(
+                              font: GoogleFonts.inter(
+                                fontWeight:
+                                    AppTheme.of(context).labelMedium.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).labelMedium.fontStyle,
+                              ),
+                              letterSpacing: 0.0,
+                              fontWeight:
+                                  AppTheme.of(context).labelMedium.fontWeight,
+                              fontStyle:
+                                  AppTheme.of(context).labelMedium.fontStyle,
+                            ),
                       ),
                     ].divide(SizedBox(height: AppConstants.spacing)),
                   ),
@@ -339,8 +322,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                             width: 100.0,
                             height: 93.0,
                             decoration: BoxDecoration(
-                              color: AppTheme.of(context)
-                                  .primaryBackground,
+                              color: AppTheme.of(context).primaryBackground,
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 0.0,
@@ -367,8 +349,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                 child: Text(
                                   'LEVEL 00',
                                   style: GoogleFonts.roboto(
-                                    color: AppTheme.of(context)
-                                        .secondaryText,
+                                    color: AppTheme.of(context).secondaryText,
                                     fontSize: 9.0,
                                   ),
                                 ),
@@ -390,8 +371,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                             child: Text(
                               'BASE',
                               style: GoogleFonts.roboto(
-                                color:
-                                    AppTheme.of(context).secondaryText,
+                                color: AppTheme.of(context).secondaryText,
                                 fontSize: 9.0,
                               ),
                             ),
@@ -420,46 +400,37 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                         Text(
                           'System status',
                           textAlign: TextAlign.end,
-                          style:
-                              AppTheme.of(context).labelSmall.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: AppTheme.of(context)
-                                          .labelSmall
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .labelSmall
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .labelSmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .labelSmall
-                                        .fontStyle,
-                                  ),
+                          style: AppTheme.of(context).labelSmall.override(
+                                font: GoogleFonts.inter(
+                                  fontWeight: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontWeight,
+                                  fontStyle:
+                                      AppTheme.of(context).labelSmall.fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight:
+                                    AppTheme.of(context).labelSmall.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).labelSmall.fontStyle,
+                              ),
                         ),
                         Text(
                           'Calibrating Workspace',
                           textAlign: TextAlign.end,
-                          style:
-                              AppTheme.of(context).bodySmall.override(
-                                    font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .bodySmall
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodySmall
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodySmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodySmall
-                                        .fontStyle,
-                                  ),
+                          style: AppTheme.of(context).bodySmall.override(
+                                font: GoogleFonts.manrope(
+                                  fontWeight:
+                                      AppTheme.of(context).bodySmall.fontWeight,
+                                  fontStyle:
+                                      AppTheme.of(context).bodySmall.fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight:
+                                    AppTheme.of(context).bodySmall.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).bodySmall.fontStyle,
+                              ),
                         ),
                       ].divide(SizedBox(height: AppConstants.childSpacing)),
                     ),
