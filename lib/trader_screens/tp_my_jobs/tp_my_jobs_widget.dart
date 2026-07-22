@@ -8,16 +8,12 @@ import '/widgets/components/submitted_job_list_item/submitted_job_list_item_widg
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import '/viewmodels/tp_my_jobs_model.dart';
 export '/viewmodels/tp_my_jobs_model.dart';
 
-///
-///
 class TpMyJobsWidget extends StatefulWidget {
   const TpMyJobsWidget({super.key});
 
@@ -44,7 +40,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
       length: 3,
       initialIndex: 0,
     )..addListener(() => safeSetState(() {}));
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -86,11 +81,11 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment(0.0, 0),
+                      alignment: const Alignment(0.0, 0),
                       child: TabBar(
                         isScrollable: true,
                         tabAlignment: TabAlignment.center,

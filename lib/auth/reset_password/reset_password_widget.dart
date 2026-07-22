@@ -1062,127 +1062,127 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                   ),
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppTheme.of(context).primaryBackground,
-                  ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(
-                        0.0,
-                        0.0,
-                        0.0,
-                        valueOrDefault<double>(
-                          AppConstants.parentPagePadding,
-                          0.0,
-                        )),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.security,
-                              color: AppTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                            Text(
-                              'SECURE',
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.security,
-                              color: AppTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                            Text(
-                              'VETTED',
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.security,
-                              color: AppTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                            Text(
-                              'END-TO-END',
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ].divide(
-                          SizedBox(width: AppConstants.parentPagePadding)),
-                    ),
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: AlignmentDirectional(0.0, 1.0),
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       color: AppTheme.of(context).primaryBackground,
+              //     ),
+              //     child: Padding(
+              //       padding: EdgeInsetsDirectional.fromSTEB(
+              //           0.0,
+              //           0.0,
+              //           0.0,
+              //           valueOrDefault<double>(
+              //             AppConstants.parentPagePadding,
+              //             0.0,
+              //           )),
+              //       child: Row(
+              //         mainAxisSize: MainAxisSize.max,
+              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //         children: [
+              //           Column(
+              //             mainAxisSize: MainAxisSize.min,
+              //             children: [
+              //               Icon(
+              //                 Icons.security,
+              //                 color: AppTheme.of(context).secondaryText,
+              //                 size: 24.0,
+              //               ),
+              //               Text(
+              //                 'SECURE',
+              //                 style: AppTheme.of(context)
+              //                     .bodyMedium
+              //                     .override(
+              //                       font: GoogleFonts.manrope(
+              //                         fontWeight: AppTheme.of(context)
+              //                             .bodyMedium
+              //                             .fontWeight,
+              //                         fontStyle: AppTheme.of(context)
+              //                             .bodyMedium
+              //                             .fontStyle,
+              //                       ),
+              //                       letterSpacing: 0.0,
+              //                       fontWeight: AppTheme.of(context)
+              //                           .bodyMedium
+              //                           .fontWeight,
+              //                       fontStyle: AppTheme.of(context)
+              //                           .bodyMedium
+              //                           .fontStyle,
+              //                     ),
+              //               ),
+              //             ],
+              //           ),
+              //           Column(
+              //             mainAxisSize: MainAxisSize.min,
+              //             children: [
+              //               Icon(
+              //                 Icons.security,
+              //                 color: AppTheme.of(context).secondaryText,
+              //                 size: 24.0,
+              //               ),
+              //               Text(
+              //                 'VETTED',
+              //                 style: AppTheme.of(context)
+              //                     .bodyMedium
+              //                     .override(
+              //                       font: GoogleFonts.manrope(
+              //                         fontWeight: AppTheme.of(context)
+              //                             .bodyMedium
+              //                             .fontWeight,
+              //                         fontStyle: AppTheme.of(context)
+              //                             .bodyMedium
+              //                             .fontStyle,
+              //                       ),
+              //                       letterSpacing: 0.0,
+              //                       fontWeight: AppTheme.of(context)
+              //                           .bodyMedium
+              //                           .fontWeight,
+              //                       fontStyle: AppTheme.of(context)
+              //                           .bodyMedium
+              //                           .fontStyle,
+              //                     ),
+              //               ),
+              //             ],
+              //           ),
+              //           Column(
+              //             mainAxisSize: MainAxisSize.min,
+              //             children: [
+              //               Icon(
+              //                 Icons.security,
+              //                 color: AppTheme.of(context).secondaryText,
+              //                 size: 24.0,
+              //               ),
+              //               Text(
+              //                 'END-TO-END',
+              //                 style: AppTheme.of(context)
+              //                     .bodyMedium
+              //                     .override(
+              //                       font: GoogleFonts.manrope(
+              //                         fontWeight: AppTheme.of(context)
+              //                             .bodyMedium
+              //                             .fontWeight,
+              //                         fontStyle: AppTheme.of(context)
+              //                             .bodyMedium
+              //                             .fontStyle,
+              //                       ),
+              //                       letterSpacing: 0.0,
+              //                       fontWeight: AppTheme.of(context)
+              //                           .bodyMedium
+              //                           .fontWeight,
+              //                       fontStyle: AppTheme.of(context)
+              //                           .bodyMedium
+              //                           .fontStyle,
+              //                     ),
+              //               ),
+              //             ],
+              //           ),
+              //         ].divide(
+              //             SizedBox(width: AppConstants.parentPagePadding)),
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -8,26 +8,16 @@ import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import 'dart:math';
 import 'dart:ui';
 import '/utils/custom_code/actions/index.dart' as actions;
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import '/viewmodels/home_model.dart';
 export '/viewmodels/home_model.dart';
 
-/// create me a home page for my trade app that has a heading for my app name.
-///
-/// Sub headings, Find trusted local trades fast, How trade-Pal works, why
-/// choose Trade-Pal, trusted and secure, what users say. have a container
-/// with text widget under each sub heading. a image widget at the top for app
-/// icon.
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
 

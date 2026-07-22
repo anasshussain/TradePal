@@ -11,7 +11,6 @@ import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/core/routes/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/viewmodels/customer_profile_model.dart';

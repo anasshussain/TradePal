@@ -3,13 +3,10 @@ import '/widgets/components/button6/button6_widget.dart';
 import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import '/viewmodels/new_screen4_model.dart';
 export '/viewmodels/new_screen4_model.dart';
 
