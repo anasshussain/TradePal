@@ -1387,7 +1387,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               (widget!.jobView !=
                                                   JobDetailsView.chat))
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
                                                 onPressed: () async {
@@ -1528,20 +1528,20 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   _provider.notify();
                                                 },
                                                 text: 'Submit Proposal',
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.send,
                                                   size: 30.0,
                                                 ),
                                                 options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   iconAlignment:
                                                       IconAlignment.end,
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: AppTheme.of(
@@ -1615,7 +1615,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               (AppState().paidJobId ==
                                                   widget!.jobId))
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
                                                 onPressed: () async {
@@ -1777,18 +1777,18 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   _provider.notify();
                                                 },
                                                 text: 'Chat',
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.message_rounded,
                                                   size: 30.0,
                                                 ),
                                                 options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: Colors.transparent,
@@ -2412,8 +2412,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             },
                           ),
                       ]
-                          .divide(SizedBox(height: AppConstants.childSpacing))
-                          .addToEnd(SizedBox(height: 80.0)),
+                          .divide(const SizedBox(height: AppConstants.childSpacing))
+                          .addToEnd(const SizedBox(height: 80.0)),
                     ),
                   ),
                 );
@@ -2421,7 +2421,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                 return wrapWithModel(
                   model: _model.jobDetailsLoaderModel,
                   updateCallback: () => _provider.notify(),
-                  child: JobDetailsLoaderWidget(),
+                  child: const JobDetailsLoaderWidget(),
                 );
               }
             },
