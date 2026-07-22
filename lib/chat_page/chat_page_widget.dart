@@ -34,6 +34,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '/providers/chat_page_provider.dart';
 import '/viewmodels/chat_page_model.dart';
 export '/viewmodels/chat_page_model.dart';
 
@@ -64,6 +65,7 @@ class ChatPageWidget extends StatefulWidget {
 class _ChatPageWidgetState extends State<ChatPageWidget>
     with TickerProviderStateMixin {
   late ChatPageModel _model;
+  final ChatPageProvider _provider = ChatPageProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -76,9 +78,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.loading = true;
-      _model.isProposalPaid = false;
-      safeSetState(() {});
+      _provider.loading = true;
+      _provider.isProposalPaid = false;
+      _provider.notify();
       await Future.wait([
         Future(() async {
           await actions.unsubscribe(
@@ -97,7 +99,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 widget!.conversationId!,
                 'insert',
                 () async {
-                  safeSetState(() => _model.apiRequestCompleter = null);
+                  _provider.update(() => _model.apiRequestCompleter = null);
                   await _model.waitForApiRequestCompleted();
                 },
               );
@@ -109,13 +111,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
               );
 
               if ((_model.getJobDetail?.succeeded ?? true)) {
-                _model.jobData = ((_model.getJobDetail?.jsonBody ?? '')
+                _provider.jobData = ((_model.getJobDetail?.jsonBody ?? '')
                         .toList()
                         .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
                         .toList() as Iterable<JobDataStruct?>)
                     .withoutNulls
                     ?.firstOrNull;
-                _model.isAssigned = ((_model.getJobDetail?.jsonBody ?? '')
+                _provider.isAssigned = ((_model.getJobDetail?.jsonBody ?? '')
                             .toList()
                             .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
                             .toList() as Iterable<JobDataStruct?>)
@@ -123,12 +125,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                         ?.firstOrNull
                         ?.assignedTradespersonId ==
                     widget!.member?.id;
-                safeSetState(() {});
+                _provider.notify();
               }
             }),
           ]);
-          _model.loading = false;
-          safeSetState(() {});
+          _provider.loading = false;
+          _provider.notify();
         }),
         Future(() async {
           if (AppState().userProfileCache.userRole == 2) {
@@ -143,8 +145,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                     (_model.paymentStatusRes?.jsonBody ?? ''),
                   ) ==
                   PaymentStatus.paid.name) {
-                _model.isProposalPaid = true;
-                safeSetState(() {});
+                _provider.isProposalPaid = true;
+                _provider.notify();
               } else {
                 await Future.wait([
                   Future(() async {
@@ -190,7 +192,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 ).toString(),
                 'update',
                 () async {
-                  safeSetState(() {});
+                  _provider.notify();
                 },
               );
             }
@@ -256,7 +258,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
@@ -272,6 +274,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
     }();
 
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -280,6 +283,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<ChatPageProvider>.value(
+      value: _provider,
+      child: Consumer<ChatPageProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return Builder(
       builder: (context) => GestureDetector(
         onTap: () {
@@ -294,7 +306,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             automaticallyImplyLeading: false,
             title: wrapWithModel(
               model: _model.appbarComponentModel,
-              updateCallback: () => safeSetState(() {}),
+              updateCallback: () => _provider.notify(),
               child: AppbarComponentWidget(
                 title: '',
                 showAction: false,
@@ -414,7 +426,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       TextSpan(
                                                         text: valueOrDefault<
                                                             String>(
-                                                          _model.jobData?.title,
+                                                          _provider.jobData?.title,
                                                           '....',
                                                         ),
                                                         style: AppTheme
@@ -518,16 +530,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 .userProfileCache
                                                 .userRole ==
                                             1) &&
-                                        (_model.jobData != null) &&
-                                        ((_model.jobData?.status ==
+                                        (_provider.jobData != null) &&
+                                        ((_provider.jobData?.status ==
                                                 Status.ACTIVE) ||
-                                            (_model.jobData?.status ==
+                                            (_provider.jobData?.status ==
                                                 Status.IN_PROGRESS)))
                                       Container(
                                         decoration: BoxDecoration(),
                                         child: AppButton(
                                           onPressed: () async {
-                                            if (_model.jobData?.status ==
+                                            if (_provider.jobData?.status ==
                                                 Status.IN_PROGRESS) {
                                               _model.jobCompletedRes =
                                                   await SupabaseTablesGroup
@@ -584,7 +596,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   dataJson: {},
                                                 );
 
-                                                _model.jobData = ((_model
+                                                _provider.jobData = ((_model
                                                                     .jobCompletedRes
                                                                     ?.jsonBody ??
                                                                 '')
@@ -597,9 +609,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             JobDataStruct?>)
                                                     .withoutNulls
                                                     ?.firstOrNull;
-                                                safeSetState(() {});
+                                                _provider.notify();
                                               }
-                                            } else if (_model.jobData?.status ==
+                                            } else if (_provider.jobData?.status ==
                                                 Status.ACTIVE) {
                                               _model.jobAssignedRes =
                                                   await SupabaseTablesGroup
@@ -658,7 +670,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   dataJson: {},
                                                 );
 
-                                                _model.jobData = ((_model
+                                                _provider.jobData = ((_model
                                                                     .jobAssignedRes
                                                                     ?.jsonBody ??
                                                                 '')
@@ -671,14 +683,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             JobDataStruct?>)
                                                     .withoutNulls
                                                     ?.firstOrNull;
-                                                _model.isAssigned = true;
-                                                safeSetState(() {});
+                                                _provider.isAssigned = true;
+                                                _provider.notify();
                                               }
                                             }
 
-                                            safeSetState(() {});
+                                            _provider.notify();
                                           },
-                                          text: _model.jobData?.status ==
+                                          text: _provider.jobData?.status ==
                                                   Status.IN_PROGRESS
                                               ? 'Complete job'
                                               : 'Assign to job',
@@ -691,7 +703,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
-                                            color: _model.jobData?.status ==
+                                            color: _provider.jobData?.status ==
                                                     Status.IN_PROGRESS
                                                 ? AppTheme.of(context)
                                                     .success
@@ -755,7 +767,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                     Expanded(
                       child: Builder(
                         builder: (context) {
-                          if (!_model.loading) {
+                          if (!_provider.loading) {
                             return Visibility(
                               visible: (AppState()
                                           .userProfileCache
@@ -763,7 +775,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                       1) ||
                                   ((AppState().userProfileCache.userRole ==
                                           2) &&
-                                      (_model.isProposalPaid == true)) ||
+                                      (_provider.isProposalPaid == true)) ||
                                   (AppState().paidJobId == widget!.jobid),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
@@ -1430,7 +1442,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                           } else {
                             return wrapWithModel(
                               model: _model.loadingTextModel,
-                              updateCallback: () => safeSetState(() {}),
+                              updateCallback: () => _provider.notify(),
                               child: LoadingTextWidget(),
                             );
                           }
@@ -1462,10 +1474,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                     ),
                     child: Builder(
                       builder: (context) {
-                        if (_model.jobData != null) {
+                        if (_provider.jobData != null) {
                           return Builder(
                             builder: (context) {
-                              if (_model.jobData?.status != Status.COMPLETED) {
+                              if (_provider.jobData?.status != Status.COMPLETED) {
                                 return Padding(
                                   padding:
                                       EdgeInsets.all(valueOrDefault<double>(
@@ -1520,7 +1532,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       size: 14.0,
                                                     ),
                                                     onPressed: () async {
-                                                      safeSetState(() {
+                                                      _provider.update(() {
                                                         _model.isDataUploading_locallyUploadedImage =
                                                             false;
                                                         _model.uploadedLocalFile_locallyUploadedImage =
@@ -1567,7 +1579,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             '')
                                                     ? null
                                                     : () async {
-                                                        if (_model.isAssigned) {
+                                                        if (_provider.isAssigned) {
                                                           await showModalBottomSheet(
                                                             isScrollControlled:
                                                                 true,
@@ -1606,7 +1618,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                           selectedMedia.every((m) => validateFileFormat(
                                                                               m.storagePath,
                                                                               context))) {
-                                                                        safeSetState(() =>
+                                                                        _provider.update(() =>
                                                                             _model.isDataUploading_locallyUploadedImage =
                                                                                 true);
                                                                         var selectedUploadedFiles =
@@ -1629,13 +1641,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         }
                                                                         if (selectedUploadedFiles.length ==
                                                                             selectedMedia.length) {
-                                                                          safeSetState(
+                                                                          _provider.update(
                                                                               () {
                                                                             _model.uploadedLocalFile_locallyUploadedImage =
                                                                                 selectedUploadedFiles.first;
                                                                           });
                                                                         } else {
-                                                                          safeSetState(
+                                                                          _provider.update(
                                                                               () {});
                                                                           return;
                                                                         }
@@ -1646,7 +1658,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               );
                                                             },
                                                           ).then((value) =>
-                                                              safeSetState(
+                                                              _provider.update(
                                                                   () {}));
                                                         } else {
                                                           context.pushNamed(
@@ -1839,13 +1851,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 .userProfileCache
                                                                 .userRole ==
                                                             2) &&
-                                                        (_model.isProposalPaid ==
+                                                        (_provider.isProposalPaid ==
                                                             true))) {
                                                   if (functions.canSendMessage(
                                                       _model
                                                           .messageTextFieldTextController
                                                           .text,
-                                                      _model.isAssigned)) {
+                                                      _provider.isAssigned)) {
                                                     if (_model.uploadedLocalFile_locallyUploadedImage !=
                                                             null &&
                                                         (_model
@@ -1854,7 +1866,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 ?.isNotEmpty ??
                                                             false)) {
                                                       {
-                                                        safeSetState(() => _model
+                                                        _provider.update(() => _model
                                                                 .isDataUploading_uploadedFileImagePath =
                                                             true);
                                                         var selectedUploadedFiles =
@@ -1898,7 +1910,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     .length ==
                                                                 selectedMedia
                                                                     .length) {
-                                                          safeSetState(() {
+                                                          _provider.update(() {
                                                             _model.uploadedLocalFile_uploadedFileImagePath =
                                                                 selectedUploadedFiles
                                                                     .first;
@@ -1907,7 +1919,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     .first;
                                                           });
                                                         } else {
-                                                          safeSetState(() {});
+                                                          _provider.notify();
                                                           return;
                                                         }
                                                       }
@@ -1967,14 +1979,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           true)) {
                                                         await Future.wait([
                                                           Future(() async {
-                                                            safeSetState(() {
+                                                            _provider.update(() {
                                                               _model
                                                                   .messageTextFieldTextController
                                                                   ?.clear();
                                                             });
                                                           }),
                                                           Future(() async {
-                                                            safeSetState(() {
+                                                            _provider.update(() {
                                                               _model.isDataUploading_locallyUploadedImage =
                                                                   false;
                                                               _model.uploadedLocalFile_locallyUploadedImage =
@@ -2119,7 +2131,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   );
                                                 }
 
-                                                safeSetState(() {});
+                                                _provider.notify();
                                               },
                                             ),
                                           ),

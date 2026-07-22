@@ -15,6 +15,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/bank_cards_provider.dart';
 import '/viewmodels/bank_cards_model.dart';
 export '/viewmodels/bank_cards_model.dart';
 
@@ -32,6 +33,7 @@ class BankCardsWidget extends StatefulWidget {
 
 class _BankCardsWidgetState extends State<BankCardsWidget> {
   late BankCardsModel _model;
+  final BankCardsProvider _provider = BankCardsProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -59,36 +61,44 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
         );
 
         if ((_model.bankDetailRes?.succeeded ?? true)) {
-          _model.bankCards = ((_model.bankDetailRes?.jsonBody ?? '')
+          _provider.bankCards = ((_model.bankDetailRes?.jsonBody ?? '')
                   .toList()
                   .map<BankDetailsStruct?>(BankDetailsStruct.maybeFromMap)
                   .toList() as Iterable<BankDetailsStruct?>)
               .withoutNulls
               .toList()
               .cast<BankDetailsStruct>();
-          _model.stripeDetails = ((_model.userStripeRow?.jsonBody ?? '')
+          _provider.stripeDetails = ((_model.userStripeRow?.jsonBody ?? '')
                   .toList()
                   .map<StripeDataStruct?>(StripeDataStruct.maybeFromMap)
                   .toList() as Iterable<StripeDataStruct?>)
               .withoutNulls
               ?.firstOrNull;
-          safeSetState(() {});
+          _provider.notify();
         }
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<BankCardsProvider>.value(
+      value: _provider,
+      child: _buildContent(context),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -222,7 +232,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                                 );
                               }
 
-                              safeSetState(() {});
+                              _provider.notify();
                             },
                           ),
                         ],
@@ -241,9 +251,11 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                                 ),
                                 0.0,
                                 0.0),
-                            child: Builder(
-                              builder: (context) {
-                                final bank = _model.bankCards.toList();
+                            // Only this list subtree rebuilds when bankCards
+                            // changes; the Scaffold/AppBar above are built once.
+                            child: Consumer<BankCardsProvider>(
+                              builder: (context, provider, _) {
+                                final bank = provider.bankCards.toList();
 
                                 return ListView.separated(
                                   padding: EdgeInsets.zero,

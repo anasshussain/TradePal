@@ -13,6 +13,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/splash_screen_provider.dart';
 import '/viewmodels/splash_screen_model.dart';
 export '/viewmodels/splash_screen_model.dart';
 
@@ -28,6 +29,7 @@ class SplashScreenWidget extends StatefulWidget {
 
 class _SplashScreenWidgetState extends State<SplashScreenWidget> {
   late SplashScreenModel _model;
+  final SplashScreenProvider _provider = SplashScreenProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -91,12 +93,13 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -105,6 +108,15 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<SplashScreenProvider>.value(
+      value: _provider,
+      child: Consumer<SplashScreenProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

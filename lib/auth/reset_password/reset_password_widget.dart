@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/reset_password_provider.dart';
 import '/viewmodels/reset_password_model.dart';
 export '/viewmodels/reset_password_model.dart';
 
@@ -28,6 +29,7 @@ class ResetPasswordWidget extends StatefulWidget {
 
 class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
   late ResetPasswordModel _model;
+  final ResetPasswordProvider _provider = ResetPasswordProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -42,18 +44,28 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
     _model.cPasswordTextController ??= TextEditingController();
     _model.cPasswordFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ResetPasswordProvider>.value(
+      value: _provider,
+      child: Consumer<ResetPasswordProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -67,7 +79,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.update(() {}),
             child: AppbarComponentWidget(
               title: 'My Trade Pal',
               showAction: false,
@@ -105,7 +117,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                           size: 32.0,
                         ),
                         onPressed: () async {
-                          safeSetState(() {});
+                          _provider.update(() {});
                           await actions.showToast(
                             context,
                             'Page Refresh',
@@ -226,9 +238,9 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                           '_model.passwordTextController',
                                           Duration(milliseconds: 2000),
                                           () async {
-                                            _model.password = _model
+                                            _provider.password = _model
                                                 .passwordTextController.text;
-                                            safeSetState(() {});
+                                            _provider.update(() {});
                                           },
                                         ),
                                         autofocus: false,
@@ -969,14 +981,14 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                     await action_blocks.tapFeedback(context);
                                     _model.validationResult =
                                         await actions.isValidPassword(
-                                      _model.password!,
+                                      _provider.password!,
                                     );
                                     if (_model.validationResult == true) {
                                       if (_model.passwordTextController.text ==
                                           _model.cPasswordTextController.text) {
                                         _model.result =
                                             await actions.resetPassword(
-                                          _model.password!,
+                                          _provider.password!,
                                         );
                                         if (_model.result == true) {
                                           context.goNamed(
@@ -998,7 +1010,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                       }
                                     }
 
-                                    safeSetState(() {});
+                                    _provider.update(() {});
                                   },
                                   text: 'Reset Password',
                                   options: AppButtonOptions(
