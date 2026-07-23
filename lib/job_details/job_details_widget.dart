@@ -24,6 +24,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '/providers/job_details_provider.dart';
 import '/viewmodels/job_details_model.dart';
 export '/viewmodels/job_details_model.dart';
 
@@ -46,6 +47,7 @@ class JobDetailsWidget extends StatefulWidget {
 
 class _JobDetailsWidgetState extends State<JobDetailsWidget> {
   late JobDetailsModel _model;
+  final JobDetailsProvider _provider = JobDetailsProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -61,14 +63,14 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
       );
 
       if ((_model.getJobDetails?.succeeded ?? true)) {
-        _model.fetchedJob = ((_model.getJobDetails?.jsonBody ?? '')
+        _provider.fetchedJob = ((_model.getJobDetails?.jsonBody ?? '')
                 .toList()
                 .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
                 .toList() as Iterable<JobDataStruct?>)
             .withoutNulls
             ?.firstOrNull;
-        safeSetState(() {});
-        if (_model.fetchedJob?.customerId == currentUserUid) {
+        _provider.notify();
+        if (_provider.fetchedJob?.customerId == currentUserUid) {
           _model.getApplicationList =
               await SupabaseTablesGroup.getSubmittedProposalsCall.call(
             params:
@@ -76,15 +78,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
           );
 
           if ((_model.getApplicationList?.succeeded ?? true)) {
-            _model.loading = false;
-            _model.proposalsList = ((_model.getApplicationList?.jsonBody ?? '')
+            _provider.loading = false;
+            _provider.proposalsList = ((_model.getApplicationList?.jsonBody ?? '')
                     .toList()
                     .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
                     .toList() as Iterable<ProposalListStruct?>)
                 .withoutNulls
                 .toList()
                 .cast<ProposalListStruct>();
-            safeSetState(() {});
+            _provider.notify();
           }
         } else {
           _model.getSubmittedJobData =
@@ -113,7 +115,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                   PaymentStatus.paid.name) {
                 await Future.wait([
                   Future(() async {
-                    _model.isPaymentPaid = true;
+                    _provider.isPaymentPaid = true;
                   }),
                   Future(() async {
                     _model.getUser = await SupabaseTablesGroup.getUserCall.call(
@@ -127,27 +129,27 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                     );
 
                     if ((_model.getUser?.succeeded ?? true)) {
-                      _model.user = ((_model.getUser?.jsonBody ?? '')
+                      _provider.user = ((_model.getUser?.jsonBody ?? '')
                               .toList()
                               .map<UserStruct?>(UserStruct.maybeFromMap)
                               .toList() as Iterable<UserStruct?>)
                           .withoutNulls
                           ?.firstOrNull;
-                      safeSetState(() {});
+                      _provider.notify();
                     }
                   }),
                 ]);
               } else {
-                _model.isPaymentPaid = false;
+                _provider.isPaymentPaid = false;
               }
             }
-            _model.isProposalSubmitted = true;
-            _model.loading = false;
-            safeSetState(() {});
+            _provider.isProposalSubmitted = true;
+            _provider.loading = false;
+            _provider.notify();
           } else {
-            _model.isProposalSubmitted = false;
-            _model.loading = false;
-            safeSetState(() {});
+            _provider.isProposalSubmitted = false;
+            _provider.loading = false;
+            _provider.notify();
           }
         }
       } else {
@@ -165,7 +167,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
     _model.descriptionTextController ??= TextEditingController();
     _model.descriptionFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
@@ -178,6 +180,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
     }();
 
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -186,6 +189,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<JobDetailsProvider>.value(
+      value: _provider,
+      child: Consumer<JobDetailsProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -199,11 +211,11 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Job Details',
-              showAction: (_model.fetchedJob?.customerId == currentUserUid) &&
-                  (_model.fetchedJob?.status == Status.ACTIVE),
+              showAction: (_provider.fetchedJob?.customerId == currentUserUid) &&
+                  (_provider.fetchedJob?.status == Status.ACTIVE),
               actionIcon: Icon(
                 Icons.edit_rounded,
                 color: AppTheme.of(context).secondaryText,
@@ -214,7 +226,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                   AddJobWidget.routeName,
                   queryParameters: {
                     'jobData': serializeParam(
-                      _model.fetchedJob,
+                      _provider.fetchedJob,
                       ParamType.DataStruct,
                     ),
                     'location': serializeParam(
@@ -240,7 +252,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
           top: true,
           child: Builder(
             builder: (context) {
-              if (!_model.loading!) {
+              if (!_provider.loading!) {
                 return Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
                     AppConstants.parentPagePadding,
@@ -256,7 +268,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                           children: [
                             Text(
                               valueOrDefault<String>(
-                                _model.fetchedJob?.category,
+                                _provider.fetchedJob?.category,
                                 'Unknown category',
                               ),
                               style: AppTheme.of(context)
@@ -281,7 +293,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                         ),
                         Text(
                           valueOrDefault<String>(
-                            _model.fetchedJob?.title,
+                            _provider.fetchedJob?.title,
                             'Unknown Title',
                           ),
                           style: AppTheme.of(context)
@@ -316,7 +328,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               dateTimeFormat(
                                   "relative",
                                   functions.convertDateStringtoDateTIme(
-                                      _model.fetchedJob!.createdAt)),
+                                      _provider.fetchedJob!.createdAt)),
                               style: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -349,7 +361,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             ),
                             Text(
                               'Fixed Price: ${valueOrDefault<String>(
-                                _model.fetchedJob?.budgetMin?.toString(),
+                                _provider.fetchedJob?.budgetMin?.toString(),
                                 'Unknown category',
                               )}',
                               style: AppTheme.of(context)
@@ -437,7 +449,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                           ),
                                     ),
                                     Text(
-                                      _model.fetchedJob!.description,
+                                      _provider.fetchedJob!.description,
                                       style: AppTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -532,7 +544,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                     ),
                                     Builder(
                                       builder: (context) {
-                                        final images = _model.fetchedJob?.images
+                                        final images = _provider.fetchedJob?.images
                                                 ?.toList() ??
                                             [];
 
@@ -634,12 +646,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                         ),
                         wrapWithModel(
                           model: _model.jobLocationComponentModel,
-                          updateCallback: () => safeSetState(() {}),
+                          updateCallback: () => _provider.notify(),
                           child: JobLocationComponentWidget(
-                            locatioId: _model.fetchedJob!.locationId,
+                            locatioId: _provider.fetchedJob!.locationId,
                           ),
                         ),
-                        if (_model.fetchedJob?.customerId != currentUserUid)
+                        if (_provider.fetchedJob?.customerId != currentUserUid)
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -1371,11 +1383,11 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               ),
                                             ),
                                           ),
-                                          if (!_model.isProposalSubmitted! &&
+                                          if (!_provider.isProposalSubmitted! &&
                                               (widget!.jobView !=
                                                   JobDetailsView.chat))
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
                                                 onPressed: () async {
@@ -1386,7 +1398,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       !_model
                                                           .formKey.currentState!
                                                           .validate()) {
-                                                    safeSetState(() => _model
+                                                    _provider.update(() => _model
                                                         .formResult = false);
                                                     return;
                                                   }
@@ -1483,7 +1495,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                               await SupabaseEdgeFunctionsGroup
                                                                   .sendPushNotificationCall
                                                                   .call(
-                                                            deviceToken: _model
+                                                            deviceToken: _provider
                                                                 .fetchedJob
                                                                 ?.customer
                                                                 ?.deviceToken,
@@ -1513,23 +1525,23 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     }
                                                   }
 
-                                                  safeSetState(() {});
+                                                  _provider.notify();
                                                 },
                                                 text: 'Submit Proposal',
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.send,
                                                   size: 30.0,
                                                 ),
                                                 options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   iconAlignment:
                                                       IconAlignment.end,
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: AppTheme.of(
@@ -1579,7 +1591,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           .userProfileCache
                                                           .userRole ==
                                                       2) &&
-                                                  ((_model.isProposalSubmitted ==
+                                                  ((_provider.isProposalSubmitted ==
                                                           true) &&
                                                       (((_model.getSubmittedJobData
                                                                               ?.jsonBody ??
@@ -1598,12 +1610,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                               .name)) &&
                                                   (widget!.jobView !=
                                                       JobDetailsView.chat) &&
-                                                  (_model.isPaymentPaid ==
+                                                  (_provider.isPaymentPaid ==
                                                       true)) ||
                                               (AppState().paidJobId ==
                                                   widget!.jobId))
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
                                                 onPressed: () async {
@@ -1692,14 +1704,14 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             'member':
                                                                 serializeParam(
                                                               MembersStruct(
-                                                                id: _model
+                                                                id: _provider
                                                                     .user?.id,
-                                                                name: _model
+                                                                name: _provider
                                                                     .user?.name,
-                                                                avatarUrl: _model
+                                                                avatarUrl: _provider
                                                                     .user
                                                                     ?.avatarUrl,
-                                                                deviceToken: _model
+                                                                deviceToken: _provider
                                                                     .user
                                                                     ?.deviceToken,
                                                               ),
@@ -1724,7 +1736,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           referenceId:
                                                               widget!.jobId,
                                                           recieverid:
-                                                              _model.user?.id,
+                                                              _provider.user?.id,
                                                           extraData: <String,
                                                               dynamic>{
                                                             'member': <String,
@@ -1749,7 +1761,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             await SupabaseEdgeFunctionsGroup
                                                                 .sendPushNotificationCall
                                                                 .call(
-                                                          deviceToken: _model
+                                                          deviceToken: _provider
                                                               .user
                                                               ?.deviceToken,
                                                           title:
@@ -1762,21 +1774,21 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     ]);
                                                   }
 
-                                                  safeSetState(() {});
+                                                  _provider.notify();
                                                 },
                                                 text: 'Chat',
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.message_rounded,
                                                   size: 30.0,
                                                 ),
                                                 options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: Colors.transparent,
@@ -1825,14 +1837,14 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 ),
                                               ),
                                             ),
-                                          if (_model.isProposalSubmitted ??
+                                          if (_provider.isProposalSubmitted ??
                                               true)
                                             Align(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
                                                 onPressed:
-                                                    _model.isProposalSubmitted!
+                                                    _provider.isProposalSubmitted!
                                                         ? null
                                                         : () {
                                                             print(
@@ -1840,7 +1852,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           },
                                                 text: valueOrDefault<String>(
                                                   () {
-                                                    if ((_model.isProposalSubmitted ==
+                                                    if ((_provider.isProposalSubmitted ==
                                                             true) &&
                                                         (((_model.getSubmittedJobData?.jsonBody ?? '')
                                                                         .toList()
@@ -1855,7 +1867,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             Status.ACCEPTED
                                                                 .name)) {
                                                       return 'Accepted';
-                                                    } else if ((_model
+                                                    } else if ((_provider
                                                                 .isProposalSubmitted ==
                                                             true) &&
                                                         (((_model.getSubmittedJobData?.jsonBody ??
@@ -1938,7 +1950,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 ),
                                               ),
                                             ),
-                                          if ((_model.isProposalSubmitted ==
+                                          if ((_provider.isProposalSubmitted ==
                                                   true) &&
                                               (((_model.getSubmittedJobData
                                                                       ?.jsonBody ??
@@ -1958,7 +1970,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
-                                                onPressed: (_model
+                                                onPressed: (_provider
                                                             .isPaymentPaid! ||
                                                         (AppState()
                                                                 .paidJobId ==
@@ -2011,9 +2023,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           );
                                                         }
 
-                                                        safeSetState(() {});
+                                                        _provider.notify();
                                                       },
-                                                text: _model.isPaymentPaid! ||
+                                                text: _provider.isPaymentPaid! ||
                                                         (AppState()
                                                                 .paidJobId ==
                                                             widget!.jobId)
@@ -2091,10 +2103,10 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               ),
                             ],
                           ),
-                        if (_model.proposalsList.isNotEmpty)
+                        if (_provider.proposalsList.isNotEmpty)
                           Builder(
                             builder: (context) {
-                              final proposals = _model.proposalsList.toList();
+                              final proposals = _provider.proposalsList.toList();
 
                               return ListView.separated(
                                 padding: EdgeInsets.zero,
@@ -2126,7 +2138,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
 
                                       if ((_model.updateApiResult?.succeeded ??
                                           true)) {
-                                        _model.updateProposalsListAtIndex(
+                                        _provider.updateProposalsListAtIndex(
                                           proposalsIndex,
                                           (e) => e
                                             ..tradespersonId = (((_model
@@ -2244,10 +2256,10 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         proposalsIndex))
                                                 ?.duration,
                                         );
-                                        safeSetState(() {});
+                                        _provider.notify();
                                       }
 
-                                      safeSetState(() {});
+                                      _provider.notify();
                                     },
                                     onAccept: () async {
                                       _model.proposalAcceptedRes =
@@ -2303,12 +2315,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             );
                                           }),
                                           Future(() async {
-                                            _model.updateProposalsListAtIndex(
+                                            _provider.updateProposalsListAtIndex(
                                               proposalsIndex,
                                               (e) => e
                                                 ..status = Status.ACCEPTED.name,
                                             );
-                                            safeSetState(() {});
+                                            _provider.notify();
                                           }),
                                           Future(() async {
                                             await actions.showToast(
@@ -2320,7 +2332,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         ]);
                                       }
 
-                                      safeSetState(() {});
+                                      _provider.notify();
                                     },
                                     onReject: () async {
                                       _model.proposalRejectedRes =
@@ -2383,16 +2395,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             );
                                           }),
                                           Future(() async {
-                                            _model.updateProposalsListAtIndex(
+                                            _provider.updateProposalsListAtIndex(
                                               proposalsIndex,
                                               (e) => e
                                                 ..status = Status.REJECTED.name,
                                             );
-                                            safeSetState(() {});
+                                            _provider.notify();
                                           }),
                                         ]);
                                       }
-                                      safeSetState(() {});
+                                      _provider.notify();
                                     },
                                   );
                                 },
@@ -2400,16 +2412,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                             },
                           ),
                       ]
-                          .divide(SizedBox(height: AppConstants.childSpacing))
-                          .addToEnd(SizedBox(height: 80.0)),
+                          .divide(const SizedBox(height: AppConstants.childSpacing))
+                          .addToEnd(const SizedBox(height: 80.0)),
                     ),
                   ),
                 );
               } else {
                 return wrapWithModel(
                   model: _model.jobDetailsLoaderModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: JobDetailsLoaderWidget(),
+                  updateCallback: () => _provider.notify(),
+                  child: const JobDetailsLoaderWidget(),
                 );
               }
             },

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/stripe_connect_account_refresh_provider.dart';
 import '/viewmodels/stripe_connect_account_refresh_model.dart';
 export '/viewmodels/stripe_connect_account_refresh_model.dart';
 
@@ -23,6 +24,7 @@ class StripeConnectAccountRefreshWidget extends StatefulWidget {
 class _StripeConnectAccountRefreshWidgetState
     extends State<StripeConnectAccountRefreshWidget> {
   late StripeConnectAccountRefreshModel _model;
+  final StripeConnectAccountRefreshProvider _provider = StripeConnectAccountRefreshProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,18 +33,28 @@ class _StripeConnectAccountRefreshWidgetState
     super.initState();
     _model = createModel(context, () => StripeConnectAccountRefreshModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<StripeConnectAccountRefreshProvider>.value(
+      value: _provider,
+      child: Consumer<StripeConnectAccountRefreshProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

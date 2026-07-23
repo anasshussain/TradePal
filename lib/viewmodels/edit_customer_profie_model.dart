@@ -1,57 +1,12 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
-import '/models/structs/index.dart';
-import '/repositories/supabase/supabase.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
-import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
-import '/core/upload_data.dart';
-import 'dart:ui';
-import '/utils/custom_code/actions/index.dart' as actions;
 import '/core/routes/index.dart';
 import '/customer_screens/edit_customer_profie/edit_customer_profie_widget.dart' show EditCustomerProfieWidget;
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class EditCustomerProfieModel
     extends AppModel<EditCustomerProfieWidget> {
-  ///  Local state fields for this page.
-
-  List<String> addSkills = [
-    'Hello World 1',
-    'Hello World 2',
-    'Hello World 3',
-    'Hello World 4',
-    'Hello World 5',
-    'Hello World 6'
-  ];
-  void addToAddSkills(String item) => addSkills.add(item);
-  void removeFromAddSkills(String item) => addSkills.remove(item);
-  void removeAtIndexFromAddSkills(int index) => addSkills.removeAt(index);
-  void insertAtIndexInAddSkills(int index, String item) =>
-      addSkills.insert(index, item);
-  void updateAddSkillsAtIndex(int index, Function(String) updateFn) =>
-      addSkills[index] = updateFn(addSkills[index]);
-
-  List<String> images = [
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg'
-  ];
-  void addToImages(String item) => images.add(item);
-  void removeFromImages(String item) => images.remove(item);
-  void removeAtIndexFromImages(int index) => images.removeAt(index);
-  void insertAtIndexInImages(int index, String item) =>
-      images.insert(index, item);
-  void updateImagesAtIndex(int index, Function(String) updateFn) =>
-      images[index] = updateFn(images[index]);
-
   ///  State fields for stateful widgets in this page.
 
   // Model for appbar_component component.

@@ -31,8 +31,13 @@ void main() async {
   final appState = AppState(); // Initialize AppState
   await appState.initializePersistedState();
   initStripe();
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
+  runApp(MultiProvider(
+    providers: [
+      // App-wide / shared state. Screen-scoped providers (Job Details,
+      // Dashboard, Profile, Payments, etc.) live in lib/providers and are
+      // provided per-route inside their own screens.
+      ChangeNotifierProvider<AppState>(create: (context) => appState),
+    ],
     child: MyApp(),
   ));
 }

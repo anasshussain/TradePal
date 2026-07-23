@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/stripe_connect_account_success_provider.dart';
 import '/viewmodels/stripe_connect_account_success_model.dart';
 export '/viewmodels/stripe_connect_account_success_model.dart';
 
@@ -23,6 +24,7 @@ class StripeConnectAccountSuccessWidget extends StatefulWidget {
 class _StripeConnectAccountSuccessWidgetState
     extends State<StripeConnectAccountSuccessWidget> {
   late StripeConnectAccountSuccessModel _model;
+  final StripeConnectAccountSuccessProvider _provider = StripeConnectAccountSuccessProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,18 +33,28 @@ class _StripeConnectAccountSuccessWidgetState
     super.initState();
     _model = createModel(context, () => StripeConnectAccountSuccessModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<StripeConnectAccountSuccessProvider>.value(
+      value: _provider,
+      child: Consumer<StripeConnectAccountSuccessProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

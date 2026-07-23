@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/complete_booking_dialog_provider.dart';
 import '/viewmodels/complete_booking_dialog_model.dart';
 export '/viewmodels/complete_booking_dialog_model.dart';
 
@@ -25,6 +26,7 @@ class CompleteBookingDialogWidget extends StatefulWidget {
 class _CompleteBookingDialogWidgetState
     extends State<CompleteBookingDialogWidget> {
   late CompleteBookingDialogModel _model;
+  final CompleteBookingDialogProvider _provider = CompleteBookingDialogProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,18 +35,28 @@ class _CompleteBookingDialogWidgetState
     super.initState();
     _model = createModel(context, () => CompleteBookingDialogModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<CompleteBookingDialogProvider>.value(
+      value: _provider,
+      child: Consumer<CompleteBookingDialogProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -232,7 +244,7 @@ class _CompleteBookingDialogWidgetState
                                         wrapWithModel(
                                           model: _model.trustBulletModel1,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: TrustBullet3Widget(
                                             label: 'Phone numbers',
                                           ),
@@ -240,7 +252,7 @@ class _CompleteBookingDialogWidgetState
                                         wrapWithModel(
                                           model: _model.trustBulletModel2,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: TrustBullet3Widget(
                                             label: 'Photos',
                                           ),
@@ -248,7 +260,7 @@ class _CompleteBookingDialogWidgetState
                                         wrapWithModel(
                                           model: _model.trustBulletModel3,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: TrustBullet3Widget(
                                             label: 'Full chat',
                                           ),
@@ -265,7 +277,7 @@ class _CompleteBookingDialogWidgetState
                                 children: [
                                   wrapWithModel(
                                     model: _model.buttonModel1,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: Button4Widget(
                                       content: 'Continue Booking',
                                       iconPresent: false,
@@ -279,7 +291,7 @@ class _CompleteBookingDialogWidgetState
                                   ),
                                   wrapWithModel(
                                     model: _model.buttonModel2,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: Button4Widget(
                                       content: 'Okay',
                                       iconPresent: false,

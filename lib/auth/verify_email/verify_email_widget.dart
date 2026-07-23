@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/verify_email_provider.dart';
 import '/viewmodels/verify_email_model.dart';
 export '/viewmodels/verify_email_model.dart';
 
@@ -28,6 +29,7 @@ class VerifyEmailWidget extends StatefulWidget {
 
 class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
   late VerifyEmailModel _model;
+  final VerifyEmailProvider _provider = VerifyEmailProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -38,18 +40,28 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
 
     _model.pinCodeFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<VerifyEmailProvider>.value(
+      value: _provider,
+      child: Consumer<VerifyEmailProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -164,7 +176,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                     lineHeight: 1.5,
                                   ),
                         ),
-                        if ((_model.showResendCode ?? true) &&
+                        if ((_provider.showResendCode ?? true) &&
                             responsiveVisibility(
                               context: context,
                               phone: false,
@@ -399,7 +411,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               );
                             }
 
-                            safeSetState(() {});
+                            _provider.update(() {});
                           },
                           text: 'VERIFY',
                           icon: Icon(
@@ -442,7 +454,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                     .lg),
                           ),
                         ),
-                        if (_model.showResendCode ?? true)
+                        if (_provider.showResendCode ?? true)
                           AppButton(
                             onPressed: () async {
                               _model.sendOtpResult =
@@ -466,7 +478,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                   ),
                                   2,
                                 );
-                                safeSetState(() {
+                                _provider.update(() {
                                   _model.pinCodeController?.clear();
                                 });
                               } else {
@@ -483,7 +495,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                 );
                               }
 
-                              safeSetState(() {});
+                              _provider.update(() {});
                             },
                             text: 'Resend code',
                             icon: Icon(

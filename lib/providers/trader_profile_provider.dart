@@ -1,0 +1,69 @@
+import 'package:flutter/foundation.dart';
+import '/repositories/backend.dart';
+import '/models/structs/index.dart';
+import 'package:flutter/material.dart';
+
+/// State management for the trader_profile screen (migrated from setState).
+class TraderProfileProvider extends ChangeNotifier {
+  ///  Local state fields for this page.
+
+
+  List<String> images = [
+    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
+    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
+    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
+    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
+    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg'
+  ];
+  void addToImages(String item) => images.add(item);
+  void removeFromImages(String item) => images.remove(item);
+  void removeAtIndexFromImages(int index) => images.removeAt(index);
+  void insertAtIndexInImages(int index, String item) =>
+      images.insert(index, item);
+  void updateImagesAtIndex(int index, Function(String) updateFn) =>
+      images[index] = updateFn(images[index]);
+
+  List<StripeDataStruct> stripeDetails = [];
+  void addToStripeDetails(StripeDataStruct item) => stripeDetails.add(item);
+  void removeFromStripeDetails(StripeDataStruct item) =>
+      stripeDetails.remove(item);
+  void removeAtIndexFromStripeDetails(int index) =>
+      stripeDetails.removeAt(index);
+  void insertAtIndexInStripeDetails(int index, StripeDataStruct item) =>
+      stripeDetails.insert(index, item);
+  void updateStripeDetailsAtIndex(
+          int index, Function(StripeDataStruct) updateFn) =>
+      stripeDetails[index] = updateFn(stripeDetails[index]);
+
+  List<BankDetailsStruct> bankDetails = [];
+  void addToBankDetails(BankDetailsStruct item) => bankDetails.add(item);
+  void removeFromBankDetails(BankDetailsStruct item) =>
+      bankDetails.remove(item);
+  void removeAtIndexFromBankDetails(int index) => bankDetails.removeAt(index);
+  void insertAtIndexInBankDetails(int index, BankDetailsStruct item) =>
+      bankDetails.insert(index, item);
+  void updateBankDetailsAtIndex(
+          int index, Function(BankDetailsStruct) updateFn) =>
+      bankDetails[index] = updateFn(bankDetails[index]);
+
+
+  /// Notify observers without mutating state (replaces empty setState).
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  /// Notify observers without mutating state (replaces empty setState).
+  void notify() {
+    if (!_disposed) notifyListeners();
+  }
+
+  /// Run [fn] then notify observers (replaces setState(() => ...)).
+  void update(VoidCallback fn) {
+    fn();
+    if (!_disposed) notifyListeners();
+  }
+}

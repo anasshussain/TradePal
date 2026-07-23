@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/login_provider.dart';
 import '/viewmodels/login_model.dart';
 export '/viewmodels/login_model.dart';
 
@@ -34,6 +35,7 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   late LoginModel _model;
+  final LoginProvider _provider = LoginProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -48,12 +50,13 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model.passwordTextController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -62,6 +65,15 @@ class _LoginWidgetState extends State<LoginWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<LoginProvider>.value(
+      value: _provider,
+      child: Consumer<LoginProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -112,7 +124,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             children: [
                               wrapWithModel(
                                 model: _model.applogoComponentModel,
-                                updateCallback: () => safeSetState(() {}),
+                                updateCallback: () => _provider.update(() {}),
                                 child: ApplogoComponentWidget(),
                               ),
                               Column(
@@ -697,7 +709,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           await action_blocks
                                               .getFcmToken(context);
                                         }
-                                        safeSetState(() {
+                                        _provider.update(() {
                                           _model.emailTextController?.clear();
                                           _model.passwordTextController
                                               ?.clear();
@@ -720,7 +732,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     }),
                                   ]);
 
-                                  safeSetState(() {});
+                                  _provider.update(() {});
                                 },
                                 text: 'LOGIN',
                                 options: AppButtonOptions(

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/forget_password_provider.dart';
 import '/viewmodels/forget_password_model.dart';
 export '/viewmodels/forget_password_model.dart';
 
@@ -30,6 +31,7 @@ class ForgetPasswordWidget extends StatefulWidget {
 
 class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
   late ForgetPasswordModel _model;
+  final ForgetPasswordProvider _provider = ForgetPasswordProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -41,18 +43,28 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
     _model.emailTextController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ForgetPasswordProvider>.value(
+      value: _provider,
+      child: Consumer<ForgetPasswordProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -66,7 +78,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.update(() {}),
             child: AppbarComponentWidget(
               title: 'My Trade Pal',
               showAction: false,
@@ -380,7 +392,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                     );
                                   }
 
-                                  safeSetState(() {});
+                                  _provider.update(() {});
                                 },
                                 text: 'Send Reset Link',
                                 icon: Icon(
