@@ -79,7 +79,7 @@ class _AlertsWidgetState extends State<AlertsWidget> {
               Container(
                 width: 8.0,
                 height: 133.0,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFF914300),
                   borderRadius: BorderRadius.only(),
                 ),
@@ -100,7 +100,7 @@ class _AlertsWidgetState extends State<AlertsWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.info_outlined,
                             color: Color(0xFF914300),
                             size: 24.0,
@@ -122,7 +122,7 @@ class _AlertsWidgetState extends State<AlertsWidget> {
                                             .titleMedium
                                             .fontStyle,
                                       ),
-                                      color: Color(0xFF914300),
+                                      color: const Color(0xFF914300),
                                       letterSpacing: 0.0,
                                       fontWeight: AppTheme.of(context)
                                           .titleMedium

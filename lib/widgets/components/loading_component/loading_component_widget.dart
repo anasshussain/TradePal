@@ -61,7 +61,7 @@ class _LoadingComponentWidgetState extends State<LoadingComponentWidget> {
         }
         final columnGetMessagesResponse = snapshot.data!;
 
-        return Column(
+        return const Column(
           mainAxisSize: MainAxisSize.max,
           children: [],
         );

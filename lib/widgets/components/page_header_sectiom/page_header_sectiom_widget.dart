@@ -58,7 +58,7 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
       child: Column(
@@ -141,7 +141,7 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0x4D214FC7),
+                  color: const Color(0x4D214FC7),
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(
                     color: AppTheme.of(context).alternate,
@@ -181,12 +181,12 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
                                   .fontStyle,
                             ),
                       ),
-                    ].divide(SizedBox(width: AppConstants.childSpacing)),
+                    ].divide(const SizedBox(width: AppConstants.childSpacing)),
                   ),
                 ),
               ),
             ),
-        ].divide(SizedBox(height: AppConstants.childSpacing)),
+        ].divide(const SizedBox(height: AppConstants.childSpacing)),
       ),
     );
   }

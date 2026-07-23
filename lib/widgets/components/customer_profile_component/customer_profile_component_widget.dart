@@ -71,7 +71,7 @@ class _CustomerProfileComponentWidgetState
         await widget.onTap?.call();
       },
       child: Container(
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,7 +80,7 @@ class _CustomerProfileComponentWidgetState
               mainAxisSize: MainAxisSize.min,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.32, 0.0),
+                  alignment: const AlignmentDirectional(0.32, 0.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 0.0,
@@ -102,7 +102,7 @@ class _CustomerProfileComponentWidgetState
                           0.0,
                         )),
                       ),
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: widget!.icon!,
                     ),
                   ),

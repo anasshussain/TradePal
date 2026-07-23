@@ -55,7 +55,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
           BoxShadow(
             blurRadius: 0.0,
             color: AppTheme.of(context).border,
-            offset: Offset(
+            offset: const Offset(
               0.0,
               -1.0,
             ),
@@ -137,7 +137,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                 context.goNamed(
                   TpMyJobsWidget.routeName,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 0),
@@ -147,7 +147,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
               },
               child: Container(
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -205,9 +205,9 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
               },
               child: Container(
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Stack(
                     children: [
                       Column(

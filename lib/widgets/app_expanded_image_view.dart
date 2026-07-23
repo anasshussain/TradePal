@@ -22,7 +22,7 @@ class AppExpandedImageView extends StatelessWidget {
       child: SafeArea(
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               height: screenSize.height,
               width: screenSize.width,
               child: PhotoView.customChild(

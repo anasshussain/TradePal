@@ -82,7 +82,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Container(
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -140,7 +140,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -148,7 +148,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFF6F9FC),
+                        color: const Color(0xFFF6F9FC),
                         borderRadius: BorderRadius.circular(12.0),
                         shape: BoxShape.rectangle,
                         border: Border.all(
@@ -157,7 +157,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(24.0),
+                        padding: const EdgeInsets.all(24.0),
                         child: Container(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -214,7 +214,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFF1A1F36),
+                                          color: const Color(0xFF1A1F36),
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               AppTheme.of(context)
@@ -255,7 +255,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                         width: 1.0,
                                       ),
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Icon(
                                       Icons.shopping_bag_rounded,
                                       color:
@@ -328,7 +328,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                 lineHeight: 1.4,
                                               ),
                                         ),
-                                      ].divide(SizedBox(height: 4.0)),
+                                      ].divide(const SizedBox(height: 4.0)),
                                     ),
                                   ),
                                   Text(
@@ -352,16 +352,16 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           lineHeight: 1.4,
                                         ),
                                   ),
-                                ].divide(SizedBox(width: 16.0)),
+                                ].divide(const SizedBox(width: 16.0)),
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Color(0x80FFFFFF),
+                                  color: const Color(0x80FFFFFF),
                                   borderRadius: BorderRadius.circular(8.0),
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.all(16.0),
                                   child: Container(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -598,12 +598,12 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                             ),
                                           ],
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(height: 16.0)),
+                            ].divide(const SizedBox(height: 16.0)),
                           ),
                         ),
                       ),
@@ -669,7 +669,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(24.0),
+                            padding: const EdgeInsets.all(24.0),
                             child: Container(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -679,7 +679,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                   wrapWithModel(
                                     model: _model.textFieldModel1,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: TextFieldWidget(
+                                    child: const TextFieldWidget(
                                       label: 'Card Number',
                                       labelPresent: true,
                                       helper: '',
@@ -709,7 +709,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           model: _model.textFieldModel2,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: TextFieldWidget(
+                                          child: const TextFieldWidget(
                                             label: 'Expiry',
                                             labelPresent: true,
                                             helper: '',
@@ -731,7 +731,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           model: _model.textFieldModel3,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: TextFieldWidget(
+                                          child: const TextFieldWidget(
                                             label: 'CVC',
                                             labelPresent: true,
                                             helper: '',
@@ -750,12 +750,12 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    ].divide(SizedBox(width: 16.0)),
+                                    ].divide(const SizedBox(width: 16.0)),
                                   ),
                                   wrapWithModel(
                                     model: _model.textFieldModel4,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: TextFieldWidget(
+                                    child: const TextFieldWidget(
                                       label: 'Cardholder Name',
                                       labelPresent: true,
                                       helper: '',
@@ -770,7 +770,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                       error: false,
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 16.0)),
+                                ].divide(const SizedBox(height: 16.0)),
                               ),
                             ),
                           ),
@@ -778,7 +778,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         wrapWithModel(
                           model: _model.textFieldModel5,
                           updateCallback: () => _provider.update(() {}),
-                          child: TextFieldWidget(
+                          child: const TextFieldWidget(
                             label: 'Country or region',
                             labelPresent: true,
                             helper: '',
@@ -831,11 +831,11 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                     lineHeight: 1.3,
                                   ),
                             ),
-                          ].divide(SizedBox(width: 4.0)),
+                          ].divide(const SizedBox(width: 4.0)),
                         ),
-                      ].divide(SizedBox(height: 16.0)),
+                      ].divide(const SizedBox(height: 16.0)),
                     ),
-                  ].divide(SizedBox(height: 24.0)),
+                  ].divide(const SizedBox(height: 24.0)),
                 ),
               ),
               Container(
@@ -855,7 +855,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24.0),
                       child: Container(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -865,7 +865,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                             wrapWithModel(
                               model: _model.buttonModel,
                               updateCallback: () => _provider.update(() {}),
-                              child: DownloadPDFWidget(
+                              child: const DownloadPDFWidget(
                                 content: 'Pay \$29.00',
                                 iconPresent: false,
                                 iconEndPresent: false,
@@ -902,7 +902,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                     lineHeight: 1.3,
                                   ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),

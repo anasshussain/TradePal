@@ -162,7 +162,7 @@ class _AppIconButtonState extends State<AppIconButton> {
           ignoring: (widget.showLoadingIndicator && loading),
           child: IconButton(
             icon: (widget.showLoadingIndicator && loading)
-                ? Container(
+                ? SizedBox(
                     width: iconSize,
                     height: iconSize,
                     child: CircularProgressIndicator(

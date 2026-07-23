@@ -1,3 +1,4 @@
+import '/core/utils/image_decode_size.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -155,8 +156,8 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                                   'status',
                                 ) ==
                                 Status.ACCEPTED.name
-                            ? Color(0x5F5BDC8B)
-                            : Color(0x97F07878),
+                            ? const Color(0x5F5BDC8B)
+                            : const Color(0x97F07878),
                       ),
                     ),
                 ],
@@ -278,6 +279,8 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                           ),
                           width: 40.0,
                           height: 40.0,
+                          cacheWidth: decodeCacheSize(context, 40.0),
+                          cacheHeight: decodeCacheSize(context, 40.0),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -396,9 +399,9 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                               ),
                             ],
                           ),
-                        ].divide(SizedBox(height: AppConstants.childSpacing)),
+                        ].divide(const SizedBox(height: AppConstants.childSpacing)),
                       ),
-                    ].divide(SizedBox(width: AppConstants.childSpacing)),
+                    ].divide(const SizedBox(width: AppConstants.childSpacing)),
                   ),
                 ],
               ),
@@ -421,16 +424,16 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                           await widget.onAccept?.call();
                         },
                         text: 'Accept',
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.check_circle,
                           size: 26.0,
                         ),
                         options: AppButtonOptions(
                           width: 300.0,
                           height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: AppTheme.of(context).primary,
                           textStyle:
@@ -467,16 +470,16 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                           await widget.onReject?.call();
                         },
                         text: 'Reject',
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.cancel_rounded,
                           size: 24.0,
                         ),
                         options: AppButtonOptions(
                           width: 300.0,
                           height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           iconColor: AppTheme.of(context).error,
                           color: Colors.transparent,
@@ -508,13 +511,13 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                         ),
                       ),
                     ),
-                  ].divide(SizedBox(width: AppConstants.childSpacing)),
+                  ].divide(const SizedBox(width: AppConstants.childSpacing)),
                 ),
               if ((AppState().userProfileCache.userRole == 1) &&
                   (widget!.proposalsItem?.status == Status.ACCEPTED.name) &&
                   (widget!.jobViewType != JobDetailsView.chat))
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: AppButton(
                     onPressed: () async {
                       _model.startChat = await SupbaseRpcGroup
@@ -666,7 +669,7 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                       safeSetState(() {});
                     },
                     text: 'Send a Message',
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.message_rounded,
                       size: 30.0,
                     ),
@@ -674,9 +677,9 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                       width: 300.0,
                       height: 50.0,
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: Colors.transparent,
                       textStyle:
                           AppTheme.of(context).titleSmall.override(
@@ -706,7 +709,7 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                     ),
                   ),
                 ),
-            ].divide(SizedBox(height: AppConstants.childSpacing)),
+            ].divide(const SizedBox(height: AppConstants.childSpacing)),
           ),
         ),
       ),

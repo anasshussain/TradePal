@@ -73,7 +73,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
               padding: EdgeInsets.all(valueOrDefault<double>(
                 AppConstants.parentPagePadding,
@@ -103,7 +103,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                             decoration: BoxDecoration(
                               color: AppTheme.of(context)
                                   .secondaryBackground,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 26.0,
                                   color: Color(0x372C4EB8),
@@ -124,7 +124,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               ),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.email_outlined,
                                 color: AppTheme.of(context).primary,
@@ -208,7 +208,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                   lineHeight: 1.5,
                                 ),
                           ),
-                      ].divide(SizedBox(height: 16.0)),
+                      ].divide(const SizedBox(height: 16.0)),
                     ),
                     Column(
                       mainAxisSize: MainAxisSize.max,
@@ -252,7 +252,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                             fieldHeight: 50.0,
                             fieldWidth: 50.0,
                             borderWidth: 0.0,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(12.0),
                               bottomRight: Radius.circular(12.0),
                               topLeft: Radius.circular(12.0),
@@ -262,7 +262,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                             activeColor: AppTheme.of(context).primary,
                             inactiveColor:
                                 AppTheme.of(context).alternate,
-                            selectedColor: Color(0xFF51576C),
+                            selectedColor: const Color(0xFF51576C),
                           ),
                           controller: _model.pinCodeController,
                           onChanged: (_) {},
@@ -296,7 +296,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                     .fontStyle,
                               ),
                         ),
-                      ].divide(SizedBox(height: 16.0)),
+                      ].divide(const SizedBox(height: 16.0)),
                     ),
                     Column(
                       mainAxisSize: MainAxisSize.max,
@@ -313,18 +313,18 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               print('Button pressed ...');
                             },
                             text: 'Open email app',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.mail_outline,
                               size: 24.0,
                             ),
                             options: AppButtonOptions(
                               width: 300.0,
                               height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              iconColor: Color(0xFF00AB5A),
+                              iconColor: const Color(0xFF00AB5A),
                               color: Colors.transparent,
                               textStyle: AppTheme.of(context)
                                   .titleSmall
@@ -335,7 +335,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                           .titleSmall
                                           .fontStyle,
                                     ),
-                                    color: Color(0xFF00AB5A),
+                                    color: const Color(0xFF00AB5A),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -344,7 +344,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                                         .fontStyle,
                                   ),
                               elevation: 0.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFF00AB5A),
                                 width: 1.0,
                               ),
@@ -414,16 +414,16 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                             _provider.update(() {});
                           },
                           text: 'VERIFY',
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.mark_email_read,
                             size: 24.0,
                           ),
                           options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: AppTheme.of(context).primary,
                             textStyle: AppTheme.of(context)
@@ -498,16 +498,16 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                               _provider.update(() {});
                             },
                             text: 'Resend code',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.mark_email_read,
                               size: 15.0,
                             ),
                             options: AppButtonOptions(
                               width: 300.0,
                               height: 50.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: Colors.transparent,
                               textStyle: AppTheme.of(context)
@@ -554,7 +554,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                           child: Container(
                             width: double.infinity,
                             height: 50.0,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -636,9 +636,9 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
                             ),
                           ),
                         ),
-                      ].divide(SizedBox(height: 12.0)),
+                      ].divide(const SizedBox(height: 12.0)),
                     ),
-                  ].divide(SizedBox(height: AppConstants.spacing)),
+                  ].divide(const SizedBox(height: AppConstants.spacing)),
                 ),
               ),
             ),

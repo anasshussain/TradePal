@@ -65,20 +65,20 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: Stack(
-          alignment: AlignmentDirectional(-1.0, -1.0),
+          alignment: const AlignmentDirectional(-1.0, -1.0),
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0x66000000),
                 shape: BoxShape.rectangle,
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 1.0),
+              alignment: const AlignmentDirectional(0.0, 1.0),
               child: Container(
                 decoration: BoxDecoration(
                   color: AppTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(28.0),
                     topRight: Radius.circular(28.0),
                   ),
@@ -86,7 +86,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 32.0),
+                      const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 32.0),
                   child: Container(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -94,10 +94,10 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 16.0),
                           child: Container(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Container(
                               width: 40.0,
                               height: 4.0,
@@ -118,11 +118,11 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                               width: 64.0,
                               height: 64.0,
                               decoration: BoxDecoration(
-                                color: Color(0x1A635BFF),
+                                color: const Color(0x1A635BFF),
                                 borderRadius: BorderRadius.circular(9999.0),
                                 shape: BoxShape.rectangle,
                               ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.lock_person_rounded,
                                 color: AppTheme.of(context).primary,
@@ -188,18 +188,18 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                         lineHeight: 1.5,
                                       ),
                                 ),
-                              ].divide(SizedBox(height: 4.0)),
+                              ].divide(const SizedBox(height: 4.0)),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Color(0xFFF6F9FC),
+                            color: const Color(0xFFF6F9FC),
                             borderRadius: BorderRadius.circular(16.0),
                             shape: BoxShape.rectangle,
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(24.0),
+                            padding: const EdgeInsets.all(24.0),
                             child: Container(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -209,25 +209,25 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                   wrapWithModel(
                                     model: _model.trustBulletModel1,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: TrustBullet4Widget(
+                                    child: const TrustBullet4Widget(
                                       label: 'Share photos',
                                     ),
                                   ),
                                   wrapWithModel(
                                     model: _model.trustBulletModel2,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: TrustBullet4Widget(
+                                    child: const TrustBullet4Widget(
                                       label: 'Share contact details',
                                     ),
                                   ),
                                   wrapWithModel(
                                     model: _model.trustBulletModel3,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: TrustBullet4Widget(
+                                    child: const TrustBullet4Widget(
                                       label: 'Continue full chat securely',
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 16.0)),
+                                ].divide(const SizedBox(height: 16.0)),
                               ),
                             ),
                           ),
@@ -336,9 +336,9 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                         ),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 4.0)),
+                              ].divide(const SizedBox(width: 4.0)),
                             ),
-                          ].divide(SizedBox(height: 4.0)),
+                          ].divide(const SizedBox(height: 4.0)),
                         ),
                         Column(
                           mainAxisSize: MainAxisSize.min,
@@ -348,7 +348,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                             wrapWithModel(
                               model: _model.buttonModel1,
                               updateCallback: () => _provider.update(() {}),
-                              child: CountinueBookingWidget(
+                              child: const CountinueBookingWidget(
                                 content: 'Continue Booking',
                                 iconPresent: false,
                                 iconEndPresent: false,
@@ -362,7 +362,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                             wrapWithModel(
                               model: _model.buttonModel2,
                               updateCallback: () => _provider.update(() {}),
-                              child: CountinueBookingWidget(
+                              child: const CountinueBookingWidget(
                                 content: 'Not Now',
                                 iconPresent: false,
                                 iconEndPresent: false,
@@ -373,9 +373,9 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                 disabled: false,
                               ),
                             ),
-                          ].divide(SizedBox(height: 8.0)),
+                          ].divide(const SizedBox(height: 8.0)),
                         ),
-                      ].divide(SizedBox(height: 24.0)),
+                      ].divide(const SizedBox(height: 24.0)),
                     ),
                   ),
                 ),

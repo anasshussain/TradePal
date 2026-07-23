@@ -41,7 +41,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(
-        Duration(
+        const Duration(
           milliseconds: 3000,
         ),
       );
@@ -83,7 +83,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
         context.goNamed(
           OnboardingWidget.routeName,
           extra: <String, dynamic>{
-            '__transition_info__': TransitionInfo(
+            '__transition_info__': const TransitionInfo(
               hasTransition: true,
               transitionType: PageTransitionType.fade,
               duration: Duration(milliseconds: 0),
@@ -130,7 +130,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
                     AppConstants.parentPagePadding,
@@ -191,7 +191,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                     color: Colors.transparent,
                                     elevation: 0.0,
                                     child: Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
@@ -226,7 +226,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -299,7 +299,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                   ),
                                 ),
                               ].divide(
-                                  SizedBox(width: AppConstants.childSpacing)),
+                                  const SizedBox(width: AppConstants.childSpacing)),
                             ),
                           ],
                         ),
@@ -326,7 +326,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                       .fontStyle,
                                 ),
                       ),
-                    ].divide(SizedBox(height: AppConstants.spacing)),
+                    ].divide(const SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),
@@ -340,13 +340,13 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                   child: Container(
                     width: 100.0,
                     height: 112.0,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, -1.0),
+                          alignment: const AlignmentDirectional(0.0, -1.0),
                           child: Container(
                             width: 100.0,
                             height: 93.0,
@@ -357,7 +357,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                 BoxShadow(
                                   blurRadius: 0.0,
                                   color: AppTheme.of(context).alternate,
-                                  offset: Offset(
+                                  offset: const Offset(
                                     -1.0,
                                     1.0,
                                   ),
@@ -366,7 +366,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                               ],
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(-1.0, 1.0),
+                              alignment: const AlignmentDirectional(-1.0, 1.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     valueOrDefault<double>(
@@ -389,7 +389,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(-1.0, 1.0),
+                          alignment: const AlignmentDirectional(-1.0, 1.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 valueOrDefault<double>(
@@ -415,10 +415,10 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(1.0, 1.0),
+                alignment: const AlignmentDirectional(1.0, 1.0),
                 child: Container(
                   width: 97.0,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Padding(
                     padding: EdgeInsets.all(valueOrDefault<double>(
                       AppConstants.parentPagePadding,
@@ -473,13 +473,13 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                                         .fontStyle,
                                   ),
                         ),
-                      ].divide(SizedBox(height: AppConstants.childSpacing)),
+                      ].divide(const SizedBox(height: AppConstants.childSpacing)),
                     ),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(-1.0, 1.0),
+                alignment: const AlignmentDirectional(-1.0, 1.0),
                 child: Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
                     AppConstants.parentPagePadding,

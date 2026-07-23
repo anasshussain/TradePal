@@ -1,4 +1,4 @@
-import '/core/animations.dart';
+import '/core/utils/animations.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
@@ -45,7 +45,7 @@ class _LoadingTextWidgetState extends State<LoadingTextWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            color: Color(0x80FFFFFF),
+            color: const Color(0x80FFFFFF),
             angle: 0.524,
           ),
         ],
@@ -65,7 +65,7 @@ class _LoadingTextWidgetState extends State<LoadingTextWidget>
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Text(
         'Loading !',
         style: AppTheme.of(context).bodyMedium.override(

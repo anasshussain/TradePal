@@ -6,8 +6,8 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:collection/collection.dart';
 
 import '/widgets/app_button.dart';
-import '/core/lat_lng.dart';
-import '/core/place.dart';
+import '/core/location/lat_lng.dart';
+import '/core/location/place.dart';
 
 class AppPlacePicker extends StatefulWidget {
   const AppPlacePicker({

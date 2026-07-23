@@ -64,19 +64,19 @@ class _CompleteBookingDialogWidgetState
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0x99FFFFFF),
+        backgroundColor: const Color(0x99FFFFFF),
         body: Stack(
-          alignment: AlignmentDirectional(-1.0, -1.0),
+          alignment: const AlignmentDirectional(-1.0, -1.0),
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(),
+              borderRadius: const BorderRadius.only(),
               child: BackdropFilter(
                 filter: ImageFilter.blur(
                   sigmaX: 4.0,
                   sigmaY: 4.0,
                 ),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0x33000000),
                     shape: BoxShape.rectangle,
                   ),
@@ -84,10 +84,10 @@ class _CompleteBookingDialogWidgetState
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Container(
                 child: Padding(
-                  padding: EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(24.0),
                   child: Container(
                     child: Container(
                       width: 360.0,
@@ -97,7 +97,7 @@ class _CompleteBookingDialogWidgetState
                         shape: BoxShape.rectangle,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(32.0),
+                        padding: const EdgeInsets.all(32.0),
                         child: Container(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -117,8 +117,8 @@ class _CompleteBookingDialogWidgetState
                                           BorderRadius.circular(9999.0),
                                       shape: BoxShape.rectangle,
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Icon(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: const Icon(
                                       Icons.lock_outlined,
                                       color: Color(0xFF1A1F36),
                                       size: 32.0,
@@ -189,18 +189,18 @@ class _CompleteBookingDialogWidgetState
                                               lineHeight: 1.5,
                                             ),
                                       ),
-                                    ].divide(SizedBox(height: 8.0)),
+                                    ].divide(const SizedBox(height: 8.0)),
                                   ),
-                                ].divide(SizedBox(height: 16.0)),
+                                ].divide(const SizedBox(height: 16.0)),
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFF6F9FC),
+                                  color: const Color(0xFFF6F9FC),
                                   borderRadius: BorderRadius.circular(12.0),
                                   shape: BoxShape.rectangle,
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(24.0),
+                                  padding: const EdgeInsets.all(24.0),
                                   child: Container(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -245,7 +245,7 @@ class _CompleteBookingDialogWidgetState
                                           model: _model.trustBulletModel1,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: TrustBullet3Widget(
+                                          child: const TrustBullet3Widget(
                                             label: 'Phone numbers',
                                           ),
                                         ),
@@ -253,7 +253,7 @@ class _CompleteBookingDialogWidgetState
                                           model: _model.trustBulletModel2,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: TrustBullet3Widget(
+                                          child: const TrustBullet3Widget(
                                             label: 'Photos',
                                           ),
                                         ),
@@ -261,11 +261,11 @@ class _CompleteBookingDialogWidgetState
                                           model: _model.trustBulletModel3,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: TrustBullet3Widget(
+                                          child: const TrustBullet3Widget(
                                             label: 'Full chat',
                                           ),
                                         ),
-                                      ].divide(SizedBox(height: 16.0)),
+                                      ].divide(const SizedBox(height: 16.0)),
                                     ),
                                   ),
                                 ),
@@ -278,7 +278,7 @@ class _CompleteBookingDialogWidgetState
                                   wrapWithModel(
                                     model: _model.buttonModel1,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: Button4Widget(
+                                    child: const Button4Widget(
                                       content: 'Continue Booking',
                                       iconPresent: false,
                                       iconEndPresent: false,
@@ -292,7 +292,7 @@ class _CompleteBookingDialogWidgetState
                                   wrapWithModel(
                                     model: _model.buttonModel2,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: Button4Widget(
+                                    child: const Button4Widget(
                                       content: 'Okay',
                                       iconPresent: false,
                                       iconEndPresent: false,
@@ -303,9 +303,9 @@ class _CompleteBookingDialogWidgetState
                                       disabled: false,
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 8.0)),
+                                ].divide(const SizedBox(height: 8.0)),
                               ),
-                            ].divide(SizedBox(height: 24.0)),
+                            ].divide(const SizedBox(height: 24.0)),
                           ),
                         ),
                       ),

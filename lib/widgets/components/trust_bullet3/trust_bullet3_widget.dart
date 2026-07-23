@@ -59,7 +59,7 @@ class _TrustBullet3WidgetState extends State<TrustBullet3Widget> {
             borderRadius: BorderRadius.circular(9999.0),
             shape: BoxShape.rectangle,
           ),
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Icon(
             Icons.check_rounded,
             color: AppTheme.of(context).info,
@@ -89,7 +89,7 @@ class _TrustBullet3WidgetState extends State<TrustBullet3Widget> {
                 ),
           ),
         ),
-      ].divide(SizedBox(width: 8.0)),
+      ].divide(const SizedBox(width: 8.0)),
     );
   }
 }

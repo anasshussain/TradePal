@@ -72,7 +72,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                       shape: BoxShape.circle,
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Icon(
                         Icons.block,
                         color: AppTheme.of(context).primaryBackground,
@@ -82,7 +82,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
                     child: Text(
                       'Account Suspended',
                       textAlign: TextAlign.center,
@@ -105,7 +105,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                     child: Text(
                       'Your account has been temporarily suspended due to a violation of our community guidelines.',
                       textAlign: TextAlign.center,
@@ -132,7 +132,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -140,7 +140,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,7 +203,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                                         ),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 8.0)),
+                              ].divide(const SizedBox(width: 8.0)),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
@@ -245,7 +245,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                                         ),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 8.0)),
+                              ].divide(const SizedBox(width: 8.0)),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
@@ -287,9 +287,9 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                                         ),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 8.0)),
+                              ].divide(const SizedBox(width: 8.0)),
                             ),
-                          ].divide(SizedBox(height: 12.0)),
+                          ].divide(const SizedBox(height: 12.0)),
                         ),
                       ),
                     ),
@@ -303,7 +303,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                   ))
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -319,9 +319,9 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                               options: AppButtonOptions(
                                 width: 300.0,
                                 height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: AppTheme.of(context).primary,
                                 textStyle: AppTheme.of(context)
@@ -364,9 +364,9 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                               options: AppButtonOptions(
                                 width: 300.0,
                                 height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: Colors.transparent,
                                 textStyle: AppTheme.of(context)
@@ -406,8 +406,8 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                             options: AppButtonOptions(
                               width: double.infinity,
                               height: 50.0,
-                              padding: EdgeInsets.all(8.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsets.all(8.0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: Colors.transparent,
                               textStyle: AppTheme.of(context)
@@ -427,13 +427,13 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                                         .fontStyle,
                                   ),
                               elevation: 0.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                               ),
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
-                        ].divide(SizedBox(height: 16.0)),
+                        ].divide(const SizedBox(height: 16.0)),
                       ),
                     ),
                   if (responsiveVisibility(
@@ -442,7 +442,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
                   ))
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                       child: Text(
                         'Account ID: USR-2024-789456',
                         textAlign: TextAlign.center,

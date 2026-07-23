@@ -54,16 +54,16 @@ class _BottomSheetAttachmentWidgetState
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0x66000000),
+        backgroundColor: const Color(0x66000000),
         body: Stack(
-          alignment: AlignmentDirectional(-1.0, -1.0),
+          alignment: const AlignmentDirectional(-1.0, -1.0),
           children: [
             Align(
-              alignment: AlignmentDirectional(0.0, 1.0),
+              alignment: const AlignmentDirectional(0.0, 1.0),
               child: Container(
                 decoration: BoxDecoration(
                   color: AppTheme.of(context).primaryBackground,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(24.0),
                     topRight: Radius.circular(24.0),
                   ),
@@ -71,7 +71,7 @@ class _BottomSheetAttachmentWidgetState
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(24.0, 32.0, 24.0, 32.0),
+                      const EdgeInsetsDirectional.fromSTEB(24.0, 32.0, 24.0, 32.0),
                   child: Container(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -79,10 +79,10 @@ class _BottomSheetAttachmentWidgetState
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 16.0),
                           child: Container(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Container(
                               width: 40.0,
                               height: 4.0,
@@ -146,7 +146,7 @@ class _BottomSheetAttachmentWidgetState
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent,
                                 shape: BoxShape.rectangle,
                               ),
@@ -162,7 +162,7 @@ class _BottomSheetAttachmentWidgetState
                                     model: _model.actionTileModel1,
                                     updateCallback: () => safeSetState(() {}),
                                     child: ActionTile3Widget(
-                                      bgColor: Color(0x1A635BFF),
+                                      bgColor: const Color(0x1A635BFF),
                                       icon: Icon(
                                         Icons.photo_library_rounded,
                                         color: AppTheme.of(context)
@@ -188,7 +188,7 @@ class _BottomSheetAttachmentWidgetState
                                       model: _model.actionTileModel2,
                                       updateCallback: () => safeSetState(() {}),
                                       child: ActionTile3Widget(
-                                        bgColor: Color(0x1A00D4FF),
+                                        bgColor: const Color(0x1A00D4FF),
                                         icon: Icon(
                                           Icons.photo_camera_rounded,
                                           color: AppTheme.of(context)
@@ -207,7 +207,7 @@ class _BottomSheetAttachmentWidgetState
                                     model: _model.actionTileModel3,
                                     updateCallback: () => safeSetState(() {}),
                                     child: ActionTile3Widget(
-                                      bgColor: Color(0x1A00CA72),
+                                      bgColor: const Color(0x1A00CA72),
                                       icon: Icon(
                                         Icons.description_rounded,
                                         color: AppTheme.of(context)
@@ -220,7 +220,7 @@ class _BottomSheetAttachmentWidgetState
                                     ),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 16.0)),
+                              ].divide(const SizedBox(width: 16.0)),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
@@ -240,7 +240,7 @@ class _BottomSheetAttachmentWidgetState
                                       model: _model.actionTileModel4,
                                       updateCallback: () => safeSetState(() {}),
                                       child: ActionTile3Widget(
-                                        bgColor: Color(0x1ADF1B41),
+                                        bgColor: const Color(0x1ADF1B41),
                                         icon: Icon(
                                           Icons.location_on_rounded,
                                           color: AppTheme.of(context)
@@ -266,7 +266,7 @@ class _BottomSheetAttachmentWidgetState
                                       model: _model.actionTileModel5,
                                       updateCallback: () => safeSetState(() {}),
                                       child: ActionTile3Widget(
-                                        bgColor: Color(0x1AFFB84D),
+                                        bgColor: const Color(0x1AFFB84D),
                                         icon: Icon(
                                           Icons.person_rounded,
                                           color: AppTheme.of(context)
@@ -292,7 +292,7 @@ class _BottomSheetAttachmentWidgetState
                                       model: _model.actionTileModel6,
                                       updateCallback: () => safeSetState(() {}),
                                       child: ActionTile3Widget(
-                                        bgColor: Color(0x1A0A2540),
+                                        bgColor: const Color(0x1A0A2540),
                                         icon: Icon(
                                           Icons.bar_chart_rounded,
                                           color: AppTheme.of(context)
@@ -305,9 +305,9 @@ class _BottomSheetAttachmentWidgetState
                                       ),
                                     ),
                                   ),
-                              ].divide(SizedBox(width: 16.0)),
+                              ].divide(const SizedBox(width: 16.0)),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                         Column(
                           mainAxisSize: MainAxisSize.min,
@@ -358,13 +358,13 @@ class _BottomSheetAttachmentWidgetState
                                       ),
                                       child: CachedNetworkImage(
                                         fadeInDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         fadeOutDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         imageUrl:
                                             'https://dimg.dreamflow.cloud/v1/image/modern%20architecture%20building',
                                         fit: BoxFit.cover,
-                                        alignment: Alignment(0.0, 0.0),
+                                        alignment: const Alignment(0.0, 0.0),
                                       ),
                                     ),
                                   ),
@@ -380,13 +380,13 @@ class _BottomSheetAttachmentWidgetState
                                       ),
                                       child: CachedNetworkImage(
                                         fadeInDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         fadeOutDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         imageUrl:
                                             'https://dimg.dreamflow.cloud/v1/image/abstract%20blue%20gradient%20texture',
                                         fit: BoxFit.cover,
-                                        alignment: Alignment(0.0, 0.0),
+                                        alignment: const Alignment(0.0, 0.0),
                                       ),
                                     ),
                                   ),
@@ -402,13 +402,13 @@ class _BottomSheetAttachmentWidgetState
                                       ),
                                       child: CachedNetworkImage(
                                         fadeInDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         fadeOutDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         imageUrl:
                                             'https://dimg.dreamflow.cloud/v1/image/forest%20mountains%20landscape',
                                         fit: BoxFit.cover,
-                                        alignment: Alignment(0.0, 0.0),
+                                        alignment: const Alignment(0.0, 0.0),
                                       ),
                                     ),
                                   ),
@@ -424,13 +424,13 @@ class _BottomSheetAttachmentWidgetState
                                       ),
                                       child: CachedNetworkImage(
                                         fadeInDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         fadeOutDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         imageUrl:
                                             'https://dimg.dreamflow.cloud/v1/image/minimalist%20interior%20design',
                                         fit: BoxFit.cover,
-                                        alignment: Alignment(0.0, 0.0),
+                                        alignment: const Alignment(0.0, 0.0),
                                       ),
                                     ),
                                   ),
@@ -446,25 +446,25 @@ class _BottomSheetAttachmentWidgetState
                                       ),
                                       child: CachedNetworkImage(
                                         fadeInDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         fadeOutDuration:
-                                            Duration(milliseconds: 0),
+                                            const Duration(milliseconds: 0),
                                         imageUrl:
                                             'https://dimg.dreamflow.cloud/v1/image/city%20street%20at%20night',
                                         fit: BoxFit.cover,
-                                        alignment: Alignment(0.0, 0.0),
+                                        alignment: const Alignment(0.0, 0.0),
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 8.0)),
+                                ].divide(const SizedBox(width: 8.0)),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                         wrapWithModel(
                           model: _model.buttonModel,
                           updateCallback: () => safeSetState(() {}),
-                          child: CancelButtonWidget(
+                          child: const CancelButtonWidget(
                             content: 'Cancel',
                             iconPresent: false,
                             iconEndPresent: false,
@@ -478,7 +478,7 @@ class _BottomSheetAttachmentWidgetState
                         Container(
                           height: 16.0,
                         ),
-                      ].divide(SizedBox(height: 24.0)),
+                      ].divide(const SizedBox(height: 24.0)),
                     ),
                   ),
                 ),

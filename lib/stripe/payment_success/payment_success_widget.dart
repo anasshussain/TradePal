@@ -72,10 +72,10 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
           children: [
             Container(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 16.0),
                 child: Container(
                   child: Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
+                    alignment: const AlignmentDirectional(1.0, -1.0),
                     child: AppIconButton(
                       borderRadius: 8.0,
                       buttonSize: 40.0,
@@ -104,7 +104,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(24.0),
+                        padding: const EdgeInsets.all(24.0),
                         child: Container(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -120,13 +120,13 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                     width: 80.0,
                                     height: 80.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0x2600CA72),
+                                      color: const Color(0x2600CA72),
                                       borderRadius:
                                           BorderRadius.circular(9999.0),
                                       shape: BoxShape.rectangle,
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Icon(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: const Icon(
                                       Icons.check_circle_rounded,
                                       color: Color(0xFF1A1F36),
                                       size: 48.0,
@@ -193,9 +193,9 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                               lineHeight: 1.5,
                                             ),
                                       ),
-                                    ].divide(SizedBox(height: 4.0)),
+                                    ].divide(const SizedBox(height: 4.0)),
                                   ),
-                                ].divide(SizedBox(height: 16.0)),
+                                ].divide(const SizedBox(height: 16.0)),
                               ),
                               Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -255,7 +255,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                           lineHeight: 1.5,
                                         ),
                                   ),
-                                ].divide(SizedBox(height: 4.0)),
+                                ].divide(const SizedBox(height: 4.0)),
                               ),
                               Container(
                                 decoration: BoxDecoration(
@@ -270,7 +270,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(24.0),
+                                  padding: const EdgeInsets.all(24.0),
                                   child: Container(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -316,7 +316,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                           model: _model.receiptRowModel1,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: ReceiptRowWidget(
+                                          child: const ReceiptRowWidget(
                                             label: 'Payment Method',
                                             value: 'Visa •••• 4242',
                                           ),
@@ -325,7 +325,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                           model: _model.receiptRowModel2,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: ReceiptRowWidget(
+                                          child: const ReceiptRowWidget(
                                             label: 'Merchant',
                                             value: 'SwiftPay Global',
                                           ),
@@ -334,7 +334,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                           model: _model.receiptRowModel3,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: ReceiptRowWidget(
+                                          child: const ReceiptRowWidget(
                                             label: 'Date',
                                             value: 'Oct 24, 2023, 10:45 AM',
                                           ),
@@ -343,12 +343,12 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                           model: _model.receiptRowModel4,
                                           updateCallback: () =>
                                               _provider.update(() {}),
-                                          child: ReceiptRowWidget(
+                                          child: const ReceiptRowWidget(
                                             label: 'Status',
                                             value: 'Completed',
                                           ),
                                         ),
-                                      ].divide(SizedBox(height: 16.0)),
+                                      ].divide(const SizedBox(height: 16.0)),
                                     ),
                                   ),
                                 ),
@@ -366,7 +366,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(24.0),
+                                  padding: const EdgeInsets.all(24.0),
                                   child: Container(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
@@ -414,7 +414,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                 width: 48.0,
                                                 height: 48.0,
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xFFF6F9FC),
+                                                  color: const Color(0xFFF6F9FC),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           8.0),
@@ -422,14 +422,14 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                 ),
                                                 child: CachedNetworkImage(
                                                   fadeInDuration:
-                                                      Duration(milliseconds: 0),
+                                                      const Duration(milliseconds: 0),
                                                   fadeOutDuration:
-                                                      Duration(milliseconds: 0),
+                                                      const Duration(milliseconds: 0),
                                                   imageUrl:
                                                       'https://dimg.dreamflow.cloud/v1/image/sleek%20wireless%20headphones',
                                                   fit: BoxFit.cover,
                                                   alignment:
-                                                      Alignment(0.0, 0.0),
+                                                      const Alignment(0.0, 0.0),
                                                 ),
                                               ),
                                             ),
@@ -508,7 +508,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                           lineHeight: 1.3,
                                                         ),
                                                   ),
-                                                ].divide(SizedBox(height: 4.0)),
+                                                ].divide(const SizedBox(height: 4.0)),
                                               ),
                                             ),
                                             Text(
@@ -536,9 +536,9 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                                     lineHeight: 1.5,
                                                   ),
                                             ),
-                                          ].divide(SizedBox(width: 16.0)),
+                                          ].divide(const SizedBox(width: 16.0)),
                                         ),
-                                      ].divide(SizedBox(height: 16.0)),
+                                      ].divide(const SizedBox(height: 16.0)),
                                     ),
                                   ),
                                 ),
@@ -588,9 +588,9 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                       disabled: false,
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 24.0)),
+                                ].divide(const SizedBox(width: 24.0)),
                               ),
-                            ].divide(SizedBox(height: 32.0)),
+                            ].divide(const SizedBox(height: 32.0)),
                           ),
                         ),
                       ),
@@ -616,12 +616,12 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Container(
                       child: wrapWithModel(
                         model: _model.buttonModel3,
                         updateCallback: () => _provider.update(() {}),
-                        child: DownloadPDFWidget(
+                        child: const DownloadPDFWidget(
                           content: 'Done',
                           iconPresent: false,
                           iconEndPresent: false,

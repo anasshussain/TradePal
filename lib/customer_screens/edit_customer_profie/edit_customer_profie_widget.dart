@@ -6,7 +6,7 @@ import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/upload_data.dart';
+import '/core/utils/upload_data.dart';
 import 'dart:ui';
 import '/utils/custom_code/actions/index.dart' as actions;
 import '/core/routes/index.dart';
@@ -113,7 +113,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -131,7 +131,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Stack(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         children: [
                           Material(
                             color: Colors.transparent,
@@ -159,24 +159,18 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   width: 2.0,
                                 ),
                               ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Container(
                                 width: 100.0,
                                 height: 100.0,
                                 clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
                                 child: Image.network(
                                   valueOrDefault<String>(
                                     _model.uploadedFileUrl_uploaded != null &&
-                                            _model.uploadedFileUrl_uploaded !=
-                                                ''
-                                        ? _model.uploadedFileUrl_uploaded
-                                        : AppState()
-                                            .userProfileCache
-                                            .avatarUrl,
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
+                                            _model.uploadedFileUrl_uploaded != '' ? _model.uploadedFileUrl_uploaded : AppState().userProfileCache.avatarUrl, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -184,9 +178,9 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.34, 0.0),
+                            alignment: const AlignmentDirectional(0.34, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 97.0, 7.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -266,8 +260,8 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                         width: 2.0,
                                       ),
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Icon(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: const Icon(
                                       Icons.photo_camera_outlined,
                                       color: Colors.white,
                                       size: 22.0,
@@ -367,7 +361,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
                                     'FULL NAME',
                                     style: AppTheme.of(context)
@@ -413,16 +407,16 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             .alternate,
                                       ),
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller: _model.textController1,
@@ -496,7 +490,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -504,7 +498,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -574,7 +568,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -630,16 +624,16 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             .alternate,
                                       ),
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller: _model.textController2,
@@ -711,7 +705,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -719,7 +713,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -789,7 +783,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -828,7 +822,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -884,16 +878,16 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             .alternate,
                                       ),
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller: _model.textController3,
@@ -964,7 +958,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -972,7 +966,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1094,7 +1088,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, -1.0),
+                                          const AlignmentDirectional(-1.0, -1.0),
                                       child: Text(
                                         'SERVICE ADDRESS',
                                         style: AppTheme.of(context)
@@ -1129,7 +1123,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                           .sm)),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1185,16 +1179,16 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             .alternate,
                                       ),
                                     ),
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller:
@@ -1264,7 +1258,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1272,7 +1266,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1363,7 +1357,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Align(
-                                            alignment: AlignmentDirectional(
+                                            alignment: const AlignmentDirectional(
                                                 -1.0, -1.0),
                                             child: Text(
                                               'STREET ADDRESS',
@@ -1419,10 +1413,10 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                       .alternate,
                                                 ),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Padding(
                                                   padding: EdgeInsets.all(
@@ -1431,7 +1425,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                           .designToken
                                                           .spacing
                                                           .sm),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -1501,7 +1495,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -1514,7 +1508,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                         focusedBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -1609,7 +1603,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Align(
-                                            alignment: AlignmentDirectional(
+                                            alignment: const AlignmentDirectional(
                                                 -1.0, -1.0),
                                             child: Text(
                                               'POSTAL CODE',
@@ -1665,10 +1659,10 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                       .alternate,
                                                 ),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Padding(
                                                   padding: EdgeInsets.all(
@@ -1677,7 +1671,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                           .designToken
                                                           .spacing
                                                           .sm),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -1747,7 +1741,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -1760,7 +1754,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                                         focusedBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -1919,7 +1913,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   context.goNamed(
                                     CustomerProfileWidget.routeName,
                                     extra: <String, dynamic>{
-                                      '__transition_info__': TransitionInfo(
+                                      '__transition_info__': const TransitionInfo(
                                         hasTransition: true,
                                         transitionType: PageTransitionType.fade,
                                         duration: Duration(milliseconds: 0),
@@ -1942,9 +1936,9 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                           options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: AppTheme.of(context).primary,
                             textStyle: AppTheme.of(context)
@@ -1977,8 +1971,8 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: AppConstants.childSpacing))
-                        .addToEnd(SizedBox(height: 50.0)),
+                        .divide(const SizedBox(height: AppConstants.childSpacing))
+                        .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),
               ),

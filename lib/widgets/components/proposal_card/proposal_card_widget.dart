@@ -1,3 +1,4 @@
+import '/core/utils/image_decode_size.dart';
 import '/repositories/supabase/supabase.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
@@ -49,7 +50,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(12.0),
       child: Container(
         width: double.infinity,
         height: double.infinity,
@@ -94,15 +95,15 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, -1.0),
+                          alignment: const AlignmentDirectional(0.0, -1.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: Container(
                               width: 70.0,
                               height: 70.0,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
                               child: Image.network(
@@ -110,6 +111,8 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                   columnUsersRow?.avatarUrl,
                                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLQ26lVhEUdYZN5hisBjPQ-5aiWdwxL2bvvrYOdoNkNPpHf_5rhbvfSg&s',
                                 ),
+                                cacheWidth: decodeCacheSize(context, 70.0),
+                                cacheHeight: decodeCacheSize(context, 70.0),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -141,16 +144,16 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(-1.0, 0.0),
+                        alignment: const AlignmentDirectional(-1.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -158,7 +161,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 10.0),
                                 child: Text(
                                   valueOrDefault<String>(
@@ -184,7 +187,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -253,10 +256,10 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(20.0, 20.0),
+                                            const AlignmentDirectional(20.0, 20.0),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   100.0, 5.0, 0.0, 0.0),
                                           child: AppButton(
                                             onPressed: () async {},
@@ -264,10 +267,10 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                             options: AppButtonOptions(
                                               width: 20.0,
                                               height: 27.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: Colors.white,
                                               textStyle: AppTheme.of(
@@ -294,7 +297,7 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                                                             .fontStyle,
                                                   ),
                                               elevation: 0.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.black,
                                               ),
                                               borderRadius:

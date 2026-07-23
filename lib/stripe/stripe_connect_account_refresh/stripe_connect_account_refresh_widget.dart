@@ -66,9 +66,9 @@ class _StripeConnectAccountRefreshWidgetState
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsets.all(24.0),
+              padding: const EdgeInsets.all(24.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -82,7 +82,7 @@ class _StripeConnectAccountRefreshWidgetState
                         color: AppTheme.of(context).error,
                         shape: BoxShape.circle,
                       ),
-                      child: Align(
+                      child: const Align(
                         alignment: AlignmentDirectional(0.0, 0.0),
                         child: Icon(
                           Icons.close_rounded,
@@ -141,10 +141,10 @@ class _StripeConnectAccountRefreshWidgetState
                                 lineHeight: 1.5,
                               ),
                         ),
-                      ].divide(SizedBox(height: 16.0)),
+                      ].divide(const SizedBox(height: 16.0)),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +208,7 @@ class _StripeConnectAccountRefreshWidgetState
                                                   .fontStyle,
                                         ),
                                   ),
-                                ].divide(SizedBox(width: 12.0)),
+                                ].divide(const SizedBox(width: 12.0)),
                               ),
                               Text(
                                 'Industry-leading security and fraud protection',
@@ -266,7 +266,7 @@ class _StripeConnectAccountRefreshWidgetState
                                                   .fontStyle,
                                         ),
                                   ),
-                                ].divide(SizedBox(width: 12.0)),
+                                ].divide(const SizedBox(width: 12.0)),
                               ),
                               Text(
                                 'Track payments and revenue in your dashboard',
@@ -292,12 +292,12 @@ class _StripeConnectAccountRefreshWidgetState
                                           .fontStyle,
                                     ),
                               ),
-                            ].divide(SizedBox(width: 12.0)),
+                            ].divide(const SizedBox(width: 12.0)),
                           ),
-                        ].divide(SizedBox(height: 12.0)),
+                        ].divide(const SizedBox(height: 12.0)),
                       ),
                     ),
-                  ].divide(SizedBox(height: 32.0)),
+                  ].divide(const SizedBox(height: 32.0)),
                 ),
               ),
             ),

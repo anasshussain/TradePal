@@ -56,21 +56,21 @@ class _PasswordChangedSuccessPageWidgetState
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Container(
                     width: 100.0,
                     height: 100.0,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0x1A4CAF50),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.check_circle_outline_rounded,
                       color: Colors.green,
                       size: 52.0,
@@ -78,7 +78,7 @@ class _PasswordChangedSuccessPageWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: Text(
                     'Password Changed!',
                     textAlign: TextAlign.center,
@@ -98,7 +98,7 @@ class _PasswordChangedSuccessPageWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                   child: Text(
                     'Your password has been updated successfully. You can now use your new password to sign in to your account.',
                     textAlign: TextAlign.center,
@@ -123,7 +123,7 @@ class _PasswordChangedSuccessPageWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -131,18 +131,18 @@ class _PasswordChangedSuccessPageWidgetState
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Container(
                             width: 44.0,
                             height: 44.0,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0x1A4CAF50),
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.lock_outlined,
                               color: Colors.green,
                               size: 22.0,
@@ -173,7 +173,7 @@ class _PasswordChangedSuccessPageWidgetState
                                       ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 4.0, 0.0, 0.0),
                                   child: Text(
                                     'Never share your password with anyone. Use a unique password for each account.',
@@ -208,7 +208,7 @@ class _PasswordChangedSuccessPageWidgetState
                               ],
                             ),
                           ),
-                        ].divide(SizedBox(width: 16.0)),
+                        ].divide(const SizedBox(width: 16.0)),
                       ),
                     ),
                   ),

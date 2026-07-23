@@ -131,7 +131,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             wrapWithModel(
                               model: _model.applogoComponentModel,
                               updateCallback: () => _provider.update(() {}),
-                              child: ApplogoComponentWidget(),
+                              child: const ApplogoComponentWidget(),
                             ),
                             Column(
                               mainAxisSize: MainAxisSize.max,
@@ -184,7 +184,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .fontStyle,
                                       ),
                                 ),
-                              ].divide(SizedBox(height: 8.0)),
+                              ].divide(const SizedBox(height: 8.0)),
                             ),
                             Form(
                               key: _model.formKey,
@@ -280,7 +280,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                         .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -354,7 +354,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .fulNameTextControllerValidator
                                             .asValidator(context),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         height: AppConstants.childPadding)),
                                   ),
                                   Column(
@@ -414,7 +414,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                         .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -488,7 +488,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .emailTextControllerValidator
                                             .asValidator(context),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         height: AppConstants.childPadding)),
                                   ),
                                   Column(
@@ -548,7 +548,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                         .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -622,7 +622,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .phoneTextControllerValidator
                                             .asValidator(context),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         height: AppConstants.childPadding)),
                                   ),
                                   Column(
@@ -683,7 +683,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                         .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -827,7 +827,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                         .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -917,10 +917,10 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .cPasswordTextControllerValidator
                                             .asValidator(context),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         height: AppConstants.childPadding)),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                             ),
@@ -973,7 +973,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   ),
                                   Flexible(
                                     child: Container(
-                                      decoration: BoxDecoration(),
+                                      decoration: const BoxDecoration(),
                                       child: Text(
                                         'I agree to the Terms of Service and Privacy Policy. I understand that my data will be handled in accordance with these terms.',
                                         textAlign: TextAlign.start,
@@ -1003,7 +1003,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     width: AppConstants.childPadding)),
                               ),
                             ),
@@ -1021,7 +1021,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   if (_model.passwordTextController.text !=
                                       _model.cPasswordTextController.text) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                      const SnackBar(
                                         content: Text(
                                           'Passwords don\'t match!',
                                         ),
@@ -1085,17 +1085,17 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 _provider.update(() {});
                               },
                               text: 'Create Account',
-                              icon: FaIcon(
+                              icon: const FaIcon(
                                 FontAwesomeIcons.arrowRight,
                                 size: 16.0,
                               ),
                               options: AppButtonOptions(
                                 width: 300.0,
                                 height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 iconAlignment: IconAlignment.end,
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: AppTheme.of(context).primary,
                                 textStyle: AppTheme.of(context)
@@ -1126,7 +1126,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         .lg),
                               ),
                             ),
-                          ].divide(SizedBox(height: AppConstants.spacing)),
+                          ].divide(const SizedBox(height: AppConstants.spacing)),
                         ),
                       ),
                     ),
@@ -1141,7 +1141,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                     context.goNamed(
                       LoginWidget.routeName,
                       extra: <String, dynamic>{
-                        '__transition_info__': TransitionInfo(
+                        '__transition_info__': const TransitionInfo(
                           hasTransition: true,
                           transitionType: PageTransitionType.fade,
                           duration: Duration(milliseconds: 250),
@@ -1151,8 +1151,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                   },
                   child: Container(
                     height: 30.0,
-                    decoration: BoxDecoration(),
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    decoration: const BoxDecoration(),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: RichText(
                       textScaler: MediaQuery.of(context).textScaler,
                       text: TextSpan(

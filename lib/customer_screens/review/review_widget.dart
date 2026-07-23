@@ -9,7 +9,7 @@ import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/upload_data.dart';
+import '/core/utils/upload_data.dart';
 import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
@@ -105,21 +105,21 @@ class _ReviewWidgetState extends State<ReviewWidget> {
               ),
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.0, -1.0),
+                    alignment: const AlignmentDirectional(0.0, -1.0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           0.0,
@@ -178,7 +178,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -233,7 +233,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -287,7 +287,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -341,7 +341,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -395,7 +395,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -469,7 +469,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                         .fontStyle,
                                   ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1.0,
                                 ),
@@ -526,7 +526,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                             validator: _model.textControllerValidator
                                 .asValidator(context),
                           ),
-                        ].divide(SizedBox(height: 12.0)),
+                        ].divide(const SizedBox(height: 12.0)),
                       ),
                     ),
                   ),
@@ -540,7 +540,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -642,15 +642,15 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                               }
                             },
                             text: 'Add Photo',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.photo_camera,
                               size: 15.0,
                             ),
                             options: AppButtonOptions(
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: AppTheme.of(context).secondary,
                               textStyle: AppTheme.of(context)
@@ -681,7 +681,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                           if (_provider.photoUrls.isNotEmpty)
                             Container(
                               height: 100.0,
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: Builder(
                                 builder: (context) {
                                   final imges = _provider.photoUrls
@@ -703,11 +703,11 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                       final imgesItem = imges[imgesIndex];
                                       return Align(
                                         alignment:
-                                            AlignmentDirectional(-1.0, 0.0),
-                                        child: Container(
+                                            const AlignmentDirectional(-1.0, 0.0),
+                                        child: SizedBox(
                                           width: 100.0,
                                           child: Stack(
-                                            alignment: AlignmentDirectional(
+                                            alignment: const AlignmentDirectional(
                                                 -1.0, -1.0),
                                             children: [
                                               InkWell(
@@ -757,7 +757,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     1.0, -1.0),
                                                 child: AppIconButton(
                                                   buttonSize: 30.0,
@@ -788,12 +788,12 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                 },
                               ),
                             ),
-                        ].divide(SizedBox(height: 12.0)),
+                        ].divide(const SizedBox(height: 12.0)),
                       ),
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: AppButton(
                       onPressed: () async {
                         context.safePop();
@@ -802,10 +802,10 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       options: AppButtonOptions(
                         width: double.infinity,
                         height: 50.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: Colors.transparent,
                         textStyle:
                             AppTheme.of(context).titleSmall.override(
@@ -836,7 +836,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           0.0,
@@ -925,16 +925,16 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                           _provider.notify();
                         },
                         text: 'Submit Feedback',
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.feedback_outlined,
                           size: 15.0,
                         ),
                         options: AppButtonOptions(
                           width: double.infinity,
                           height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: AppTheme.of(context).primary,
                           textStyle:
@@ -966,7 +966,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       ),
                     ),
                   ),
-                ].divide(SizedBox(height: 14.0)),
+                ].divide(const SizedBox(height: 14.0)),
               ),
             ),
           ),

@@ -2,7 +2,7 @@ import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/settings_component/settings_component_widget.dart';
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/utils/util.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import '/core/routes/index.dart';
 import '/trader_screens/trader_profile/trader_profile_widget.dart' show TraderProfileWidget;
 import 'package:flutter/material.dart';

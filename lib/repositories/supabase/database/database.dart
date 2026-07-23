@@ -1,4 +1,4 @@
-export '/core/lat_lng.dart';
+export '/core/location/lat_lng.dart';
 export 'package:supabase_flutter/supabase_flutter.dart' hide Provider;
 
 export '/repositories/supabase/supabase.dart';

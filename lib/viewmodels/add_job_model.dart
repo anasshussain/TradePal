@@ -2,7 +2,7 @@ import '/repositories/api_requests/api_calls.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/job_details_loader/job_details_loader_widget.dart';
 import '/utils/util.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import '/customer_screens/add_job/add_job_widget.dart' show AddJobWidget;
 import 'package:flutter/material.dart';
 

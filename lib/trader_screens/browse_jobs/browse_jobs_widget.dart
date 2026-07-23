@@ -7,7 +7,7 @@ import '/widgets/app_drop_down.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,7 +87,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -204,7 +204,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                         AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: 8.0,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
@@ -215,7 +215,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                     controller:
                                         _model.dropDownValueController2 ??=
                                             FormFieldController<String>(null),
-                                    options: [
+                                    options: const [
                                       '100',
                                       '200',
                                       '300',
@@ -268,7 +268,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                         AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: 8.0,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
@@ -282,10 +282,10 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                     text: 'Apply filters',
                                     options: AppButtonOptions(
                                       height: 50.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color:
                                           AppTheme.of(context).primary,
@@ -321,7 +321,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                               .lg),
                                     ),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                             ),
@@ -330,22 +330,22 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                       wrapWithModel(
                         model: _model.jobsListModel,
                         updateCallback: () => _provider.update(() {}),
-                        child: JobsListWidget(
+                        child: const JobsListWidget(
                           jobViewType: JobsViewType.BROWSE,
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: AppConstants.spacing))
-                        .addToEnd(SizedBox(height: 50.0)),
+                        .divide(const SizedBox(height: AppConstants.spacing))
+                        .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
                   updateCallback: () => _provider.update(() {}),
-                  child: TpNavbarWidget(
+                  child: const TpNavbarWidget(
                     selectedIndex: 0,
                   ),
                 ),

@@ -70,7 +70,7 @@ class _TestimonialsComponentWidgetState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Text(
                   'What users say',
                   style: AppTheme.of(context).headlineSmall.override(
@@ -95,7 +95,7 @@ class _TestimonialsComponentWidgetState
                 scrollDirection: Axis.vertical,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppTheme.of(context).secondaryBackground,
@@ -110,7 +110,7 @@ class _TestimonialsComponentWidgetState
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -149,13 +149,13 @@ class _TestimonialsComponentWidgetState
                                         .fontStyle,
                                   ),
                             ),
-                          ].divide(SizedBox(height: 12.0)),
+                          ].divide(const SizedBox(height: 12.0)),
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppTheme.of(context).secondaryBackground,
@@ -170,7 +170,7 @@ class _TestimonialsComponentWidgetState
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -209,14 +209,14 @@ class _TestimonialsComponentWidgetState
                                         .fontStyle,
                                   ),
                             ),
-                          ].divide(SizedBox(height: 12.0)),
+                          ].divide(const SizedBox(height: 12.0)),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-            ].divide(SizedBox(height: 16.0)),
+            ].divide(const SizedBox(height: 16.0)),
           ),
         ),
       ),

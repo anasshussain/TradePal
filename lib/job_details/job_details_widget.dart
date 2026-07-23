@@ -12,7 +12,7 @@ import '/widgets/app_expanded_image_view.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/utils/custom_code/actions/index.dart' as actions;
@@ -235,7 +235,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                     ),
                   }.withoutNulls,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.rightToLeft,
                     ),
@@ -244,7 +244,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 1.0,
         ),
@@ -288,7 +288,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         .fontStyle,
                                   ),
                             ),
-                          ].divide(SizedBox(
+                          ].divide(const SizedBox(
                               width: AppConstants.parentPagePadding)),
                         ),
                         Text(
@@ -474,7 +474,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     .fontStyle,
                                           ),
                                     ),
-                                  ].divide(SizedBox(
+                                  ].divide(const SizedBox(
                                       height: AppConstants.childSpacing)),
                                 ),
                               ),
@@ -482,7 +482,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          alignment: const AlignmentDirectional(-1.0, 0.0),
                           child: Material(
                             color: Colors.transparent,
                             elevation: 0.0,
@@ -580,11 +580,11 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         AppExpandedImageView(
                                                       image: CachedNetworkImage(
                                                         fadeInDuration:
-                                                            Duration(
+                                                            const Duration(
                                                                 milliseconds:
                                                                     300),
                                                         fadeOutDuration:
-                                                            Duration(
+                                                            const Duration(
                                                                 milliseconds:
                                                                     300),
                                                         imageUrl: imagesItem,
@@ -612,9 +612,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       BorderRadius.circular(
                                                           8.0),
                                                   child: CachedNetworkImage(
-                                                    fadeInDuration: Duration(
+                                                    fadeInDuration: const Duration(
                                                         milliseconds: 300),
-                                                    fadeOutDuration: Duration(
+                                                    fadeOutDuration: const Duration(
                                                         milliseconds: 300),
                                                     imageUrl: imagesItem,
                                                     width: 100.0,
@@ -637,7 +637,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         );
                                       },
                                     ),
-                                  ].divide(SizedBox(
+                                  ].divide(const SizedBox(
                                       height: AppConstants.childSpacing)),
                                 ),
                               ),
@@ -664,9 +664,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       AppTheme.of(context).primary,
                                       AppTheme.of(context).secondary
                                     ],
-                                    stops: [0.0, 1.0],
-                                    begin: AlignmentDirectional(-1.0, 0.14),
-                                    end: AlignmentDirectional(1.0, -0.14),
+                                    stops: const [0.0, 1.0],
+                                    begin: const AlignmentDirectional(-1.0, 0.14),
+                                    end: const AlignmentDirectional(1.0, -0.14),
                                   ),
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(
@@ -907,7 +907,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       ),
                                                   enabledBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Color(0x00000000),
                                                       width: 1.0,
                                                     ),
@@ -917,7 +917,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Color(0x00000000),
                                                       width: 1.0,
                                                     ),
@@ -1046,7 +1046,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         ),
                                               ),
                                               AppChoiceChips(
-                                                options: [
+                                                options: const [
                                                   ChipData('0-3 days'),
                                                   ChipData('3-5 days'),
                                                   ChipData('1 Week'),
@@ -1212,7 +1212,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       .designToken
                                                       .spacing
                                                       .md),
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
@@ -1297,7 +1297,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         ),
                                                     enabledBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -1308,7 +1308,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     ),
                                                     focusedBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -1319,7 +1319,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     ),
                                                     errorBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -1330,7 +1330,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     ),
                                                     focusedErrorBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -1840,7 +1840,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                           if (_provider.isProposalSubmitted ??
                                               true)
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
                                                 onPressed:
@@ -1886,18 +1886,18 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   }(),
                                                   'Already Proposed',
                                                 ),
-                                                icon: Icon(
+                                                icon: const Icon(
                                                   Icons.check_circle_rounded,
                                                   size: 30.0,
                                                 ),
                                                 options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   iconColor:
@@ -1967,7 +1967,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       ?.status ==
                                                   Status.ACCEPTED.name))
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: AppButton(
                                                 onPressed: (_provider
@@ -1994,7 +1994,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                 ?.succeeded ??
                                                             true)) {
                                                           await Future.delayed(
-                                                            Duration(
+                                                            const Duration(
                                                               milliseconds: 100,
                                                             ),
                                                           );
@@ -2034,11 +2034,11 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 options: AppButtonOptions(
                                                   width: 300.0,
                                                   height: 50.0,
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   iconPadding:
-                                                      EdgeInsetsDirectional
+                                                      const EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: AppTheme.of(
@@ -2093,7 +2093,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         .designToken
                                                         .spacing
                                                         .xl))
-                                            .addToEnd(SizedBox(
+                                            .addToEnd(const SizedBox(
                                                 height: AppConstants
                                                     .parentPagePadding)),
                                       ),

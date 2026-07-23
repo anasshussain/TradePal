@@ -64,7 +64,7 @@ class _AddSkillsWidgetState extends State<AddSkillsWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(32.0),
+          padding: const EdgeInsets.all(32.0),
           child: Container(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -123,7 +123,7 @@ class _AddSkillsWidgetState extends State<AddSkillsWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 200.0,
                       child: TextFormField(
                         controller: _model.inputTextController,
@@ -227,7 +227,7 @@ class _AddSkillsWidgetState extends State<AddSkillsWidget> {
                             .asValidator(context),
                       ),
                     ),
-                  ].divide(SizedBox(height: 10.0)),
+                  ].divide(const SizedBox(height: 10.0)),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
@@ -241,10 +241,10 @@ class _AddSkillsWidgetState extends State<AddSkillsWidget> {
                       text: 'Cancel',
                       options: AppButtonOptions(
                         height: 35.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: AppTheme.of(context).primary,
                         textStyle:
                             AppTheme.of(context).titleSmall.override(
@@ -276,10 +276,10 @@ class _AddSkillsWidgetState extends State<AddSkillsWidget> {
                       text: 'Confirm',
                       options: AppButtonOptions(
                         height: 35.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: AppTheme.of(context).primary,
                         textStyle:
                             AppTheme.of(context).titleSmall.override(
@@ -304,9 +304,9 @@ class _AddSkillsWidgetState extends State<AddSkillsWidget> {
                         borderRadius: BorderRadius.circular(4.0),
                       ),
                     ),
-                  ].divide(SizedBox(width: 10.0)),
+                  ].divide(const SizedBox(width: 10.0)),
                 ),
-              ].divide(SizedBox(height: 20.0)),
+              ].divide(const SizedBox(height: 20.0)),
             ),
           ),
         ),

@@ -2,7 +2,7 @@ import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/upload_data.dart';
+import '/core/utils/upload_data.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -63,13 +63,13 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Builder(
         builder: (context) {
           if (_model.uploadedLocalFile_localUploadedPhoto != null &&
               (_model.uploadedLocalFile_localUploadedPhoto.bytes?.isNotEmpty ??
                   false)) {
-            return Container(
+            return SizedBox(
               width: 120.0,
               height: 120.0,
               child: Stack(
@@ -81,7 +81,7 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                       color: Colors.transparent,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Color(0x7A3D3DBB),
+                        color: const Color(0x7A3D3DBB),
                         width: 2.0,
                       ),
                     ),
@@ -89,7 +89,7 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                       width: 200.0,
                       height: 200.0,
                       clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
                       child: Image.memory(
@@ -100,10 +100,10 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
+                    alignment: const AlignmentDirectional(1.0, -1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                       child: AppIconButton(
                         borderColor: AppTheme.of(context).error,
                         borderRadius: 40.0,
@@ -182,7 +182,7 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                     width: 120.0,
                     height: 120.0,
                     decoration: BoxDecoration(
-                      color: Color(0x75000088),
+                      color: const Color(0x75000088),
                       image: DecorationImage(
                         fit: BoxFit.contain,
                         image: Image.network(

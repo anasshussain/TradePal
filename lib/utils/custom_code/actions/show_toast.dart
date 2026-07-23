@@ -26,7 +26,7 @@ Future showToast(
       child: Material(
         color: Colors.transparent,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.8),
             borderRadius: BorderRadius.circular(12),
@@ -35,7 +35,7 @@ Future showToast(
             child: Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
               ),

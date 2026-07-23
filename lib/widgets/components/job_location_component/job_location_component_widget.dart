@@ -105,7 +105,7 @@ class _JobLocationComponentWidgetState
           )),
           child: Container(
             width: double.infinity,
-            color: Color(0x00000000),
+            color: const Color(0x00000000),
             child: ExpandableNotifier(
               controller: _model.expandableExpandableController,
               child: ExpandablePanel(
@@ -172,7 +172,7 @@ class _JobLocationComponentWidgetState
                     ),
                   ],
                 ),
-                theme: ExpandableThemeData(
+                theme: const ExpandableThemeData(
                   tapHeaderToExpand: true,
                   tapBodyToExpand: false,
                   tapBodyToCollapse: false,

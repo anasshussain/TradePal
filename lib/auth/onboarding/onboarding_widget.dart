@@ -135,8 +135,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         child: Container(
                           width: 50.0,
                           height: 50.0,
-                          decoration: BoxDecoration(),
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          decoration: const BoxDecoration(),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             'Skip',
                             style: AppTheme.of(context)
@@ -160,7 +160,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                   ],
                 ),
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     height: double.infinity,
                     child: Stack(
@@ -195,19 +195,19 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 30.0),
                                   child: SingleChildScrollView(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: double.infinity,
                                           height: 206.0,
                                           child: Stack(
                                             children: [
                                               ClipRRect(
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius: const BorderRadius.only(
                                                   topLeft: Radius.circular(8.0),
                                                   topRight:
                                                       Radius.circular(8.0),
@@ -220,7 +220,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     0.8, -0.8),
                                                 child: Container(
                                                   width: 150.0,
@@ -284,7 +284,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     -1.0, -1.0),
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional
@@ -332,7 +332,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     -1.0, -1.0),
                                                 child: Text(
                                                   'We test every professional\n before they join our app.\n Quality is guaranteed.',
@@ -390,7 +390,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   children: [
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.32, 0.0),
                                                       child: Padding(
                                                         padding: EdgeInsetsDirectional
@@ -423,7 +423,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             height: 48.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xFFE8E8EA),
                                                               borderRadius:
                                                                   BorderRadius.circular(
@@ -435,7 +435,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                               )),
                                                             ),
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: ClipRRect(
                                                               borderRadius:
@@ -464,7 +464,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       children: [
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1.0, -1.0),
                                                           child: Text(
                                                             'Precision Matching',
@@ -498,7 +498,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1.0, -1.0),
                                                           child: Text(
                                                             'Our system instantly finds\n the best person for\n your work.',
@@ -577,7 +577,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               children: [
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           -1.0, -1.0),
                                                   child: Text(
                                                     'TRUSTED ACTIONS',
@@ -632,7 +632,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
@@ -689,7 +689,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
@@ -758,7 +758,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
@@ -815,7 +815,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
@@ -884,7 +884,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
@@ -941,7 +941,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       child: Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
                                                           padding: EdgeInsets.all(
@@ -999,7 +999,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             ),
                                           ),
                                         ),
-                                      ].addToEnd(SizedBox(height: 40.0)),
+                                      ].addToEnd(const SizedBox(height: 40.0)),
                                     ),
                                   ),
                                 ),
@@ -1140,11 +1140,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Stack(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.0, 0.0),
                                                     children: [
                                                       Opacity(
@@ -1154,7 +1154,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           height: 40.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xFF4169E1),
                                                             borderRadius: BorderRadius.circular(
                                                                 AppTheme.of(
@@ -1167,7 +1167,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Text(
                                                           'IN PROGRESS',
@@ -1206,7 +1206,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               ],
                                             ),
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   -1.0, -1.0),
                                               child: Text(
                                                 'Kitchen\nRenovation',
@@ -1275,7 +1275,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     ),
                                                     child: Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: ClipRRect(
                                                         borderRadius:
@@ -1407,7 +1407,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     ),
                                                     child: Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: ClipRRect(
                                                         borderRadius:
@@ -1578,7 +1578,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               ),
                                             ),
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   -1.0, -1.0),
                                               child: Material(
                                                 color: Colors.transparent,
@@ -1622,7 +1622,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       children: [
                                                         Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1.0, -1.0),
                                                           child: ClipRRect(
                                                             borderRadius:
@@ -1666,7 +1666,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 children: [
                                                                   Stack(
                                                                     alignment:
-                                                                        AlignmentDirectional(
+                                                                        const AlignmentDirectional(
                                                                             0.0,
                                                                             0.0),
                                                                     children: [
@@ -1680,7 +1680,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                           height:
                                                                               34.0,
                                                                           decoration:
-                                                                              BoxDecoration(
+                                                                              const BoxDecoration(
                                                                             color:
                                                                                 Color(0xFF4169E1),
                                                                             shape:
@@ -1689,7 +1689,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                         ),
                                                                       ),
                                                                       Align(
-                                                                        alignment: AlignmentDirectional(
+                                                                        alignment: const AlignmentDirectional(
                                                                             0.0,
                                                                             0.0),
                                                                         child:
@@ -1712,7 +1712,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   ),
                                                                   Align(
                                                                     alignment:
-                                                                        AlignmentDirectional(
+                                                                        const AlignmentDirectional(
                                                                             -1.0,
                                                                             -1.0),
                                                                     child: Text(
@@ -1805,7 +1805,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             .designToken
                                             .spacing
                                             .lg))
-                                    .addToEnd(SizedBox(height: 50.0)),
+                                    .addToEnd(const SizedBox(height: 50.0)),
                               ),
                             ),
                             SingleChildScrollView(
@@ -1813,26 +1813,26 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       Opacity(
                                         opacity: 0.6,
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 3.0, 0.0, 0.0),
                                             child: Container(
                                               width: 64.0,
                                               height: 54.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF4169E1),
+                                                color: const Color(0xFF4169E1),
                                                 borderRadius:
                                                     BorderRadius.circular(12.0),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                             ),
                                           ),
@@ -1840,7 +1840,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
@@ -1849,7 +1849,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             width: 24.0,
                                             height: 30.0,
                                             fit: BoxFit.cover,
-                                            alignment: Alignment(0.0, 0.0),
+                                            alignment: const Alignment(0.0, 0.0),
                                           ),
                                         ),
                                       ),
@@ -1945,7 +1945,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   -1.0, -1.0),
                                               child: ClipRRect(
                                                 borderRadius:
@@ -2212,7 +2212,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         children: [
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
@@ -2468,15 +2468,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             .designToken
                                             .spacing
                                             .md))
-                                    .addToEnd(SizedBox(height: 50.0)),
+                                    .addToEnd(const SizedBox(height: 50.0)),
                               ),
                             ),
                           ],
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
                             child: smooth_page_indicator.SmoothPageIndicator(
                               controller: _model.pageViewController ??=
@@ -2486,7 +2486,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               onDotClicked: (i) async {
                                 await _model.pageViewController!.animateToPage(
                                   i,
-                                  duration: Duration(milliseconds: 500),
+                                  duration: const Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 );
                                 _provider.update(() {});
@@ -2530,7 +2530,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           ),
                           onPressed: () async {
                             await _model.pageViewController?.previousPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
                             _provider.update(() {});
@@ -2555,7 +2555,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           if (_model.pageViewCurrentIndex != 2) {
                             AppState().onboarding = true;
                             await _model.pageViewController?.nextPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
                             _provider.update(() {});

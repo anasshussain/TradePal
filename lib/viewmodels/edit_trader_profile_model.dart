@@ -2,7 +2,7 @@ import '/repositories/api_requests/api_calls.dart';
 import '/widgets/components/alerts/alerts_widget.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/utils/util.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import '/core/routes/index.dart';
 import '/trader_screens/edit_trader_profile/edit_trader_profile_widget.dart' show EditTraderProfileWidget;
 import 'package:flutter/material.dart';

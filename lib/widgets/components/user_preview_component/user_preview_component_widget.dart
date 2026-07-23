@@ -1,4 +1,5 @@
-import '/core/animations.dart';
+import '/core/utils/image_decode_size.dart';
+import '/core/utils/animations.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
@@ -61,8 +62,8 @@ class _UserPreviewComponentWidgetState extends State<UserPreviewComponentWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, 80.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 80.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -121,21 +122,23 @@ class _UserPreviewComponentWidgetState extends State<UserPreviewComponentWidget>
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.0),
                 child: CachedNetworkImage(
-                  fadeInDuration: Duration(milliseconds: 500),
-                  fadeOutDuration: Duration(milliseconds: 500),
+                  fadeInDuration: const Duration(milliseconds: 500),
+                  fadeOutDuration: const Duration(milliseconds: 500),
                   imageUrl: valueOrDefault<String>(
                     widget!.avatarUrl,
                     'https://images-ext-1.discordapp.net/external/AO96cLsz1bw1R0zy6qWuphMKgA7a3OkU2M3-zUSxcXM/%3Fq%3Dtbn%3AANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8%26usqp%3DCAU/https/encrypted-tbn0.gstatic.com/images?format=webp&width=562&height=360',
                   ),
                   width: 44.0,
                   height: 44.0,
+                  memCacheWidth: decodeCacheSize(context, 44.0),
+                  memCacheHeight: decodeCacheSize(context, 44.0),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             Flexible(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,

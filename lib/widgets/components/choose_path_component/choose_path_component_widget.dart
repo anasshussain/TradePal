@@ -137,13 +137,13 @@ class _ChoosePathComponentWidgetState extends State<ChoosePathComponentWidget> {
                                   ),
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: widget!.icon!,
                                 ),
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-1.0, -1.0),
+                              alignment: const AlignmentDirectional(-1.0, -1.0),
                               child: Text(
                                 valueOrDefault<String>(
                                   widget!.title,
@@ -170,9 +170,9 @@ class _ChoosePathComponentWidgetState extends State<ChoosePathComponentWidget> {
                                     ),
                               ),
                             ),
-                          ].divide(SizedBox(width: AppConstants.spacing)),
+                          ].divide(const SizedBox(width: AppConstants.spacing)),
                         ),
-                      ].divide(SizedBox(width: AppConstants.spacing)),
+                      ].divide(const SizedBox(width: AppConstants.spacing)),
                     ),
                     Text(
                       valueOrDefault<String>(
@@ -226,9 +226,9 @@ class _ChoosePathComponentWidgetState extends State<ChoosePathComponentWidget> {
                           color: widget!.btnColor,
                           size: 24.0,
                         ),
-                      ].divide(SizedBox(width: AppConstants.childPadding)),
+                      ].divide(const SizedBox(width: AppConstants.childPadding)),
                     ),
-                  ].divide(SizedBox(height: AppConstants.spacing)),
+                  ].divide(const SizedBox(height: AppConstants.spacing)),
                 ),
               ),
             ),

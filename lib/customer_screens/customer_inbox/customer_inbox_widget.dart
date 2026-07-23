@@ -118,7 +118,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -145,7 +145,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           itemText: '',
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.searchTextController,
@@ -221,7 +221,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                       .fontStyle,
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0x00000000),
                                 width: 1.0,
                               ),
@@ -328,7 +328,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 200.0, 0.0, 0.0),
                                 child: SizedBox(
                                   width: 50.0,
@@ -380,7 +380,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                               }
 
                               return ListView.separated(
-                                padding: EdgeInsets.fromLTRB(
+                                padding: const EdgeInsets.fromLTRB(
                                   0,
                                   0,
                                   0,
@@ -390,7 +390,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: conversations.length,
-                                separatorBuilder: (_, __) => SizedBox(
+                                separatorBuilder: (_, __) => const SizedBox(
                                     height: AppConstants.childSpacing),
                                 itemBuilder: (context, conversationsIndex) {
                                   final conversationsItem =
@@ -418,7 +418,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
                   updateCallback: () => _provider.notify(),

@@ -83,7 +83,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -101,7 +101,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Stack(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         children: [
                           Material(
                             color: Colors.transparent,
@@ -201,7 +201,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           context.pushNamed(
                             EditCustomerProfieWidget.routeName,
                             extra: <String, dynamic>{
-                              '__transition_info__': TransitionInfo(
+                              '__transition_info__': const TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.rightToLeft,
                               ),
@@ -209,16 +209,16 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           );
                         },
                         text: 'Edit Profile',
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.edit_rounded,
                           size: 26.0,
                         ),
                         options: AppButtonOptions(
                           width: 300.0,
                           height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: Colors.transparent,
                           textStyle:
@@ -249,7 +249,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
@@ -365,9 +365,9 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                     ),
                                   ),
                                 ]
-                                    .divide(SizedBox(
+                                    .divide(const SizedBox(
                                         height: AppConstants.childSpacing))
-                                    .around(SizedBox(
+                                    .around(const SizedBox(
                                         height: AppConstants.childSpacing)),
                               ),
                             ),
@@ -375,7 +375,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
@@ -466,7 +466,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       },
                                     ),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                             ),
@@ -474,7 +474,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
@@ -671,7 +671,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                                     backgroundColor:
                                                         Colors.transparent,
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                                 0.0, 0.0)
                                                             .resolve(
                                                                 Directionality.of(
@@ -686,7 +686,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                                             ?.unfocus();
                                                       },
                                                       child:
-                                                          ThemePickerWidget(),
+                                                          const ThemePickerWidget(),
                                                     ),
                                                   );
                                                 },
@@ -696,10 +696,10 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         ),
                                       ),
                                     ]
-                                        .divide(SizedBox(
+                                        .divide(const SizedBox(
                                             height:
                                                 AppConstants.childPadding))
-                                        .around(SizedBox(
+                                        .around(const SizedBox(
                                             height:
                                                 AppConstants.childPadding)),
                                   ),
@@ -725,7 +725,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               SplashScreenWidget.routeName, context.mounted);
                         },
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
                             padding: EdgeInsets.all(AppTheme.of(context)
                                 .designToken
@@ -735,13 +735,13 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.logout,
                                   color: Color(0xFFBA1A1A),
                                   size: 24.0,
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Text(
                                     'LOGOUT FROM DEVICE',
                                     style: AppTheme.of(context)
@@ -757,7 +757,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFFBA1A1A),
+                                          color: const Color(0xFFBA1A1A),
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               AppTheme.of(context)
@@ -780,17 +780,17 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: AppConstants.childSpacing))
-                        .addToEnd(SizedBox(height: 50.0)),
+                        .divide(const SizedBox(height: AppConstants.childSpacing))
+                        .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
                   updateCallback: () => _provider.update(() {}),
-                  child: CustomerNavbarWidget(
+                  child: const CustomerNavbarWidget(
                     selectedIndex: 2,
                   ),
                 ),

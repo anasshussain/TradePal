@@ -1,5 +1,6 @@
+import '/core/utils/image_decode_size.dart';
 import '/widgets/components/text_loader/text_loader_widget.dart';
-import '/core/animations.dart';
+import '/core/utils/animations.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
@@ -48,7 +49,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            color: Color(0x80FFFFFF),
+            color: const Color(0x80FFFFFF),
             angle: 0.524,
           ),
         ],
@@ -76,7 +77,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
       ),
       child: Container(
         width: double.infinity,
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           minHeight: 100.0,
         ),
         decoration: BoxDecoration(
@@ -102,6 +103,8 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
                   'https://images-ext-1.discordapp.net/external/AO96cLsz1bw1R0zy6qWuphMKgA7a3OkU2M3-zUSxcXM/%3Fq%3Dtbn%3AANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8%26usqp%3DCAU/https/encrypted-tbn0.gstatic.com/images?format=webp&width=562&height=360',
                   width: 56.0,
                   height: 56.0,
+                  cacheWidth: decodeCacheSize(context, 56.0),
+                  cacheHeight: decodeCacheSize(context, 56.0),
                   fit: BoxFit.cover,
                 ),
               ).animateOnPageLoad(animationsMap['imageOnPageLoadAnimation']!),
@@ -118,7 +121,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
                         wrapWithModel(
                           model: _model.textLoaderModel1,
                           updateCallback: () => safeSetState(() {}),
-                          child: TextLoaderWidget(
+                          child: const TextLoaderWidget(
                             height: 18,
                             width: 80,
                           ),
@@ -126,7 +129,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
                         wrapWithModel(
                           model: _model.textLoaderModel2,
                           updateCallback: () => safeSetState(() {}),
-                          child: TextLoaderWidget(
+                          child: const TextLoaderWidget(
                             height: 18,
                             width: 30,
                           ),
@@ -142,7 +145,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
                       child: wrapWithModel(
                         model: _model.textLoaderModel3,
                         updateCallback: () => safeSetState(() {}),
-                        child: TextLoaderWidget(
+                        child: const TextLoaderWidget(
                           height: 18,
                           width: 70,
                         ),
@@ -151,7 +154,7 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
                   ],
                 ),
               ),
-            ].divide(SizedBox(width: AppConstants.childSpacing)),
+            ].divide(const SizedBox(width: AppConstants.childSpacing)),
           ),
         ),
       ),

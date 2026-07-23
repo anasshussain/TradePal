@@ -1,5 +1,5 @@
 import '/widgets/components/text_loader/text_loader_widget.dart';
-import '/core/animations.dart';
+import '/core/utils/animations.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';

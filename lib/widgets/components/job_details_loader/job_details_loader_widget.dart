@@ -109,8 +109,8 @@ class _JobDetailsLoaderWidgetState extends State<JobDetailsLoaderWidget> {
               ),
             ),
           ]
-              .divide(SizedBox(height: AppConstants.parentPagePadding))
-              .addToEnd(SizedBox(height: 80.0)),
+              .divide(const SizedBox(height: AppConstants.parentPagePadding))
+              .addToEnd(const SizedBox(height: 80.0)),
         ),
       ),
     );

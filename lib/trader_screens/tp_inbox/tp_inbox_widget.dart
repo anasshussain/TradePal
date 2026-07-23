@@ -51,7 +51,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
         'conversation_participants',
       );
       await Future.delayed(
-        Duration(
+        const Duration(
           milliseconds: 500,
         ),
       );
@@ -121,7 +121,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -140,7 +140,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                       wrapWithModel(
                         model: _model.pageHeaderSectiomModel,
                         updateCallback: () => _provider.notify(),
-                        child: PageHeaderSectiomWidget(
+                        child: const PageHeaderSectiomWidget(
                           tag: '',
                           title: 'Inbox',
                           subtitle:
@@ -152,15 +152,15 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Container(
-                            decoration: BoxDecoration(),
-                            child: Container(
+                            decoration: const BoxDecoration(),
+                            child: SizedBox(
                               width: double.infinity,
                               child: TextFormField(
                                 controller: _model.searchTextController,
                                 focusNode: _model.searchFocusNode,
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.searchTextController',
-                                  Duration(milliseconds: 300),
+                                  const Duration(milliseconds: 300),
                                   () async {
                                     _model.searchJobApiRespone =
                                         await SupbaseRpcGroup
@@ -238,7 +238,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                             .fontStyle,
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
@@ -355,7 +355,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                           if (!snapshot.hasData) {
                             return Center(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 200.0, 0.0, 0.0),
                                 child: SizedBox(
                                   width: 50.0,
@@ -398,7 +398,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                   [];
 
                               return ListView.separated(
-                                padding: EdgeInsets.fromLTRB(
+                                padding: const EdgeInsets.fromLTRB(
                                   0,
                                   0,
                                   0,
@@ -408,7 +408,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: conversation.length,
-                                separatorBuilder: (_, __) => SizedBox(
+                                separatorBuilder: (_, __) => const SizedBox(
                                     height: AppConstants.childSpacing),
                                 itemBuilder: (context, conversationIndex) {
                                   final conversationItem =
@@ -431,16 +431,16 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                           );
                         },
                       ),
-                    ].divide(SizedBox(height: AppConstants.spacing)),
+                    ].divide(const SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
                   updateCallback: () => _provider.notify(),
-                  child: TpNavbarWidget(
+                  child: const TpNavbarWidget(
                     selectedIndex: 2,
                   ),
                 ),

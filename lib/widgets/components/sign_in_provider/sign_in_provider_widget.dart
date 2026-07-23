@@ -72,7 +72,7 @@ class _SignInProviderWidgetState extends State<SignInProviderWidget> {
               400.0,
             ),
             height: 50.0,
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: 300.0,
             ),
             decoration: BoxDecoration(
@@ -106,7 +106,7 @@ class _SignInProviderWidgetState extends State<SignInProviderWidget> {
                             AppTheme.of(context).labelMedium.fontStyle,
                       ),
                 ),
-              ].divide(SizedBox(width: AppConstants.childPadding)),
+              ].divide(const SizedBox(width: AppConstants.childPadding)),
             ),
           ),
         ),

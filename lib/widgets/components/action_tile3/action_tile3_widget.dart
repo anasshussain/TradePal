@@ -66,7 +66,7 @@ class _ActionTile3WidgetState extends State<ActionTile3Widget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Container(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -79,12 +79,12 @@ class _ActionTile3WidgetState extends State<ActionTile3Widget> {
                 decoration: BoxDecoration(
                   color: valueOrDefault<Color>(
                     widget!.bgColor,
-                    Color(0x1A635BFF),
+                    const Color(0x1A635BFF),
                   ),
                   borderRadius: BorderRadius.circular(9999.0),
                   shape: BoxShape.rectangle,
                 ),
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: widget!.icon!,
               ),
               Text(
@@ -109,7 +109,7 @@ class _ActionTile3WidgetState extends State<ActionTile3Widget> {
                       lineHeight: 1.4,
                     ),
               ),
-            ].divide(SizedBox(height: 8.0)),
+            ].divide(const SizedBox(height: 8.0)),
           ),
         ),
       ),

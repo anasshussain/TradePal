@@ -1,3 +1,4 @@
+import '/core/utils/image_decode_size.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -136,6 +137,8 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                     ),
                     width: 56.0,
                     height: 56.0,
+                    cacheWidth: decodeCacheSize(context, 56.0),
+                    cacheHeight: decodeCacheSize(context, 56.0),
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Image.asset(
                       'assets/images/error_image.svg',
@@ -224,7 +227,7 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                                   .bodyMedium
                                   .fontStyle,
                             ),
-                        duration: Duration(milliseconds: 600),
+                        duration: const Duration(milliseconds: 600),
                         curve: Curves.easeIn,
                         child: Text(
                           valueOrDefault<String>(
@@ -237,7 +240,7 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                     ],
                   ),
                 ),
-              ].divide(SizedBox(width: AppConstants.childSpacing)),
+              ].divide(const SizedBox(width: AppConstants.childSpacing)),
             ),
           ),
         ),

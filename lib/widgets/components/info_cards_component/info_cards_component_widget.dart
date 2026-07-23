@@ -1,3 +1,4 @@
+import '/core/utils/image_decode_size.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
@@ -140,7 +141,7 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
                                 .fontStyle,
                           ),
                     ),
-                ].divide(SizedBox(height: 5.0)),
+                ].divide(const SizedBox(height: 5.0)),
               ),
               if ((widget!.image != null && widget!.image != '') &&
                   responsiveVisibility(
@@ -156,11 +157,14 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
                     0.0,
                   )),
                   child: CachedNetworkImage(
-                    fadeInDuration: Duration(milliseconds: 500),
-                    fadeOutDuration: Duration(milliseconds: 500),
+                    fadeInDuration: const Duration(milliseconds: 500),
+                    fadeOutDuration: const Duration(milliseconds: 500),
                     imageUrl: widget!.image!,
                     width: double.infinity,
                     height: 200.0,
+                    // Width is unbounded, so only the height is capped; the
+                    // decoder preserves the aspect ratio from there.
+                    memCacheHeight: decodeCacheSize(context, 200.0),
                     fit: BoxFit.contain,
                     errorWidget: (context, error, stackTrace) => Image.asset(
                       'assets/images/error_image.svg',
@@ -170,7 +174,7 @@ class _InfoCardsComponentWidgetState extends State<InfoCardsComponentWidget> {
                     ),
                   ),
                 ),
-            ].divide(SizedBox(height: AppConstants.childSpacing)),
+            ].divide(const SizedBox(height: AppConstants.childSpacing)),
           ),
         ),
       ),

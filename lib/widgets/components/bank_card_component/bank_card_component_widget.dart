@@ -84,22 +84,22 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
           child: Container(
             width: 320.0,
             height: 200.0,
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: double.infinity,
               maxHeight: 200.0,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: Stack(
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
+                    alignment: const AlignmentDirectional(1.0, -1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 10.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 10.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -112,7 +112,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                   blurRadius: 4.0,
                                   color: AppTheme.of(context)
                                       .secondaryBackground,
-                                  offset: Offset(
+                                  offset: const Offset(
                                     0.5,
                                     0.5,
                                   ),
@@ -121,7 +121,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(2.0),
+                              padding: const EdgeInsets.all(2.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -155,7 +155,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 4.0,
                                         color: Color(0xFFC0C0C0),
@@ -167,7 +167,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     ],
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.delete_rounded,
                                     color: Color(0xFFD8D8D8),
                                     size: 30.0,
@@ -235,7 +235,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                               checkColor: AppTheme.of(context).info,
                             ),
                           ),
-                        ].divide(SizedBox(height: 20.0)),
+                        ].divide(const SizedBox(height: 20.0)),
                       ),
                     ),
                   ),
@@ -244,13 +244,13 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppTheme.of(context).success,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10.0),
                           bottomRight: Radius.circular(12.0),
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Text(
                           valueOrDefault<String>(
                             widget!.bankCardDetail?.bankName,
@@ -278,7 +278,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -325,7 +325,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
-                                color: Color(0x83FFFFFF),
+                                color: const Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
                                 fontWeight: AppTheme.of(context)
@@ -335,7 +335,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
-                                  Shadow(
+                                  const Shadow(
                                     color: Color(0xFFC0C0C0),
                                     offset: Offset(-1.5, -1.5),
                                     blurRadius: 4.0,
@@ -343,7 +343,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                   Shadow(
                                     color: AppTheme.of(context)
                                         .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
+                                    offset: const Offset(1.5, 1.5),
                                     blurRadius: 4.0,
                                   )
                                 ],
@@ -362,7 +362,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
-                                color: Color(0x83FFFFFF),
+                                color: const Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
                                 fontWeight: AppTheme.of(context)
@@ -372,7 +372,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
-                                  Shadow(
+                                  const Shadow(
                                     color: Color(0xFFC0C0C0),
                                     offset: Offset(-1.5, -1.5),
                                     blurRadius: 4.0,
@@ -380,7 +380,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                   Shadow(
                                     color: AppTheme.of(context)
                                         .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
+                                    offset: const Offset(1.5, 1.5),
                                     blurRadius: 4.0,
                                   )
                                 ],
@@ -399,7 +399,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
-                                color: Color(0x83FFFFFF),
+                                color: const Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
                                 fontWeight: AppTheme.of(context)
@@ -409,7 +409,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
-                                  Shadow(
+                                  const Shadow(
                                     color: Color(0xFFC0C0C0),
                                     offset: Offset(-1.5, -1.5),
                                     blurRadius: 4.0,
@@ -417,7 +417,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                   Shadow(
                                     color: AppTheme.of(context)
                                         .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
+                                    offset: const Offset(1.5, 1.5),
                                     blurRadius: 4.0,
                                   )
                                 ],
@@ -439,7 +439,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
-                                color: Color(0x83FFFFFF),
+                                color: const Color(0x83FFFFFF),
                                 fontSize: 28.0,
                                 letterSpacing: 0.0,
                                 fontWeight: AppTheme.of(context)
@@ -449,7 +449,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                     .bodyMedium
                                     .fontStyle,
                                 shadows: [
-                                  Shadow(
+                                  const Shadow(
                                     color: Color(0xFFC0C0C0),
                                     offset: Offset(-1.5, -1.5),
                                     blurRadius: 4.0,
@@ -457,13 +457,13 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                                   Shadow(
                                     color: AppTheme.of(context)
                                         .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
+                                    offset: const Offset(1.5, 1.5),
                                     blurRadius: 4.0,
                                   )
                                 ],
                               ),
                             ),
-                          ].divide(SizedBox(width: 10.0)),
+                          ].divide(const SizedBox(width: 10.0)),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -471,7 +471,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Text(
                                 functions
                                     .countryCodeToEmoji(valueOrDefault<String>(
@@ -499,7 +499,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 10.0),
                               child: Text(
                                 valueOrDefault<String>(
@@ -528,7 +528,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                             ),
                           ],
                         ),
-                      ].divide(SizedBox(height: 10.0)),
+                      ].divide(const SizedBox(height: 10.0)),
                     ),
                   ),
                 ],

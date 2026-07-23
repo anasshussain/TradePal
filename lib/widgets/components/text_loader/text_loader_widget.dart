@@ -1,4 +1,4 @@
-import '/core/animations.dart';
+import '/core/utils/animations.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
@@ -53,7 +53,7 @@ class _TextLoaderWidgetState extends State<TextLoaderWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            color: Color(0x57FFFFFF),
+            color: const Color(0x57FFFFFF),
             angle: 0.524,
           ),
         ],
@@ -76,7 +76,7 @@ class _TextLoaderWidgetState extends State<TextLoaderWidget>
       width: widget!.width.toDouble(),
       height: widget!.height.toDouble(),
       decoration: BoxDecoration(
-        color: Color(0xA8DCE4E8),
+        color: const Color(0xA8DCE4E8),
         borderRadius: BorderRadius.circular(
             AppTheme.of(context).designToken.radius.full),
       ),

@@ -97,7 +97,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -136,7 +136,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            alignment: const AlignmentDirectional(-1.0, 0.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: AppTheme.of(context)
@@ -179,7 +179,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                             ),
                           ),
                           Container(
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -192,9 +192,9 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                         AppTheme.of(context).primary,
                                         AppTheme.of(context).secondary
                                       ],
-                                      stops: [0.0, 1.0],
-                                      begin: AlignmentDirectional(-1.0, 0.14),
-                                      end: AlignmentDirectional(1.0, -0.14),
+                                      stops: const [0.0, 1.0],
+                                      begin: const AlignmentDirectional(-1.0, 0.14),
+                                      end: const AlignmentDirectional(1.0, -0.14),
                                     ),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(
@@ -318,27 +318,27 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                 ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.all(2.0),
+                                            padding: const EdgeInsets.all(2.0),
                                             child: AppButton(
                                               onPressed: () async {
                                                 context.pushNamed(
                                                     AddJobWidget.routeName);
                                               },
                                               text: 'Post a Job',
-                                              icon: Icon(
+                                              icon: const Icon(
                                                 Icons.arrow_forward,
                                                 size: 30.0,
                                               ),
                                               options: AppButtonOptions(
                                                 width: double.infinity,
                                                 height: 60.0,
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 iconAlignment:
                                                     IconAlignment.end,
                                                 iconPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -385,7 +385,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                               ),
                                             ),
                                           ),
-                                        ].divide(SizedBox(
+                                        ].divide(const SizedBox(
                                             height:
                                                 AppConstants.childSpacing)),
                                       ),
@@ -399,7 +399,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                             model: _model.statsModel1,
                             updateCallback: () => _provider.update(() {}),
                             child: StatsWidget(
-                              iconBackgroundColor: Color(0x4E2C4EB8),
+                              iconBackgroundColor: const Color(0x4E2C4EB8),
                               icon: Icon(
                                 Icons.work_outline,
                                 color: AppTheme.of(context).primary,
@@ -471,24 +471,24 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                           wrapWithModel(
                             model: _model.jobsListModel,
                             updateCallback: () => _provider.update(() {}),
-                            child: JobsListWidget(
+                            child: const JobsListWidget(
                               jobViewType: JobsViewType.DASHBOARD,
                             ),
                           ),
                         ]
-                            .divide(SizedBox(height: AppConstants.spacing))
-                            .addToEnd(SizedBox(height: 100.0)),
+                            .divide(const SizedBox(height: AppConstants.spacing))
+                            .addToEnd(const SizedBox(height: 100.0)),
                       ),
                     );
                   },
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
                   updateCallback: () => _provider.update(() {}),
-                  child: CustomerNavbarWidget(
+                  child: const CustomerNavbarWidget(
                     selectedIndex: 0,
                   ),
                 ),

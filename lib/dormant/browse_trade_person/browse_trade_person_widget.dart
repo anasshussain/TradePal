@@ -60,7 +60,7 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -79,7 +79,7 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
                       wrapWithModel(
                         model: _model.pageHeaderSectiomModel,
                         updateCallback: () => safeSetState(() {}),
-                        child: PageHeaderSectiomWidget(
+                        child: const PageHeaderSectiomWidget(
                           tag: 'DISCOVER EXCELLENCE',
                           title: 'Expert Hands for\nProfessional\nResults',
                           subtitle: 'default text',
@@ -87,16 +87,16 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
                           itemText: 'Vetted Pros',
                         ),
                       ),
-                    ].divide(SizedBox(height: AppConstants.spacing)),
+                    ].divide(const SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: Hero(
+                  child: const Hero(
                     tag: 'myHeroTag',
                     transitionOnUserGestures: true,
                     child: Material(

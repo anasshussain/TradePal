@@ -25,7 +25,7 @@ Future toast(
           color: AppTheme.of(context).messageText,
         ),
       ),
-      duration: Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 2000),
       backgroundColor: () {
         if (type == MessageType.SUCCESS) {
           return AppTheme.of(context).success;

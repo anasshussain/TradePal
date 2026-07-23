@@ -11,13 +11,13 @@ import '/widgets/components/empty_list_component/empty_list_component_widget.dar
 import '/widgets/components/loading_text/loading_text_widget.dart';
 import '/widgets/components/unlock_chat_dialogue_box_widget.dart';
 import '/widgets/components/user_preview_component/user_preview_component_widget.dart';
-import '/core/animations.dart';
+import '/core/utils/animations.dart';
 import '/widgets/app_expanded_image_view.dart';
 import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/upload_data.dart';
+import '/core/utils/upload_data.dart';
 import 'dart:math';
 import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
@@ -87,7 +87,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             'messages',
           );
           await Future.delayed(
-            Duration(
+            const Duration(
               milliseconds: 200,
             ),
           );
@@ -157,7 +157,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                           elevation: 0,
                           insetPadding: EdgeInsets.zero,
                           backgroundColor: Colors.transparent,
-                          alignment: AlignmentDirectional(0.0, 0.0)
+                          alignment: const AlignmentDirectional(0.0, 0.0)
                               .resolve(Directionality.of(context)),
                           child: GestureDetector(
                             onTap: () {
@@ -179,7 +179,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 'proposal_payments',
               );
               await Future.delayed(
-                Duration(
+                const Duration(
                   milliseconds: 200,
                 ),
               );
@@ -219,8 +219,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             curve: Curves.easeInOut,
             delay: 200.0.ms,
             duration: 500.0.ms,
-            begin: Offset(0.0, -10.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, -10.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -238,8 +238,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(0.0, -28.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, -28.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -317,7 +317,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 ),
               ),
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 0.0,
           ),
@@ -353,7 +353,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                             },
                             child: Container(
                               width: double.infinity,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0x8CDCE4E8),
                               ),
                               child: Padding(
@@ -489,7 +489,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(SizedBox(
+                                            ].divide(const SizedBox(
                                                 width: AppConstants
                                                     .childSpacing)),
                                           ),
@@ -519,10 +519,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               ),
                                         ),
                                       ]
-                                          .divide(SizedBox(
+                                          .divide(const SizedBox(
                                               width:
                                                   AppConstants.childSpacing))
-                                          .around(SizedBox(
+                                          .around(const SizedBox(
                                               width:
                                                   AppConstants.childSpacing)),
                                     ),
@@ -536,7 +536,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             (_provider.jobData?.status ==
                                                 Status.IN_PROGRESS)))
                                       Container(
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: AppButton(
                                           onPressed: () async {
                                             if (_provider.jobData?.status ==
@@ -698,10 +698,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             width: 300.0,
                                             height: 50.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 16.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: _provider.jobData?.status ==
                                                     Status.IN_PROGRESS
@@ -748,7 +748,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                         ),
                                       ).animateOnPageLoad(animationsMap[
                                           'containerOnPageLoadAnimation2']!),
-                                  ].divide(SizedBox(
+                                  ].divide(const SizedBox(
                                       height: AppConstants.childSpacing)),
                                 ),
                               ),
@@ -759,7 +759,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                           return Container(
                             width: 0.0,
                             height: 0.0,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                           );
                         }
                       },
@@ -863,7 +863,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
                                           itemCount: messages.length,
-                                          separatorBuilder: (_, __) => SizedBox(
+                                          separatorBuilder: (_, __) => const SizedBox(
                                               height:
                                                   AppConstants.childPadding),
                                           itemBuilder:
@@ -886,7 +886,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                 -1.0, 0.0),
                                                         child: Material(
                                                           color: Colors
@@ -919,7 +919,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           ),
                                                           child: Container(
                                                             constraints:
-                                                                BoxConstraints(
+                                                                const BoxConstraints(
                                                               maxWidth: 221.0,
                                                             ),
                                                             decoration:
@@ -1224,7 +1224,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             ),
                                                             child: Container(
                                                               constraints:
-                                                                  BoxConstraints(
+                                                                  const BoxConstraints(
                                                                 maxWidth: 221.0,
                                                               ),
                                                               decoration:
@@ -1427,7 +1427,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       ),
                                                     ],
                                                   ),
-                                              ].divide(SizedBox(
+                                              ].divide(const SizedBox(
                                                   height: AppConstants
                                                       .childPadding)),
                                             );
@@ -1443,7 +1443,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                             return wrapWithModel(
                               model: _model.loadingTextModel,
                               updateCallback: () => _provider.notify(),
-                              child: LoadingTextWidget(),
+                              child: const LoadingTextWidget(),
                             );
                           }
                         },
@@ -1452,12 +1452,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                   ],
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppTheme.of(context).secondaryBackground,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -1498,7 +1498,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Stack(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   1.0, -1.0),
                                               children: [
                                                 ClipRRect(
@@ -1516,13 +1516,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           1.12, -1.07),
                                                   child: AppIconButton(
                                                     borderRadius: 8.0,
                                                     buttonSize: 30.0,
                                                     fillColor:
-                                                        Color(0xFF747685),
+                                                        const Color(0xFF747685),
                                                     icon: Icon(
                                                       Icons.close,
                                                       color:
@@ -1740,7 +1740,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
-                                                  borderSide: BorderSide(
+                                                  borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 1.0,
                                                   ),
@@ -2071,7 +2071,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           backgroundColor:
                                                               Colors
                                                                   .transparent,
-                                                          alignment: AlignmentDirectional(
+                                                          alignment: const AlignmentDirectional(
                                                                   0.0, 0.0)
                                                               .resolve(
                                                                   Directionality.of(
@@ -2088,7 +2088,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   ?.unfocus();
                                                             },
                                                             child:
-                                                                CountinueBookingWidget(),
+                                                                const CountinueBookingWidget(),
                                                           ),
                                                         );
                                                       },
@@ -2105,7 +2105,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         backgroundColor:
                                                             Colors.transparent,
                                                         alignment:
-                                                            AlignmentDirectional(
+                                                            const AlignmentDirectional(
                                                                     0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
@@ -2135,11 +2135,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               },
                                             ),
                                           ),
-                                        ].divide(SizedBox(
+                                        ].divide(const SizedBox(
                                             width:
                                                 AppConstants.childSpacing)),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         height: AppConstants.childSpacing)),
                                   ),
                                 );
@@ -2147,7 +2147,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                 return Container(
                                   width: double.infinity,
                                   height: 60.0,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -2160,7 +2160,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           'This job has been completed',
                                           style: AppTheme.of(context)
@@ -2193,7 +2193,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               ),
                                         ),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         width: AppConstants.childSpacing)),
                                   ),
                                 );

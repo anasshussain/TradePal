@@ -3,7 +3,7 @@ import '/repositories/supabase/supabase.dart';
 import '/widgets/components/applogo_component/applogo_component_widget.dart';
 import '/widgets/components/info_cards_component/info_cards_component_widget.dart';
 import '/widgets/components/testimonials_component/testimonials_component_widget.dart';
-import '/core/animations.dart';
+import '/core/utils/animations.dart';
 import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
@@ -55,8 +55,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 350.0.ms,
-            begin: Offset(0.0, 20.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 20.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -101,7 +101,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       wrapWithModel(
                         model: _model.applogoComponentModel,
                         updateCallback: () => safeSetState(() {}),
-                        child: Hero(
+                        child: const Hero(
                           tag: 'logoTag',
                           transitionOnUserGestures: true,
                           child: Material(
@@ -173,7 +173,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       .fontStyle,
                                 ),
                           ),
-                        ].divide(SizedBox(height: AppConstants.spacing)),
+                        ].divide(const SizedBox(height: AppConstants.spacing)),
                       ),
                     ),
                   ),
@@ -226,7 +226,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: AppButton(
                       onPressed: () async {
                         await UsersTable().update(
@@ -243,17 +243,17 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         );
                       },
                       text: 'Get Started',
-                      icon: FaIcon(
+                      icon: const FaIcon(
                         FontAwesomeIcons.share,
                         size: 15.0,
                       ),
                       options: AppButtonOptions(
                         width: 300.0,
                         height: 50.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: AppTheme.of(context).primary,
                         textStyle:
                             AppTheme.of(context).titleSmall.override(
@@ -283,12 +283,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                   wrapWithModel(
                     model: _model.testimonialsComponentModel,
                     updateCallback: () => safeSetState(() {}),
-                    child: TestimonialsComponentWidget(),
+                    child: const TestimonialsComponentWidget(),
                   ),
                 ]
-                    .divide(SizedBox(height: 32.0))
-                    .addToStart(SizedBox(height: 24.0))
-                    .addToEnd(SizedBox(height: 24.0)),
+                    .divide(const SizedBox(height: 32.0))
+                    .addToStart(const SizedBox(height: 24.0))
+                    .addToEnd(const SizedBox(height: 24.0)),
               ),
             ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),
           ),

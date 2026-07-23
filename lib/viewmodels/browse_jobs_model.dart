@@ -7,7 +7,7 @@ import '/widgets/app_drop_down.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import 'dart:ui';
 import '/core/routes/index.dart';
 import '/trader_screens/browse_jobs/browse_jobs_widget.dart' show BrowseJobsWidget;

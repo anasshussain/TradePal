@@ -150,7 +150,7 @@ class _Button4WidgetState extends State<Button4Widget> {
           ),
         ),
         child: Stack(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           children: [
             Opacity(
               opacity: widget!.loading ? 0.0 : 1.0,
@@ -258,7 +258,7 @@ class _Button4WidgetState extends State<Button4Widget> {
                       false,
                     ))
                       widget!.iconEnd!,
-                  ].divide(SizedBox(width: 8.0)),
+                  ].divide(const SizedBox(width: 8.0)),
                 ),
               ),
             ),

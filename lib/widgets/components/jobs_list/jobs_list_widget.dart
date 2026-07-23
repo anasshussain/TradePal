@@ -121,14 +121,14 @@ class _JobsListWidgetState extends State<JobsListWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: 200.0,
                 child: TextFormField(
                   controller: _model.searchTextController,
                   focusNode: _model.searchFocusNode,
                   onChanged: (_) => EasyDebounce.debounce(
                     '_model.searchTextController',
-                    Duration(milliseconds: 300),
+                    const Duration(milliseconds: 300),
                     () async {
                       _model.searchJobApiRespone =
                           await SupabaseTablesGroup.getJobsListCall.call(
@@ -192,7 +192,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                                   .fontStyle,
                             ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0x00000000),
                         width: 1.0,
                       ),
@@ -339,7 +339,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                 scrollDirection: Axis.vertical,
                 itemCount: jobList.length,
                 separatorBuilder: (_, __) =>
-                    SizedBox(height: AppConstants.childPadding),
+                    const SizedBox(height: AppConstants.childPadding),
                 itemBuilder: (context, jobListIndex) {
                   final jobListItem = jobList[jobListIndex];
                   return JobItemWidget(

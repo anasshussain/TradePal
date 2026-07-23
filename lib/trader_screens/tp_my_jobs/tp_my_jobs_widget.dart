@@ -85,7 +85,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -144,8 +144,8 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       .fontStyle,
                                 ),
                         indicatorColor: AppTheme.of(context).primary,
-                        padding: EdgeInsets.all(6.0),
-                        tabs: [
+                        padding: const EdgeInsets.all(6.0),
+                        tabs: const [
                           Tab(
                             text: 'Requested',
                           ),
@@ -229,7 +229,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                     }
 
                                     return ListView.separated(
-                                      padding: EdgeInsets.fromLTRB(
+                                      padding: const EdgeInsets.fromLTRB(
                                         0,
                                         0,
                                         0,
@@ -239,7 +239,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: activeJobs.length,
-                                      separatorBuilder: (_, __) => SizedBox(
+                                      separatorBuilder: (_, __) => const SizedBox(
                                           height: AppConstants.childPadding),
                                       itemBuilder: (context, activeJobsIndex) {
                                         final activeJobsItem =
@@ -319,7 +319,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                     }
 
                                     return ListView.separated(
-                                      padding: EdgeInsets.fromLTRB(
+                                      padding: const EdgeInsets.fromLTRB(
                                         0,
                                         0,
                                         0,
@@ -329,7 +329,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: inprogressJobs.length,
-                                      separatorBuilder: (_, __) => SizedBox(
+                                      separatorBuilder: (_, __) => const SizedBox(
                                           height: AppConstants.childPadding),
                                       itemBuilder:
                                           (context, inprogressJobsIndex) {
@@ -410,7 +410,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                     }
 
                                     return ListView.separated(
-                                      padding: EdgeInsets.fromLTRB(
+                                      padding: const EdgeInsets.fromLTRB(
                                         0,
                                         0,
                                         0,
@@ -420,7 +420,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: completedJobs.length,
-                                      separatorBuilder: (_, __) => SizedBox(
+                                      separatorBuilder: (_, __) => const SizedBox(
                                           height: AppConstants.childPadding),
                                       itemBuilder:
                                           (context, completedJobsIndex) {
@@ -445,11 +445,11 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
                   updateCallback: () => _provider.update(() {}),
-                  child: Hero(
+                  child: const Hero(
                     tag: 'traderNavbar',
                     transitionOnUserGestures: true,
                     child: Material(

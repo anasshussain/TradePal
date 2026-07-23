@@ -90,8 +90,8 @@ class _LabelsWidgetState extends State<LabelsWidget> {
                 ),
           ),
         ]
-            .divide(SizedBox(width: AppConstants.childSpacing))
-            .around(SizedBox(width: AppConstants.childSpacing)),
+            .divide(const SizedBox(width: AppConstants.childSpacing))
+            .around(const SizedBox(width: AppConstants.childSpacing)),
       ),
     );
   }

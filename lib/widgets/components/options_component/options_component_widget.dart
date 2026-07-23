@@ -58,7 +58,7 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
       ),
       child: Container(
         width: 100.0,
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           minHeight: 50.0,
         ),
         decoration: BoxDecoration(
@@ -66,7 +66,7 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
           borderRadius: BorderRadius.circular(2.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(1.0),
+          padding: const EdgeInsets.all(1.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,7 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
                     HomeWidget.routeName,
                     context.mounted,
                     extra: <String, dynamic>{
-                      '__transition_info__': TransitionInfo(
+                      '__transition_info__': const TransitionInfo(
                         hasTransition: true,
                         transitionType: PageTransitionType.fade,
                         duration: Duration(milliseconds: 400),
@@ -105,7 +105,7 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
                     )),
                   ),
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Text(
                       'Logout',
                       style: AppTheme.of(context).bodyMedium.override(

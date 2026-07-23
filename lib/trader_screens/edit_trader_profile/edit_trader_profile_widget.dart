@@ -9,8 +9,8 @@ import '/widgets/app_choice_chips.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/form_field_controller.dart';
-import '/core/upload_data.dart';
+import '/core/utils/form_field_controller.dart';
+import '/core/utils/upload_data.dart';
 import 'dart:ui';
 import '/utils/custom_code/actions/index.dart' as actions;
 import '/core/routes/index.dart';
@@ -125,7 +125,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -174,7 +174,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Stack(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   children: [
                                     Material(
                                       color: Colors.transparent,
@@ -203,12 +203,12 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           ),
                                         ),
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Container(
                                           width: 100.0,
                                           height: 100.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
@@ -234,9 +234,9 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(0.34, 0.0),
+                                          const AlignmentDirectional(0.34, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 97.0, 0.0, 0.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -334,9 +334,9 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                   width: 2.0,
                                                 ),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.edit,
                                                 color: Colors.white,
                                                 size: 22.0,
@@ -407,7 +407,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                       .fontStyle,
                                             ),
                                       ),
-                                      TextSpan(
+                                      const TextSpan(
                                         text: ' : ',
                                         style: TextStyle(),
                                       ),
@@ -418,7 +418,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               .registrationNumber,
                                           '0',
                                         ),
-                                        style: TextStyle(),
+                                        style: const TextStyle(),
                                       )
                                     ],
                                     style: AppTheme.of(context)
@@ -443,9 +443,9 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                               ]
-                                  .divide(SizedBox(
+                                  .divide(const SizedBox(
                                       height: AppConstants.childSpacing))
-                                  .around(SizedBox(
+                                  .around(const SizedBox(
                                       height: AppConstants.childSpacing)),
                             ),
                           ),
@@ -495,7 +495,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.verified_outlined,
                                         color: Colors.white,
                                         size: 27.0,
@@ -652,7 +652,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
                                     'Full Name',
                                     style: AppTheme.of(context)
@@ -695,14 +695,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller:
@@ -775,7 +775,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -783,7 +783,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -857,7 +857,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -910,14 +910,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller:
@@ -990,7 +990,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -998,7 +998,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1072,7 +1072,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1125,14 +1125,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller:
@@ -1206,7 +1206,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1214,7 +1214,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1284,7 +1284,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1337,14 +1337,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller:
@@ -1417,7 +1417,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1425,7 +1425,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1495,7 +1495,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1548,14 +1548,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller:
@@ -1629,7 +1629,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1637,7 +1637,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -1707,7 +1707,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1776,9 +1776,9 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           ),
                                           Expanded(
                                             child: Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
@@ -1853,7 +1853,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                             ),
                                                     enabledBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -1864,7 +1864,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     ),
                                                     focusedBorder:
                                                         OutlineInputBorder(
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -2030,7 +2030,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         insetPadding: EdgeInsets.zero,
                                         backgroundColor: Colors.transparent,
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0)
+                                            const AlignmentDirectional(0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
                                         child: GestureDetector(
@@ -2040,7 +2040,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             FocusManager.instance.primaryFocus
                                                 ?.unfocus();
                                           },
-                                          child: AddSkillsWidget(),
+                                          child: const AddSkillsWidget(),
                                         ),
                                       );
                                     },
@@ -2055,7 +2055,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                 child: Container(
                                   width: 110.0,
                                   height: 40.0,
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -2160,7 +2160,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                              iconColor: Color(0x00000000),
+                              iconColor: const Color(0x00000000),
                               iconSize: 16.0,
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(8.0),
@@ -2189,7 +2189,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                              iconColor: Color(0x00000000),
+                              iconColor: const Color(0x00000000),
                               iconSize: 16.0,
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(8.0),
@@ -2289,7 +2289,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
                                     'PROVIDER NAME',
                                     style: AppTheme.of(context)
@@ -2332,14 +2332,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller: _model
@@ -2414,7 +2414,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -2422,7 +2422,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -2496,7 +2496,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -2549,14 +2549,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       ),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
                                                 .designToken
                                                 .spacing
                                                 .sm),
-                                        child: Container(
+                                        child: SizedBox(
                                           width: double.infinity,
                                           child: TextFormField(
                                             controller: _model
@@ -2631,7 +2631,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                 .fontStyle,
                                                       ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -2639,7 +2639,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -2713,7 +2713,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -2854,7 +2854,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -2943,7 +2943,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         wrapWithModel(
                           model: _model.alertsModel,
                           updateCallback: () => _provider.notify(),
-                          child: AlertsWidget(
+                          child: const AlertsWidget(
                             title: 'ACTION REQUIRED',
                             description:
                                 'Your insurance certificate expires\nin 12 days. Upload a renewed\ncertificate to maintain your\nstatus.',
@@ -3035,7 +3035,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                 context.goNamed(
                                   TraderProfileWidget.routeName,
                                   extra: <String, dynamic>{
-                                    '__transition_info__': TransitionInfo(
+                                    '__transition_info__': const TransitionInfo(
                                       hasTransition: true,
                                       transitionType: PageTransitionType.fade,
                                       duration: Duration(milliseconds: 0),
@@ -3058,9 +3058,9 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         options: AppButtonOptions(
                           width: 300.0,
                           height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: AppTheme.of(context).primary,
                           textStyle:
@@ -3091,8 +3091,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: AppConstants.childSpacing))
-                        .addToEnd(SizedBox(height: 50.0)),
+                        .divide(const SizedBox(height: AppConstants.childSpacing))
+                        .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),
               ),

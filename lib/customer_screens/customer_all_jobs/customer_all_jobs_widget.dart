@@ -125,7 +125,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -146,14 +146,14 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Container(
+                        child: SizedBox(
                           width: 200.0,
                           child: TextFormField(
                             controller: _model.searchTextController,
                             focusNode: _model.searchFocusNode,
                             onChanged: (_) => EasyDebounce.debounce(
                               '_model.searchTextController',
-                              Duration(milliseconds: 300),
+                              const Duration(milliseconds: 300),
                               () async {
                                 _model.searchJobApiRespone =
                                     await SupabaseTablesGroup.getJobsListCall
@@ -223,7 +223,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                         .fontStyle,
                                   ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1.0,
                                 ),
@@ -362,7 +362,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                   [];
                               if (jobList.isEmpty) {
                                 return Center(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     height: 200.0,
                                     child: EmptyListComponentWidget(
@@ -386,7 +386,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: jobList.length,
-                                separatorBuilder: (_, __) => SizedBox(
+                                separatorBuilder: (_, __) => const SizedBox(
                                     height: AppConstants.childPadding),
                                 itemBuilder: (context, jobListIndex) {
                                   final jobListItem = jobList[jobListIndex];
@@ -402,14 +402,14 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                         );
                       } else {
                         return Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 200.0, 0.0, 0.0),
                             child: wrapWithModel(
                               model: _model.loadingComponentModel,
                               updateCallback: () => _provider.notify(),
-                              child: LoadingComponentWidget(),
+                              child: const LoadingComponentWidget(),
                             ),
                           ),
                         );

@@ -99,7 +99,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),

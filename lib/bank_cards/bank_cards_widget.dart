@@ -115,7 +115,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Container(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -197,7 +197,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                                       lineHeight: 1.4,
                                     ),
                               ),
-                            ].divide(SizedBox(height: 2.0)),
+                            ].divide(const SizedBox(height: 2.0)),
                           ),
                           AppIconButton(
                             borderRadius: 10.0,
@@ -270,7 +270,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                                   itemBuilder: (context, bankIndex) {
                                     final bankItem = bank[bankIndex];
                                     return Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: BankCardComponentWidget(
                                         key: Key(
                                             'Keywhx_${bankIndex}_of_${bank.length}'),
@@ -282,9 +282,9 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                               },
                             ),
                           ),
-                        ].divide(SizedBox(height: 10.0)),
+                        ].divide(const SizedBox(height: 10.0)),
                       ),
-                    ].divide(SizedBox(height: 20.0)),
+                    ].divide(const SizedBox(height: 20.0)),
                   ),
                 ),
               ),

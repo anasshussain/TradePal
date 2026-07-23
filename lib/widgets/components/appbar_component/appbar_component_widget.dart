@@ -86,7 +86,7 @@ class _AppbarComponentWidgetState extends State<AppbarComponentWidget> {
                       builder: (context) {
                         if (widget!.extraWidget != null) {
                           return Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            alignment: const AlignmentDirectional(-1.0, 0.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -98,7 +98,7 @@ class _AppbarComponentWidgetState extends State<AppbarComponentWidget> {
                               child: Builder(builder: (_) {
                                 return widget.extraWidget != null
                                     ? widget.extraWidget!()
-                                    : SizedBox.shrink();
+                                    : const SizedBox.shrink();
                               }),
                             ),
                           );

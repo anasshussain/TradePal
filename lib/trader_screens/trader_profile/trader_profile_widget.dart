@@ -7,7 +7,7 @@ import '/widgets/app_choice_chips.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +84,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -102,7 +102,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Stack(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         children: [
                           Material(
                             color: Colors.transparent,
@@ -139,9 +139,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.28, 0.0),
+                            alignment: const AlignmentDirectional(0.28, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 95.0, 0.0, 0.0),
                               child: Material(
                                 color: Colors.transparent,
@@ -164,7 +164,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       0.0,
                                     )),
                                   ),
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(0.0),
                                     child: SvgPicture.asset(
@@ -215,16 +215,16 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 .pushNamed(EditTraderProfileWidget.routeName);
                           },
                           text: 'Edit Profile',
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.edit_rounded,
                             size: 26.0,
                           ),
                           options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: Colors.transparent,
                             textStyle: AppTheme.of(context)
@@ -522,7 +522,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       ),
                                     ],
                                   ),
-                              ].divide(SizedBox(
+                              ].divide(const SizedBox(
                                   height: AppConstants.childSpacing)),
                             ),
                           ),
@@ -748,7 +748,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                               .fontStyle,
                                                     ),
                                               ),
-                                              TextSpan(
+                                              const TextSpan(
                                                 text: '2,450.00',
                                                 style: TextStyle(),
                                               )
@@ -786,7 +786,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.32, 0.0),
+                                              const AlignmentDirectional(0.32, 0.0),
                                           child: Material(
                                             color: Colors.transparent,
                                             elevation: 0.0,
@@ -812,9 +812,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   0.0,
                                                 )),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.arrow_forward_ios,
                                                 color: Colors.white,
                                                 size: 14.0,
@@ -1085,7 +1085,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     decoration: BoxDecoration(
                                       color:
                                           AppTheme.of(context).primary,
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(8.0),
                                         bottomLeft: Radius.circular(8.0),
                                       ),
@@ -1183,7 +1183,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                 ),
                                                 child: Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Text(
                                                     'ACTIVE',
@@ -1205,7 +1205,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                                     .fontStyle,
                                                           ),
                                                           color:
-                                                              Color(0xFFF8F7FF),
+                                                              const Color(0xFFF8F7FF),
                                                           fontSize: 10.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -1389,7 +1389,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       text: AppState()
                                                           .userProfileCache
                                                           .insuranceAmount,
-                                                      style: TextStyle(),
+                                                      style: const TextStyle(),
                                                     )
                                                   ],
                                                   style: AppTheme.of(
@@ -1635,7 +1635,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                               .bodyMedium
                                                               .fontStyle,
                                                     ),
-                                                    color: Color(0xFF214FC7),
+                                                    color: const Color(0xFF214FC7),
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                     fontStyle:
@@ -1843,7 +1843,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   model: _model.settingsComponentModel1,
                                   updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.payment,
                                       color: Colors.white,
                                       size: 22.0,
@@ -1870,7 +1870,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   model: _model.settingsComponentModel2,
                                   updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.lock_outline,
                                       color: Colors.white,
                                       size: 22.0,
@@ -1893,7 +1893,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   model: _model.settingsComponentModel3,
                                   updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.lock_outline,
                                       color: Colors.white,
                                       size: 22.0,
@@ -1920,7 +1920,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   model: _model.settingsComponentModel4,
                                   updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.notifications_none,
                                       color: Colors.white,
                                       size: 22.0,
@@ -1962,7 +1962,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     model: _model.settingsComponentModel6,
                                     updateCallback: () => _provider.notify(),
                                     child: SettingsComponentWidget(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.dark_mode_outlined,
                                         color: Colors.white,
                                         size: 22.0,
@@ -1980,7 +1980,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               backgroundColor:
                                                   Colors.transparent,
                                               alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
+                                                  const AlignmentDirectional(0.0, 0.0)
                                                       .resolve(
                                                           Directionality.of(
                                                               context)),
@@ -1992,7 +1992,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       .instance.primaryFocus
                                                       ?.unfocus();
                                                 },
-                                                child: ThemePickerWidget(),
+                                                child: const ThemePickerWidget(),
                                               ),
                                             );
                                           },
@@ -2001,7 +2001,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     ),
                                   ),
                                 ),
-                              ].divide(SizedBox(
+                              ].divide(const SizedBox(
                                   height: AppConstants.childSpacing)),
                             ),
                           ),
@@ -2023,7 +2023,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               SplashScreenWidget.routeName, context.mounted);
                         },
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
                             padding: EdgeInsets.all(AppTheme.of(context)
                                 .designToken
@@ -2033,13 +2033,13 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.logout,
                                   color: Color(0xFFBA1A1A),
                                   size: 24.0,
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Text(
                                     'LOGOUT FROM DEVICE',
                                     style: AppTheme.of(context)
@@ -2055,7 +2055,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFFBA1A1A),
+                                          color: const Color(0xFFBA1A1A),
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               AppTheme.of(context)
@@ -2078,17 +2078,17 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: AppConstants.childSpacing))
-                        .addToEnd(SizedBox(height: 50.0)),
+                        .divide(const SizedBox(height: AppConstants.childSpacing))
+                        .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
                   updateCallback: () => _provider.notify(),
-                  child: TpNavbarWidget(
+                  child: const TpNavbarWidget(
                     selectedIndex: 3,
                   ),
                 ),
