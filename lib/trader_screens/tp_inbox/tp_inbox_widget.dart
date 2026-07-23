@@ -326,6 +326,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                         future: (_model.apiRequestCompleter ??= Completer<
                                 ApiCallResponse>()
                               ..complete(
+                                
                                   SupabaseTablesGroup.getConversationsCall.call(
                                 userId: currentUserUid,
                               )))
