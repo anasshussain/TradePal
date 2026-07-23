@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -57,14 +59,11 @@ class _AddJobWidgetState extends State<AddJobWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddJobModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget!.jobData!.images.isNotEmpty) {
-        _provider.existingImages = widget!.jobData!.images.toList().cast<String>();
-        _provider.notify();
-      }
-    });
+    if (widget!.jobData != null && !_provider.hasLoadedOnce) {
+      _provider.loading = true;
+    } else {
+      _provider.loading = false;
+    }
 
     _model.jobTitleTextController ??=
         TextEditingController(text: widget!.jobData?.title);

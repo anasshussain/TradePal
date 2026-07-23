@@ -9,9 +9,8 @@ import '/models/structs/index.dart';
 /// provider (via `Consumer`/`context.watch`) and mutations are published with
 /// [notify] / [update] instead of `setState`.
 class JobDetailsProvider extends ChangeNotifier {
-  ///  Local state fields for this page.
-
-  bool? loading = true;
+  static final Set<String> _loadedJobIds = {};
+  bool loading = true;
 
   JobDataStruct? fetchedJob;
   void updateFetchedJobStruct(Function(JobDataStruct) updateFn) {
@@ -47,12 +46,17 @@ class JobDetailsProvider extends ChangeNotifier {
     super.dispose();
   }
 
-  /// Notify observers without mutating state (replaces empty setState).
   void notify() {
     if (!_disposed) notifyListeners();
   }
+  bool isAlreadyLoaded(String? jobId) =>
+      jobId != null && _loadedJobIds.contains(jobId);
 
-  /// Run [fn] then notify observers (replaces `setState(() => ...)`).
+  void markLoaded(String? jobId) {
+    if (jobId != null) _loadedJobIds.add(jobId);
+  }
+
+
   void update(VoidCallback fn) {
     fn();
     if (!_disposed) notifyListeners();

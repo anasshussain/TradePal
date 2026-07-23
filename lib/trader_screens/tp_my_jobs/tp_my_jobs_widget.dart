@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
@@ -102,59 +104,37 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                       child: TabBar(
                         isScrollable: true,
                         tabAlignment: TabAlignment.center,
-                        labelColor: AppTheme.of(context).primaryText,
-                        unselectedLabelColor:
-                            AppTheme.of(context).accent1,
-                        labelStyle:
-                            AppTheme.of(context).titleMedium.override(
-                                  font: GoogleFonts.manrope(
-                                    fontWeight: AppTheme.of(context)
-                                        .titleMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .titleMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .titleMedium
-                                      .fontStyle,
-                                ),
-                        unselectedLabelStyle:
-                            AppTheme.of(context).titleMedium.override(
-                                  font: GoogleFonts.manrope(
-                                    fontWeight: AppTheme.of(context)
-                                        .titleMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
-                                  ),
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .titleMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .titleMedium
-                                      .fontStyle,
-                                ),
+                        labelColor: AppTheme.of(context).primary,
+                        unselectedLabelColor: AppTheme.of(context)
+                            .secondaryText
+                            .withOpacity(0.5),
+                        labelStyle: AppTheme.of(context).titleMedium.override(
+                          font: GoogleFonts.manrope(
+                            fontWeight: FontWeight.w700,
+                            fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                          ),
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                        ),
+                        unselectedLabelStyle: AppTheme.of(context).titleMedium.override(
+                          font: GoogleFonts.manrope(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                          ),
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                        ),
                         indicatorColor: AppTheme.of(context).primary,
+                        indicatorWeight: 3.0,
                         padding: const EdgeInsets.all(6.0),
                         tabs: const [
-                          Tab(
-                            text: 'Requested',
-                          ),
-                          Tab(
-                            text: 'in-Progress',
-                          ),
-                          Tab(
-                            text: 'Completed',
-                          ),
+                          Tab(text: 'Requested'),
+                          Tab(text: 'in-Progress'),
+                          Tab(text: 'Completed'),
                         ],
                         controller: _model.tabBarController,
                         onTap: (i) async {
@@ -179,19 +159,17 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                                 status: Status.ACTIVE.name,
                               ),
                               builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: SpinKitFadingCube(
-                                        color: AppTheme.of(context)
-                                            .primary,
-                                        size: 50.0,
-                                      ),
-                                    ),
+                                  if (!TpMyJobsProvider.isLoadingRequested) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return Skeletonizer(
+                                    enabled: true,
+                                    child: _buildJobsSkeletonList(),
                                   );
+                                }
+                                if (TpMyJobsProvider.isLoadingRequested) {
+                                  TpMyJobsProvider.isLoadingRequested = false;
                                 }
                                 final listViewGetSubmittedJobsListResponse =
                                     snapshot.data!;
@@ -463,6 +441,47 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+  Widget _buildJobsSkeletonList() {
+    return ListView.separated(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
+      primary: false,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 5,
+      separatorBuilder: (_, __) =>
+      const SizedBox(height: AppConstants.childPadding),
+      itemBuilder: (context, index) => Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: AppTheme.of(context).alternate,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text('Placeholder job title'),
+                  SizedBox(height: 6),
+                  Text('Placeholder job subtitle line'),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

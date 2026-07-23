@@ -20,7 +20,10 @@ class LoginProvider extends ChangeNotifier {
 
   /// Run [fn] then notify observers (replaces setState(() => ...)).
   void update(VoidCallback fn) {
+    if (_disposed) return;
     fn();
-    if (!_disposed) notifyListeners();
+    if (!_disposed) {
+      notifyListeners();
+    }
   }
 }

@@ -50,7 +50,10 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model.passwordTextController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _provider.notify();
+    });
   }
 
   @override
@@ -709,11 +712,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           await action_blocks
                                               .getFcmToken(context);
                                         }
-                                        _provider.update(() {
+                                        if (mounted) {
                                           _model.emailTextController?.clear();
-                                          _model.passwordTextController
-                                              ?.clear();
-                                        });
+                                          _model.passwordTextController?.clear();
+                                        }
                                       }
                                     }),
                                     Future(() async {

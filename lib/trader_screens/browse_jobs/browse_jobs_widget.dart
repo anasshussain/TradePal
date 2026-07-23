@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/utils/enums/enums.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/jobs_list/jobs_list_widget.dart';
@@ -37,7 +39,11 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
     super.initState();
     _model = createModel(context, () => BrowseJobsModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _provider.update(() {
+        BrowseJobsProvider.isLoading = false;
+      });
+    });
   }
 
   @override
@@ -104,19 +110,22 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      wrapWithModel(
-                        model: _model.pageHeaderSectiomModel,
-                        updateCallback: () => _provider.update(() {}),
-                        child: PageHeaderSectiomWidget(
-                          tag: 'MARKETPLACE',
-                          title: 'Available Jobs',
-                          subtitle:
-                              'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
-                          numberOfItems: valueOrDefault<int>(
-                            AppState().jobCache.jobs.length,
-                            0,
+                      Skeletonizer(
+                        enabled: BrowseJobsProvider.isLoading,
+                        child: wrapWithModel(
+                          model: _model.pageHeaderSectiomModel,
+                          updateCallback: () => _provider.update(() {}),
+                          child: PageHeaderSectiomWidget(
+                            tag: 'MARKETPLACE',
+                            title: 'Available Jobs',
+                            subtitle:
+                                'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
+                            numberOfItems: valueOrDefault<int>(
+                              AppState().jobCache.jobs.length,
+                              0,
+                            ),
+                            itemText: 'Jobs nearby',
                           ),
-                          itemText: 'Jobs nearby',
                         ),
                       ),
                       if (responsiveVisibility(

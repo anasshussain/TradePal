@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -14,16 +16,12 @@ import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/tp_inbox_provider.dart';
 import '/viewmodels/tp_inbox_model.dart';
 export '/viewmodels/tp_inbox_model.dart';
 
-/// could you design me an all chats inbox page with 2 list views.
-///
-/// 1 for trades and 1 for customers
 class TpInboxWidget extends StatefulWidget {
   const TpInboxWidget({super.key});
 
@@ -353,20 +351,19 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
-                            return Center(
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 200.0, 0.0, 0.0),
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitFadingCube(
-                                    color: AppTheme.of(context).primary,
-                                    size: 50.0,
-                                  ),
-                                ),
-                              ),
+                            // Sirf pehli dafa (poori app session mein) skeleton dikhega.
+                            // Baad ke re-fetches (realtime subscription se) pe kuch nahi dikhega —
+                            // taake bar bar flash na ho.
+                            if (!TpInboxProvider.isLoading) {
+                              return const SizedBox.shrink();
+                            }
+                            return Skeletonizer(
+                              enabled: true,
+                              child: _buildInboxSkeletonList(),
                             );
+                          }
+                          if (TpInboxProvider.isLoading) {
+                            TpInboxProvider.isLoading = false;
                           }
                           final listViewGetConversationsResponse =
                               snapshot.data!;
@@ -448,6 +445,33 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
             ],
           ),
         ),
+      ),
+    );
+  }
+  Widget _buildInboxSkeletonList() {
+    return ListView.separated(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 80.0),
+      primary: false,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 6,
+      separatorBuilder: (_, __) =>
+      const SizedBox(height: AppConstants.spacing),
+      itemBuilder: (context, index) => Row(
+        children: [
+          const CircleAvatar(radius: 24),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('Placeholder name'),
+                SizedBox(height: 6),
+                Text('Placeholder last message preview line here'),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

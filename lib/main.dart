@@ -23,7 +23,7 @@ void main() async {
 
   await initFirebase();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  await NotificationService.instance.init();
+  // await NotificationService.instance.init();
 
   // These three are mutually independent: Supabase reads its own hardcoded
   // credentials, and the other two only wrap SharedPreferences.getInstance().

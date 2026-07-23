@@ -147,12 +147,15 @@ class AppState extends ChangeNotifier {
   JobCacheStruct _jobCache = JobCacheStruct.fromSerializableMap(jsonDecode(
       '{\"jobs\":\"[]\",\"last_cursor\":\"0\",\"first_cursor\":\"0\",\"has_more\":\"true\"}'));
   JobCacheStruct get jobCache => _jobCache;
+
   set jobCache(JobCacheStruct value) {
     _jobCache = value;
+    notifyListeners();
   }
 
   void updateJobCacheStruct(Function(JobCacheStruct) updateFn) {
     updateFn(_jobCache);
+    notifyListeners();
   }
 
   List<String> _availableServices = [

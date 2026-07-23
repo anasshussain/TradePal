@@ -211,18 +211,18 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Image.network(
+                                          child: _model.uploadedLocalFile_uploadImg?.bytes != null
+                                              ? Image.memory(
+                                            _model.uploadedLocalFile_uploadImg!.bytes!,
+                                            fit: BoxFit.cover,
+                                          )
+                                              : Image.network(
                                             valueOrDefault<String>(
-                                              _model.uploadedFileUrl_uploadImg !=
-                                                          null &&
-                                                      _model.uploadedFileUrl_uploadImg !=
-                                                          ''
-                                                  ? _model
-                                                      .uploadedFileUrl_uploadImg
+                                              _model.uploadedFileUrl_uploadImg != null &&
+                                                  _model.uploadedFileUrl_uploadImg != ''
+                                                  ? _model.uploadedFileUrl_uploadImg
                                                   : valueOrDefault<String>(
-                                                      AppState()
-                                                          .userProfileCache
-                                                          .avatarUrl,
+                                                AppState().userProfileCache.avatarUrl,
                                                       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
                                                     ),
                                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
@@ -244,73 +244,39 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            final selectedMedia =
-                                                await selectMedia(
+                                            final selectedMedia = await selectMedia(
                                               storageFolderPath: 'user',
-                                              mediaSource:
-                                                  MediaSource.photoGallery,
+                                              mediaSource: MediaSource.photoGallery,
                                               multiImage: false,
                                             );
                                             if (selectedMedia != null &&
-                                                selectedMedia.every((m) =>
-                                                    validateFileFormat(
-                                                        m.storagePath,
-                                                        context))) {
-                                              _provider.update(() => _model
-                                                      .isDataUploading_uploadImg =
-                                                  true);
-                                              var selectedUploadedFiles =
-                                                  <UploadedFile>[];
+                                                selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
 
-                                              var downloadUrls = <String>[];
-                                              try {
-                                                selectedUploadedFiles =
-                                                    selectedMedia
-                                                        .map((m) =>
-                                                            UploadedFile(
-                                                              name: m
-                                                                  .storagePath
-                                                                  .split('/')
-                                                                  .last,
-                                                              bytes: m.bytes,
-                                                              height: m
-                                                                  .dimensions
-                                                                  ?.height,
-                                                              width: m
-                                                                  .dimensions
-                                                                  ?.width,
-                                                              blurHash:
-                                                                  m.blurHash,
-                                                              originalFilename:
-                                                                  m.originalFilename,
-                                                            ))
-                                                        .toList();
-
-                                                downloadUrls =
-                                                    await uploadSupabaseStorageFiles(
-                                                  bucketName: 'general',
-                                                  selectedFiles: selectedMedia,
-                                                );
-                                              } finally {
-                                                _model.isDataUploading_uploadImg =
-                                                    false;
-                                              }
-                                              if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
-                                                _provider.update(() {
-                                                  _model.uploadedLocalFile_uploadImg =
-                                                      selectedUploadedFiles
-                                                          .first;
-                                                  _model.uploadedFileUrl_uploadImg =
-                                                      downloadUrls.first;
-                                                });
-                                              } else {
-                                                _provider.notify();
-                                                return;
-                                              }
+                                              final localFile = UploadedFile(
+                                                name: selectedMedia.first.storagePath.split('/').last,
+                                                bytes: selectedMedia.first.bytes,
+                                                height: selectedMedia.first.dimensions?.height,
+                                                width: selectedMedia.first.dimensions?.width,
+                                                blurHash: selectedMedia.first.blurHash,
+                                                originalFilename: selectedMedia.first.originalFilename,
+                                              );
+                                              _provider.update(() {
+                                                _model.uploadedLocalFile_uploadImg = localFile;
+                                                _model.isDataUploading_uploadImg = true;
+                                              });
+                                              uploadSupabaseStorageFiles(
+                                                bucketName: 'general',
+                                                selectedFiles: selectedMedia,
+                                              ).then((downloadUrls) {
+                                                if (downloadUrls.isNotEmpty) {
+                                                  _provider.update(() {
+                                                    _model.uploadedFileUrl_uploadImg = downloadUrls.first;
+                                                    _model.isDataUploading_uploadImg = false;
+                                                  });
+                                                } else {
+                                                  _provider.update(() => _model.isDataUploading_uploadImg = false);
+                                                }
+                                              });
                                             }
                                           },
                                           child: Material(

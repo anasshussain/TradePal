@@ -62,7 +62,6 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
             ? ''
             : AppState().userProfileCache.streetaddress);
     _model.streetadressFocusNode ??= FocusNode();
-
     _model.postalcodeTextController ??= TextEditingController(
         text: AppState().userProfileCache.zipcode == 'empty'
             ? ''
@@ -167,10 +166,18 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                 ),
-                                child: Image.network(
+                                child: _model.uploadedLocalFile_uploaded?.bytes != null
+                                    ? Image.memory(
+                                  _model.uploadedLocalFile_uploaded!.bytes!,
+                                  fit: BoxFit.cover,
+                                )
+                                    : Image.network(
                                   valueOrDefault<String>(
                                     _model.uploadedFileUrl_uploaded != null &&
-                                            _model.uploadedFileUrl_uploaded != '' ? _model.uploadedFileUrl_uploaded : AppState().userProfileCache.avatarUrl, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
+                                        _model.uploadedFileUrl_uploaded != ''
+                                        ? _model.uploadedFileUrl_uploaded
+                                        : AppState().userProfileCache.avatarUrl,
+                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -195,51 +202,37 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                   );
                                   if (selectedMedia != null &&
                                       selectedMedia.every((m) =>
-                                          validateFileFormat(
-                                              m.storagePath, context))) {
-                                    _provider.update(() =>
-                                        _model.isDataUploading_uploaded = true);
-                                    var selectedUploadedFiles =
-                                        <UploadedFile>[];
+                                          validateFileFormat(m.storagePath, context))) {
 
-                                    var downloadUrls = <String>[];
-                                    try {
-                                      selectedUploadedFiles = selectedMedia
-                                          .map((m) => UploadedFile(
-                                                name: m.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes: m.bytes,
-                                                height: m.dimensions?.height,
-                                                width: m.dimensions?.width,
-                                                blurHash: m.blurHash,
-                                                originalFilename:
-                                                    m.originalFilename,
-                                              ))
-                                          .toList();
+                                    final localFile = UploadedFile(
+                                      name: selectedMedia.first.storagePath.split('/').last,
+                                      bytes: selectedMedia.first.bytes,
+                                      height: selectedMedia.first.dimensions?.height,
+                                      width: selectedMedia.first.dimensions?.width,
+                                      blurHash: selectedMedia.first.blurHash,
+                                      originalFilename: selectedMedia.first.originalFilename,
+                                    );
 
-                                      downloadUrls =
-                                          await uploadSupabaseStorageFiles(
-                                        bucketName: 'general',
-                                        selectedFiles: selectedMedia,
-                                      );
-                                    } finally {
-                                      _model.isDataUploading_uploaded = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                            selectedMedia.length &&
-                                        downloadUrls.length ==
-                                            selectedMedia.length) {
-                                      _provider.update(() {
-                                        _model.uploadedLocalFile_uploaded =
-                                            selectedUploadedFiles.first;
-                                        _model.uploadedFileUrl_uploaded =
-                                            downloadUrls.first;
-                                      });
-                                    } else {
-                                      _provider.notify();
-                                      return;
-                                    }
+                                    // Turant UI update — koi wait nahi
+                                    _provider.update(() {
+                                      _model.uploadedLocalFile_uploaded = localFile;
+                                      _model.isDataUploading_uploaded = true;
+                                    });
+
+                                    // Background mein upload
+                                    uploadSupabaseStorageFiles(
+                                      bucketName: 'general',
+                                      selectedFiles: selectedMedia,
+                                    ).then((downloadUrls) {
+                                      if (downloadUrls.isNotEmpty) {
+                                        _provider.update(() {
+                                          _model.uploadedFileUrl_uploaded = downloadUrls.first;
+                                          _model.isDataUploading_uploaded = false;
+                                        });
+                                      } else {
+                                        _provider.update(() => _model.isDataUploading_uploaded = false);
+                                      }
+                                    });
                                   }
                                 },
                                 child: Material(

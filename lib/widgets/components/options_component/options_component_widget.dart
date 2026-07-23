@@ -1,3 +1,4 @@
+import '../../../components/logout_confirmation_dialog.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
@@ -76,25 +77,28 @@ class _OptionsComponentWidgetState extends State<OptionsComponentWidget> {
                 focusColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onTap: () async {
-                  GoRouter.of(context).prepareAuthEvent();
-                  await authManager.signOut();
-                  GoRouter.of(context).clearRedirectLocation();
+            onTap: () async {
+              await showDialog(
+                context: context,
+                builder: (_) => Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: LogoutConfirmationDialog(
+                    onConfirm: () async {
+                      GoRouter.of(context).prepareAuthEvent();
+                      await authManager.signOut();
+                      GoRouter.of(context).clearRedirectLocation();
 
-                  await action_blocks.clearAppData(context);
+                      await action_blocks.clearAppData(context);
 
-                  context.goNamedAuth(
-                    HomeWidget.routeName,
-                    context.mounted,
-                    extra: <String, dynamic>{
-                      '__transition_info__': const TransitionInfo(
-                        hasTransition: true,
-                        transitionType: PageTransitionType.fade,
-                        duration: Duration(milliseconds: 400),
-                      ),
+                      context.goNamedAuth(
+                        HomeWidget.routeName,
+                        context.mounted,
+                      );
                     },
-                  );
-                },
+                  ),
+                ),
+              );
+            },
                 child: Container(
                   height: 30.0,
                   decoration: BoxDecoration(

@@ -20,7 +20,6 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   Future deleteUser(BuildContext context) async {
     try {
       if (!loggedIn) {
-        print('Error: delete user attempted with no logged in user!');
         return;
       }
       await currentUser?.delete();
@@ -39,8 +38,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   }) async {
     try {
       if (!loggedIn) {
-        print('Error: update email attempted with no logged in user!');
-        return;
+         return;
       }
       await currentUser?.updateEmail(email);
     } on AuthException catch (e) {

@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 
 /// State management for the add_job screen (migrated from setState).
 class AddJobProvider extends ChangeNotifier {
-  ///  Local state fields for this page.
-
+  static bool _hasLoadedOnce = false;
 
   List<UploadedFile> selectedImages = [];
   void addToSelectedImages(UploadedFile item) => selectedImages.add(item);
@@ -21,7 +20,6 @@ class AddJobProvider extends ChangeNotifier {
           int index, Function(UploadedFile) updateFn) =>
       selectedImages[index] = updateFn(selectedImages[index]);
 
-  /// state that contains the data passed in through the params for editing
   JobDataStruct? jobData;
   void updateJobDataStruct(Function(JobDataStruct) updateFn) {
     updateFn(jobData ??= JobDataStruct());
@@ -63,7 +61,13 @@ class AddJobProvider extends ChangeNotifier {
       testState[index] = updateFn(testState[index]);
 
 
-  /// Notify observers without mutating state (replaces empty setState).
+  bool get hasLoadedOnce => hasLoadedOnce;
+  void markLoadedOnce() => _hasLoadedOnce = true;
+  void setLoading(bool value) {
+    loading = value;
+    notify();
+  }
+
   bool _disposed = false;
 
   @override
@@ -72,12 +76,10 @@ class AddJobProvider extends ChangeNotifier {
     super.dispose();
   }
 
-  /// Notify observers without mutating state (replaces empty setState).
   void notify() {
     if (!_disposed) notifyListeners();
   }
 
-  /// Run [fn] then notify observers (replaces setState(() => ...)).
   void update(VoidCallback fn) {
     fn();
     if (!_disposed) notifyListeners();

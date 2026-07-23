@@ -1,3 +1,4 @@
+import '../../components/logout_confirmation_dialog.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
@@ -695,8 +696,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                           ),
                                         ),
                                       ),
-                                    ]
-                                        .divide(const SizedBox(
+                                    ].divide(const SizedBox(
                                             height:
                                                 AppConstants.childPadding))
                                         .around(const SizedBox(
@@ -709,28 +709,42 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                           ),
                         ),
                       ),
-                      InkWell(
+                      InkWell  (
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          await action_blocks.deleteFcmFromBackend(context);
-                          await action_blocks.clearAppData(context);
-                          GoRouter.of(context).prepareAuthEvent();
-                          await authManager.signOut();
-                          GoRouter.of(context).clearRedirectLocation();
+                          await showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                elevation: 0,
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                alignment: const AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                child: LogoutConfirmationDialog(
+                                  onConfirm: () async {
+                                    await action_blocks.deleteFcmFromBackend(context);
+                                    await action_blocks.clearAppData(context);
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    await authManager.signOut();
+                                    GoRouter.of(context).clearRedirectLocation();
 
-                          context.goNamedAuth(
-                              SplashScreenWidget.routeName, context.mounted);
+                                    context.goNamedAuth(
+                                        SplashScreenWidget.routeName, context.mounted);
+                                  },
+                                ),
+                              );
+                            },
+                          );
                         },
                         child: Container(
                           decoration: const BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsets.all(AppTheme.of(context)
-                                .designToken
-                                .spacing
-                                .lg),
+                            padding: EdgeInsets.all(AppTheme.of(context).designToken.spacing.lg),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -744,43 +758,24 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                   alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Text(
                                     'LOGOUT FROM DEVICE',
-                                    style: AppTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .titleSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
-                                          color: const Color(0xFFBA1A1A),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .titleSmall
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .titleSmall
-                                                  .fontStyle,
-                                        ),
+                                    style: AppTheme.of(context).titleSmall.override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: AppTheme.of(context).titleSmall.fontWeight,
+                                        fontStyle: AppTheme.of(context).titleSmall.fontStyle,
+                                      ),
+                                      color: const Color(0xFFBA1A1A),
+                                      letterSpacing: 0.0,
+                                      fontWeight: AppTheme.of(context).titleSmall.fontWeight,
+                                      fontStyle: AppTheme.of(context).titleSmall.fontStyle,
+                                    ),
                                   ),
                                 ),
-                              ].divide(SizedBox(
-                                  width: AppTheme.of(context)
-                                      .designToken
-                                      .spacing
-                                      .md)),
+                              ].divide(SizedBox(width: AppTheme.of(context).designToken.spacing.md)),
                             ),
                           ),
                         ),
                       ),
-                    ]
-                        .divide(const SizedBox(height: AppConstants.childSpacing))
+                    ].divide(const SizedBox(height: AppConstants.childSpacing))
                         .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),

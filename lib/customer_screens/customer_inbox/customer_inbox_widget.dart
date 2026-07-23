@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -41,8 +43,6 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CustomerInboxModel());
-
-    // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.unsubscribe(
         'conversation_participants',
@@ -125,66 +125,79 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
           top: true,
           child: Stack(
             children: [
-              Padding(
-                padding: EdgeInsets.all(valueOrDefault<double>(
-                  AppConstants.parentPagePadding,
-                  0.0,
-                )),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      wrapWithModel(
-                        model: _model.pageHeaderSectiomModel,
-                        updateCallback: () => _provider.notify(),
-                        child: const PageHeaderSectiomWidget(
-                          tag: '',
-                          title: 'Inbox',
-                          subtitle:
-                              'Manage your professional communications and project updates.',
-                          itemText: '',
-                        ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: TextFormField(
-                          controller: _model.searchTextController,
-                          focusNode: _model.searchFocusNode,
-                          onChanged: (_) => EasyDebounce.debounce(
-                            '_model.searchTextController',
-                            const Duration(milliseconds: 300),
-                            () async {
-                              _model.searchJobApiRespone = await SupbaseRpcGroup
-                                  .searchConversationsCall
-                                  .call(
-                                userId: currentUserUid,
-                                searchText: _model.searchTextController.text,
-                              );
-
-                              if ((_model.searchJobApiRespone?.succeeded ??
-                                  true)) {
-                                if (_model.searchTextController.text != null &&
-                                    _model.searchTextController.text != '') {
-                                  _provider.showSearchList = true;
-                                  _provider.notify();
-                                } else {
-                                  _provider.showSearchList = false;
-                                  _provider.notify();
-                                }
-                              }
-
-                              _provider.notify();
-                            },
+              Skeletonizer(
+                enabled: _provider.isLoading,
+                child: Padding(
+                  padding: EdgeInsets.all(valueOrDefault<double>(
+                    AppConstants.parentPagePadding,
+                    0.0,
+                  )),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        wrapWithModel(
+                          model: _model.pageHeaderSectiomModel,
+                          updateCallback: () => _provider.notify(),
+                          child: const PageHeaderSectiomWidget(
+                            tag: '',
+                            title: 'Inbox',
+                            subtitle:
+                                'Manage your professional communications and project updates.',
+                            itemText: '',
                           ),
-                          autofocus: false,
-                          enabled: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            isDense: false,
-                            labelStyle: AppTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  font: GoogleFonts.inter(
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: TextFormField(
+                            controller: _model.searchTextController,
+                            focusNode: _model.searchFocusNode,
+                            onChanged: (_) => EasyDebounce.debounce(
+                              '_model.searchTextController',
+                              const Duration(milliseconds: 300),
+                              () async {
+                                _model.searchJobApiRespone = await SupbaseRpcGroup
+                                    .searchConversationsCall
+                                    .call(
+                                  userId: currentUserUid,
+                                  searchText: _model.searchTextController.text,
+                                );
+
+                                if ((_model.searchJobApiRespone?.succeeded ??
+                                    true)) {
+                                  if (_model.searchTextController.text != null &&
+                                      _model.searchTextController.text != '') {
+                                    _provider.showSearchList = true;
+                                    _provider.notify();
+                                  } else {
+                                    _provider.showSearchList = false;
+                                    _provider.notify();
+                                  }
+                                }
+
+                                _provider.notify();
+                              },
+                            ),
+                            autofocus: false,
+                            enabled: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              isDense: false,
+                              labelStyle: AppTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: AppTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: AppTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                    color: AppTheme.of(context)
+                                        .secondaryText,
+                                    fontSize: 12.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: AppTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -192,108 +205,105 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                                  color: AppTheme.of(context)
-                                      .secondaryText,
-                                  fontSize: 12.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                            hintText: 'Search conversations',
-                            hintStyle: AppTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  font: GoogleFonts.inter(
+                              hintText: 'Search conversations',
+                              hintStyle: AppTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: AppTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                    color: AppTheme.of(context).hint,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                     fontStyle: AppTheme.of(context)
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                                  color: AppTheme.of(context).hint,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1.0,
                                 ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppTheme.of(context).primary,
-                                width: 1.0,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppTheme.of(context).primary,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppTheme.of(context).error,
-                                width: 1.0,
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppTheme.of(context).error,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppTheme.of(context).error,
-                                width: 1.0,
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: AppTheme.of(context).error,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            filled: true,
-                            fillColor: AppTheme.of(context).alternate,
-                            suffixIcon: _model
-                                    .searchTextController!.text.isNotEmpty
-                                ? InkWell(
-                                    onTap: () async {
-                                      _model.searchTextController?.clear();
-                                      _model.searchJobApiRespone =
-                                          await SupbaseRpcGroup
-                                              .searchConversationsCall
-                                              .call(
-                                        userId: currentUserUid,
-                                        searchText:
-                                            _model.searchTextController.text,
-                                      );
+                              filled: true,
+                              fillColor: AppTheme.of(context).alternate,
+                              suffixIcon: _model
+                                      .searchTextController!.text.isNotEmpty
+                                  ? InkWell(
+                                      onTap: () async {
+                                        _model.searchTextController?.clear();
+                                        _model.searchJobApiRespone =
+                                            await SupbaseRpcGroup
+                                                .searchConversationsCall
+                                                .call(
+                                          userId: currentUserUid,
+                                          searchText:
+                                              _model.searchTextController.text,
+                                        );
 
-                                      if ((_model
-                                              .searchJobApiRespone?.succeeded ??
-                                          true)) {
-                                        if (_model.searchTextController.text !=
-                                                null &&
-                                            _model.searchTextController.text !=
-                                                '') {
-                                          _provider.showSearchList = true;
-                                          _provider.notify();
-                                        } else {
-                                          _provider.showSearchList = false;
-                                          _provider.notify();
+                                        if ((_model
+                                                .searchJobApiRespone?.succeeded ??
+                                            true)) {
+                                          if (_model.searchTextController.text !=
+                                                  null &&
+                                              _model.searchTextController.text !=
+                                                  '') {
+                                            _provider.showSearchList = true;
+                                            _provider.notify();
+                                          } else {
+                                            _provider.showSearchList = false;
+                                            _provider.notify();
+                                          }
                                         }
-                                      }
 
-                                      _provider.notify();
-                                      _provider.notify();
-                                    },
-                                    child: Icon(
-                                      Icons.clear,
-                                      color:
-                                          AppTheme.of(context).tertiary,
-                                      size: 26.0,
-                                    ),
-                                  )
-                                : null,
-                          ),
-                          style:
-                              AppTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.manrope(
+                                        _provider.notify();
+                                        _provider.notify();
+                                      },
+                                      child: Icon(
+                                        Icons.clear,
+                                        color:
+                                            AppTheme.of(context).tertiary,
+                                        size: 26.0,
+                                      ),
+                                    )
+                                  : null,
+                            ),
+                            style:
+                                AppTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
                                       fontWeight: AppTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -301,119 +311,112 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                          cursorColor: AppTheme.of(context).primaryText,
-                          enableInteractiveSelection: true,
-                          validator: _model.searchTextControllerValidator
-                              .asValidator(context),
+                            cursorColor: AppTheme.of(context).primaryText,
+                            enableInteractiveSelection: true,
+                            validator: _model.searchTextControllerValidator
+                                .asValidator(context),
+                          ),
                         ),
-                      ),
-                      FutureBuilder<ApiCallResponse>(
-                        future: (_model.apiRequestCompleter ??= Completer<
-                                ApiCallResponse>()
-                              ..complete(
-                                  SupabaseTablesGroup.getConversationsCall.call(
-                                userId: currentUserUid,
-                              )))
-                            .future,
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 200.0, 0.0, 0.0),
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitFadingCube(
-                                    color: AppTheme.of(context).primary,
-                                    size: 50.0,
+                        FutureBuilder<ApiCallResponse>(
+                          future: (_model.apiRequestCompleter ??= Completer<
+                                  ApiCallResponse>()
+                                ..complete(
+                                    SupabaseTablesGroup.getConversationsCall.call(
+                                  userId: currentUserUid,
+                                )))
+                              .future,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 200.0, 0.0, 0.0),
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: SpinKitFadingCube(
+                                      color: AppTheme.of(context).primary,
+                                      size: 50.0,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }
-                          final listViewGetConversationsResponse =
-                              snapshot.data!;
-
-                          return Builder(
-                            builder: (context) {
-                              final conversations = (_provider.showSearchList
-                                          ? ((_model.searchJobApiRespone?.jsonBody ?? '')
-                                                      .toList()
-                                                      .map<ConversationStruct?>(
-                                                          ConversationStruct
-                                                              .maybeFromMap)
-                                                      .toList()
-                                                  as Iterable<
-                                                      ConversationStruct?>)
-                                              .withoutNulls
-                                              ?.sortedList(
-                                                  keyOf: (e) => e.conversations
-                                                      .lastMessageAt,
-                                                  desc: true)
-                                          : (listViewGetConversationsResponse
-                                                  .jsonBody
-                                                  .toList()
-                                                  .map<ConversationStruct?>(ConversationStruct.maybeFromMap)
-                                                  .toList() as Iterable<ConversationStruct?>)
-                                              .withoutNulls
-                                              ?.sortedList(keyOf: (e) => e.conversations.lastMessageAt, desc: true))
-                                      ?.toList() ??
-                                  [];
-                              if (conversations.isEmpty) {
-                                return const EmptyListComponentWidget(
-                                  icon: Icon(
-                                    Icons.chat_outlined,
-                                  ),
-                                  title: 'No Messaged',
-                                  description: 'You have no messages yet',
-                                );
-                              }
-
-                              return ListView.separated(
-                                padding: const EdgeInsets.fromLTRB(
-                                  0,
-                                  0,
-                                  0,
-                                  80.0,
-                                ),
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: conversations.length,
-                                separatorBuilder: (_, __) => const SizedBox(
-                                    height: AppConstants.childSpacing),
-                                itemBuilder: (context, conversationsIndex) {
-                                  final conversationsItem =
-                                      conversations[conversationsIndex];
-                                  return InboxItemWidget(
-                                    key: Key(
-                                        'Key0r1_${conversationsIndex}_of_${conversations.length}'),
-                                    members: conversationsItem
-                                        .conversations.conversationParticipants
-                                        .where((e) =>
-                                            currentUserUid != e.members.id)
-                                        .toList()
-                                        .firstOrNull!
-                                        .members,
-                                    conversation: conversationsItem,
-                                  );
-                                },
                               );
-                            },
-                          );
-                        },
-                      ),
-                    ].divide(const SizedBox(height: AppConstants.spacing)),
+                            }
+                            final listViewGetConversationsResponse =
+                                snapshot.data!;
+
+                            return Builder(
+                              builder: (context) {
+                                final conversations = (_provider.showSearchList
+                                            ? ((_model.searchJobApiRespone?.jsonBody ?? '')
+                                                        .toList()
+                                                        .map<ConversationStruct?>(
+                                                            ConversationStruct
+                                                                .maybeFromMap)
+                                                        .toList()
+                                                    as Iterable<
+                                                        ConversationStruct?>)
+                                                .withoutNulls
+                                                ?.sortedList(
+                                                    keyOf: (e) => e.conversations
+                                                        .lastMessageAt,
+                                                    desc: true)
+                                            : (listViewGetConversationsResponse
+                                                    .jsonBody
+                                                    .toList()
+                                                    .map<ConversationStruct?>(ConversationStruct.maybeFromMap)
+                                                    .toList() as Iterable<ConversationStruct?>)
+                                                .withoutNulls
+                                                ?.sortedList(keyOf: (e) => e.conversations.lastMessageAt, desc: true))
+                                        ?.toList() ??
+                                    [];
+                                if (conversations.isEmpty) {
+                                  return const EmptyListComponentWidget(
+                                    icon: Icon(
+                                      Icons.chat_outlined,
+                                    ),
+                                    title: 'No Messaged',
+                                    description: 'You have no messages yet',
+                                  );
+                                }
+
+                                return ListView.separated(
+                                  padding: const EdgeInsets.fromLTRB(
+                                    0,
+                                    0,
+                                    0,
+                                    80.0,
+                                  ),
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: conversations.length,
+                                  separatorBuilder: (_, __) => const SizedBox(
+                                      height: AppConstants.childSpacing),
+                                  itemBuilder: (context, conversationsIndex) {
+                                    final conversationsItem =
+                                        conversations[conversationsIndex];
+                                    return InboxItemWidget(
+                                      key: Key(
+                                          'Key0r1_${conversationsIndex}_of_${conversations.length}'),
+                                      members: conversationsItem
+                                          .conversations.conversationParticipants
+                                          .where((e) =>
+                                              currentUserUid != e.members.id)
+                                          .toList()
+                                          .firstOrNull!
+                                          .members,
+                                      conversation: conversationsItem,
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ].divide(const SizedBox(height: AppConstants.spacing)),
+                    ),
                   ),
                 ),
               ),
