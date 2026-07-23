@@ -1,3 +1,5 @@
+import 'package:my_trade_pal/widgets/components/empty_list_component/empty_list_component_widget.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -186,17 +188,15 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                       .labelMedium
                                       .override(
                                         font: GoogleFonts.inter(
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                          fontWeight: AppTheme.of(context)
+                                              .labelMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
                                         ),
-                                        color: AppTheme.of(context)
-                                            .secondaryText,
+                                        color:
+                                            AppTheme.of(context).secondaryText,
                                         fontSize: 12.0,
                                         letterSpacing: 0.0,
                                         fontWeight: AppTheme.of(context)
@@ -207,24 +207,21 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                             .fontStyle,
                                       ),
                                   hintText: 'Search conversations',
-                                  hintStyle: AppTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              AppTheme.of(context)
+                                  hintStyle:
+                                      AppTheme.of(context).labelMedium.override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle: AppTheme.of(context)
                                                   .labelMedium
                                                   .fontStyle,
-                                        ),
-                                        color:
-                                            AppTheme.of(context).hint,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: AppTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
+                                            ),
+                                            color: AppTheme.of(context).hint,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -234,8 +231,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color:
-                                          AppTheme.of(context).primary,
+                                      color: AppTheme.of(context).primary,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -255,8 +251,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor:
-                                      AppTheme.of(context).alternate,
+                                  fillColor: AppTheme.of(context).alternate,
                                   suffixIcon: _model
                                           .searchTextController!.text.isNotEmpty
                                       ? InkWell(
@@ -294,16 +289,14 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                           },
                                           child: Icon(
                                             Icons.clear,
-                                            color: AppTheme.of(context)
-                                                .tertiary,
+                                            color:
+                                                AppTheme.of(context).tertiary,
                                             size: 26.0,
                                           ),
                                         )
                                       : null,
                                 ),
-                                style: AppTheme.of(context)
-                                    .bodyMedium
-                                    .override(
+                                style: AppTheme.of(context).bodyMedium.override(
                                       font: GoogleFonts.manrope(
                                         fontWeight: AppTheme.of(context)
                                             .bodyMedium
@@ -320,8 +313,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                cursorColor:
-                                    AppTheme.of(context).primaryText,
+                                cursorColor: AppTheme.of(context).primaryText,
                                 enableInteractiveSelection: true,
                                 validator: _model.searchTextControllerValidator
                                     .asValidator(context),
@@ -334,6 +326,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                         future: (_model.apiRequestCompleter ??= Completer<
                                 ApiCallResponse>()
                               ..complete(
+                                
                                   SupabaseTablesGroup.getConversationsCall.call(
                                 userId: currentUserUid,
                               )))
@@ -384,7 +377,16 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                               ?.sortedList(keyOf: (e) => e.conversations.lastMessageAt, desc: true))
                                       ?.toList() ??
                                   [];
-
+                              if (conversation.isEmpty) {
+                                return EmptyListComponentWidget(
+                                  icon: Icon(
+                                    Icons.search_off,
+                                  ),
+                                  title: 'No chats found',
+                                  description:
+                                      'Try searching with a different name or keyword.',
+                                );
+                              }
                               return ListView.separated(
                                 padding: EdgeInsets.fromLTRB(
                                   0,
@@ -396,8 +398,8 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: conversation.length,
-                                separatorBuilder: (_, __) => SizedBox(
-                                    height: AppConstants.childSpacing),
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: AppConstants.childSpacing),
                                 itemBuilder: (context, conversationIndex) {
                                   final conversationItem =
                                       conversation[conversationIndex];
