@@ -181,7 +181,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
 
                                   _provider.notify();
                                 },
-                              ),
+                              ),// dekho same isme bhi yahi krna ahi ye page ahi
                               autofocus: false,
                               enabled: true,
                               obscureText: false,

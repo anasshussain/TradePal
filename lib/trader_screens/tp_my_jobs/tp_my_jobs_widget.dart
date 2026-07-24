@@ -35,17 +35,48 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  static ApiCallResponse? _cachedRequested;
+  static ApiCallResponse? _cachedInProgress;
+  static ApiCallResponse? _cachedCompleted;
+
+  late Future<ApiCallResponse> _requestedJobsFuture;
+  late Future<ApiCallResponse> _inProgressJobsFuture;
+  late Future<ApiCallResponse> _completedJobsFuture;
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => TpMyJobsModel());
+
+    _requestedJobsFuture = _fetchSubmittedJobs(Status.ACTIVE.name, (r) {
+      _cachedRequested = r;
+    });
+    _inProgressJobsFuture = _fetchSubmittedJobs(Status.IN_PROGRESS.name, (r) {
+      _cachedInProgress = r;
+    });
+    _completedJobsFuture = _fetchSubmittedJobs(Status.COMPLETED.name, (r) {
+      _cachedCompleted = r;
+    });
 
     _model.tabBarController = TabController(
       vsync: this,
       length: 3,
       initialIndex: 0,
     )..addListener(() => _provider.update(() {}));
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _provider.update(() {}));
+  }
+
+  Future<ApiCallResponse> _fetchSubmittedJobs(
+      String status,
+      void Function(ApiCallResponse response) onLoaded,
+      ) async {
+    final response = await SupabaseTablesGroup.getSubmittedJobsListCall.call(
+      userId: currentUserUid,
+      status: status,
+    );
+    onLoaded(response);
+    return response;
   }
 
   @override
@@ -105,28 +136,33 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         isScrollable: true,
                         tabAlignment: TabAlignment.center,
                         labelColor: AppTheme.of(context).primary,
-                        unselectedLabelColor: AppTheme.of(context)
-                            .secondaryText
-                            .withOpacity(0.5),
+                        unselectedLabelColor:
+                        AppTheme.of(context).secondaryText.withOpacity(0.5),
                         labelStyle: AppTheme.of(context).titleMedium.override(
                           font: GoogleFonts.manrope(
                             fontWeight: FontWeight.w700,
-                            fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                            fontStyle:
+                            AppTheme.of(context).titleMedium.fontStyle,
                           ),
                           fontSize: 16.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w700,
-                          fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                          fontStyle:
+                          AppTheme.of(context).titleMedium.fontStyle,
                         ),
-                        unselectedLabelStyle: AppTheme.of(context).titleMedium.override(
+                        unselectedLabelStyle:
+                        AppTheme.of(context).titleMedium.override(
                           font: GoogleFonts.manrope(
                             fontWeight: FontWeight.w500,
-                            fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                            fontStyle: AppTheme.of(context)
+                                .titleMedium
+                                .fontStyle,
                           ),
                           fontSize: 16.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
-                          fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                          fontStyle:
+                          AppTheme.of(context).titleMedium.fontStyle,
                         ),
                         indicatorColor: AppTheme.of(context).primary,
                         indicatorWeight: 3.0,
@@ -146,274 +182,43 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                       child: TabBarView(
                         controller: _model.tabBarController,
                         children: [
+                          // ------------------- REQUESTED TAB -------------------
                           Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
                               AppConstants.parentPagePadding,
                               0.0,
                             )),
-                            child: FutureBuilder<ApiCallResponse>(
-                              future: SupabaseTablesGroup
-                                  .getSubmittedJobsListCall
-                                  .call(
-                                userId: currentUserUid,
-                                status: Status.ACTIVE.name,
-                              ),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  if (!TpMyJobsProvider.isLoadingRequested) {
-                                    return const SizedBox.shrink();
-                                  }
-                                  return Skeletonizer(
-                                    enabled: true,
-                                    child: _buildJobsSkeletonList(),
-                                  );
-                                }
-                                if (TpMyJobsProvider.isLoadingRequested) {
-                                  TpMyJobsProvider.isLoadingRequested = false;
-                                }
-                                final listViewGetSubmittedJobsListResponse =
-                                    snapshot.data!;
-
-                                return Builder(
-                                  builder: (context) {
-                                    final activeJobs =
-                                        (listViewGetSubmittedJobsListResponse
-                                                        .jsonBody
-                                                        .toList()
-                                                        .map<SubmittedJobsListStruct?>(
-                                                            SubmittedJobsListStruct
-                                                                .maybeFromMap)
-                                                        .toList()
-                                                    as Iterable<
-                                                        SubmittedJobsListStruct?>)
-                                                .withoutNulls
-                                                ?.sortedList(
-                                                    keyOf: (e) =>
-                                                        e.jobs.createdAt,
-                                                    desc: true)
-                                                ?.toList() ??
-                                            [];
-                                    if (activeJobs.isEmpty) {
-                                      return EmptyListComponentWidget(
-                                        icon: Icon(
-                                          Icons.work_history_sharp,
-                                          color: AppTheme.of(context)
-                                              .tertiary,
-                                          size: 40.0,
-                                        ),
-                                        title: 'REQUESTED',
-                                        description: 'JOBS NOT FOUND',
-                                      );
-                                    }
-
-                                    return ListView.separated(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        0,
-                                        0,
-                                        0,
-                                        100.0,
-                                      ),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: activeJobs.length,
-                                      separatorBuilder: (_, __) => const SizedBox(
-                                          height: AppConstants.childPadding),
-                                      itemBuilder: (context, activeJobsIndex) {
-                                        final activeJobsItem =
-                                            activeJobs[activeJobsIndex];
-                                        return SubmittedJobListItemWidget(
-                                          key: Key(
-                                              'Keyngq_${activeJobsIndex}_of_${activeJobs.length}'),
-                                          jobData: activeJobsItem.jobs,
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
+                            child: _buildJobsTab(
+                              future: _requestedJobsFuture,
+                              cached: _cachedRequested,
+                              title: 'REQUESTED',
+                              keyPrefix: 'Keyngq',
                             ),
                           ),
+                          // ------------------- IN-PROGRESS TAB -------------------
                           Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
                               AppConstants.parentPagePadding,
                               0.0,
                             )),
-                            child: FutureBuilder<ApiCallResponse>(
-                              future: SupabaseTablesGroup
-                                  .getSubmittedJobsListCall
-                                  .call(
-                                userId: currentUserUid,
-                                status: Status.IN_PROGRESS.name,
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: SpinKitFadingCube(
-                                        color: AppTheme.of(context)
-                                            .primary,
-                                        size: 50.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final listViewGetSubmittedJobsListResponse =
-                                    snapshot.data!;
-
-                                return Builder(
-                                  builder: (context) {
-                                    final inprogressJobs =
-                                        (listViewGetSubmittedJobsListResponse
-                                                        .jsonBody
-                                                        .toList()
-                                                        .map<SubmittedJobsListStruct?>(
-                                                            SubmittedJobsListStruct
-                                                                .maybeFromMap)
-                                                        .toList()
-                                                    as Iterable<
-                                                        SubmittedJobsListStruct?>)
-                                                .withoutNulls
-                                                ?.sortedList(
-                                                    keyOf: (e) =>
-                                                        e.jobs.createdAt,
-                                                    desc: true)
-                                                ?.toList() ??
-                                            [];
-                                    if (inprogressJobs.isEmpty) {
-                                      return EmptyListComponentWidget(
-                                        icon: Icon(
-                                          Icons.work_history_sharp,
-                                          color: AppTheme.of(context)
-                                              .tertiary,
-                                          size: 40.0,
-                                        ),
-                                        title: 'IN PROGRESS',
-                                        description: 'JOBS NOT FOUND',
-                                      );
-                                    }
-
-                                    return ListView.separated(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        0,
-                                        0,
-                                        0,
-                                        100.0,
-                                      ),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: inprogressJobs.length,
-                                      separatorBuilder: (_, __) => const SizedBox(
-                                          height: AppConstants.childPadding),
-                                      itemBuilder:
-                                          (context, inprogressJobsIndex) {
-                                        final inprogressJobsItem =
-                                            inprogressJobs[inprogressJobsIndex];
-                                        return SubmittedJobListItemWidget(
-                                          key: Key(
-                                              'Keysee_${inprogressJobsIndex}_of_${inprogressJobs.length}'),
-                                          jobData: inprogressJobsItem.jobs,
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
+                            child: _buildJobsTab(
+                              future: _inProgressJobsFuture,
+                              cached: _cachedInProgress,
+                              title: 'IN PROGRESS',
+                              keyPrefix: 'Keysee',
                             ),
                           ),
+                          // ------------------- COMPLETED TAB -------------------
                           Padding(
                             padding: EdgeInsets.all(valueOrDefault<double>(
                               AppConstants.parentPagePadding,
                               0.0,
                             )),
-                            child: FutureBuilder<ApiCallResponse>(
-                              future: SupabaseTablesGroup
-                                  .getSubmittedJobsListCall
-                                  .call(
-                                userId: currentUserUid,
-                                status: Status.COMPLETED.name,
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: SpinKitFadingCube(
-                                        color: AppTheme.of(context)
-                                            .primary,
-                                        size: 50.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final listViewGetSubmittedJobsListResponse =
-                                    snapshot.data!;
-
-                                return Builder(
-                                  builder: (context) {
-                                    final completedJobs =
-                                        (listViewGetSubmittedJobsListResponse
-                                                        .jsonBody
-                                                        .toList()
-                                                        .map<SubmittedJobsListStruct?>(
-                                                            SubmittedJobsListStruct
-                                                                .maybeFromMap)
-                                                        .toList()
-                                                    as Iterable<
-                                                        SubmittedJobsListStruct?>)
-                                                .withoutNulls
-                                                ?.sortedList(
-                                                    keyOf: (e) =>
-                                                        e.jobs.createdAt,
-                                                    desc: true)
-                                                ?.toList() ??
-                                            [];
-                                    if (completedJobs.isEmpty) {
-                                      return EmptyListComponentWidget(
-                                        icon: Icon(
-                                          Icons.work_history_sharp,
-                                          color: AppTheme.of(context)
-                                              .tertiary,
-                                          size: 40.0,
-                                        ),
-                                        title: 'COMPLETED',
-                                        description: 'JOBS NOT FOUND',
-                                      );
-                                    }
-
-                                    return ListView.separated(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        0,
-                                        0,
-                                        0,
-                                        100.0,
-                                      ),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: completedJobs.length,
-                                      separatorBuilder: (_, __) => const SizedBox(
-                                          height: AppConstants.childPadding),
-                                      itemBuilder:
-                                          (context, completedJobsIndex) {
-                                        final completedJobsItem =
-                                            completedJobs[completedJobsIndex];
-                                        return SubmittedJobListItemWidget(
-                                          key: Key(
-                                              'Key707_${completedJobsIndex}_of_${completedJobs.length}'),
-                                          jobData: completedJobsItem.jobs,
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
+                            child: _buildJobsTab(
+                              future: _completedJobsFuture,
+                              cached: _cachedCompleted,
+                              title: 'COMPLETED',
+                              keyPrefix: 'Key707',
                             ),
                           ),
                         ],
@@ -445,6 +250,87 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
       ),
     );
   }
+
+  Widget _buildJobsTab({
+    required Future<ApiCallResponse> future,
+    required ApiCallResponse? cached,
+    required String title,
+    required String keyPrefix,
+  }) {
+    return FutureBuilder<ApiCallResponse>(
+      future: future,
+      initialData: cached,
+      builder: (context, snapshot) {
+        final hasAnyData = snapshot.hasData;
+        final isFirstEverLoad = cached == null &&
+            snapshot.connectionState == ConnectionState.waiting;
+
+        // Sirf tab skeleton dikhao jab bilkul koi purana data na ho.
+        if (isFirstEverLoad) {
+          return Skeletonizer(
+            enabled: true,
+            child: _buildJobsSkeletonList(),
+          );
+        }
+        if (!hasAnyData) {
+          return EmptyListComponentWidget(
+            icon: Icon(
+              Icons.error_outline,
+              color: AppTheme.of(context).tertiary,
+              size: 40.0,
+            ),
+            title: title,
+            description: 'Jobs load nahi ho sake, dobara try karein',
+          );
+        }
+
+        final response = snapshot.data!;
+
+        final jobs = (response.jsonBody
+            .toList()
+            .map<SubmittedJobsListStruct?>(
+            SubmittedJobsListStruct.maybeFromMap)
+            .toList() as Iterable<SubmittedJobsListStruct?>)
+            .withoutNulls
+            ?.sortedList(
+          keyOf: (e) => e.jobs.createdAt,
+          desc: true,
+        )
+            ?.toList() ??
+            [];
+
+        if (jobs.isEmpty) {
+          return EmptyListComponentWidget(
+            icon: Icon(
+              Icons.work_history_sharp,
+              color: AppTheme.of(context).tertiary,
+              size: 40.0,
+            ),
+            title: title,
+            description: 'JOBS NOT FOUND',
+          );
+        }
+
+        return ListView.separated(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
+          primary: false,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: jobs.length,
+          separatorBuilder: (_, __) =>
+          const SizedBox(height: AppConstants.childPadding),
+          itemBuilder: (context, index) {
+            final item = jobs[index];
+            return SubmittedJobListItemWidget(
+              key: Key('${keyPrefix}_${index}_of_${jobs.length}'),
+              jobData: item.jobs,
+            );
+          },
+        );
+      },
+    );
+  }
+
   Widget _buildJobsSkeletonList() {
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
@@ -474,7 +360,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Placeholder job title'),
                   SizedBox(height: 6),
                   Text('Placeholder job subtitle line'),

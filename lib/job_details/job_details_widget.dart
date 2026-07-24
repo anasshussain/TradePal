@@ -57,11 +57,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
     super.initState();
     _model = createModel(context, () => JobDetailsModel());
 
-    if (_provider.isAlreadyLoaded(widget!.jobId)) {
-      _provider.loading = false;
+    final bool alreadyLoaded = _provider.isAlreadyLoaded(widget!.jobId);
+    if (alreadyLoaded) {
+      _provider.restoreFromCache(widget!.jobId);
     }
-    // On page load action.
+
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (!alreadyLoaded) {
+        _provider.notify();
+      }
       _model.getJobDetails = await SupabaseTablesGroup.getJobDetailsCall.call(
         jobId: widget!.jobId,
       );

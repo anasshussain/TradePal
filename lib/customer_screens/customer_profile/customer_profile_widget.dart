@@ -734,7 +734,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                     GoRouter.of(context).clearRedirectLocation();
 
                                     context.goNamedAuth(
-                                        SplashScreenWidget.routeName, context.mounted);
+                                        OnboardingWidget.routeName, context.mounted);
                                   },
                                 ),
                               );

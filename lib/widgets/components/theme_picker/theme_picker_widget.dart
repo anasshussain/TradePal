@@ -19,6 +19,15 @@ class ThemePickerWidget extends StatefulWidget {
 class _ThemePickerWidgetState extends State<ThemePickerWidget> {
   late ThemePickerModel _model;
 
+  // 👇 NEW: helper to always resolve a valid theme value
+  String _resolveTheme() {
+    final current = AppState().selectedTheme;
+    if (current.isEmpty) {
+      return 'System Default';
+    }
+    return current;
+  }
+
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -32,9 +41,17 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // yahan explicitly latest value set karo
+      final resolvedTheme = _resolveTheme(); // 👈 NEW
+
       _model.radioButtonValueController ??=
-          FormFieldController<String>(AppState().selectedTheme);
-      _model.radioButtonValueController!.value = AppState().selectedTheme;
+          FormFieldController<String>(resolvedTheme);
+      _model.radioButtonValueController!.value = resolvedTheme;
+
+      // 👇 NEW: agar pehli baar empty tha to AppState mein bhi save kar do
+      if (AppState().selectedTheme.isEmpty) {
+        AppState().selectedTheme = resolvedTheme;
+      }
+
       safeSetState(() {});
     });
   }
@@ -49,10 +66,12 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    final resolvedTheme = _resolveTheme(); // 👈 NEW
+
     _model.radioButtonValueController ??=
-        FormFieldController<String>(AppState().selectedTheme);
-    if (_model.radioButtonValueController!.value != AppState().selectedTheme) {
-      _model.radioButtonValueController!.value = AppState().selectedTheme;
+        FormFieldController<String>(resolvedTheme);
+    if (_model.radioButtonValueController!.value != resolvedTheme) {
+      _model.radioButtonValueController!.value = resolvedTheme;
     }
     return Container(
       width: 300.0,
@@ -73,18 +92,18 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
             Text(
               'Choose Theme',
               style: AppTheme.of(context).titleSmall.override(
-                    font: GoogleFonts.manrope(
-                      fontWeight:
-                          AppTheme.of(context).titleSmall.fontWeight,
-                      fontStyle:
-                          AppTheme.of(context).titleSmall.fontStyle,
-                    ),
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        AppTheme.of(context).titleSmall.fontWeight,
-                    fontStyle:
-                        AppTheme.of(context).titleSmall.fontStyle,
-                  ),
+                font: GoogleFonts.manrope(
+                  fontWeight:
+                  AppTheme.of(context).titleSmall.fontWeight,
+                  fontStyle:
+                  AppTheme.of(context).titleSmall.fontStyle,
+                ),
+                letterSpacing: 0.0,
+                fontWeight:
+                AppTheme.of(context).titleSmall.fontWeight,
+                fontStyle:
+                AppTheme.of(context).titleSmall.fontStyle,
+              ),
             ),
             AppRadioButton(
               options: ['Dark Mode', 'Light Mode', 'System Default'].toList(),
@@ -104,36 +123,36 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
               // FormFieldController<String>(AppState().selectedTheme),
               optionHeight: 32.0,
               textStyle: AppTheme.of(context).bodyLarge.override(
-                    font: GoogleFonts.manrope(
-                      fontWeight:
-                          AppTheme.of(context).bodyLarge.fontWeight,
-                      fontStyle:
-                          AppTheme.of(context).bodyLarge.fontStyle,
-                    ),
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        AppTheme.of(context).bodyLarge.fontWeight,
-                    fontStyle: AppTheme.of(context).bodyLarge.fontStyle,
-                  ),
+                font: GoogleFonts.manrope(
+                  fontWeight:
+                  AppTheme.of(context).bodyLarge.fontWeight,
+                  fontStyle:
+                  AppTheme.of(context).bodyLarge.fontStyle,
+                ),
+                letterSpacing: 0.0,
+                fontWeight:
+                AppTheme.of(context).bodyLarge.fontWeight,
+                fontStyle: AppTheme.of(context).bodyLarge.fontStyle,
+              ),
               selectedTextStyle:
-                  AppTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.manrope(
-                          fontWeight: FontWeight.bold,
-                          fontStyle:
-                              AppTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        color: AppTheme.of(context).primaryText,
-                        fontSize: 18.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
-                        fontStyle:
-                            AppTheme.of(context).bodyMedium.fontStyle,
-                      ),
+              AppTheme.of(context).bodyMedium.override(
+                font: GoogleFonts.manrope(
+                  fontWeight: FontWeight.bold,
+                  fontStyle:
+                  AppTheme.of(context).bodyMedium.fontStyle,
+                ),
+                color: AppTheme.of(context).primaryText,
+                fontSize: 18.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.bold,
+                fontStyle:
+                AppTheme.of(context).bodyMedium.fontStyle,
+              ),
               buttonPosition: RadioButtonPosition.left,
               direction: Axis.vertical,
               radioButtonColor: AppTheme.of(context).primaryText,
               inactiveRadioButtonColor:
-                  AppTheme.of(context).secondaryText,
+              AppTheme.of(context).secondaryText,
               toggleable: false,
               horizontalAlignment: WrapAlignment.start,
               verticalAlignment: WrapCrossAlignment.start,

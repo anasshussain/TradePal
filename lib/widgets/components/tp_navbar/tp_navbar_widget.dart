@@ -100,7 +100,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                       color: widget!.selectedIndex == 0
                           ? AppTheme.of(context).primary
                           : AppTheme.of(context).secondaryText,
-                      size: 26.0,
+                      size: 27.5,
                     ),
                     Text(
                       'Browse',

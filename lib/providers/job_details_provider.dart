@@ -1,22 +1,21 @@
 import 'package:flutter/foundation.dart';
-
 import '/models/structs/index.dart';
 
-/// State management for the Job Details screen.
-///
-/// Holds the page's business / view state that previously lived in
-/// `JobDetailsModel` and was rebuilt through `setState`. Widgets observe this
-/// provider (via `Consumer`/`context.watch`) and mutations are published with
-/// [notify] / [update] instead of `setState`.
 class JobDetailsProvider extends ChangeNotifier {
   static final Set<String> _loadedJobIds = {};
+
+  static final Map<String, JobDataStruct?> _cachedJob = {};
+  static final Map<String, List<ProposalListStruct>> _cachedProposals = {};
+  static final Map<String, bool?> _cachedIsProposalSubmitted = {};
+  static final Map<String, bool?> _cachedIsPaymentPaid = {};
+  static final Map<String, UserStruct?> _cachedUser = {};
+
   bool loading = true;
 
   JobDataStruct? fetchedJob;
   void updateFetchedJobStruct(Function(JobDataStruct) updateFn) {
     updateFn(fetchedJob ??= JobDataStruct());
   }
-
   bool? isProposalSubmitted;
 
   List<ProposalListStruct> proposalsList = [];
@@ -28,7 +27,7 @@ class JobDetailsProvider extends ChangeNotifier {
   void insertAtIndexInProposalsList(int index, ProposalListStruct item) =>
       proposalsList.insert(index, item);
   void updateProposalsListAtIndex(
-          int index, Function(ProposalListStruct) updateFn) =>
+      int index, Function(ProposalListStruct) updateFn) =>
       proposalsList[index] = updateFn(proposalsList[index]);
 
   bool? isPaymentPaid;
@@ -49,6 +48,7 @@ class JobDetailsProvider extends ChangeNotifier {
   void notify() {
     if (!_disposed) notifyListeners();
   }
+
   bool isAlreadyLoaded(String? jobId) =>
       jobId != null && _loadedJobIds.contains(jobId);
 
@@ -56,6 +56,25 @@ class JobDetailsProvider extends ChangeNotifier {
     if (jobId != null) _loadedJobIds.add(jobId);
   }
 
+  void restoreFromCache(String? jobId) {
+    if (jobId == null) return;
+    fetchedJob = _cachedJob[jobId];
+    proposalsList = _cachedProposals[jobId] ?? [];
+    isProposalSubmitted = _cachedIsProposalSubmitted[jobId];
+    isPaymentPaid = _cachedIsPaymentPaid[jobId];
+    user = _cachedUser[jobId];
+    loading = false;
+  }
+
+  void saveToCache(String? jobId) {
+    if (jobId == null) return;
+    _cachedJob[jobId] = fetchedJob;
+    _cachedProposals[jobId] = proposalsList;
+    _cachedIsProposalSubmitted[jobId] = isProposalSubmitted;
+    _cachedIsPaymentPaid[jobId] = isPaymentPaid;
+    _cachedUser[jobId] = user;
+    markLoaded(jobId);
+  }
 
   void update(VoidCallback fn) {
     fn();
