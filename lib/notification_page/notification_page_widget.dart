@@ -14,6 +14,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/notification_page_provider.dart';
 import '/viewmodels/notification_page_model.dart';
 export '/viewmodels/notification_page_model.dart';
 
@@ -30,6 +31,7 @@ class NotificationPageWidget extends StatefulWidget {
 
 class _NotificationPageWidgetState extends State<NotificationPageWidget> {
   late NotificationPageModel _model;
+  final NotificationPageProvider _provider = NotificationPageProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -46,29 +48,37 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
       );
 
       if ((_model.notifications?.succeeded ?? true)) {
-        _model.notificationsPageState = ((_model.notifications?.jsonBody ?? '')
+        _provider.notificationsPageState = ((_model.notifications?.jsonBody ?? '')
                 .toList()
                 .map<NotificationsStruct?>(NotificationsStruct.maybeFromMap)
                 .toList() as Iterable<NotificationsStruct?>)
             .withoutNulls
             .toList()
             .cast<NotificationsStruct>();
-        safeSetState(() {});
+        _provider.notify();
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<NotificationPageProvider>.value(
+      value: _provider,
+      child: _buildContent(context),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -82,7 +92,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Notifications',
               showAction: false,
@@ -98,9 +108,11 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
           child: Padding(
             padding: EdgeInsets.all(
                 AppTheme.of(context).designToken.spacing.lg),
-            child: Builder(
-              builder: (context) {
-                final notification = _model.notificationsPageState.toList();
+            // Only this list subtree rebuilds when notificationsPageState
+            // changes; the Scaffold/AppBar above are built once.
+            child: Consumer<NotificationPageProvider>(
+              builder: (context, provider, _) {
+                final notification = provider.notificationsPageState.toList();
 
                 return ListView.builder(
                   padding: EdgeInsets.zero,

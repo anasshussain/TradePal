@@ -12,6 +12,7 @@ import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/browse_jobs_provider.dart';
 import '/viewmodels/browse_jobs_model.dart';
 export '/viewmodels/browse_jobs_model.dart';
 
@@ -27,6 +28,7 @@ class BrowseJobsWidget extends StatefulWidget {
 
 class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
   late BrowseJobsModel _model;
+  final BrowseJobsProvider _provider = BrowseJobsProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,12 +37,13 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
     super.initState();
     _model = createModel(context, () => BrowseJobsModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -49,6 +52,15 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<BrowseJobsProvider>.value(
+      value: _provider,
+      child: Consumer<BrowseJobsProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -62,7 +74,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.update(() {}),
             child: AppbarComponentWidget(
               title: 'Home',
               showAction: true,
@@ -94,7 +106,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                     children: [
                       wrapWithModel(
                         model: _model.pageHeaderSectiomModel,
-                        updateCallback: () => safeSetState(() {}),
+                        updateCallback: () => _provider.update(() {}),
                         child: PageHeaderSectiomWidget(
                           tag: 'MARKETPLACE',
                           title: 'Available Jobs',
@@ -150,7 +162,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                         _model.dropDownValueController1 ??=
                                             FormFieldController<String>(null),
                                     options: AppState().availableServices,
-                                    onChanged: (val) => safeSetState(
+                                    onChanged: (val) => _provider.update(
                                         () => _model.dropDownValue1 = val),
                                     width: double.infinity,
                                     height: 50.0,
@@ -215,7 +227,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                       '900',
                                       '1000'
                                     ],
-                                    onChanged: (val) => safeSetState(
+                                    onChanged: (val) => _provider.update(
                                         () => _model.dropDownValue2 = val),
                                     width: double.infinity,
                                     height: 50.0,
@@ -317,7 +329,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                         ),
                       wrapWithModel(
                         model: _model.jobsListModel,
-                        updateCallback: () => safeSetState(() {}),
+                        updateCallback: () => _provider.update(() {}),
                         child: JobsListWidget(
                           jobViewType: JobsViewType.BROWSE,
                         ),
@@ -332,7 +344,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
-                  updateCallback: () => safeSetState(() {}),
+                  updateCallback: () => _provider.update(() {}),
                   child: TpNavbarWidget(
                     selectedIndex: 0,
                   ),

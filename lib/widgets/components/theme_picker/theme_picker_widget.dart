@@ -30,13 +30,18 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
     super.initState();
     _model = createModel(context, () => ThemePickerModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // yahan explicitly latest value set karo
+      _model.radioButtonValueController ??=
+          FormFieldController<String>(AppState().selectedTheme);
+      _model.radioButtonValueController!.value = AppState().selectedTheme;
+      safeSetState(() {});
+    });
   }
 
   @override
   void dispose() {
     _model.maybeDispose();
-
     super.dispose();
   }
 
@@ -44,6 +49,11 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    _model.radioButtonValueController ??=
+        FormFieldController<String>(AppState().selectedTheme);
+    if (_model.radioButtonValueController!.value != AppState().selectedTheme) {
+      _model.radioButtonValueController!.value = AppState().selectedTheme;
+    }
     return Container(
       width: 300.0,
       height: 170.0,
@@ -90,8 +100,8 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
                   setDarkModeSetting(context, ThemeMode.system);
                 }
               },
-              controller: _model.radioButtonValueController ??=
-                  FormFieldController<String>(AppState().selectedTheme),
+              controller: _model.radioButtonValueController!,
+              // FormFieldController<String>(AppState().selectedTheme),
               optionHeight: 32.0,
               textStyle: AppTheme.of(context).bodyLarge.override(
                     font: GoogleFonts.manrope(
@@ -128,7 +138,7 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
               horizontalAlignment: WrapAlignment.start,
               verticalAlignment: WrapCrossAlignment.start,
             ),
-          ].divide(SizedBox(height: AppConstants.spacing)),
+          ].divide(const SizedBox(height: AppConstants.spacing)),
         ),
       ),
     );

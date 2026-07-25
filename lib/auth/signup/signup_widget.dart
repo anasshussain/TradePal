@@ -14,6 +14,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/signup_provider.dart';
 import '/viewmodels/signup_model.dart';
 export '/viewmodels/signup_model.dart';
 
@@ -34,6 +35,7 @@ class SignupWidget extends StatefulWidget {
 
 class _SignupWidgetState extends State<SignupWidget> {
   late SignupModel _model;
+  final SignupProvider _provider = SignupProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,12 +59,13 @@ class _SignupWidgetState extends State<SignupWidget> {
     _model.cPasswordTextController ??= TextEditingController();
     _model.cPasswordFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -71,6 +74,15 @@ class _SignupWidgetState extends State<SignupWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<SignupProvider>.value(
+      value: _provider,
+      child: Consumer<SignupProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -118,7 +130,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                           children: [
                             wrapWithModel(
                               model: _model.applogoComponentModel,
-                              updateCallback: () => safeSetState(() {}),
+                              updateCallback: () => _provider.update(() {}),
                               child: ApplogoComponentWidget(),
                             ),
                             Column(
@@ -940,7 +952,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                     child: Checkbox(
                                       value: _model.checkboxValue ??= false,
                                       onChanged: (newValue) async {
-                                        safeSetState(() =>
+                                        _provider.update(() =>
                                             _model.checkboxValue = newValue!);
                                       },
                                       side: (AppTheme.of(context)
@@ -1001,7 +1013,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 _model.formResult = true;
                                 if (_model.formKey.currentState == null ||
                                     !_model.formKey.currentState!.validate()) {
-                                  safeSetState(() => _model.formResult = false);
+                                  _provider.update(() => _model.formResult = false);
                                   return;
                                 }
                                 if (_model.checkboxValue == true) {
@@ -1051,7 +1063,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       VerifyEmailWidget.routeName,
                                       context.mounted);
 
-                                  safeSetState(() {
+                                  _provider.update(() {
                                     _model.fulNameTextController?.clear();
                                     _model.emailTextController?.clear();
                                     _model.phoneTextController?.clear();
@@ -1070,7 +1082,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   );
                                 }
 
-                                safeSetState(() {});
+                                _provider.update(() {});
                               },
                               text: 'Create Account',
                               icon: FaIcon(

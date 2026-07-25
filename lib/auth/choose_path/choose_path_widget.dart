@@ -11,6 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/choose_path_provider.dart';
 import '/viewmodels/choose_path_model.dart';
 export '/viewmodels/choose_path_model.dart';
 
@@ -28,6 +29,7 @@ class ChoosePathWidget extends StatefulWidget {
 
 class _ChoosePathWidgetState extends State<ChoosePathWidget> {
   late ChoosePathModel _model;
+  final ChoosePathProvider _provider = ChoosePathProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -36,18 +38,28 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
     super.initState();
     _model = createModel(context, () => ChoosePathModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ChoosePathProvider>.value(
+      value: _provider,
+      child: Consumer<ChoosePathProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -123,7 +135,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         },
                         child: wrapWithModel(
                           model: _model.choosePathComponentModel1,
-                          updateCallback: () => safeSetState(() {}),
+                          updateCallback: () => _provider.update(() {}),
                           child: ChoosePathComponentWidget(
                             icon: Icon(
                               Icons.search_rounded,
@@ -136,7 +148,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                             btnColor: AppTheme.of(context).primary,
                             boxColor: AppTheme.of(context).accent1,
                             borderColor:
-                                _model.selectedRole == UserRole.customer
+                                _provider.selectedRole == UserRole.customer
                                     ? AppTheme.of(context).accent1
                                     : AppTheme.of(context)
                                         .secondaryBackground,
@@ -156,7 +168,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         },
                         child: wrapWithModel(
                           model: _model.choosePathComponentModel2,
-                          updateCallback: () => safeSetState(() {}),
+                          updateCallback: () => _provider.update(() {}),
                           child: ChoosePathComponentWidget(
                             icon: FaIcon(
                               FontAwesomeIcons.tools,
@@ -169,7 +181,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                             btnColor: AppTheme.of(context).secondary,
                             boxColor: AppTheme.of(context).accent2,
                             borderColor:
-                                _model.selectedRole == UserRole.trades_person
+                                _provider.selectedRole == UserRole.trades_person
                                     ? AppTheme.of(context).accent2
                                     : AppTheme.of(context)
                                         .secondaryBackground,
@@ -222,7 +234,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                           0.0,
                         )),
                         child: AppButton(
-                          onPressed: (_model.selectedRole == null)
+                          onPressed: (_provider.selectedRole == null)
                               ? null
                               : () async {},
                           text: 'Continue',

@@ -1,57 +1,13 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
-import '/models/structs/index.dart';
-import '/repositories/supabase/supabase.dart';
-import '/widgets/components/add_skills/add_skills_widget.dart';
 import '/widgets/components/alerts/alerts_widget.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
-import '/widgets/app_choice_chips.dart';
-import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import '/core/form_field_controller.dart';
-import '/core/upload_data.dart';
-import 'dart:ui';
-import '/utils/custom_code/actions/index.dart' as actions;
 import '/core/routes/index.dart';
 import '/trader_screens/edit_trader_profile/edit_trader_profile_widget.dart' show EditTraderProfileWidget;
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class EditTraderProfileModel extends AppModel<EditTraderProfileWidget> {
-  ///  Local state fields for this page.
-
-  List<String> selectedSkills = [];
-  void addToSelectedSkills(String item) => selectedSkills.add(item);
-  void removeFromSelectedSkills(String item) => selectedSkills.remove(item);
-  void removeAtIndexFromSelectedSkills(int index) =>
-      selectedSkills.removeAt(index);
-  void insertAtIndexInSelectedSkills(int index, String item) =>
-      selectedSkills.insert(index, item);
-  void updateSelectedSkillsAtIndex(int index, Function(String) updateFn) =>
-      selectedSkills[index] = updateFn(selectedSkills[index]);
-
-  List<String> images = [
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
-    'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg'
-  ];
-  void addToImages(String item) => images.add(item);
-  void removeFromImages(String item) => images.remove(item);
-  void removeAtIndexFromImages(int index) => images.removeAt(index);
-  void insertAtIndexInImages(int index, String item) =>
-      images.insert(index, item);
-  void updateImagesAtIndex(int index, Function(String) updateFn) =>
-      images[index] = updateFn(images[index]);
-
   ///  State fields for stateful widgets in this page.
 
   // Model for appbar_component component.

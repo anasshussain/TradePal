@@ -26,6 +26,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '/providers/add_job_provider.dart';
 import '/viewmodels/add_job_model.dart';
 export '/viewmodels/add_job_model.dart';
 
@@ -48,6 +49,7 @@ class AddJobWidget extends StatefulWidget {
 
 class _AddJobWidgetState extends State<AddJobWidget> {
   late AddJobModel _model;
+  final AddJobProvider _provider = AddJobProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -59,8 +61,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget!.jobData!.images.isNotEmpty) {
-        _model.existingImages = widget!.jobData!.images.toList().cast<String>();
-        safeSetState(() {});
+        _provider.existingImages = widget!.jobData!.images.toList().cast<String>();
+        _provider.notify();
       }
     });
 
@@ -76,12 +78,13 @@ class _AddJobWidgetState extends State<AddJobWidget> {
         TextEditingController(text: widget!.jobData?.description);
     _model.descriptionFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -90,6 +93,15 @@ class _AddJobWidgetState extends State<AddJobWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<AddJobProvider>.value(
+      value: _provider,
+      child: Consumer<AddJobProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -103,7 +115,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: widget!.jobData != null ? 'Edit job' : 'Post a New Job',
               showAction: false,
@@ -118,7 +130,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
           top: true,
           child: Builder(
             builder: (context) {
-              if (!_model.loading) {
+              if (!_provider.loading) {
                 return Padding(
                   padding: EdgeInsets.all(valueOrDefault<double>(
                     AppConstants.parentPagePadding,
@@ -365,7 +377,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           widget!.jobData?.category,
                                     ),
                                     options: AppState().availableServices,
-                                    onChanged: (val) => safeSetState(
+                                    onChanged: (val) => _provider.update(
                                         () => _model.categoryValue = val),
                                     width: double.infinity,
                                     maxHeight: 400.0,
@@ -854,7 +866,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             '9',
                                             '10'
                                           ],
-                                          onChanged: (val) => safeSetState(() =>
+                                          onChanged: (val) => _provider.update(() =>
                                               _model.quotesDropDownValue = val),
                                           width: double.infinity,
                                           height: 50.0,
@@ -959,7 +971,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                 webGoogleMapsApiKey:
                                     'AIzaSyB3KAslS8Z5mPjB-KgmwZWAZJ4n8f5gDOY',
                                 onSelect: (place) async {
-                                  safeSetState(
+                                  _provider.update(
                                       () => _model.placePickerValue = place);
                                 },
                                 defaultText: 'Select Location',
@@ -1135,7 +1147,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           selectedMedia.every((m) =>
                                               validateFileFormat(
                                                   m.storagePath, context))) {
-                                        safeSetState(() => _model
+                                        _provider.update(() => _model
                                                 .isDataUploading_attachedImageLocal =
                                             true);
                                         var selectedUploadedFiles =
@@ -1162,12 +1174,12 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         }
                                         if (selectedUploadedFiles.length ==
                                             selectedMedia.length) {
-                                          safeSetState(() {
+                                          _provider.update(() {
                                             _model.uploadedLocalFiles_attachedImageLocal =
                                                 selectedUploadedFiles;
                                           });
                                         } else {
-                                          safeSetState(() {});
+                                          _provider.notify();
                                           return;
                                         }
                                       }
@@ -1175,11 +1187,11 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       if (_model
                                           .uploadedLocalFiles_attachedImageLocal
                                           .isNotEmpty) {
-                                        _model.selectedImages = _model
+                                        _provider.selectedImages = _model
                                             .uploadedLocalFiles_attachedImageLocal
                                             .toList()
                                             .cast<UploadedFile>();
-                                        safeSetState(() {});
+                                        _provider.notify();
                                       }
                                     },
                                     child: Material(
@@ -1274,7 +1286,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                         ),
                         Builder(
                           builder: (context) {
-                            final images = _model.selectedImages.toList();
+                            final images = _provider.selectedImages.toList();
 
                             return Wrap(
                               spacing: AppConstants.childSpacing,
@@ -1388,7 +1400,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                           child: Builder(
                             builder: (context) {
                               final existedImages =
-                                  _model.existingImages.toList();
+                                  _provider.existingImages.toList();
 
                               return MasonryGridView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
@@ -1525,7 +1537,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                 _model.formValidation = true;
                                 if (_model.formKey.currentState == null ||
                                     !_model.formKey.currentState!.validate()) {
-                                  safeSetState(
+                                  _provider.update(
                                       () => _model.formValidation = false);
                                   return;
                                 }
@@ -1536,7 +1548,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     2,
                                   );
                                   _model.formValidation = false;
-                                  safeSetState(() {});
+                                  _provider.notify();
                                   return;
                                 }
                                 if (_model.quotesDropDownValue == null) {
@@ -1546,7 +1558,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     2,
                                   );
                                   _model.formValidation = false;
-                                  safeSetState(() {});
+                                  _provider.notify();
                                   return;
                                 }
                                 if (_model.uploadedLocalFiles_attachedImageLocal
@@ -1559,13 +1571,13 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     2,
                                   );
                                   _model.formValidation = false;
-                                  safeSetState(() {});
+                                  _provider.notify();
                                   return;
                                 }
                                 if (_model.formValidation!) {
-                                  if (_model.selectedImages.isNotEmpty) {
+                                  if (_provider.selectedImages.isNotEmpty) {
                                     {
-                                      safeSetState(() => _model
+                                      _provider.update(() => _model
                                               .isDataUploading_uploadedImagesUrl =
                                           true);
                                       var selectedUploadedFiles =
@@ -1574,7 +1586,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       var downloadUrls = <String>[];
                                       try {
                                         selectedUploadedFiles =
-                                            _model.selectedImages;
+                                            _provider.selectedImages;
                                         selectedMedia =
                                             selectedFilesFromUploadedFiles(
                                           selectedUploadedFiles,
@@ -1594,14 +1606,14 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                               selectedMedia.length &&
                                           downloadUrls.length ==
                                               selectedMedia.length) {
-                                        safeSetState(() {
+                                        _provider.update(() {
                                           _model.uploadedLocalFiles_uploadedImagesUrl =
                                               selectedUploadedFiles;
                                           _model.uploadedFileUrls_uploadedImagesUrl =
                                               downloadUrls;
                                         });
                                       } else {
-                                        safeSetState(() {});
+                                        _provider.notify();
                                         return;
                                       }
                                     }
@@ -1615,11 +1627,11 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       final currentLoop1Item = _model
                                               .uploadedFileUrls_uploadedImagesUrl[
                                           loop1Index];
-                                      _model.addToTotalImages(currentLoop1Item);
+                                      _provider.addToTotalImages(currentLoop1Item);
                                     }
                                   }
                                   if (widget!.jobData == null) {
-                                    if (_model.totalImages.isNotEmpty) {
+                                    if (_provider.totalImages.isNotEmpty) {
                                       _model.addPostResult =
                                           await SupbaseRpcGroup.addJobCall.call(
                                         title:
@@ -1642,7 +1654,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         category: _model.categoryValue,
                                         totalQuotes: int.parse(
                                             (_model.quotesDropDownValue!)),
-                                        imagesList: _model.totalImages,
+                                        imagesList: _provider.totalImages,
                                         name: _model.placePickerValue.name,
                                         address:
                                             _model.placePickerValue.address,
@@ -1674,7 +1686,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                             .text),
                                                     category:
                                                         _model.categoryValue,
-                                                    images: _model.totalImages,
+                                                    images: _provider.totalImages,
                                                     createdAt:
                                                         getCurrentTimestamp
                                                             .toString(),
@@ -1721,9 +1733,9 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           _model.budgetTextController.text),
                                       category: _model.categoryValue,
                                       totalQuotes: _model.quotesDropDownValue,
-                                      imagesList: _model.totalImages.isNotEmpty
-                                          ? _model.totalImages
-                                          : _model.existingImages,
+                                      imagesList: _provider.totalImages.isNotEmpty
+                                          ? _provider.totalImages
+                                          : _provider.existingImages,
                                       address: _model.placePickerValue.address,
                                       name: _model.placePickerValue.name,
                                       country: _model.placePickerValue.country,
@@ -1767,7 +1779,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                   }
                                 }
 
-                                safeSetState(() {});
+                                _provider.notify();
                               },
                               text: widget!.jobData != null
                                   ? 'Update Job'
@@ -2043,7 +2055,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
               } else {
                 return wrapWithModel(
                   model: _model.jobDetailsLoaderModel,
-                  updateCallback: () => safeSetState(() {}),
+                  updateCallback: () => _provider.notify(),
                   child: JobDetailsLoaderWidget(),
                 );
               }

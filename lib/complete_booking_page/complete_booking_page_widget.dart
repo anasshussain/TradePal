@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/complete_booking_page_provider.dart';
 import '/viewmodels/complete_booking_page_model.dart';
 export '/viewmodels/complete_booking_page_model.dart';
 
@@ -24,6 +25,7 @@ class CompleteBookingPageWidget extends StatefulWidget {
 
 class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
   late CompleteBookingPageModel _model;
+  final CompleteBookingPageProvider _provider = CompleteBookingPageProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -32,18 +34,28 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
     super.initState();
     _model = createModel(context, () => CompleteBookingPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<CompleteBookingPageProvider>.value(
+      value: _provider,
+      child: Consumer<CompleteBookingPageProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -196,21 +208,21 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                                 children: [
                                   wrapWithModel(
                                     model: _model.trustBulletModel1,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: TrustBullet4Widget(
                                       label: 'Share photos',
                                     ),
                                   ),
                                   wrapWithModel(
                                     model: _model.trustBulletModel2,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: TrustBullet4Widget(
                                       label: 'Share contact details',
                                     ),
                                   ),
                                   wrapWithModel(
                                     model: _model.trustBulletModel3,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: TrustBullet4Widget(
                                       label: 'Continue full chat securely',
                                     ),
@@ -335,7 +347,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                           children: [
                             wrapWithModel(
                               model: _model.buttonModel1,
-                              updateCallback: () => safeSetState(() {}),
+                              updateCallback: () => _provider.update(() {}),
                               child: CountinueBookingWidget(
                                 content: 'Continue Booking',
                                 iconPresent: false,
@@ -349,7 +361,7 @@ class _CompleteBookingPageWidgetState extends State<CompleteBookingPageWidget> {
                             ),
                             wrapWithModel(
                               model: _model.buttonModel2,
-                              updateCallback: () => safeSetState(() {}),
+                              updateCallback: () => _provider.update(() {}),
                               child: CountinueBookingWidget(
                                 content: 'Not Now',
                                 iconPresent: false,
