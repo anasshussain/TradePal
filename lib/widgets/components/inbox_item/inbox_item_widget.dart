@@ -106,8 +106,8 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
         color: Colors.transparent,
         elevation: 0.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-              AppTheme.of(context).designToken.radius.lg),
+          borderRadius:
+              BorderRadius.circular(AppTheme.of(context).designToken.radius.lg),
         ),
         child: Container(
           width: double.infinity,
@@ -163,20 +163,18 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                               widget!.members?.name,
                               'name',
                             ),
-                            style:
-                                AppTheme.of(context).bodyLarge.override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyLarge
-                                          .fontStyle,
-                                    ),
+                            style: AppTheme.of(context).bodyLarge.override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: AppTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle:
+                                      AppTheme.of(context).bodyLarge.fontStyle,
+                                ),
                           ),
                           Text(
                             valueOrDefault<String>(
@@ -187,9 +185,7 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                               )),
                               'created time',
                             ),
-                            style: AppTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: AppTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontStyle: AppTheme.of(context)
@@ -200,9 +196,8 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontStyle:
+                                      AppTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                         ],
@@ -210,22 +205,18 @@ class _InboxItemWidgetState extends State<InboxItemWidget> {
                       AnimatedDefaultTextStyle(
                         style: AppTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.manrope(
-                                fontWeight: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
+                                fontWeight:
+                                    AppTheme.of(context).bodyMedium.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).bodyMedium.fontStyle,
                               ),
                               color: AppTheme.of(context).secondaryText,
                               fontSize: 12.0,
                               letterSpacing: 0.0,
-                              fontWeight: AppTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: AppTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
+                              fontWeight:
+                                  AppTheme.of(context).bodyMedium.fontWeight,
+                              fontStyle:
+                                  AppTheme.of(context).bodyMedium.fontStyle,
                             ),
                         duration: const Duration(milliseconds: 600),
                         curve: Curves.easeIn,

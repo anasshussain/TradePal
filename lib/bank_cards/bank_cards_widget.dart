@@ -1,3 +1,5 @@
+import 'package:my_trade_pal/widgets/components/appbar_component/appbar_component_widget.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -33,13 +35,15 @@ class BankCardsWidget extends StatefulWidget {
 
 class _BankCardsWidgetState extends State<BankCardsWidget> {
   late BankCardsModel _model;
-  final BankCardsProvider _provider = BankCardsProvider();
+  List<BankDetailsStruct>? getCards;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
+    isLoading = true;
     _model = createModel(context, () => BankCardsModel());
 
     // On page load action.
@@ -61,7 +65,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
         );
 
         if ((_model.bankDetailRes?.succeeded ?? true)) {
-          _provider.bankCards = ((_model.bankDetailRes?.jsonBody ?? '')
+          getCards = _model.bankCards = ((_model.bankDetailRes?.jsonBody ?? '')
                   .toList()
                   .map<BankDetailsStruct?>(BankDetailsStruct.maybeFromMap)
                   .toList() as Iterable<BankDetailsStruct?>)
@@ -74,7 +78,9 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                   .toList() as Iterable<StripeDataStruct?>)
               .withoutNulls
               ?.firstOrNull;
-          _provider.notify();
+          safeSetState(() {
+            isLoading = false;
+          });
         }
       }
     });
@@ -127,17 +133,10 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          AppIconButton(
-                            borderRadius: 8.0,
-                            buttonSize: 40.0,
-                            icon: FaIcon(
-                              FontAwesomeIcons.chevronLeft,
-                              color: AppTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                            onPressed: () async {
-                              context.safePop();
-                            },
+                          Icon(
+                            Icons.credit_card_off_outlined,
+                            size: 80,
+                            color: Colors.grey.shade400,
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -208,32 +207,13 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                               Icons.add_rounded,
                               color: AppTheme.of(context).primary,
                               size: 24.0,
+                          const SizedBox(height: 20),
+                          const Text(
+                            'No Cards Found',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
                             ),
-                            onPressed: () async {
-                              _model.connectStripe =
-                                  await SupabaseEdgeFunctionsGroup
-                                      .onboardingStripeConnectAccountCall
-                                      .call(
-                                userId: currentUserUid,
-                                email: currentUserEmail,
-                              );
-
-                              if ((_model.connectStripe?.succeeded ?? true)) {
-                                await launchURL(SupabaseEdgeFunctionsGroup
-                                    .onboardingStripeConnectAccountCall
-                                    .url(
-                                  (_model.connectStripe?.jsonBody ?? ''),
-                                )!);
-                              } else {
-                                await actions.showToast(
-                                  context,
-                                  'Some error occured',
-                                  2,
-                                );
-                              }
-
-                              _provider.notify();
-                            },
                           ),
                         ],
                       ),
@@ -287,8 +267,38 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                     ].divide(const SizedBox(height: 20.0)),
                   ),
                 ),
-              ),
-            ],
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(20),
+          child: FloatingActionButton(
+            backgroundColor:  AppTheme.of(context).secondary,
+            onPressed: () async {
+              _model.connectStripe = await SupabaseEdgeFunctionsGroup
+                  .onboardingStripeConnectAccountCall
+                  .call(
+                userId: currentUserUid,
+                email: currentUserEmail,
+              );
+
+              if ((_model.connectStripe?.succeeded ?? true)) {
+                await launchURL(SupabaseEdgeFunctionsGroup
+                    .onboardingStripeConnectAccountCall
+                    .url(
+                  (_model.connectStripe?.jsonBody ?? ''),
+                )!);
+              } else {
+                await actions.showToast(
+                  context,
+                  'Some error occured',
+                  2,
+                );
+              }
+
+              safeSetState(() {});
+            },
+            child: Icon(
+              Icons.add,
+              color: Color(0xffffffff),
+            ),
           ),
         ),
       ),

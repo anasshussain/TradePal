@@ -315,7 +315,6 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                     _provider.notify();
                                   }
                                 }
-
                                 _provider.notify();
                                 _provider.notify();
                               },
@@ -358,7 +357,6 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           // loading dikhao — baad mein hamesha cached data
                           // turant show hoga, background refresh silent hoga.
                           final isLoading = _cachedConversations == null;
-
                           return Skeletonizer(
                             enabled: isLoading,
                             child: Builder(
