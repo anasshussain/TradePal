@@ -29,7 +29,7 @@ class BankCardComponentWidget extends StatefulWidget {
 
 class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
   late BankCardComponentModel _model;
-
+  bool _pressed = false;
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -53,490 +53,318 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 320,
+          height: 255,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.08),
+              width: 1,
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xff214FC7),
+                Color(0xff173C98),
+                Color(0xff0E255E),
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                blurRadius: 40,
+                spreadRadius: -5,
+                offset: const Offset(0, 20),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              _glassEffect(),
+              Material(
+                color: Colors.transparent,
+                child: GestureDetector(
+                  
+                  onTapDown: (_) {
+                    setState(() => _pressed = true);
+                  },
+                  onTapUp: (_) {
+                    setState(() => _pressed = false);
+                  },
+                  onTapCancel: () {
+                    setState(() => _pressed = false);
+                  },
+                  child: AnimatedScale(
+                    duration: const Duration(milliseconds: 180),
+                    scale: _pressed ? .98 : 1,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 180),
+                      transform: Matrix4.translationValues(
+                        0,
+                        _pressed ? 4 : 0,
+                        0,
+                      ),
+                      child: _cardContent(),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 0,
+                      left: 17,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Checkbox(
+                          value: false,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          visualDensity: VisualDensity.compact,
+                          onChanged: (value) {
+                            // Handle checkbox
+                          },
+                         activeColor: const Color(0xff214FC7),
+  side: const BorderSide(
+    color: Colors.white70,
+  ),
+                          
+                        ),
+                        TextButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: Colors.red,
+                          ),
+                          label: const Text(
+                            "Delete",
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _glassEffect() {
     return Stack(
       children: [
-        Material(
-          color: Colors.transparent,
-          elevation: 4.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
+        Positioned(
+          top: -60,
+          right: -40,
           child: Container(
-            width: 320.0,
-            height: 200.0,
+            width: 180,
+            height: 180,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/texture.jpg',
-                ).image,
-              ),
-              borderRadius: BorderRadius.circular(12.0),
+              shape: BoxShape.circle,
+              color: Colors.white.withOpacity(.08),
             ),
           ),
         ),
-        Material(
-          color: Colors.transparent,
-          elevation: 6.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
+        Positioned(
+          bottom: -80,
+          left: -60,
           child: Container(
-            width: 320.0,
-            height: 200.0,
-            constraints: BoxConstraints(
-              maxWidth: double.infinity,
-              maxHeight: 200.0,
-            ),
+            width: 220,
+            height: 220,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
+              shape: BoxShape.circle,
+              color: Colors.white.withOpacity(.04),
             ),
+          ),
+        ),
+        Positioned(
+          top: -120,
+          left: 120,
+          child: Transform.rotate(
+            angle: -.35,
             child: Container(
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 10.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 4.0,
-                                  color: AppTheme.of(context)
-                                      .secondaryBackground,
-                                  offset: Offset(
-                                    0.5,
-                                    0.5,
-                                  ),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(2.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  _model.removeBankAccount =
-                                      await SupabaseEdgeFunctionsGroup
-                                          .deleteBankAccountCall
-                                          .call(
-                                    accountId: widget!.bankCardDetail?.account,
-                                    bankAccountId: widget!.bankCardDetail?.id,
-                                  );
-
-                                  if ((_model.removeBankAccount?.succeeded ??
-                                      true)) {
-                                    await actions.showToast(
-                                      context,
-                                      'Successfully Deleted',
-                                      2,
-                                    );
-                                  } else {
-                                    await actions.showToast(
-                                      context,
-                                      'Some error occured',
-                                      2,
-                                    );
-                                  }
-
-                                  safeSetState(() {});
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4.0,
-                                        color: Color(0xFFC0C0C0),
-                                        offset: Offset(
-                                          -1.5,
-                                          -1.5,
-                                        ),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  ),
-                                  child: Icon(
-                                    Icons.delete_rounded,
-                                    color: Color(0xFFD8D8D8),
-                                    size: 30.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Theme(
-                            data: ThemeData(
-                              checkboxTheme: CheckboxThemeData(
-                                visualDensity: VisualDensity.compact,
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4.0),
-                                ),
-                              ),
-                              unselectedWidgetColor:
-                                  AppTheme.of(context).secondaryText,
-                            ),
-                            child: Checkbox(
-                              value: _model.checkboxValue ??=
-                                  widget!.bankCardDetail!.defaultForCurrency,
-                              onChanged: (newValue) async {
-                                safeSetState(
-                                    () => _model.checkboxValue = newValue!);
-                                if (newValue!) {
-                                  _model.createDefaultAccount =
-                                      await SupabaseEdgeFunctionsGroup
-                                          .createDefaultAccountCall
-                                          .call(
-                                    accountId: widget!.bankCardDetail?.account,
-                                    bankAccountId: widget!.bankCardDetail?.id,
-                                  );
-
-                                  if ((_model.createDefaultAccount?.succeeded ??
-                                      true)) {
-                                    await actions.showToast(
-                                      context,
-                                      'Account updated',
-                                      2,
-                                    );
-                                  } else {
-                                    await actions.showToast(
-                                      context,
-                                      'some error occured',
-                                      2,
-                                    );
-                                  }
-
-                                  safeSetState(() {});
-                                }
-                              },
-                              side:
-                                  (AppTheme.of(context).secondaryText !=
-                                          null)
-                                      ? BorderSide(
-                                          width: 2,
-                                          color: AppTheme.of(context)
-                                              .secondaryText!,
-                                        )
-                                      : null,
-                              activeColor: AppTheme.of(context).primary,
-                              checkColor: AppTheme.of(context).info,
-                            ),
-                          ),
-                        ].divide(SizedBox(height: 20.0)),
-                      ),
-                    ),
-                  ),
-                  Opacity(
-                    opacity: 0.5,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppTheme.of(context).success,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10.0),
-                          bottomRight: Radius.circular(12.0),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          valueOrDefault<String>(
-                            widget!.bankCardDetail?.bankName,
-                            'bank name',
-                          ),
-                          style: AppTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.manrope(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: AppTheme.of(context).primaryText,
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Transform.rotate(
-                              angle: 270.0 * (math.pi / 180),
-                              child: Icon(
-                                Icons.change_history_sharp,
-                                color: AppTheme.of(context).primary,
-                                size: 24.0,
-                              ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                'assets/images/cardChip-removebg-preview.png',
-                                width: 55.0,
-                                height: 55.0,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '****',
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                font: GoogleFonts.poppins(
-                                  fontWeight: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0x83FFFFFF),
-                                fontSize: 28.0,
-                                letterSpacing: 0.0,
-                                fontWeight: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                                shadows: [
-                                  Shadow(
-                                    color: Color(0xFFC0C0C0),
-                                    offset: Offset(-1.5, -1.5),
-                                    blurRadius: 4.0,
-                                  ),
-                                  Shadow(
-                                    color: AppTheme.of(context)
-                                        .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
-                                    blurRadius: 4.0,
-                                  )
-                                ],
-                              ),
-                            ),
-                            Text(
-                              '****',
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                font: GoogleFonts.poppins(
-                                  fontWeight: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0x83FFFFFF),
-                                fontSize: 28.0,
-                                letterSpacing: 0.0,
-                                fontWeight: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                                shadows: [
-                                  Shadow(
-                                    color: Color(0xFFC0C0C0),
-                                    offset: Offset(-1.5, -1.5),
-                                    blurRadius: 4.0,
-                                  ),
-                                  Shadow(
-                                    color: AppTheme.of(context)
-                                        .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
-                                    blurRadius: 4.0,
-                                  )
-                                ],
-                              ),
-                            ),
-                            Text(
-                              '****',
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                font: GoogleFonts.poppins(
-                                  fontWeight: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0x83FFFFFF),
-                                fontSize: 28.0,
-                                letterSpacing: 0.0,
-                                fontWeight: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                                shadows: [
-                                  Shadow(
-                                    color: Color(0xFFC0C0C0),
-                                    offset: Offset(-1.5, -1.5),
-                                    blurRadius: 4.0,
-                                  ),
-                                  Shadow(
-                                    color: AppTheme.of(context)
-                                        .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
-                                    blurRadius: 4.0,
-                                  )
-                                ],
-                              ),
-                            ),
-                            Text(
-                              valueOrDefault<String>(
-                                widget!.bankCardDetail?.last4,
-                                '0123',
-                              ),
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                font: GoogleFonts.poppins(
-                                  fontWeight: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: Color(0x83FFFFFF),
-                                fontSize: 28.0,
-                                letterSpacing: 0.0,
-                                fontWeight: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                                shadows: [
-                                  Shadow(
-                                    color: Color(0xFFC0C0C0),
-                                    offset: Offset(-1.5, -1.5),
-                                    blurRadius: 4.0,
-                                  ),
-                                  Shadow(
-                                    color: AppTheme.of(context)
-                                        .secondaryBackground,
-                                    offset: Offset(1.5, 1.5),
-                                    blurRadius: 4.0,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ].divide(SizedBox(width: 10.0)),
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text(
-                                functions
-                                    .countryCodeToEmoji(valueOrDefault<String>(
-                                  widget!.bankCardDetail?.country,
-                                  'country',
-                                )),
-                                style: AppTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      color: AppTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 10.0),
-                              child: Text(
-                                valueOrDefault<String>(
-                                  widget!.bankCardDetail?.currency,
-                                  'currency',
-                                ),
-                                style: AppTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      color: AppTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ].divide(SizedBox(height: 10.0)),
-                    ),
-                  ),
-                ],
+              width: 80,
+              height: 320,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white.withOpacity(.18),
+                    Colors.white.withOpacity(.02),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _cardContent() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24,
+        vertical: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  widget.bankCardDetail?.bankName ?? "",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: GoogleFonts.spaceGrotesk(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xff57C84D),
+                      Color(0xff39B54A),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Text(
+                  "DEFAULT",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: .5,
+                  ),
+                ),
+              ),
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: .9, end: 1),
+                duration: const Duration(milliseconds: 1200),
+                curve: Curves.easeInOut,
+                builder: (_, value, child) {
+                  return Transform.scale(
+                    scale: value,
+                    child: child,
+                  );
+                },
+                child: const Icon(
+                  Icons.contactless,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 14),
+          Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white.withOpacity(.14),
+                    Colors.white.withOpacity(.05),
+                  ],
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  "assets/images/cardChip-removebg-preview.png",
+                  width: 44,
+                ),
+              )),
+          const SizedBox(height: 18),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "••••  ••••  ••••  ",
+                  style: GoogleFonts.spaceGrotesk(
+                    fontSize: 22,
+                    color: Colors.white,
+                  ),
+                ),
+                TextSpan(
+                  text: widget.bankCardDetail?.last4 ?? "",
+                  style: GoogleFonts.spaceGrotesk(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${functions.countryCodeToEmoji(widget.bankCardDetail?.country ?? '')} "
+                    "${widget.bankCardDetail?.country ?? ''}",
+                    style: GoogleFonts.spaceGrotesk(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    (widget.bankCardDetail?.currency ?? '').toUpperCase(),
+                    style: GoogleFonts.spaceGrotesk(
+                      color: Colors.white70,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(.08),
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+                child: Image.asset(
+                  "assets/images/logo-removebg-preview.png",
+                  width: 44,
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
