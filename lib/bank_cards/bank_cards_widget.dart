@@ -17,6 +17,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/bank_cards_provider.dart';
 import '/viewmodels/bank_cards_model.dart';
 export '/viewmodels/bank_cards_model.dart';
 
@@ -35,6 +36,7 @@ class BankCardsWidget extends StatefulWidget {
 class _BankCardsWidgetState extends State<BankCardsWidget> {
   late BankCardsModel _model;
   List<BankDetailsStruct>? getCards;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
 
@@ -70,7 +72,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
               .withoutNulls
               .toList()
               .cast<BankDetailsStruct>();
-          _model.stripeDetails = ((_model.userStripeRow?.jsonBody ?? '')
+          _provider.stripeDetails = ((_model.userStripeRow?.jsonBody ?? '')
                   .toList()
                   .map<StripeDataStruct?>(StripeDataStruct.maybeFromMap)
                   .toList() as Iterable<StripeDataStruct?>)
@@ -83,18 +85,26 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<BankCardsProvider>.value(
+      value: _provider,
+      child: _buildContent(context),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

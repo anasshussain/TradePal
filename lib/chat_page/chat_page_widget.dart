@@ -34,6 +34,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '/providers/chat_page_provider.dart';
 import '/viewmodels/chat_page_model.dart';
 export '/viewmodels/chat_page_model.dart';
 
@@ -64,6 +65,7 @@ class ChatPageWidget extends StatefulWidget {
 class _ChatPageWidgetState extends State<ChatPageWidget>
     with TickerProviderStateMixin {
   late ChatPageModel _model;
+  final ChatPageProvider _provider = ChatPageProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -76,9 +78,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.loading = true;
-      _model.isProposalPaid = false;
-      safeSetState(() {});
+      _provider.loading = true;
+      _provider.isProposalPaid = false;
+      _provider.notify();
       await Future.wait([
         Future(() async {
           await actions.unsubscribe(
@@ -97,7 +99,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 widget!.conversationId!,
                 'insert',
                 () async {
-                  safeSetState(() => _model.apiRequestCompleter = null);
+                  _provider.update(() => _model.apiRequestCompleter = null);
                   await _model.waitForApiRequestCompleted();
                 },
               );
@@ -109,13 +111,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
               );
 
               if ((_model.getJobDetail?.succeeded ?? true)) {
-                _model.jobData = ((_model.getJobDetail?.jsonBody ?? '')
+                _provider.jobData = ((_model.getJobDetail?.jsonBody ?? '')
                         .toList()
                         .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
                         .toList() as Iterable<JobDataStruct?>)
                     .withoutNulls
                     ?.firstOrNull;
-                _model.isAssigned = ((_model.getJobDetail?.jsonBody ?? '')
+                _provider.isAssigned = ((_model.getJobDetail?.jsonBody ?? '')
                             .toList()
                             .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
                             .toList() as Iterable<JobDataStruct?>)
@@ -123,12 +125,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                         ?.firstOrNull
                         ?.assignedTradespersonId ==
                     widget!.member?.id;
-                safeSetState(() {});
+                _provider.notify();
               }
             }),
           ]);
-          _model.loading = false;
-          safeSetState(() {});
+          _provider.loading = false;
+          _provider.notify();
         }),
         Future(() async {
           if (AppState().userProfileCache.userRole == 2) {
@@ -143,8 +145,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                     (_model.paymentStatusRes?.jsonBody ?? ''),
                   ) ==
                   PaymentStatus.paid.name) {
-                _model.isProposalPaid = true;
-                safeSetState(() {});
+                _provider.isProposalPaid = true;
+                _provider.notify();
               } else {
                 await Future.wait([
                   Future(() async {
@@ -190,7 +192,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 ).toString(),
                 'update',
                 () async {
-                  safeSetState(() {});
+                  _provider.notify();
                 },
               );
             }
@@ -256,7 +258,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
@@ -272,6 +274,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
     }();
 
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -280,6 +283,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<ChatPageProvider>.value(
+      value: _provider,
+      child: Consumer<ChatPageProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return Builder(
       builder: (context) => GestureDetector(
         onTap: () {
@@ -294,7 +306,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             automaticallyImplyLeading: false,
             title: wrapWithModel(
               model: _model.appbarComponentModel,
-              updateCallback: () => safeSetState(() {}),
+              updateCallback: () => _provider.notify(),
               child: AppbarComponentWidget(
                 title: '',
                 showAction: false,
@@ -367,9 +379,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             children: [
                                               FaIcon(
                                                 FontAwesomeIcons.tools,
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .primary,
+                                                color: AppTheme.of(context)
+                                                    .primary,
                                                 size: 16.0,
                                               ),
                                               Expanded(
@@ -382,8 +393,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       TextSpan(
                                                         text: 'Discussing:',
                                                         style:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   font: GoogleFonts
@@ -414,39 +424,38 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       TextSpan(
                                                         text: valueOrDefault<
                                                             String>(
-                                                          _model.jobData?.title,
+                                                          _provider.jobData?.title,
                                                           '....',
                                                         ),
-                                                        style: AppTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .manrope(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontStyle: AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                              fontSize: 12.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  AppTheme.of(
+                                                        style:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .manrope(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontStyle: AppTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
-                                                            ),
+                                                                ),
                                                       )
                                                     ],
-                                                    style: AppTheme.of(
-                                                            context)
+                                                    style: AppTheme.of(context)
                                                         .bodyMedium
                                                         .override(
                                                           font: GoogleFonts
@@ -478,8 +487,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                               ),
                                             ].divide(SizedBox(
-                                                width: AppConstants
-                                                    .childSpacing)),
+                                                width:
+                                                    AppConstants.childSpacing)),
                                           ),
                                         ),
                                         Text(
@@ -490,44 +499,38 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 font: GoogleFonts.manrope(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .secondary,
+                                                color: AppTheme.of(context)
+                                                    .secondary,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                               ),
                                         ),
                                       ]
                                           .divide(SizedBox(
-                                              width:
-                                                  AppConstants.childSpacing))
+                                              width: AppConstants.childSpacing))
                                           .around(SizedBox(
                                               width:
                                                   AppConstants.childSpacing)),
                                     ),
-                                    if ((AppState()
-                                                .userProfileCache
-                                                .userRole ==
+                                    if ((AppState().userProfileCache.userRole ==
                                             1) &&
-                                        (_model.jobData != null) &&
-                                        ((_model.jobData?.status ==
+                                        (_provider.jobData != null) &&
+                                        ((_provider.jobData?.status ==
                                                 Status.ACTIVE) ||
-                                            (_model.jobData?.status ==
+                                            (_provider.jobData?.status ==
                                                 Status.IN_PROGRESS)))
                                       Container(
                                         decoration: BoxDecoration(),
                                         child: AppButton(
                                           onPressed: () async {
-                                            if (_model.jobData?.status ==
+                                            if (_provider.jobData?.status ==
                                                 Status.IN_PROGRESS) {
                                               _model.jobCompletedRes =
                                                   await SupabaseTablesGroup
@@ -584,7 +587,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   dataJson: {},
                                                 );
 
-                                                _model.jobData = ((_model
+                                                _provider.jobData = ((_model
                                                                     .jobCompletedRes
                                                                     ?.jsonBody ??
                                                                 '')
@@ -597,9 +600,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             JobDataStruct?>)
                                                     .withoutNulls
                                                     ?.firstOrNull;
-                                                safeSetState(() {});
+                                                _provider.notify();
                                               }
-                                            } else if (_model.jobData?.status ==
+                                            } else if (_provider.jobData?.status ==
                                                 Status.ACTIVE) {
                                               _model.jobAssignedRes =
                                                   await SupabaseTablesGroup
@@ -658,7 +661,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   dataJson: {},
                                                 );
 
-                                                _model.jobData = ((_model
+                                                _provider.jobData = ((_model
                                                                     .jobAssignedRes
                                                                     ?.jsonBody ??
                                                                 '')
@@ -671,14 +674,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             JobDataStruct?>)
                                                     .withoutNulls
                                                     ?.firstOrNull;
-                                                _model.isAssigned = true;
-                                                safeSetState(() {});
+                                                _provider.isAssigned = true;
+                                                _provider.notify();
                                               }
                                             }
 
-                                            safeSetState(() {});
+                                            _provider.notify();
                                           },
-                                          text: _model.jobData?.status ==
+                                          text: _provider.jobData?.status ==
                                                   Status.IN_PROGRESS
                                               ? 'Complete job'
                                               : 'Assign to job',
@@ -691,41 +694,34 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
-                                            color: _model.jobData?.status ==
+                                            color: _provider.jobData?.status ==
                                                     Status.IN_PROGRESS
-                                                ? AppTheme.of(context)
-                                                    .success
-                                                : AppTheme.of(context)
-                                                    .primary,
-                                            textStyle:
-                                                AppTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontStyle,
-                                                      ),
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          AppTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontStyle,
-                                                    ),
+                                                ? AppTheme.of(context).success
+                                                : AppTheme.of(context).primary,
+                                            textStyle: AppTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  color: Colors.white,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      AppTheme.of(context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      AppTheme.of(context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
                                             elevation: 0.0,
                                             borderRadius: BorderRadius.circular(
                                                 AppTheme.of(context)
@@ -755,16 +751,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                     Expanded(
                       child: Builder(
                         builder: (context) {
-                          if (!_model.loading) {
+                          if (!_provider.loading) {
                             return Visibility(
-                              visible: (AppState()
-                                          .userProfileCache
-                                          .userRole ==
-                                      1) ||
-                                  ((AppState().userProfileCache.userRole ==
-                                          2) &&
-                                      (_model.isProposalPaid == true)) ||
-                                  (AppState().paidJobId == widget!.jobid),
+                              visible:
+                                  (AppState().userProfileCache.userRole == 1) ||
+                                      ((AppState().userProfileCache.userRole ==
+                                              2) &&
+                                          (_model.isProposalPaid == true)) ||
+                                      (AppState().paidJobId == widget!.jobid),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
                                   AppConstants.parentPagePadding,
@@ -788,8 +782,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           width: 40.0,
                                           height: 40.0,
                                           child: SpinKitFadingCube(
-                                            color: AppTheme.of(context)
-                                                .primary,
+                                            color: AppTheme.of(context).primary,
                                             size: 40.0,
                                           ),
                                         ),
@@ -818,8 +811,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             icon: Icon(
                                               Icons.chat,
                                               color:
-                                                  AppTheme.of(context)
-                                                      .accent4,
+                                                  AppTheme.of(context).accent4,
                                               size: 40.0,
                                             ),
                                             title: 'No messages yet',
@@ -891,14 +883,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                       .designToken
                                                                       .radius
                                                                       .lg),
-                                                              bottomLeft: Radius.circular(
-                                                                  AppTheme.of(
+                                                              bottomLeft: Radius
+                                                                  .circular(AppTheme.of(
                                                                           context)
                                                                       .designToken
                                                                       .radius
                                                                       .lg),
-                                                              bottomRight: Radius.circular(
-                                                                  AppTheme.of(
+                                                              bottomRight: Radius
+                                                                  .circular(AppTheme.of(
                                                                           context)
                                                                       .designToken
                                                                       .radius
@@ -912,8 +904,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             ),
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: AppTheme
-                                                                      .of(context)
+                                                              color: AppTheme.of(
+                                                                      context)
                                                                   .alternate,
                                                               borderRadius:
                                                                   BorderRadius
@@ -1081,35 +1073,35 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           )),
                                                           'created at',
                                                         ),
-                                                        style: AppTheme
-                                                                .of(context)
-                                                            .labelSmall
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .inter(
-                                                                fontWeight: AppTheme.of(
-                                                                        context)
-                                                                    .labelSmall
-                                                                    .fontWeight,
-                                                                fontStyle: AppTheme.of(
-                                                                        context)
-                                                                    .labelSmall
-                                                                    .fontStyle,
-                                                              ),
-                                                              fontSize: 10.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  AppTheme.of(
+                                                        style:
+                                                            AppTheme.of(context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight: AppTheme.of(
+                                                                            context)
+                                                                        .labelSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: AppTheme.of(
+                                                                            context)
+                                                                        .labelSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      10.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: AppTheme.of(
                                                                           context)
                                                                       .labelSmall
                                                                       .fontWeight,
-                                                              fontStyle:
-                                                                  AppTheme.of(
+                                                                  fontStyle: AppTheme.of(
                                                                           context)
                                                                       .labelSmall
                                                                       .fontStyle,
-                                                            ),
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
@@ -1383,8 +1375,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         .createdAt),
                                                             'created at',
                                                           ),
-                                                          style: AppTheme
-                                                                  .of(context)
+                                                          style: AppTheme.of(
+                                                                  context)
                                                               .labelSmall
                                                               .override(
                                                                 font:
@@ -1430,7 +1422,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                           } else {
                             return wrapWithModel(
                               model: _model.loadingTextModel,
-                              updateCallback: () => safeSetState(() {}),
+                              updateCallback: () => _provider.notify(),
                               child: LoadingTextWidget(),
                             );
                           }
@@ -1462,10 +1454,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                     ),
                     child: Builder(
                       builder: (context) {
-                        if (_model.jobData != null) {
+                        if (_provider.jobData != null) {
                           return Builder(
                             builder: (context) {
-                              if (_model.jobData?.status != Status.COMPLETED) {
+                              if (_provider.jobData?.status != Status.COMPLETED) {
                                 return Padding(
                                   padding:
                                       EdgeInsets.all(valueOrDefault<double>(
@@ -1514,13 +1506,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     icon: Icon(
                                                       Icons.close,
                                                       color:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .info,
                                                       size: 14.0,
                                                     ),
                                                     onPressed: () async {
-                                                      safeSetState(() {
+                                                      _provider.update(() {
                                                         _model.isDataUploading_locallyUploadedImage =
                                                             false;
                                                         _model.uploadedLocalFile_locallyUploadedImage =
@@ -1546,16 +1537,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             buttonSize: 40.0,
                                             fillColor: Colors.transparent,
                                             disabledColor:
-                                                AppTheme.of(context)
-                                                    .alternate,
+                                                AppTheme.of(context).alternate,
                                             disabledIconColor:
-                                                AppTheme.of(context)
-                                                    .hint,
+                                                AppTheme.of(context).hint,
                                             icon: Icon(
                                               Icons.add_circle_outline_rounded,
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               size: 24.0,
                                             ),
                                             onPressed:
@@ -1567,7 +1555,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             '')
                                                     ? null
                                                     : () async {
-                                                        if (_model.isAssigned) {
+                                                        if (_provider.isAssigned) {
                                                           await showModalBottomSheet(
                                                             isScrollControlled:
                                                                 true,
@@ -1606,7 +1594,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                           selectedMedia.every((m) => validateFileFormat(
                                                                               m.storagePath,
                                                                               context))) {
-                                                                        safeSetState(() =>
+                                                                        _provider.update(() =>
                                                                             _model.isDataUploading_locallyUploadedImage =
                                                                                 true);
                                                                         var selectedUploadedFiles =
@@ -1629,13 +1617,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         }
                                                                         if (selectedUploadedFiles.length ==
                                                                             selectedMedia.length) {
-                                                                          safeSetState(
+                                                                          _provider.update(
                                                                               () {
                                                                             _model.uploadedLocalFile_locallyUploadedImage =
                                                                                 selectedUploadedFiles.first;
                                                                           });
                                                                         } else {
-                                                                          safeSetState(
+                                                                          _provider.update(
                                                                               () {});
                                                                           return;
                                                                         }
@@ -1646,7 +1634,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               );
                                                             },
                                                           ).then((value) =>
-                                                              safeSetState(
+                                                              _provider.update(
                                                                   () {}));
                                                         } else {
                                                           context.pushNamed(
@@ -1666,63 +1654,53 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               obscureText: false,
                                               decoration: InputDecoration(
                                                 isDense: false,
-                                                labelStyle: AppTheme.of(
-                                                        context)
+                                                labelStyle: AppTheme.of(context)
                                                     .labelMedium
                                                     .override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .labelMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                                       color:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .secondaryText,
                                                       fontSize: 12.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .labelMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .labelMedium
                                                               .fontStyle,
                                                     ),
                                                 hintText: 'Type a message...',
-                                                hintStyle: AppTheme.of(
-                                                        context)
+                                                hintStyle: AppTheme.of(context)
                                                     .labelMedium
                                                     .override(
                                                       font: GoogleFonts.inter(
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .labelMedium
                                                                 .fontStyle,
                                                       ),
                                                       color:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .hint,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       fontStyle:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .labelMedium
                                                               .fontStyle,
                                                     ),
@@ -1739,8 +1717,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 focusedBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .primary,
                                                     width: 1.0,
                                                   ),
@@ -1750,8 +1727,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                                 errorBorder: OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .error,
                                                     width: 1.0,
                                                   ),
@@ -1762,8 +1738,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 focusedErrorBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .error,
                                                     width: 1.0,
                                                   ),
@@ -1772,42 +1747,34 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           8.0),
                                                 ),
                                                 filled: true,
-                                                fillColor:
-                                                    AppTheme.of(context)
-                                                        .alternate,
+                                                fillColor: AppTheme.of(context)
+                                                    .alternate,
                                               ),
-                                              style:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.manrope(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                              cursorColor:
-                                                  AppTheme.of(context)
-                                                      .primaryText,
+                                              style: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                              cursorColor: AppTheme.of(context)
+                                                  .primaryText,
                                               enableInteractiveSelection: true,
                                               validator: _model
                                                   .messageTextFieldTextControllerValidator
@@ -1815,18 +1782,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             ),
                                           ),
                                           Builder(
-                                            builder: (context) =>
-                                                AppIconButton(
+                                            builder: (context) => AppIconButton(
                                               borderRadius: 8.0,
                                               buttonSize: 48.0,
                                               fillColor:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               icon: Icon(
                                                 Icons.send_rounded,
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .primaryBackground,
+                                                color: AppTheme.of(context)
+                                                    .primaryBackground,
                                                 size: 24.0,
                                               ),
                                               showLoadingIndicator: true,
@@ -1839,13 +1803,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 .userProfileCache
                                                                 .userRole ==
                                                             2) &&
-                                                        (_model.isProposalPaid ==
+                                                        (_provider.isProposalPaid ==
                                                             true))) {
                                                   if (functions.canSendMessage(
                                                       _model
                                                           .messageTextFieldTextController
                                                           .text,
-                                                      _model.isAssigned)) {
+                                                      _provider.isAssigned)) {
                                                     if (_model.uploadedLocalFile_locallyUploadedImage !=
                                                             null &&
                                                         (_model
@@ -1854,7 +1818,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 ?.isNotEmpty ??
                                                             false)) {
                                                       {
-                                                        safeSetState(() => _model
+                                                        _provider.update(() => _model
                                                                 .isDataUploading_uploadedFileImagePath =
                                                             true);
                                                         var selectedUploadedFiles =
@@ -1898,7 +1862,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     .length ==
                                                                 selectedMedia
                                                                     .length) {
-                                                          safeSetState(() {
+                                                          _provider.update(() {
                                                             _model.uploadedLocalFile_uploadedFileImagePath =
                                                                 selectedUploadedFiles
                                                                     .first;
@@ -1907,7 +1871,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     .first;
                                                           });
                                                         } else {
-                                                          safeSetState(() {});
+                                                          _provider.notify();
                                                           return;
                                                         }
                                                       }
@@ -1965,85 +1929,100 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       if ((_model.sendMessage
                                                               ?.succeeded ??
                                                           true)) {
+                                                        Future(() async {
+                                                          final message = _model
+                                                              .messageTextFieldTextController
+                                                              .text
+                                                              .trim();
+
+                                                          final notificationBody =
+                                                              message.length >
+                                                                      100
+                                                                  ? '${message.substring(0, 100)}...'
+                                                                  : message;
+                                                          await action_blocks
+                                                              .insertNotifications(
+                                                            context,
+                                                            title:
+                                                                'New Message from ${AppState().userProfileCache.name}',
+                                                            message:
+                                                                notificationBody,
+                                                            type:
+                                                                NotificationType
+                                                                    .CHAT.name,
+                                                            userId: AppState()
+                                                                .userProfileCache
+                                                                .userKey,
+                                                            referenceId: widget!
+                                                                .conversationId,
+                                                            recieverid: widget!
+                                                                .member?.id,
+                                                            extraData: <String,
+                                                                dynamic>{
+                                                              'member': <String,
+                                                                  dynamic>{
+                                                                'username':
+                                                                    AppState()
+                                                                        .userProfileCache
+                                                                        .name,
+                                                                'avatarurl': AppState()
+                                                                    .userProfileCache
+                                                                    .avatarUrl,
+                                                                'jobid': widget!
+                                                                    .jobid,
+                                                                'member_id':
+                                                                    AppState()
+                                                                        .userProfileCache
+                                                                        .userKey,
+                                                              },
+                                                            },
+                                                          );
+                                                        });
+                                                        Future(() async {
+                                                          final message = _model
+                                                              .messageTextFieldTextController
+                                                              .text
+                                                              .trim();
+
+                                                          final notificationBody =
+                                                              message.length >
+                                                                      100
+                                                                  ? '${message.substring(0, 100)}...'
+                                                                  : message;
+                                                          _model.messageNotificationRes =
+                                                              await SupabaseEdgeFunctionsGroup
+                                                                  .sendPushNotificationCall
+                                                                  .call(
+                                                            deviceToken: widget!
+                                                                .member
+                                                                ?.deviceToken,
+                                                            title:
+                                                                'New Message from ${AppState().userProfileCache.name}',
+                                                            body:
+                                                                notificationBody,
+                                                            dataJson: {},
+                                                          );
+                                                        });
+
                                                         await Future.wait([
                                                           Future(() async {
-                                                            safeSetState(() {
+                                                            _provider.update(() {
                                                               _model
                                                                   .messageTextFieldTextController
                                                                   ?.clear();
                                                             });
                                                           }),
                                                           Future(() async {
-                                                            safeSetState(() {
+                                                            _provider.update(() {
                                                               _model.isDataUploading_locallyUploadedImage =
                                                                   false;
-                                                              _model.uploadedLocalFile_locallyUploadedImage =
-                                                                  UploadedFile(
-                                                                      bytes: Uint8List
-                                                                          .fromList(
-                                                                              []),
-                                                                      originalFilename:
-                                                                          '');
+                                                              _model.uploadedLocalFile_locallyUploadedImage = UploadedFile(
+                                                                  bytes: Uint8List
+                                                                      .fromList(
+                                                                          []),
+                                                                  originalFilename:
+                                                                      '');
                                                             });
-                                                          }),
-                                                          Future(() async {
-                                                            await action_blocks
-                                                                .insertNotifications(
-                                                              context,
-                                                              title:
-                                                                  'New Message ',
-                                                              message:
-                                                                  'You have received a new message from ${AppState().userProfileCache.name}',
-                                                              type:
-                                                                  NotificationType
-                                                                      .CHAT
-                                                                      .name,
-                                                              userId: AppState()
-                                                                  .userProfileCache
-                                                                  .userKey,
-                                                              referenceId: widget!
-                                                                  .conversationId,
-                                                              recieverid:
-                                                                  widget!.member
-                                                                      ?.id,
-                                                              extraData: <String,
-                                                                  dynamic>{
-                                                                'member':
-                                                                    <String,
-                                                                        dynamic>{
-                                                                  'username':
-                                                                      AppState()
-                                                                          .userProfileCache
-                                                                          .name,
-                                                                  'avatarurl':
-                                                                      AppState()
-                                                                          .userProfileCache
-                                                                          .avatarUrl,
-                                                                  'jobid':
-                                                                      widget!
-                                                                          .jobid,
-                                                                  'member_id':
-                                                                      AppState()
-                                                                          .userProfileCache
-                                                                          .userKey,
-                                                                },
-                                                              },
-                                                            );
-                                                          }),
-                                                          Future(() async {
-                                                            _model.messageNotificationRes =
-                                                                await SupabaseEdgeFunctionsGroup
-                                                                    .sendPushNotificationCall
-                                                                    .call(
-                                                              deviceToken: widget!
-                                                                  .member
-                                                                  ?.deviceToken,
-                                                              title:
-                                                                  'New Message ',
-                                                              body:
-                                                                  '${AppState().userProfileCache.name} just sent you a new message',
-                                                              dataJson: {},
-                                                            );
                                                           }),
                                                         ]);
                                                       }
@@ -2119,13 +2098,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   );
                                                 }
 
-                                                safeSetState(() {});
+                                                _provider.notify();
                                               },
                                             ),
                                           ),
                                         ].divide(SizedBox(
-                                            width:
-                                                AppConstants.childSpacing)),
+                                            width: AppConstants.childSpacing)),
                                       ),
                                     ].divide(SizedBox(
                                         height: AppConstants.childSpacing)),
@@ -2142,8 +2120,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                     children: [
                                       Icon(
                                         Icons.check_circle,
-                                        color: AppTheme.of(context)
-                                            .success,
+                                        color: AppTheme.of(context).success,
                                         size: 24.0,
                                       ),
                                       Align(
@@ -2156,28 +2133,23 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .success,
+                                                color: AppTheme.of(context)
+                                                    .success,
                                                 letterSpacing: 0.0,
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .titleSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .titleSmall
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -2193,8 +2165,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                             width: double.infinity,
                             height: 60.0,
                             decoration: BoxDecoration(
-                              color: AppTheme.of(context)
-                                  .secondaryBackground,
+                              color: AppTheme.of(context).secondaryBackground,
                             ),
                           ).animateOnPageLoad(
                               animationsMap['containerOnPageLoadAnimation3']!);

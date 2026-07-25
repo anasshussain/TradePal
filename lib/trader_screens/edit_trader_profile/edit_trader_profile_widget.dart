@@ -22,6 +22,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/edit_trader_profile_provider.dart';
 import '/viewmodels/edit_trader_profile_model.dart';
 export '/viewmodels/edit_trader_profile_model.dart';
 
@@ -38,6 +39,7 @@ class EditTraderProfileWidget extends StatefulWidget {
 
 class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
   late EditTraderProfileModel _model;
+  final EditTraderProfileProvider _provider = EditTraderProfileProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -78,12 +80,13 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
         text: AppState().userProfileCache.insuranceAmount);
     _model.insuranceAmountFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -92,6 +95,15 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<EditTraderProfileProvider>.value(
+      value: _provider,
+      child: Consumer<EditTraderProfileProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -105,7 +117,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Edit Profile',
               showAction: false,
@@ -244,7 +256,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     validateFileFormat(
                                                         m.storagePath,
                                                         context))) {
-                                              safeSetState(() => _model
+                                              _provider.update(() => _model
                                                       .isDataUploading_uploadImg =
                                                   true);
                                               var selectedUploadedFiles =
@@ -288,7 +300,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                       selectedMedia.length &&
                                                   downloadUrls.length ==
                                                       selectedMedia.length) {
-                                                safeSetState(() {
+                                                _provider.update(() {
                                                   _model.uploadedLocalFile_uploadImg =
                                                       selectedUploadedFiles
                                                           .first;
@@ -296,7 +308,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                       downloadUrls.first;
                                                 });
                                               } else {
-                                                safeSetState(() {});
+                                                _provider.notify();
                                                 return;
                                               }
                                             }
@@ -2033,12 +2045,12 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       );
                                     },
                                   ).then((value) =>
-                                      safeSetState(() => _model.skill = value));
+                                      _provider.update(() => _model.skill = value));
 
-                                  _model.addToSelectedSkills(_model.skill!);
-                                  safeSetState(() {});
+                                  _provider.addToSelectedSkills(_model.skill!);
+                                  _provider.notify();
 
-                                  safeSetState(() {});
+                                  _provider.notify();
                                 },
                                 child: Container(
                                   width: 110.0,
@@ -2119,10 +2131,10 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                             ),
                           ),
                           child: AppChoiceChips(
-                            options: _model.selectedSkills
+                            options: _provider.selectedSkills
                                 .map((label) => ChipData(label))
                                 .toList(),
-                            onChanged: (val) => safeSetState(() =>
+                            onChanged: (val) => _provider.update(() =>
                                 _model.choiceChipsValue = val?.firstOrNull),
                             selectedChipStyle: ChipStyle(
                               backgroundColor: AppTheme.of(context)
@@ -2796,7 +2808,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     );
 
                                     if (_datePickedDate != null) {
-                                      safeSetState(() {
+                                      _provider.update(() {
                                         _model.datePicked = DateTime(
                                           _datePickedDate.year,
                                           _datePickedDate.month,
@@ -2804,7 +2816,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         );
                                       });
                                     } else if (_model.datePicked != null) {
-                                      safeSetState(() {
+                                      _provider.update(() {
                                         _model.datePicked = getCurrentTimestamp;
                                       });
                                     }
@@ -2930,7 +2942,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                       ))
                         wrapWithModel(
                           model: _model.alertsModel,
-                          updateCallback: () => safeSetState(() {}),
+                          updateCallback: () => _provider.notify(),
                           child: AlertsWidget(
                             title: 'ACTION REQUIRED',
                             description:
@@ -2962,8 +2974,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     'DD/MM/YYYY',
                                   )
                                 : AppState().userProfileCache.insuranceExpiry,
-                            skillsList: _model.selectedSkills.isNotEmpty
-                                ? _model.selectedSkills
+                            skillsList: _provider.selectedSkills.isNotEmpty
+                                ? _provider.selectedSkills
                                 : AppState().userProfileCache.skills,
                           );
 
@@ -3003,8 +3015,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .insuranceExpiry
                                     ..insuranceAmount = _model
                                         .insuranceAmountTextController.text
-                                    ..skills = _model.selectedSkills.isNotEmpty
-                                        ? _model.selectedSkills
+                                    ..skills = _provider.selectedSkills.isNotEmpty
+                                        ? _provider.selectedSkills
                                         : AppState()
                                             .userProfileCache
                                             .skills
@@ -3040,7 +3052,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                             );
                           }
 
-                          safeSetState(() {});
+                          _provider.notify();
                         },
                         text: 'Save',
                         options: AppButtonOptions(

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/checkout_page_provider.dart';
 import '/viewmodels/checkout_page_model.dart';
 export '/viewmodels/checkout_page_model.dart';
 
@@ -25,6 +26,7 @@ class CheckoutPageWidget extends StatefulWidget {
 
 class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
   late CheckoutPageModel _model;
+  final CheckoutPageProvider _provider = CheckoutPageProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,18 +35,28 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
     super.initState();
     _model = createModel(context, () => CheckoutPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<CheckoutPageProvider>.value(
+      value: _provider,
+      child: Consumer<CheckoutPageProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -621,7 +633,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         ),
                         wrapWithModel(
                           model: _model.paymentMethodItemModel1,
-                          updateCallback: () => safeSetState(() {}),
+                          updateCallback: () => _provider.update(() {}),
                           child: PaymentMethodItemWidget(
                             icon: Icon(
                               Icons.credit_card_rounded,
@@ -634,7 +646,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         ),
                         wrapWithModel(
                           model: _model.paymentMethodItemModel2,
-                          updateCallback: () => safeSetState(() {}),
+                          updateCallback: () => _provider.update(() {}),
                           child: PaymentMethodItemWidget(
                             icon: Icon(
                               Icons.apple,
@@ -666,7 +678,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                 children: [
                                   wrapWithModel(
                                     model: _model.textFieldModel1,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: TextFieldWidget(
                                       label: 'Card Number',
                                       labelPresent: true,
@@ -696,7 +708,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                         child: wrapWithModel(
                                           model: _model.textFieldModel2,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: TextFieldWidget(
                                             label: 'Expiry',
                                             labelPresent: true,
@@ -718,7 +730,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                         child: wrapWithModel(
                                           model: _model.textFieldModel3,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: TextFieldWidget(
                                             label: 'CVC',
                                             labelPresent: true,
@@ -742,7 +754,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                   ),
                                   wrapWithModel(
                                     model: _model.textFieldModel4,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: TextFieldWidget(
                                       label: 'Cardholder Name',
                                       labelPresent: true,
@@ -765,7 +777,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                         ),
                         wrapWithModel(
                           model: _model.textFieldModel5,
-                          updateCallback: () => safeSetState(() {}),
+                          updateCallback: () => _provider.update(() {}),
                           child: TextFieldWidget(
                             label: 'Country or region',
                             labelPresent: true,
@@ -852,7 +864,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                           children: [
                             wrapWithModel(
                               model: _model.buttonModel,
-                              updateCallback: () => safeSetState(() {}),
+                              updateCallback: () => _provider.update(() {}),
                               child: DownloadPDFWidget(
                                 content: 'Pay \$29.00',
                                 iconPresent: false,

@@ -18,6 +18,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '/providers/review_provider.dart';
 import '/viewmodels/review_model.dart';
 export '/viewmodels/review_model.dart';
 
@@ -44,6 +45,7 @@ class ReviewWidget extends StatefulWidget {
 
 class _ReviewWidgetState extends State<ReviewWidget> {
   late ReviewModel _model;
+  final ReviewProvider _provider = ReviewProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -55,12 +57,13 @@ class _ReviewWidgetState extends State<ReviewWidget> {
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -69,6 +72,15 @@ class _ReviewWidgetState extends State<ReviewWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<ReviewProvider>.value(
+      value: _provider,
+      child: Consumer<ReviewProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -82,7 +94,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: '',
               showAction: false,
@@ -588,7 +600,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                               if (selectedMedia != null &&
                                   selectedMedia.every((m) => validateFileFormat(
                                       m.storagePath, context))) {
-                                safeSetState(() => _model
+                                _provider.update(() => _model
                                     .isDataUploading_uploadeddImage = true);
                                 var selectedUploadedFiles = <UploadedFile>[];
 
@@ -609,12 +621,12 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                 }
                                 if (selectedUploadedFiles.length ==
                                     selectedMedia.length) {
-                                  safeSetState(() {
+                                  _provider.update(() {
                                     _model.uploadedLocalFile_uploadeddImage =
                                         selectedUploadedFiles.first;
                                   });
                                 } else {
-                                  safeSetState(() {});
+                                  _provider.notify();
                                   return;
                                 }
                               }
@@ -624,9 +636,9 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                   (_model.uploadedLocalFile_uploadeddImage.bytes
                                           ?.isNotEmpty ??
                                       false)) {
-                                _model.addToPhotoUrls(
+                                _provider.addToPhotoUrls(
                                     _model.uploadedLocalFile_uploadeddImage);
-                                safeSetState(() {});
+                                _provider.notify();
                               }
                             },
                             text: 'Add Photo',
@@ -666,13 +678,13 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          if (_model.photoUrls.isNotEmpty)
+                          if (_provider.photoUrls.isNotEmpty)
                             Container(
                               height: 100.0,
                               decoration: BoxDecoration(),
                               child: Builder(
                                 builder: (context) {
-                                  final imges = _model.photoUrls
+                                  final imges = _provider.photoUrls
                                       .toList()
                                       .take(2)
                                       .toList();
@@ -761,9 +773,9 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                                                     size: 14.0,
                                                   ),
                                                   onPressed: () async {
-                                                    _model.removeFromPhotoUrls(
+                                                    _provider.removeFromPhotoUrls(
                                                         imgesItem);
-                                                    safeSetState(() {});
+                                                    _provider.notify();
                                                   },
                                                 ),
                                               ),
@@ -837,13 +849,13 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                       child: AppButton(
                         onPressed: () async {
                           {
-                            safeSetState(() => _model
+                            _provider.update(() => _model
                                 .isDataUploading_uploadedImageUrls = true);
                             var selectedUploadedFiles = <UploadedFile>[];
                             var selectedMedia = <SelectedFile>[];
                             var downloadUrls = <String>[];
                             try {
-                              selectedUploadedFiles = _model.photoUrls;
+                              selectedUploadedFiles = _provider.photoUrls;
                               selectedMedia = selectedFilesFromUploadedFiles(
                                 selectedUploadedFiles,
                                 storageFolderPath: 'user',
@@ -859,14 +871,14 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                             if (selectedUploadedFiles.length ==
                                     selectedMedia.length &&
                                 downloadUrls.length == selectedMedia.length) {
-                              safeSetState(() {
+                              _provider.update(() {
                                 _model.uploadedLocalFiles_uploadedImageUrls =
                                     selectedUploadedFiles;
                                 _model.uploadedFileUrls_uploadedImageUrls =
                                     downloadUrls;
                               });
                             } else {
-                              safeSetState(() {});
+                              _provider.notify();
                               return;
                             }
                           }
@@ -910,7 +922,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
 
                           context.safePop();
 
-                          safeSetState(() {});
+                          _provider.notify();
                         },
                         text: 'Submit Feedback',
                         icon: Icon(

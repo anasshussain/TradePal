@@ -17,6 +17,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/customer_dashboard_provider.dart';
 import '/viewmodels/customer_dashboard_model.dart';
 export '/viewmodels/customer_dashboard_model.dart';
 
@@ -33,6 +34,7 @@ class CustomerDashboardWidget extends StatefulWidget {
 
 class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
   late CustomerDashboardModel _model;
+  final CustomerDashboardProvider _provider = CustomerDashboardProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -44,12 +46,13 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {});
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -58,6 +61,15 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<CustomerDashboardProvider>.value(
+      value: _provider,
+      child: Consumer<CustomerDashboardProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -71,7 +83,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.update(() {}),
             child: AppbarComponentWidget(
               title: 'Home',
               showAction: true,
@@ -385,7 +397,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                           ),
                           wrapWithModel(
                             model: _model.statsModel1,
-                            updateCallback: () => safeSetState(() {}),
+                            updateCallback: () => _provider.update(() {}),
                             child: StatsWidget(
                               iconBackgroundColor: Color(0x4E2C4EB8),
                               icon: Icon(
@@ -400,7 +412,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                           ),
                           wrapWithModel(
                             model: _model.statsModel2,
-                            updateCallback: () => safeSetState(() {}),
+                            updateCallback: () => _provider.update(() {}),
                             child: StatsWidget(
                               iconBackgroundColor:
                                   AppTheme.of(context).accent2,
@@ -444,7 +456,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                               ),
                               wrapWithModel(
                                 model: _model.textButtonModel,
-                                updateCallback: () => safeSetState(() {}),
+                                updateCallback: () => _provider.update(() {}),
                                 child: TextButtonWidget(
                                   label: 'View All',
                                   color: AppTheme.of(context).primary,
@@ -458,7 +470,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                           ),
                           wrapWithModel(
                             model: _model.jobsListModel,
-                            updateCallback: () => safeSetState(() {}),
+                            updateCallback: () => _provider.update(() {}),
                             child: JobsListWidget(
                               jobViewType: JobsViewType.DASHBOARD,
                             ),
@@ -475,7 +487,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
-                  updateCallback: () => safeSetState(() {}),
+                  updateCallback: () => _provider.update(() {}),
                   child: CustomerNavbarWidget(
                     selectedIndex: 0,
                   ),

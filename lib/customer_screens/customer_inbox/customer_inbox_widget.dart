@@ -17,6 +17,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/customer_inbox_provider.dart';
 import '/viewmodels/customer_inbox_model.dart';
 export '/viewmodels/customer_inbox_model.dart';
 
@@ -32,6 +33,7 @@ class CustomerInboxWidget extends StatefulWidget {
 
 class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   late CustomerInboxModel _model;
+  final CustomerInboxProvider _provider = CustomerInboxProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -56,7 +58,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
         AppState().userProfileCache.userKey,
         'update',
         () async {
-          safeSetState(() => _model.apiRequestCompleter = null);
+          _provider.update(() => _model.apiRequestCompleter = null);
           await _model.waitForApiRequestCompleted();
         },
       );
@@ -65,7 +67,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
     _model.searchTextController ??= TextEditingController();
     _model.searchFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
@@ -78,6 +80,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
     }();
 
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -86,6 +89,15 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<CustomerInboxProvider>.value(
+      value: _provider,
+      child: Consumer<CustomerInboxProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -99,7 +111,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Inbox',
               showAction: false,
@@ -124,7 +136,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                     children: [
                       wrapWithModel(
                         model: _model.pageHeaderSectiomModel,
-                        updateCallback: () => safeSetState(() {}),
+                        updateCallback: () => _provider.notify(),
                         child: const PageHeaderSectiomWidget(
                           tag: '',
                           title: 'Inbox',
@@ -153,15 +165,15 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                   true)) {
                                 if (_model.searchTextController.text != null &&
                                     _model.searchTextController.text != '') {
-                                  _model.showSearchList = true;
-                                  safeSetState(() {});
+                                  _provider.showSearchList = true;
+                                  _provider.notify();
                                 } else {
-                                  _model.showSearchList = false;
-                                  safeSetState(() {});
+                                  _provider.showSearchList = false;
+                                  _provider.notify();
                                 }
                               }
 
-                              safeSetState(() {});
+                              _provider.notify();
                             },
                           ),
                           autofocus: false,
@@ -169,45 +181,42 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           obscureText: false,
                           decoration: InputDecoration(
                             isDense: false,
-                            labelStyle: AppTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: AppTheme.of(context)
-                                        .labelMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
-                                  color: AppTheme.of(context)
-                                      .secondaryText,
-                                  fontSize: 12.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
+                            labelStyle:
+                                AppTheme.of(context).labelMedium.override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: AppTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: AppTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      color: AppTheme.of(context).secondaryText,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: AppTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: AppTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                             hintText: 'Search conversations',
-                            hintStyle: AppTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.normal,
-                                    fontStyle: AppTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
-                                  color: AppTheme.of(context).hint,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: AppTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
+                            hintStyle:
+                                AppTheme.of(context).labelMedium.override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.normal,
+                                        fontStyle: AppTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      color: AppTheme.of(context).hint,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: AppTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -259,44 +268,39 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                                 null &&
                                             _model.searchTextController.text !=
                                                 '') {
-                                          _model.showSearchList = true;
-                                          safeSetState(() {});
+                                          _provider.showSearchList = true;
+                                          _provider.notify();
                                         } else {
-                                          _model.showSearchList = false;
-                                          safeSetState(() {});
+                                          _provider.showSearchList = false;
+                                          _provider.notify();
                                         }
                                       }
 
-                                      safeSetState(() {});
-                                      safeSetState(() {});
+                                      _provider.notify();
+                                      _provider.notify();
                                     },
                                     child: Icon(
                                       Icons.clear,
-                                      color:
-                                          AppTheme.of(context).tertiary,
+                                      color: AppTheme.of(context).tertiary,
                                       size: 26.0,
                                     ),
                                   )
                                 : null,
                           ),
-                          style:
-                              AppTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
+                          style: AppTheme.of(context).bodyMedium.override(
+                                font: GoogleFonts.manrope(
+                                  fontWeight: AppTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle:
+                                      AppTheme.of(context).bodyMedium.fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight:
+                                    AppTheme.of(context).bodyMedium.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).bodyMedium.fontStyle,
+                              ),
                           cursorColor: AppTheme.of(context).primaryText,
                           enableInteractiveSelection: true,
                           validator: _model.searchTextControllerValidator
@@ -334,7 +338,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
 
                           return Builder(
                             builder: (context) {
-                              final conversations = (_model.showSearchList
+                              final conversations = (_provider.showSearchList
                                           ? ((_model.searchJobApiRespone?.jsonBody ?? '')
                                                       .toList()
                                                       .map<ConversationStruct?>(
@@ -360,10 +364,11 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                               if (conversations.isEmpty) {
                                 return const EmptyListComponentWidget(
                                   icon: Icon(
-                                    Icons.chat_outlined,
+                                    Icons.search_off,
                                   ),
-                                  title: 'No Messaged',
-                                  description: 'You have no messages yet',
+                                  title: 'No chats found',
+                                  description:
+                                      'Try searching with a different name or keyword.',
                                 );
                               }
 
@@ -378,8 +383,8 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: conversations.length,
-                                separatorBuilder: (_, __) => SizedBox(
-                                    height: AppConstants.childSpacing),
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: AppConstants.childSpacing),
                                 itemBuilder: (context, conversationsIndex) {
                                   final conversationsItem =
                                       conversations[conversationsIndex];
@@ -409,7 +414,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
-                  updateCallback: () => safeSetState(() {}),
+                  updateCallback: () => _provider.notify(),
                   child: const CustomerNavbarWidget(
                     selectedIndex: 1,
                   ),

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/forget_password_provider.dart';
 import '/viewmodels/forget_password_model.dart';
 export '/viewmodels/forget_password_model.dart';
 
@@ -30,6 +31,7 @@ class ForgetPasswordWidget extends StatefulWidget {
 
 class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
   late ForgetPasswordModel _model;
+  final ForgetPasswordProvider _provider = ForgetPasswordProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -41,18 +43,28 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
     _model.emailTextController ??= TextEditingController();
     _model.emailFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ForgetPasswordProvider>.value(
+      value: _provider,
+      child: Consumer<ForgetPasswordProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -66,7 +78,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.update(() {}),
             child: AppbarComponentWidget(
               title: 'My Trade Pal',
               showAction: false,
@@ -104,53 +116,44 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color:
-                              AppTheme.of(context).secondaryBackground,
+                          color: AppTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context)
-                                  .designToken
-                                  .radius
-                                  .lg),
+                              AppTheme.of(context).designToken.radius.lg),
                           border: Border.all(
                             color: AppTheme.of(context).alternate,
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(AppTheme.of(context)
-                              .designToken
-                              .spacing
-                              .md),
+                          padding: EdgeInsets.all(
+                              AppTheme.of(context).designToken.spacing.md),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 widget!.headingTitle,
-                                style: AppTheme.of(context)
-                                    .headlineLarge
-                                    .override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: AppTheme.of(context)
-                                            .headlineLarge
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .headlineLarge
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: AppTheme.of(context)
-                                          .headlineLarge
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .headlineLarge
-                                          .fontStyle,
-                                    ),
+                                style:
+                                    AppTheme.of(context).headlineLarge.override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context)
+                                                .headlineLarge
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .headlineLarge
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .headlineLarge
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .headlineLarge
+                                              .fontStyle,
+                                        ),
                               ),
                               Text(
                                 'Enter your email address and we\'ll send you a link to reset your password.',
-                                style: AppTheme.of(context)
-                                    .bodyLarge
-                                    .override(
+                                style: AppTheme.of(context).bodyLarge.override(
                                       font: GoogleFonts.manrope(
                                         fontWeight: AppTheme.of(context)
                                             .bodyLarge
@@ -182,17 +185,15 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
                                             ),
                                             letterSpacing: 1.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .bodySmall
-                                                    .fontStyle,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodySmall
+                                                .fontStyle,
                                           ),
                                     ),
                                     Container(
@@ -206,57 +207,47 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                         decoration: InputDecoration(
                                           isDense: false,
                                           labelText: 'Email address',
-                                          labelStyle: AppTheme.of(
-                                                  context)
+                                          labelStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .secondaryText,
+                                                color: AppTheme.of(context)
+                                                    .secondaryText,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
-                                          hintStyle: AppTheme.of(
-                                                  context)
+                                          hintStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    AppTheme.of(context)
-                                                        .hint,
+                                                    AppTheme.of(context).hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
@@ -269,8 +260,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -278,9 +268,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -289,9 +277,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           focusedErrorBorder:
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -299,8 +285,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              AppTheme.of(context)
-                                                  .alternate,
+                                              AppTheme.of(context).alternate,
                                           prefixIcon: Icon(
                                             Icons.email_outlined,
                                           ),
@@ -309,28 +294,23 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                             ),
                                         cursorColor:
-                                            AppTheme.of(context)
-                                                .primaryText,
+                                            AppTheme.of(context).primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
                                             .emailTextControllerValidator
@@ -344,8 +324,8 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           height:
                                               AppConstants.parentPagePadding))
                                       .addToEnd(SizedBox(
-                                          height: AppConstants
-                                              .parentPagePadding)),
+                                          height:
+                                              AppConstants.parentPagePadding)),
                                 ),
                               ),
                               AppButton(
@@ -370,7 +350,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                       email: _model.emailTextController.text,
                                       context: context,
                                       redirectTo:
-                                          "https://mytradepal.com/resetPassword",
+                                          "https://trade-connect-x1mzbx.flutterflow.app/resetPassword",
                                     );
                                   } else {
                                     await actions.showToast(
@@ -380,7 +360,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                     );
                                   }
 
-                                  safeSetState(() {});
+                                  _provider.update(() {});
                                 },
                                 text: 'Send Reset Link',
                                 icon: Icon(
@@ -397,28 +377,25 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                       0.0, 0.0, 0.0, 0.0),
                                   iconColor: AppTheme.of(context).info,
                                   color: AppTheme.of(context).primary,
-                                  textStyle: AppTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight:
-                                              AppTheme.of(context)
+                                  textStyle:
+                                      AppTheme.of(context).titleSmall.override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: AppTheme.of(context)
                                                   .titleSmall
                                                   .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
+                                              fontStyle: AppTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
-                                        ),
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
-                                        fontWeight: AppTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
+                                            ),
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                            fontWeight: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontStyle,
+                                          ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(
                                       AppTheme.of(context)
@@ -448,24 +425,20 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                         ),
                         Text(
                           'SECURE ARTISAN AUTHENTICATION',
-                          style:
-                              AppTheme.of(context).labelSmall.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: AppTheme.of(context)
-                                          .labelSmall
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .labelSmall
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .labelSmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .labelSmall
-                                        .fontStyle,
-                                  ),
+                          style: AppTheme.of(context).labelSmall.override(
+                                font: GoogleFonts.inter(
+                                  fontWeight: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontWeight,
+                                  fontStyle:
+                                      AppTheme.of(context).labelSmall.fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight:
+                                    AppTheme.of(context).labelSmall.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).labelSmall.fontStyle,
+                              ),
                         ),
                       ].divide(SizedBox(width: AppConstants.childSpacing)),
                     ),

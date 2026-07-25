@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/trader_profile_provider.dart';
 import '/viewmodels/trader_profile_model.dart';
 export '/viewmodels/trader_profile_model.dart';
 
@@ -29,6 +30,7 @@ class TraderProfileWidget extends StatefulWidget {
 
 class _TraderProfileWidgetState extends State<TraderProfileWidget> {
   late TraderProfileModel _model;
+  final TraderProfileProvider _provider = TraderProfileProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,12 +39,13 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
     super.initState();
     _model = createModel(context, () => TraderProfileModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -51,6 +54,15 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<TraderProfileProvider>.value(
+      value: _provider,
+      child: Consumer<TraderProfileProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -64,7 +76,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Profile',
               showAction: false,
@@ -930,7 +942,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                           .skills
                                           .map((label) => ChipData(label))
                                           .toList(),
-                                      onChanged: (val) => safeSetState(() =>
+                                      onChanged: (val) => _provider.update(() =>
                                           _model.choiceChipsValue =
                                               val?.firstOrNull),
                                       selectedChipStyle: ChipStyle(
@@ -1665,7 +1677,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                         0.0),
                                     child: Builder(
                                       builder: (context) {
-                                        final image = _model.images.toList();
+                                        final image = _provider.images.toList();
 
                                         return GridView.builder(
                                           padding: EdgeInsets.zero,
@@ -1714,8 +1726,8 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        _model.addToImages('1');
-                                        safeSetState(() {});
+                                        _provider.addToImages('1');
+                                        _provider.notify();
                                       },
                                       child: Container(
                                         width: 131.0,
@@ -1829,7 +1841,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               children: [
                                 wrapWithModel(
                                   model: _model.settingsComponentModel1,
-                                  updateCallback: () => safeSetState(() {}),
+                                  updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
                                     icon: Icon(
                                       Icons.payment,
@@ -1856,7 +1868,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 ),
                                 wrapWithModel(
                                   model: _model.settingsComponentModel2,
-                                  updateCallback: () => safeSetState(() {}),
+                                  updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
                                     icon: Icon(
                                       Icons.lock_outline,
@@ -1879,7 +1891,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 ),
                                 wrapWithModel(
                                   model: _model.settingsComponentModel3,
-                                  updateCallback: () => safeSetState(() {}),
+                                  updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
                                     icon: Icon(
                                       Icons.lock_outline,
@@ -1906,7 +1918,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 ),
                                 wrapWithModel(
                                   model: _model.settingsComponentModel4,
-                                  updateCallback: () => safeSetState(() {}),
+                                  updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
                                     icon: Icon(
                                       Icons.notifications_none,
@@ -1925,7 +1937,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 ),
                                 wrapWithModel(
                                   model: _model.settingsComponentModel5,
-                                  updateCallback: () => safeSetState(() {}),
+                                  updateCallback: () => _provider.notify(),
                                   child: SettingsComponentWidget(
                                     icon: Icon(
                                       Icons.password,
@@ -1948,7 +1960,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 Builder(
                                   builder: (context) => wrapWithModel(
                                     model: _model.settingsComponentModel6,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.notify(),
                                     child: SettingsComponentWidget(
                                       icon: Icon(
                                         Icons.dark_mode_outlined,
@@ -2075,7 +2087,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
-                  updateCallback: () => safeSetState(() {}),
+                  updateCallback: () => _provider.notify(),
                   child: TpNavbarWidget(
                     selectedIndex: 3,
                   ),
