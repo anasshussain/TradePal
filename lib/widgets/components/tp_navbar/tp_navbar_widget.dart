@@ -1,17 +1,12 @@
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
-import 'dart:ui';
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/viewmodels/tp_navbar_model.dart';
 export '/viewmodels/tp_navbar_model.dart';
 
-/// can you create a navbar that has room for 5 icons, each one with a text
-/// field below
 class TpNavbarWidget extends StatefulWidget {
   const TpNavbarWidget({
     super.key,
@@ -51,7 +46,6 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<AppState>();
-
     return Container(
       width: double.infinity,
       height: 60.0,
@@ -85,7 +79,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                 context.goNamed(
                   BrowseJobsWidget.routeName,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 0),
@@ -95,7 +89,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
               },
               child: Container(
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -201,7 +195,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                 context.goNamed(
                   TpInboxWidget.routeName,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 0),
@@ -257,13 +251,13 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                         Container(
                           width: 14.0,
                           height: 14.0,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xFFFF3B30),
                             shape: BoxShape.circle,
                           ),
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
                                 AppState().totalMessagesCount.toString(),
@@ -308,7 +302,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                 context.goNamed(
                   TraderProfileWidget.routeName,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 0),
@@ -318,7 +312,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
               },
               child: Container(
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,

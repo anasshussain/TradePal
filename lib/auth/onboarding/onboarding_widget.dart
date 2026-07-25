@@ -12,6 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/onboarding_provider.dart';
 import '/viewmodels/onboarding_model.dart';
 export '/viewmodels/onboarding_model.dart';
 
@@ -27,6 +28,7 @@ class OnboardingWidget extends StatefulWidget {
 
 class _OnboardingWidgetState extends State<OnboardingWidget> {
   late OnboardingModel _model;
+  final OnboardingProvider _provider = OnboardingProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,18 +37,28 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     super.initState();
     _model = createModel(context, () => OnboardingModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<OnboardingProvider>.value(
+      value: _provider,
+      child: Consumer<OnboardingProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -116,7 +128,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           AppState().onboarding = true;
-                          safeSetState(() {});
+                          _provider.update(() {});
 
                           context.goNamed(LoginWidget.routeName);
                         },
@@ -2477,7 +2489,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 );
-                                safeSetState(() {});
+                                _provider.update(() {});
                               },
                               effect: smooth_page_indicator.SlideEffect(
                                 spacing: 8.0,
@@ -2521,7 +2533,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               duration: Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
-                            safeSetState(() {});
+                            _provider.update(() {});
                           },
                         ),
                       Container(
@@ -2546,7 +2558,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               duration: Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
-                            safeSetState(() {});
+                            _provider.update(() {});
                           } else {
                             context.goNamed(LoginWidget.routeName);
                           }

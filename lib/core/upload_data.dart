@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -7,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
-
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 
@@ -341,7 +339,6 @@ String _getStoragePath(
 ]) {
   pathPrefix = _removeTrailingSlash(pathPrefix);
   final timestamp = DateTime.now().microsecondsSinceEpoch;
-  // Workaround fixed by https://github.com/flutter/plugins/pull/3685
   // (not yet in stable).
   final ext = isVideo ? 'mp4' : filePath.split('.').last;
   final indexStr = index != null ? '_$index' : '';

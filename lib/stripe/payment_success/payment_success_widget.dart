@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/payment_success_provider.dart';
 import '/viewmodels/payment_success_model.dart';
 export '/viewmodels/payment_success_model.dart';
 
@@ -25,6 +26,7 @@ class PaymentSuccessWidget extends StatefulWidget {
 
 class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
   late PaymentSuccessModel _model;
+  final PaymentSuccessProvider _provider = PaymentSuccessProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,18 +35,28 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
     super.initState();
     _model = createModel(context, () => PaymentSuccessModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<PaymentSuccessProvider>.value(
+      value: _provider,
+      child: Consumer<PaymentSuccessProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -303,7 +315,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                         wrapWithModel(
                                           model: _model.receiptRowModel1,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: ReceiptRowWidget(
                                             label: 'Payment Method',
                                             value: 'Visa •••• 4242',
@@ -312,7 +324,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                         wrapWithModel(
                                           model: _model.receiptRowModel2,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: ReceiptRowWidget(
                                             label: 'Merchant',
                                             value: 'SwiftPay Global',
@@ -321,7 +333,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                         wrapWithModel(
                                           model: _model.receiptRowModel3,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: ReceiptRowWidget(
                                             label: 'Date',
                                             value: 'Oct 24, 2023, 10:45 AM',
@@ -330,7 +342,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                         wrapWithModel(
                                           model: _model.receiptRowModel4,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: ReceiptRowWidget(
                                             label: 'Status',
                                             value: 'Completed',
@@ -538,7 +550,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                 children: [
                                   wrapWithModel(
                                     model: _model.buttonModel1,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: DownloadPDFWidget(
                                       content: 'Download PDF',
                                       icon: Icon(
@@ -558,7 +570,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                   ),
                                   wrapWithModel(
                                     model: _model.buttonModel2,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: DownloadPDFWidget(
                                       content: 'Contact Support',
                                       icon: Icon(
@@ -608,7 +620,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                     child: Container(
                       child: wrapWithModel(
                         model: _model.buttonModel3,
-                        updateCallback: () => safeSetState(() {}),
+                        updateCallback: () => _provider.update(() {}),
                         child: DownloadPDFWidget(
                           content: 'Done',
                           iconPresent: false,

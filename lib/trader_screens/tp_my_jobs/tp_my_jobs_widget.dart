@@ -8,16 +8,14 @@ import '/widgets/components/submitted_job_list_item/submitted_job_list_item_widg
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/tp_my_jobs_provider.dart';
 import '/viewmodels/tp_my_jobs_model.dart';
 export '/viewmodels/tp_my_jobs_model.dart';
 
-///
-///
 class TpMyJobsWidget extends StatefulWidget {
   const TpMyJobsWidget({super.key});
 
@@ -31,6 +29,7 @@ class TpMyJobsWidget extends StatefulWidget {
 class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
     with TickerProviderStateMixin {
   late TpMyJobsModel _model;
+  final TpMyJobsProvider _provider = TpMyJobsProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,20 +42,29 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
       vsync: this,
       length: 3,
       initialIndex: 0,
-    )..addListener(() => safeSetState(() {}));
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    )..addListener(() => _provider.update(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<TpMyJobsProvider>.value(
+      value: _provider,
+      child: Consumer<TpMyJobsProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -70,7 +78,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.update(() {}),
             child: AppbarComponentWidget(
               title: 'My jobs',
               showAction: false,
@@ -86,11 +94,11 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment(0.0, 0),
+                      alignment: const Alignment(0.0, 0),
                       child: TabBar(
                         isScrollable: true,
                         tabAlignment: TabAlignment.center,
@@ -440,7 +448,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
-                  updateCallback: () => safeSetState(() {}),
+                  updateCallback: () => _provider.update(() {}),
                   child: Hero(
                     tag: 'traderNavbar',
                     transitionOnUserGestures: true,

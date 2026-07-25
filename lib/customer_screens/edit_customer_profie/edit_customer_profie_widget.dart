@@ -10,11 +10,10 @@ import '/core/upload_data.dart';
 import 'dart:ui';
 import '/utils/custom_code/actions/index.dart' as actions;
 import '/core/routes/index.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/edit_customer_profie_provider.dart';
 import '/viewmodels/edit_customer_profie_model.dart';
 export '/viewmodels/edit_customer_profie_model.dart';
 
@@ -31,6 +30,7 @@ class EditCustomerProfieWidget extends StatefulWidget {
 
 class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
   late EditCustomerProfieModel _model;
+  final EditCustomerProfieProvider _provider = EditCustomerProfieProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -69,12 +69,13 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
             : AppState().userProfileCache.zipcode);
     _model.postalcodeFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -83,6 +84,15 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<EditCustomerProfieProvider>.value(
+      value: _provider,
+      child: Consumer<EditCustomerProfieProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -95,7 +105,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Edit Profile',
               showAction: false,
@@ -193,7 +203,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                       selectedMedia.every((m) =>
                                           validateFileFormat(
                                               m.storagePath, context))) {
-                                    safeSetState(() =>
+                                    _provider.update(() =>
                                         _model.isDataUploading_uploaded = true);
                                     var selectedUploadedFiles =
                                         <UploadedFile>[];
@@ -226,14 +236,14 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                             selectedMedia.length &&
                                         downloadUrls.length ==
                                             selectedMedia.length) {
-                                      safeSetState(() {
+                                      _provider.update(() {
                                         _model.uploadedLocalFile_uploaded =
                                             selectedUploadedFiles.first;
                                         _model.uploadedFileUrl_uploaded =
                                             downloadUrls.first;
                                       });
                                     } else {
-                                      safeSetState(() {});
+                                      _provider.notify();
                                       return;
                                     }
                                   }
@@ -1896,7 +1906,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                       ..streetaddress = _model
                                           .streetadressTextController.text,
                                   );
-                                  safeSetState(() {});
+                                  _provider.notify();
                                 }),
                                 Future(() async {
                                   await actions.showToast(
@@ -1926,7 +1936,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                               );
                             }
 
-                            safeSetState(() {});
+                            _provider.notify();
                           },
                           text: 'Save',
                           options: AppButtonOptions(

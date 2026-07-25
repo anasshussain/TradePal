@@ -7,14 +7,13 @@ import '/widgets/components/job_item/job_item_widget.dart';
 import '/widgets/components/loading_component/loading_component_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/customer_all_jobs_provider.dart';
 import '/viewmodels/customer_all_jobs_model.dart';
 export '/viewmodels/customer_all_jobs_model.dart';
 
@@ -30,6 +29,7 @@ class CustomerAllJobsWidget extends StatefulWidget {
 
 class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
   late CustomerAllJobsModel _model;
+  final CustomerAllJobsProvider _provider = CustomerAllJobsProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -40,9 +40,9 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.loading = true;
-      _model.showSearchList = false;
-      safeSetState(() {});
+      _provider.loading = true;
+      _provider.showSearchList = false;
+      _provider.notify();
       _model.viewAllJobsApi = await SupabaseTablesGroup.getJobsListCall.call(
         params: '&customer_id=eq.${currentUserUid}',
       );
@@ -70,21 +70,22 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
               ?.createdAt,
           hasMore: true,
         );
-        safeSetState(() {});
+        _provider.notify();
       }
-      _model.loading = false;
-      safeSetState(() {});
+      _provider.loading = false;
+      _provider.notify();
     });
 
     _model.searchTextController ??= TextEditingController();
     _model.searchFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -93,6 +94,15 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<CustomerAllJobsProvider>.value(
+      value: _provider,
+      child: Consumer<CustomerAllJobsProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -106,7 +116,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'All Jobs',
               showAction: false,
@@ -157,15 +167,15 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                   if (_model.searchTextController.text !=
                                           null &&
                                       _model.searchTextController.text != '') {
-                                    _model.showSearchList = true;
-                                    safeSetState(() {});
+                                    _provider.showSearchList = true;
+                                    _provider.notify();
                                   } else {
-                                    _model.showSearchList = false;
-                                    safeSetState(() {});
+                                    _provider.showSearchList = false;
+                                    _provider.notify();
                                   }
                                 }
 
-                                safeSetState(() {});
+                                _provider.notify();
                               },
                             ),
                             autofocus: false,
@@ -264,16 +274,16 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                               _model.searchTextController
                                                       .text !=
                                                   '') {
-                                            _model.showSearchList = true;
-                                            safeSetState(() {});
+                                            _provider.showSearchList = true;
+                                            _provider.notify();
                                           } else {
-                                            _model.showSearchList = false;
-                                            safeSetState(() {});
+                                            _provider.showSearchList = false;
+                                            _provider.notify();
                                           }
                                         }
 
-                                        safeSetState(() {});
-                                        safeSetState(() {});
+                                        _provider.notify();
+                                        _provider.notify();
                                       },
                                       child: Icon(
                                         Icons.clear,
@@ -315,7 +325,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                   ),
                   Builder(
                     builder: (context) {
-                      if (!_model.loading) {
+                      if (!_provider.loading) {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0,
@@ -327,7 +337,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                               0.0),
                           child: Builder(
                             builder: (context) {
-                              final jobList = (_model.showSearchList
+                              final jobList = (_provider.showSearchList
                                           ? ((_model.searchJobApiRespone
                                                               ?.jsonBody ??
                                                           '')
@@ -398,7 +408,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
                                 0.0, 200.0, 0.0, 0.0),
                             child: wrapWithModel(
                               model: _model.loadingComponentModel,
-                              updateCallback: () => safeSetState(() {}),
+                              updateCallback: () => _provider.notify(),
                               child: LoadingComponentWidget(),
                             ),
                           ),

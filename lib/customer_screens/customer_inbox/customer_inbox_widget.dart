@@ -8,7 +8,6 @@ import '/widgets/components/inbox_item/inbox_item_widget.dart';
 import '/widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/utils/custom_code/actions/index.dart' as actions;
 import 'dart:async';
@@ -18,12 +17,10 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/customer_inbox_provider.dart';
 import '/viewmodels/customer_inbox_model.dart';
 export '/viewmodels/customer_inbox_model.dart';
 
-/// could you design me an all chats inbox page with 2 list views.
-///
-/// 1 for trades and 1 for customers
 class CustomerInboxWidget extends StatefulWidget {
   const CustomerInboxWidget({super.key});
 
@@ -36,6 +33,7 @@ class CustomerInboxWidget extends StatefulWidget {
 
 class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   late CustomerInboxModel _model;
+  final CustomerInboxProvider _provider = CustomerInboxProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -50,7 +48,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
         'conversation_participants',
       );
       await Future.delayed(
-        Duration(
+        const Duration(
           milliseconds: 500,
         ),
       );
@@ -60,7 +58,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
         AppState().userProfileCache.userKey,
         'update',
         () async {
-          safeSetState(() => _model.apiRequestCompleter = null);
+          _provider.update(() => _model.apiRequestCompleter = null);
           await _model.waitForApiRequestCompleted();
         },
       );
@@ -69,7 +67,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
     _model.searchTextController ??= TextEditingController();
     _model.searchFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
@@ -82,6 +80,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
     }();
 
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -90,6 +89,15 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<CustomerInboxProvider>.value(
+      value: _provider,
+      child: Consumer<CustomerInboxProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -103,7 +111,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Inbox',
               showAction: false,
@@ -128,8 +136,8 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                     children: [
                       wrapWithModel(
                         model: _model.pageHeaderSectiomModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: PageHeaderSectiomWidget(
+                        updateCallback: () => _provider.notify(),
+                        child: const PageHeaderSectiomWidget(
                           tag: '',
                           title: 'Inbox',
                           subtitle:
@@ -144,7 +152,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           focusNode: _model.searchFocusNode,
                           onChanged: (_) => EasyDebounce.debounce(
                             '_model.searchTextController',
-                            Duration(milliseconds: 300),
+                            const Duration(milliseconds: 300),
                             () async {
                               _model.searchJobApiRespone = await SupbaseRpcGroup
                                   .searchConversationsCall
@@ -157,15 +165,15 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                   true)) {
                                 if (_model.searchTextController.text != null &&
                                     _model.searchTextController.text != '') {
-                                  _model.showSearchList = true;
-                                  safeSetState(() {});
+                                  _provider.showSearchList = true;
+                                  _provider.notify();
                                 } else {
-                                  _model.showSearchList = false;
-                                  safeSetState(() {});
+                                  _provider.showSearchList = false;
+                                  _provider.notify();
                                 }
                               }
 
-                              safeSetState(() {});
+                              _provider.notify();
                             },
                           ),
                           autofocus: false,
@@ -263,16 +271,16 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                                 null &&
                                             _model.searchTextController.text !=
                                                 '') {
-                                          _model.showSearchList = true;
-                                          safeSetState(() {});
+                                          _provider.showSearchList = true;
+                                          _provider.notify();
                                         } else {
-                                          _model.showSearchList = false;
-                                          safeSetState(() {});
+                                          _provider.showSearchList = false;
+                                          _provider.notify();
                                         }
                                       }
 
-                                      safeSetState(() {});
-                                      safeSetState(() {});
+                                      _provider.notify();
+                                      _provider.notify();
                                     },
                                     child: Icon(
                                       Icons.clear,
@@ -338,7 +346,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
 
                           return Builder(
                             builder: (context) {
-                              final conversations = (_model.showSearchList
+                              final conversations = (_provider.showSearchList
                                           ? ((_model.searchJobApiRespone?.jsonBody ?? '')
                                                       .toList()
                                                       .map<ConversationStruct?>(
@@ -362,7 +370,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                       ?.toList() ??
                                   [];
                               if (conversations.isEmpty) {
-                                return EmptyListComponentWidget(
+                                return const EmptyListComponentWidget(
                                   icon: Icon(
                                     Icons.chat_outlined,
                                   ),
@@ -405,7 +413,7 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                           );
                         },
                       ),
-                    ].divide(SizedBox(height: AppConstants.spacing)),
+                    ].divide(const SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),
@@ -413,8 +421,8 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: CustomerNavbarWidget(
+                  updateCallback: () => _provider.notify(),
+                  child: const CustomerNavbarWidget(
                     selectedIndex: 1,
                   ),
                 ),

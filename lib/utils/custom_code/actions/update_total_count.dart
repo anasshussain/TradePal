@@ -16,4 +16,5 @@ Future updateTotalCount(int? value) async {
 
   AppState().totalMessagesCount =
       (AppState().totalMessagesCount - countToSubtract).clamp(0, 999999);
+      debugPrint('Updated totalMessagesCount: ${AppState().totalMessagesCount}');
 }

@@ -1,25 +1,10 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
-import '/models/structs/index.dart';
-import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
-import 'dart:ui';
-import '/utils/custom_code/actions/index.dart' as actions;
 import '/core/routes/index.dart';
-import 'package:flutter/services.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import '/auth/verify_email/verify_email_widget.dart' show VerifyEmailWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class VerifyEmailModel extends AppModel<VerifyEmailWidget> {
-  ///  Local state fields for this page.
-
-  bool? showResendCode;
-
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for PinCode widget.

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import '/repositories/backend.dart';
 import '/models/structs/index.dart';
-import '/utils/enums/enums.dart';
-import '/repositories/api_requests/api_manager.dart';
-import '/repositories/supabase/supabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/utils/util.dart';
 
@@ -277,11 +274,5 @@ class AppState extends ChangeNotifier {
 void _safeInit(Function() initializeField) {
   try {
     initializeField();
-  } catch (_) {}
-}
-
-Future _safeInitAsync(Function() initializeField) async {
-  try {
-    await initializeField();
   } catch (_) {}
 }

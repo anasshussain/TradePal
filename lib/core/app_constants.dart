@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import '/utils/util.dart';
-
 abstract class AppConstants {
   static const double spacing = 20.0;
   static const double parentPagePadding = 16.0;

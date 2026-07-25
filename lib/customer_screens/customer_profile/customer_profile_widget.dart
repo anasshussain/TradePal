@@ -11,9 +11,9 @@ import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/core/routes/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '/providers/customer_profile_provider.dart';
 import '/viewmodels/customer_profile_model.dart';
 export '/viewmodels/customer_profile_model.dart';
 
@@ -29,6 +29,7 @@ class CustomerProfileWidget extends StatefulWidget {
 
 class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
   late CustomerProfileModel _model;
+  final CustomerProfileProvider _provider = CustomerProfileProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,12 +38,13 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
     super.initState();
     _model = createModel(context, () => CustomerProfileModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
@@ -51,6 +53,15 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
+    return ChangeNotifierProvider<CustomerProfileProvider>.value(
+      value: _provider,
+      child: Consumer<CustomerProfileProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -64,7 +75,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
-            updateCallback: () => safeSetState(() {}),
+            updateCallback: () => _provider.update(() {}),
             child: AppbarComponentWidget(
               title: 'Profile',
               showAction: false,
@@ -312,7 +323,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                 children: [
                                   wrapWithModel(
                                     model: _model.settingsComponentModel1,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: SettingsComponentWidget(
                                       icon: Icon(
                                         Icons.person_sharp,
@@ -339,7 +350,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                   ),
                                   wrapWithModel(
                                     model: _model.settingsComponentModel2,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: SettingsComponentWidget(
                                       icon: Icon(
                                         Icons.credit_card_outlined,
@@ -438,7 +449,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                 children: [
                                   wrapWithModel(
                                     model: _model.settingsComponentModel3,
-                                    updateCallback: () => safeSetState(() {}),
+                                    updateCallback: () => _provider.update(() {}),
                                     child: SettingsComponentWidget(
                                       icon: Icon(
                                         Icons.construction_rounded,
@@ -542,7 +553,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       wrapWithModel(
                                         model: _model.settingsComponentModel4,
                                         updateCallback: () =>
-                                            safeSetState(() {}),
+                                            _provider.update(() {}),
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.notifications_sharp,
@@ -568,7 +579,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       wrapWithModel(
                                         model: _model.settingsComponentModel5,
                                         updateCallback: () =>
-                                            safeSetState(() {}),
+                                            _provider.update(() {}),
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.security,
@@ -590,7 +601,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       wrapWithModel(
                                         model: _model.settingsComponentModel6,
                                         updateCallback: () =>
-                                            safeSetState(() {}),
+                                            _provider.update(() {}),
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.password,
@@ -615,7 +626,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       wrapWithModel(
                                         model: _model.settingsComponentModel7,
                                         updateCallback: () =>
-                                            safeSetState(() {}),
+                                            _provider.update(() {}),
                                         child: SettingsComponentWidget(
                                           icon: Icon(
                                             Icons.help,
@@ -638,7 +649,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         builder: (context) => wrapWithModel(
                                           model: _model.settingsComponentModel8,
                                           updateCallback: () =>
-                                              safeSetState(() {}),
+                                              _provider.update(() {}),
                                           child: SettingsComponentWidget(
                                             icon: Icon(
                                               Icons.dark_mode_outlined,
@@ -778,7 +789,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.customerNavbarModel,
-                  updateCallback: () => safeSetState(() {}),
+                  updateCallback: () => _provider.update(() {}),
                   child: CustomerNavbarWidget(
                     selectedIndex: 2,
                   ),

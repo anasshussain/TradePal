@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+import '/providers/processing_state_provider.dart';
 import '/viewmodels/processing_state_model.dart';
 export '/viewmodels/processing_state_model.dart';
 
@@ -24,6 +25,7 @@ class ProcessingStateWidget extends StatefulWidget {
 
 class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
   late ProcessingStateModel _model;
+  final ProcessingStateProvider _provider = ProcessingStateProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -32,18 +34,28 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
     super.initState();
     _model = createModel(context, () => ProcessingStateModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _provider.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<ProcessingStateProvider>.value(
+      value: _provider,
+      child: Consumer<ProcessingStateProvider>(
+        builder: (context, _, __) => _buildContent(context),
+      ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
