@@ -73,7 +73,7 @@ class _SubmittedJobListItemWidgetState
             ),
           }.withoutNulls,
           extra: <String, dynamic>{
-            '__transition_info__': TransitionInfo(
+            '__transition_info__': const TransitionInfo(
               hasTransition: true,
               transitionType: PageTransitionType.rightToLeft,
               duration: Duration(milliseconds: 250),
@@ -179,7 +179,7 @@ class _SubmittedJobListItemWidgetState
                                       .fontStyle,
                                 ),
                           ),
-                        ].divide(SizedBox(width: AppConstants.childSpacing)),
+                        ].divide(const SizedBox(width: AppConstants.childSpacing)),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -357,12 +357,12 @@ class _SubmittedJobListItemWidgetState
                               action: () async {},
                             ),
                           ),
-                        ].divide(SizedBox(width: AppConstants.childSpacing)),
+                        ].divide(const SizedBox(width: AppConstants.childSpacing)),
                       ),
-                    ].divide(SizedBox(height: AppConstants.childSpacing)),
+                    ].divide(const SizedBox(height: AppConstants.childSpacing)),
                   ),
                 ),
-              ].divide(SizedBox(height: AppConstants.childSpacing)),
+              ].divide(const SizedBox(height: AppConstants.childSpacing)),
             ),
           ),
         ),

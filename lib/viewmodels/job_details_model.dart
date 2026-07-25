@@ -3,7 +3,7 @@ import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/job_details_loader/job_details_loader_widget.dart';
 import '/widgets/components/job_location_component/job_location_component_widget.dart';
 import '/utils/util.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import '/core/routes/index.dart';
 import '/job_details/job_details_widget.dart' show JobDetailsWidget;
 import 'package:flutter/material.dart';

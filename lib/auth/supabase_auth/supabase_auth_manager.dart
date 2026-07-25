@@ -20,7 +20,6 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   Future deleteUser(BuildContext context) async {
     try {
       if (!loggedIn) {
-        print('Error: delete user attempted with no logged in user!');
         return;
       }
       await currentUser?.delete();
@@ -39,8 +38,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   }) async {
     try {
       if (!loggedIn) {
-        print('Error: update email attempted with no logged in user!');
-        return;
+         return;
       }
       await currentUser?.updateEmail(email);
     } on AuthException catch (e) {
@@ -51,7 +49,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
       return;
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Email change confirmation email sent')),
+      const SnackBar(content: Text('Email change confirmation email sent')),
     );
   }
 
@@ -74,7 +72,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
       return;
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Password updated successfully')),
+      const SnackBar(content: Text('Password updated successfully')),
     );
   }
 
@@ -95,7 +93,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
       return null;
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Password reset email sent')),
+      const SnackBar(content: Text('Password reset email sent')),
     );
   }
 

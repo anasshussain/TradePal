@@ -68,9 +68,9 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
             widget!.isUnread,
             true,
           )
-              ? Color(0x0D214FC7)
+              ? const Color(0x0D214FC7)
               : Colors.transparent,
-          Color(0x0D214FC7),
+          const Color(0x0D214FC7),
         ),
         shape: BoxShape.rectangle,
       ),
@@ -79,7 +79,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 20.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 20.0),
             child: Container(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -93,11 +93,11 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                           width: 45.0,
                           height: 45.0,
                           decoration: BoxDecoration(
-                            color: Color(0xFFC69B47),
+                            color: const Color(0xFFC69B47),
                             borderRadius: BorderRadius.circular(10.0),
                             shape: BoxShape.rectangle,
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.chat_rounded,
                             color: Colors.white,
                             size: 22.0,
@@ -112,7 +112,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                             borderRadius: BorderRadius.circular(10.0),
                             shape: BoxShape.rectangle,
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.swap_horiz_rounded,
                             color: Colors.white,
                             size: 24.0,
@@ -127,7 +127,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                             borderRadius: BorderRadius.circular(10.0),
                             shape: BoxShape.rectangle,
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.assignment_outlined,
                             color: Colors.white,
                             size: 24.0,
@@ -135,7 +135,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                         );
                       } else {
                         return Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                         );
                       }
                     },
@@ -243,10 +243,10 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                               ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                      ].divide(SizedBox(height: 2.0)),
+                      ].divide(const SizedBox(height: 2.0)),
                     ),
                   ),
-                ].divide(SizedBox(width: 10.0)),
+                ].divide(const SizedBox(width: 10.0)),
               ),
             ),
           ),

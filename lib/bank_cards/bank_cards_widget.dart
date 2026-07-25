@@ -113,32 +113,100 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: AppbarComponentWidget(
-            title: 'Bank Cards',
-            showAction: false,
-            actionIcon: null,
-            action: () async {},
-          ),
-        ),
-        body: isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : (getCards == null || getCards!.isEmpty)
-                ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+        body: SingleChildScrollView(
+          primary: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.credit_card_off_outlined,
                             size: 80,
                             color: Colors.grey.shade400,
                           ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'My Cards',
+                                    style: AppTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: AppTheme.of(context)
+                                              .primaryText,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .headlineMedium
+                                                  .fontStyle,
+                                          lineHeight: 1.4,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                'Manage your payment methods',
+                                style: AppTheme.of(context)
+                                    .bodySmall
+                                    .override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: AppTheme.of(context)
+                                            .bodySmall
+                                            .fontWeight,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodySmall
+                                            .fontStyle,
+                                      ),
+                                      color: AppTheme.of(context)
+                                          .secondaryText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: AppTheme.of(context)
+                                          .bodySmall
+                                          .fontWeight,
+                                      fontStyle: AppTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
+                                      lineHeight: 1.4,
+                                    ),
+                              ),
+                            ].divide(const SizedBox(height: 2.0)),
+                          ),
+                          AppIconButton(
+                            borderRadius: 10.0,
+                            buttonSize: 40.0,
+                            fillColor: AppTheme.of(context)
+                                .secondaryBackground,
+                            icon: Icon(
+                              Icons.add_rounded,
+                              color: AppTheme.of(context).primary,
+                              size: 24.0,
                           const SizedBox(height: 20),
                           const Text(
                             'No Cards Found',
@@ -147,48 +215,57 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            "You haven't added any payment cards yet.\nAdd your first card to continue.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey.shade600,
-                              height: 1.5,
-                            ),
-                          ),
                         ],
                       ),
-                    ),
-                  )
-                : Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Builder(
-                      builder: (context) {
-                        final bank = _model.bankCards.toList();
-                  
-                        return ListView.separated(
-                          padding: EdgeInsets.zero,
-                          clipBehavior: Clip.none,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: bank.length,
-                          separatorBuilder: (_, __) => SizedBox(
-                              height:
-                                  AppTheme.of(context).designToken.spacing.lg),
-                          itemBuilder: (context, bankIndex) {
-                            final bankItem = bank[bankIndex];
-                            return Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: BankCardComponentWidget(
-                                key: Key('Keywhx_${bankIndex}_of_${bank.length}'),
-                                bankCardDetail: bankItem,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0,
+                                valueOrDefault<double>(
+                                  AppConstants.parentPagePadding,
+                                  0.0,
+                                ),
+                                0.0,
+                                0.0),
+                            // Only this list subtree rebuilds when bankCards
+                            // changes; the Scaffold/AppBar above are built once.
+                            child: Consumer<BankCardsProvider>(
+                              builder: (context, provider, _) {
+                                final bank = provider.bankCards.toList();
+
+                                return ListView.separated(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: bank.length,
+                                  separatorBuilder: (_, __) => SizedBox(
+                                      height: AppTheme.of(context)
+                                          .designToken
+                                          .spacing
+                                          .lg),
+                                  itemBuilder: (context, bankIndex) {
+                                    final bankItem = bank[bankIndex];
+                                    return Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: BankCardComponentWidget(
+                                        key: Key(
+                                            'Keywhx_${bankIndex}_of_${bank.length}'),
+                                        bankCardDetail: bankItem,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ].divide(const SizedBox(height: 10.0)),
+                      ),
+                    ].divide(const SizedBox(height: 20.0)),
+                  ),
                 ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),

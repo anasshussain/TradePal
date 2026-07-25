@@ -82,20 +82,20 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
             child: AppbarComponentWidget(
               title: 'My Trade Pal',
               showAction: false,
-              actionIcon: Icon(
+              actionIcon: const Icon(
                 Icons.person,
               ),
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, -1.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Padding(
               padding: EdgeInsets.all(valueOrDefault<double>(
                 AppConstants.parentPagePadding,
@@ -196,7 +196,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                                 .fontStyle,
                                           ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: double.infinity,
                                       child: TextFormField(
                                         controller: _model.emailTextController,
@@ -250,7 +250,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                                     .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -285,8 +285,9 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              AppTheme.of(context).alternate,
-                                          prefixIcon: Icon(
+                                              AppTheme.of(context)
+                                                  .alternate,
+                                          prefixIcon: const Icon(
                                             Icons.email_outlined,
                                           ),
                                         ),
@@ -318,14 +319,14 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                       ),
                                     ),
                                   ]
-                                      .divide(SizedBox(
+                                      .divide(const SizedBox(
                                           height: AppConstants.childPadding))
-                                      .addToStart(SizedBox(
+                                      .addToStart(const SizedBox(
                                           height:
                                               AppConstants.parentPagePadding))
-                                      .addToEnd(SizedBox(
-                                          height:
-                                              AppConstants.parentPagePadding)),
+                                      .addToEnd(const SizedBox(
+                                          height: AppConstants
+                                              .parentPagePadding)),
                                 ),
                               ),
                               AppButton(
@@ -338,7 +339,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                         .emailTextController.text.isEmpty) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        SnackBar(
+                                        const SnackBar(
                                           content: Text(
                                             'Email required!',
                                           ),
@@ -363,17 +364,17 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                   _provider.update(() {});
                                 },
                                 text: 'Send Reset Link',
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.send_rounded,
                                   size: 24.0,
                                 ),
                                 options: AppButtonOptions(
                                   width: 300.0,
                                   height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   iconAlignment: IconAlignment.end,
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   iconColor: AppTheme.of(context).info,
                                   color: AppTheme.of(context).primary,
@@ -405,11 +406,11 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                 ),
                               ),
                             ]
-                                .divide(SizedBox(
+                                .divide(const SizedBox(
                                     height: AppConstants.parentPagePadding))
-                                .addToStart(SizedBox(
+                                .addToStart(const SizedBox(
                                     height: AppConstants.parentPagePadding))
-                                .addToEnd(SizedBox(height: 20.0)),
+                                .addToEnd(const SizedBox(height: 20.0)),
                           ),
                         ),
                       ),
@@ -440,9 +441,9 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                                     AppTheme.of(context).labelSmall.fontStyle,
                               ),
                         ),
-                      ].divide(SizedBox(width: AppConstants.childSpacing)),
+                      ].divide(const SizedBox(width: AppConstants.childSpacing)),
                     ),
-                  ].divide(SizedBox(height: AppConstants.spacing)),
+                  ].divide(const SizedBox(height: AppConstants.spacing)),
                 ),
               ),
             ),

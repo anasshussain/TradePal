@@ -8,9 +8,9 @@ import '/models/structs/index.dart';
 import '/utils/enums/enums.dart';
 import '/repositories/supabase/supabase.dart';
 
-import '/core/lat_lng.dart';
-import '/core/place.dart';
-import '/core/uploaded_file.dart';
+import '/core/location/lat_lng.dart';
+import '/core/location/place.dart';
+import '/core/utils/uploaded_file.dart';
 
 /// SERIALIZATION HELPERS
 
@@ -254,8 +254,7 @@ dynamic deserializeParam<T>(
         return null;
       }
       return paramValues
-          .where((p) => p is String)
-          .map((p) => p as String)
+          .whereType<String>()
           .map((p) => deserializeParam<T>(
                 p,
                 paramType,
@@ -377,7 +376,7 @@ Future<List<T>> Function(String) getDocList<T>(
     List<String> docIds = [];
     try {
       final ids = json.decode(idsList) as Iterable;
-      docIds = ids.where((d) => d is String).map((d) => d as String).toList();
+      docIds = ids.whereType<String>().toList();
     } catch (_) {}
     return Future.wait(
       docIds.map(

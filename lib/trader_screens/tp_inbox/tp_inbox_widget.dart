@@ -1,5 +1,5 @@
-import 'package:my_trade_pal/widgets/components/empty_list_component/empty_list_component_widget.dart';
 
+import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -16,16 +16,12 @@ import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/tp_inbox_provider.dart';
 import '/viewmodels/tp_inbox_model.dart';
 export '/viewmodels/tp_inbox_model.dart';
 
-/// could you design me an all chats inbox page with 2 list views.
-///
-/// 1 for trades and 1 for customers
 class TpInboxWidget extends StatefulWidget {
   const TpInboxWidget({super.key});
 
@@ -42,10 +38,31 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  // ---------------------------------------------------------------------
+  // CACHE: `static` hone ki wajah se ye poori app session ke liye zinda
+  // rehta hai, widget dispose hone ke baad bhi.
+  //
+  // Pehle sirf `TpInboxProvider.isLoading` flag check ho raha tha, jo
+  // sirf skeleton chhupata tha lekin uski jagah `SizedBox.shrink()`
+  // (khaali jagah) dikhata rehta tha jab tak naya fetch complete na ho —
+  // yani har dafa page pe wapas aane par screen "reload" jaisi mehsoos
+  // hoti thi.
+  //
+  // Fix: hum actual response cache karte hain. Dobara page open hone par
+  // agar cache maujood hai to woh turant dikha dete hain (bilkul
+  // Instagram jaisa), aur background mein naya data fetch ho ke silently
+  // update ho jata hai — na koi loader, na koi blank flash.
+  // ---------------------------------------------------------------------
+  static ApiCallResponse? _cachedConversations;
+
+  late Future<ApiCallResponse> _conversationsFuture;
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => TpInboxModel());
+
+    _conversationsFuture = _fetchConversations();
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -53,7 +70,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
         'conversation_participants',
       );
       await Future.delayed(
-        Duration(
+        const Duration(
           milliseconds: 500,
         ),
       );
@@ -62,9 +79,19 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
         'user_id',
         AppState().userProfileCache.userKey,
         'update',
-        () async {
-          _provider.update(() => _model.apiRequestCompleter = null);
-          await _model.waitForApiRequestCompleted();
+            () async {
+          // Realtime update aane par silently background mein refetch
+          // karo — list turant khaali ho ke wapas nahi bharegi, purana
+          // data tab tak screen par rehta hai jab tak naya na aa jaye.
+          final response =
+          await SupabaseTablesGroup.getConversationsCall.call(
+            userId: currentUserUid,
+          );
+          _cachedConversations = response;
+          if (!mounted) return;
+          setState(() {
+            _conversationsFuture = Future.value(response);
+          });
         },
       );
     });
@@ -73,6 +100,14 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
     _model.searchFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
+  }
+
+  Future<ApiCallResponse> _fetchConversations() async {
+    final response = await SupabaseTablesGroup.getConversationsCall.call(
+      userId: currentUserUid,
+    );
+    _cachedConversations = response;
+    return response;
   }
 
   @override
@@ -123,7 +158,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -142,11 +177,11 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                       wrapWithModel(
                         model: _model.pageHeaderSectiomModel,
                         updateCallback: () => _provider.notify(),
-                        child: PageHeaderSectiomWidget(
+                        child: const PageHeaderSectiomWidget(
                           tag: '',
                           title: 'Inbox',
                           subtitle:
-                              'Manage your professional communications and\nproject updates.',
+                          'Manage your professional communications and\nproject updates.',
                           itemText: '',
                         ),
                       ),
@@ -154,30 +189,30 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Container(
-                            decoration: BoxDecoration(),
-                            child: Container(
+                            decoration: const BoxDecoration(),
+                            child: SizedBox(
                               width: double.infinity,
                               child: TextFormField(
                                 controller: _model.searchTextController,
                                 focusNode: _model.searchFocusNode,
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.searchTextController',
-                                  Duration(milliseconds: 300),
-                                  () async {
+                                  const Duration(milliseconds: 300),
+                                      () async {
                                     _model.searchJobApiRespone =
-                                        await SupbaseRpcGroup
-                                            .searchConversationsCall
-                                            .call(
+                                    await SupbaseRpcGroup
+                                        .searchConversationsCall
+                                        .call(
                                       userId: currentUserUid,
                                       searchText:
-                                          _model.searchTextController.text,
+                                      _model.searchTextController.text,
                                     );
 
                                     if ((_model
-                                            .searchJobApiRespone?.succeeded ??
+                                        .searchJobApiRespone?.succeeded ??
                                         true)) {
                                       if (_model.searchTextController.text !=
-                                              null &&
+                                          null &&
                                           _model.searchTextController.text !=
                                               '') {
                                         _provider.showSearchList = true;
@@ -235,7 +270,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                                 .fontStyle,
                                           ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
@@ -265,38 +300,37 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                   filled: true,
                                   fillColor: AppTheme.of(context).alternate,
                                   suffixIcon: _model
-                                          .searchTextController!.text.isNotEmpty
+                                      .searchTextController!.text.isNotEmpty
                                       ? InkWell(
-                                          onTap: () async {
+                                    onTap: () async {
+                                      _model.searchTextController
+                                          ?.clear();
+                                      _model.searchJobApiRespone =
+                                      await SupbaseRpcGroup
+                                          .searchConversationsCall
+                                          .call(
+                                        userId: currentUserUid,
+                                        searchText: _model
+                                            .searchTextController.text,
+                                      );
+
+                                      if ((_model.searchJobApiRespone
+                                          ?.succeeded ??
+                                          true)) {
+                                        if (_model.searchTextController
+                                            .text !=
+                                            null &&
                                             _model.searchTextController
-                                                ?.clear();
-                                            _model.searchJobApiRespone =
-                                                await SupbaseRpcGroup
-                                                    .searchConversationsCall
-                                                    .call(
-                                              userId: currentUserUid,
-                                              searchText: _model
-                                                  .searchTextController.text,
-                                            );
+                                                .text !=
+                                                '') {
+                                          _provider.showSearchList = true;
+                                          _provider.notify();
+                                        } else {
+                                          _provider.showSearchList = false;
+                                          _provider.notify();
+                                        }
+                                      }
 
-                                            if ((_model.searchJobApiRespone
-                                                    ?.succeeded ??
-                                                true)) {
-                                              if (_model.searchTextController
-                                                          .text !=
-                                                      null &&
-                                                  _model.searchTextController
-                                                          .text !=
-                                                      '') {
-                                                _provider.showSearchList = true;
-                                                _provider.notify();
-                                              } else {
-                                                _provider.showSearchList = false;
-                                                _provider.notify();
-                                              }
-                                            }
-
-                                            _provider.notify();
                                             _provider.notify();
                                           },
                                           child: Icon(
@@ -344,50 +378,43 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                               )))
                             .future,
                         builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
+                          // Sirf tab skeleton dikhao jab bilkul koi purana
+                          // data maujood na ho (app session mein pehli
+                          // dafa is page ka load).
                           if (!snapshot.hasData) {
-                            return Center(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 200.0, 0.0, 0.0),
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitFadingCube(
-                                    color: AppTheme.of(context).primary,
-                                    size: 50.0,
-                                  ),
-                                ),
-                              ),
+                            return Skeletonizer(
+                              enabled: true,
+                              child: _buildInboxSkeletonList(),
                             );
                           }
+
                           final listViewGetConversationsResponse =
-                              snapshot.data!;
+                          snapshot.data!;
 
                           return Builder(
                             builder: (context) {
                               final conversation = (_provider.showSearchList
-                                          ? ((_model.searchJobApiRespone?.jsonBody ?? '')
-                                                      .toList()
-                                                      .map<ConversationStruct?>(
-                                                          ConversationStruct
-                                                              .maybeFromMap)
-                                                      .toList()
-                                                  as Iterable<
-                                                      ConversationStruct?>)
-                                              .withoutNulls
-                                              ?.sortedList(
-                                                  keyOf: (e) => e.conversations
-                                                      .lastMessageAt,
-                                                  desc: true)
-                                          : (listViewGetConversationsResponse
-                                                  .jsonBody
-                                                  .toList()
-                                                  .map<ConversationStruct?>(ConversationStruct.maybeFromMap)
-                                                  .toList() as Iterable<ConversationStruct?>)
-                                              .withoutNulls
-                                              ?.sortedList(keyOf: (e) => e.conversations.lastMessageAt, desc: true))
-                                      ?.toList() ??
+                                  ? ((_model.searchJobApiRespone?.jsonBody ?? '')
+                                  .toList()
+                                  .map<ConversationStruct?>(
+                                  ConversationStruct
+                                      .maybeFromMap)
+                                  .toList()
+                              as Iterable<
+                                  ConversationStruct?>)
+                                  .withoutNulls
+                                  ?.sortedList(
+                                  keyOf: (e) => e.conversations
+                                      .lastMessageAt,
+                                  desc: true)
+                                  : (listViewGetConversationsResponse
+                                  .jsonBody
+                                  .toList()
+                                  .map<ConversationStruct?>(ConversationStruct.maybeFromMap)
+                                  .toList() as Iterable<ConversationStruct?>)
+                                  .withoutNulls
+                                  ?.sortedList(keyOf: (e) => e.conversations.lastMessageAt, desc: true))
+                                  ?.toList() ??
                                   [];
                               if (conversation.isEmpty) {
                                 return EmptyListComponentWidget(
@@ -400,7 +427,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                 );
                               }
                               return ListView.separated(
-                                padding: EdgeInsets.fromLTRB(
+                                padding: const EdgeInsets.fromLTRB(
                                   0,
                                   0,
                                   0,
@@ -414,14 +441,14 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                     SizedBox(height: AppConstants.childSpacing),
                                 itemBuilder: (context, conversationIndex) {
                                   final conversationItem =
-                                      conversation[conversationIndex];
+                                  conversation[conversationIndex];
                                   return InboxItemWidget(
                                     key: Key(
                                         'Keydpz_${conversationIndex}_of_${conversation.length}'),
                                     members: conversationItem
                                         .conversations.conversationParticipants
                                         .where((e) =>
-                                            currentUserUid != e.members.id)
+                                    currentUserUid != e.members.id)
                                         .toList()
                                         .firstOrNull!
                                         .members,
@@ -433,16 +460,16 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                           );
                         },
                       ),
-                    ].divide(SizedBox(height: AppConstants.spacing)),
+                    ].divide(const SizedBox(height: AppConstants.spacing)),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
                   updateCallback: () => _provider.notify(),
-                  child: TpNavbarWidget(
+                  child: const TpNavbarWidget(
                     selectedIndex: 2,
                   ),
                 ),
@@ -450,6 +477,33 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
             ],
           ),
         ),
+      ),
+    );
+  }
+  Widget _buildInboxSkeletonList() {
+    return ListView.separated(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 80.0),
+      primary: false,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 6,
+      separatorBuilder: (_, __) =>
+      const SizedBox(height: AppConstants.spacing),
+      itemBuilder: (context, index) => Row(
+        children: [
+          const CircleAvatar(radius: 24),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text('Placeholder name'),
+                SizedBox(height: 6),
+                Text('Placeholder last message preview line here'),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

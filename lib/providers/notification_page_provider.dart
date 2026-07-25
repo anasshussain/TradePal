@@ -3,10 +3,8 @@ import '/repositories/backend.dart';
 import '/models/structs/index.dart';
 import 'package:flutter/material.dart';
 
-/// State management for the notification_page screen (migrated from setState).
 class NotificationPageProvider extends ChangeNotifier {
-  ///  Local state fields for this page.
-
+  bool isLoading = true;
 
   List<NotificationsStruct> notificationsPageState = [];
   void addToNotificationsPageState(NotificationsStruct item) =>
@@ -22,7 +20,11 @@ class NotificationPageProvider extends ChangeNotifier {
           int index, Function(NotificationsStruct) updateFn) =>
       notificationsPageState[index] = updateFn(notificationsPageState[index]);
 
-  /// Notify observers without mutating state (replaces empty setState).
+  void setLoading(bool value) {
+    isLoading = value;
+    notify();
+  }
+
   bool _disposed = false;
 
   @override
@@ -31,12 +33,10 @@ class NotificationPageProvider extends ChangeNotifier {
     super.dispose();
   }
 
-  /// Notify observers without mutating state (replaces empty setState).
   void notify() {
     if (!_disposed) notifyListeners();
   }
 
-  /// Run [fn] then notify observers (replaces setState(() => ...)).
   void update(VoidCallback fn) {
     fn();
     if (!_disposed) notifyListeners();

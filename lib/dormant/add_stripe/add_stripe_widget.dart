@@ -80,7 +80,7 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 1.0),
+      alignment: const AlignmentDirectional(0.0, 1.0),
       child: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -115,7 +115,7 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                         borderRadius: BorderRadius.circular(6.0),
                         shape: BoxShape.rectangle,
                       ),
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: SvgPicture.network(
                         'https://cdn.simpleicons.org/stripe/ffffff.svg',
                         width: 28.0,
@@ -134,7 +134,7 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -207,12 +207,12 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                                       lineHeight: 1.4,
                                     ),
                               ),
-                            ].divide(SizedBox(height: 2.0)),
+                            ].divide(const SizedBox(height: 2.0)),
                           ),
                         ),
                       ),
                     ),
-                  ].divide(SizedBox(width: 10.0)),
+                  ].divide(const SizedBox(width: 10.0)),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -317,7 +317,7 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                               ),
                               size: 18.0,
                             ),
-                          ].divide(SizedBox(width: 10.0)),
+                          ].divide(const SizedBox(width: 10.0)),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -367,9 +367,9 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                               ),
                               size: 18.0,
                             ),
-                          ].divide(SizedBox(width: 10.0)),
+                          ].divide(const SizedBox(width: 10.0)),
                         ),
-                      ].divide(SizedBox(height: 10.0)),
+                      ].divide(const SizedBox(height: 10.0)),
                     ),
                   ),
                 ),
@@ -382,9 +382,9 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                     options: AppButtonOptions(
                       height: 40.0,
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: AppTheme.of(context).primary,
                       textStyle:
                           AppTheme.of(context).titleSmall.override(
@@ -410,7 +410,7 @@ class _AddStripeWidgetState extends State<AddStripeWidget> {
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 20.0)),
+              ].divide(const SizedBox(height: 20.0)),
             ),
           ),
         ),

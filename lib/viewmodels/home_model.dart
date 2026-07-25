@@ -3,7 +3,7 @@ import '/repositories/supabase/supabase.dart';
 import '/widgets/components/applogo_component/applogo_component_widget.dart';
 import '/widgets/components/info_cards_component/info_cards_component_widget.dart';
 import '/widgets/components/testimonials_component/testimonials_component_widget.dart';
-import '/core/animations.dart';
+import '/core/utils/animations.dart';
 import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';

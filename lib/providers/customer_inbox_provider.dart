@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 /// State management for the customer_inbox screen (migrated from setState).
 class CustomerInboxProvider extends ChangeNotifier {
-  ///  Local state fields for this page.
-
+ bool isLoading = true;
 
   bool showSearchList = false;
 

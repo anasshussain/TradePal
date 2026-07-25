@@ -65,17 +65,17 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, -1.0),
+                alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Container(
                   child: Padding(
-                    padding: EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Container(
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -112,22 +112,22 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                                   lineHeight: 1.3,
                                 ),
                           ),
-                        ].divide(SizedBox(width: 4.0)),
+                        ].divide(const SizedBox(width: 4.0)),
                       ),
                     ),
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Stack(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       children: [
                         Container(
                           width: 84.0,
@@ -136,7 +136,7 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                             borderRadius: BorderRadius.circular(9999.0),
                             shape: BoxShape.rectangle,
                             border: Border.all(
-                              color: Color(0xFFF6F9FC),
+                              color: const Color(0xFFF6F9FC),
                               width: 3.0,
                             ),
                           ),
@@ -204,12 +204,12 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                                 lineHeight: 1.5,
                               ),
                         ),
-                      ].divide(SizedBox(height: 16.0)),
+                      ].divide(const SizedBox(height: 16.0)),
                     ),
-                  ].divide(SizedBox(height: 32.0)),
+                  ].divide(const SizedBox(height: 32.0)),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 width: 320.0,
                 decoration: BoxDecoration(
@@ -222,7 +222,7 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(24.0),
                   child: Container(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -298,11 +298,11 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                               width: 32.0,
                               height: 20.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFFF6F9FC),
+                                color: const Color(0xFFF6F9FC),
                                 borderRadius: BorderRadius.circular(4.0),
                                 shape: BoxShape.rectangle,
                               ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Icon(
                                 Icons.credit_card_rounded,
                                 color: AppTheme.of(context).primaryText,
@@ -334,16 +334,16 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                                     lineHeight: 1.4,
                                   ),
                             ),
-                          ].divide(SizedBox(width: 8.0)),
+                          ].divide(const SizedBox(width: 8.0)),
                         ),
-                      ].divide(SizedBox(height: 8.0)),
+                      ].divide(const SizedBox(height: 8.0)),
                     ),
                   ),
                 ),
               ),
               Container(
                 child: Padding(
-                  padding: EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(24.0),
                   child: Container(
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -381,7 +381,7 @@ class _ProcessingStateWidgetState extends State<ProcessingStateWidget> {
                           height: 16.0,
                           fit: BoxFit.contain,
                         ),
-                      ].divide(SizedBox(width: 4.0)),
+                      ].divide(const SizedBox(width: 4.0)),
                     ),
                   ),
                 ),

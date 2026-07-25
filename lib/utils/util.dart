@@ -14,16 +14,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '/main.dart';
 
-import '/core/lat_lng.dart';
+import '/core/location/lat_lng.dart';
 
-export '/core/keep_alive_wrapper.dart';
-export '/core/lat_lng.dart';
-export '/core/place.dart';
-export '/core/uploaded_file.dart';
-export '/core/app_state.dart';
-export '/core/app_constants.dart';
-export '/core/environment_values.dart';
-export '/core/app_model.dart';
+export '/core/utils/keep_alive_wrapper.dart';
+export '/core/location/lat_lng.dart';
+export '/core/location/place.dart';
+export '/core/utils/uploaded_file.dart';
+export '/core/state/app_state.dart';
+export '/core/constants/app_constants.dart';
+export '/core/config/environment_values.dart';
+export '/core/state/app_model.dart';
 export 'dart:math' show min, max;
 export 'dart:typed_data' show Uint8List;
 export 'dart:convert' show jsonEncode, jsonDecode;
@@ -436,12 +436,12 @@ void showSnackbar(
       content: Row(
         children: [
           if (loading)
-            Padding(
+            const Padding(
               padding: EdgeInsetsDirectional.only(end: 10.0),
-              child: Container(
+              child: SizedBox(
                 height: 20,
                 width: 20,
-                child: const CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   color: Colors.white,
                 ),
               ),

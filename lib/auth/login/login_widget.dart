@@ -50,7 +50,10 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model.passwordTextController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _provider.notify();
+    });
   }
 
   @override
@@ -85,7 +88,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
               padding: EdgeInsets.all(valueOrDefault<double>(
                 AppConstants.parentPagePadding,
@@ -121,7 +124,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               wrapWithModel(
                                 model: _model.applogoComponentModel,
                                 updateCallback: () => _provider.update(() {}),
-                                child: ApplogoComponentWidget(),
+                                child: const ApplogoComponentWidget(),
                               ),
                               Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -172,7 +175,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               .fontStyle,
                                         ),
                                   ),
-                                ].divide(SizedBox(height: 8.0)),
+                                ].divide(const SizedBox(height: 8.0)),
                               ),
                               Form(
                                 key: _model.formKey,
@@ -206,7 +209,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     .fontStyle,
                                               ),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           width: 290.0,
                                           child: TextFormField(
                                             controller:
@@ -266,7 +269,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                             .fontStyle,
                                                   ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -302,9 +305,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               filled: true,
-                                              fillColor: AppTheme.of(context)
-                                                  .alternate,
-                                              prefixIcon: Icon(
+                                              fillColor:
+                                                  AppTheme.of(context)
+                                                      .alternate,
+                                              prefixIcon: const Icon(
                                                 Icons.email_outlined,
                                               ),
                                             ),
@@ -339,7 +343,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 .asValidator(context),
                                           ),
                                         ),
-                                      ].divide(SizedBox(
+                                      ].divide(const SizedBox(
                                           height: AppConstants.childPadding)),
                                     ),
                                     Column(
@@ -366,7 +370,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     .fontStyle,
                                               ),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           width: 290.0,
                                           child: TextFormField(
                                             controller:
@@ -428,7 +432,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                             .fontStyle,
                                                   ),
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Color(0x00000000),
                                                   width: 1.0,
                                                 ),
@@ -464,9 +468,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                               filled: true,
-                                              fillColor: AppTheme.of(context)
-                                                  .alternate,
-                                              prefixIcon: Icon(
+                                              fillColor:
+                                                  AppTheme.of(context)
+                                                      .alternate,
+                                              prefixIcon: const Icon(
                                                 Icons.lock_outlined,
                                               ),
                                               suffixIcon: InkWell(
@@ -519,22 +524,23 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 .asValidator(context),
                                           ),
                                         ),
-                                      ].divide(SizedBox(
+                                      ].divide(const SizedBox(
                                           height: AppConstants.childPadding)),
                                     ),
-                                  ].divide(SizedBox(
-                                      height: AppConstants.parentPagePadding)),
+                                  ].divide(const SizedBox(
+                                      height:
+                                          AppConstants.parentPagePadding)),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 30.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Align(
-                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      alignment: const AlignmentDirectional(1.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -551,7 +557,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
                                               '__transition_info__':
-                                                  TransitionInfo(
+                                                  const TransitionInfo(
                                                 hasTransition: true,
                                                 transitionType:
                                                     PageTransitionType.fade,
@@ -645,11 +651,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           await action_blocks
                                               .getFcmToken(context);
                                         }
-                                        _provider.update(() {
+                                        if (mounted) {
                                           _model.emailTextController?.clear();
-                                          _model.passwordTextController
-                                              ?.clear();
-                                        });
+                                          _model.passwordTextController?.clear();
+                                        }
                                       }
                                     }),
                                     Future(() async {
@@ -679,10 +684,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 options: AppButtonOptions(
                                   width: 300.0,
                                   height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   iconAlignment: IconAlignment.end,
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: AppTheme.of(context).primary,
                                   textStyle:
@@ -714,9 +719,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                               ),
                             ]
-                                .divide(SizedBox(
+                                .divide(const SizedBox(
                                     height: AppConstants.parentPagePadding))
-                                .addToEnd(SizedBox(
+                                .addToEnd(const SizedBox(
                                     height: AppConstants.parentPagePadding)),
                           ),
                         ),
@@ -740,7 +745,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           context.pushNamed(
                             SignupWidget.routeName,
                             extra: <String, dynamic>{
-                              '__transition_info__': TransitionInfo(
+                              '__transition_info__': const TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.fade,
                                 duration: Duration(milliseconds: 250),
@@ -750,8 +755,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         },
                         child: Container(
                           height: 30.0,
-                          decoration: BoxDecoration(),
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          decoration: const BoxDecoration(),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: RichText(
                             textScaler: MediaQuery.of(context).textScaler,
                             text: TextSpan(

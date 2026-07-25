@@ -25,7 +25,7 @@
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import '/widgets/app_button.dart';
 

@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
@@ -11,7 +13,6 @@ import 'dart:ui';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/viewmodels/jobs_list_model.dart';
@@ -32,6 +33,41 @@ class JobsListWidget extends StatefulWidget {
 class _JobsListWidgetState extends State<JobsListWidget> {
   late JobsListModel _model;
 
+  // ---------------------------------------------------------------------
+  // CACHE FLAGS: `static` hone ki wajah se poori app session ke liye zinda
+  // rehte hain, widget dispose hone ke baad bhi. Ye widget dono jagah
+  // (BROWSE aur DASHBOARD view) reuse hota hai, isliye har view type ka
+  // apna alag flag hai.
+  //
+  // Pehle koi loading state hi nahi thi — jab tak API se data na aaye,
+  // `AppState().jobCache.jobs` khaali hota tha, aur khaali list ko turant
+  // "No jobs yet" wale empty widget se render kar diya jata tha. 5 second
+  // baad jab asal data aata tha to list replace ho jati thi — yehi
+  // "pehle empty widget, phir data" wala flash tha.
+  //
+  // Fix: jab tak is session mein is view-type ka data pehli dafa load na
+  // ho jaye, hum skeleton dikhate hain (empty widget nahi). Dobara visit
+  // par flag already true hoga aur `AppState().jobCache` mein purana data
+  // maujood hoga, is liye skeleton bhi nahi chalega — data foran (turant)
+  // show hoga.
+  // ---------------------------------------------------------------------
+  static bool _hasLoadedBrowseOnce = false;
+  static bool _hasLoadedDashboardOnce = false;
+
+  bool get _hasLoadedOnce => widget.jobViewType == JobsViewType.BROWSE
+      ? _hasLoadedBrowseOnce
+      : _hasLoadedDashboardOnce;
+
+  void _markLoaded() {
+    if (widget.jobViewType == JobsViewType.BROWSE) {
+      _hasLoadedBrowseOnce = true;
+    } else {
+      _hasLoadedDashboardOnce = true;
+    }
+  }
+
+  late bool _isLoading;
+
   @override
   void setState(VoidCallback callback) {
     super.setState(callback);
@@ -43,6 +79,11 @@ class _JobsListWidgetState extends State<JobsListWidget> {
     super.initState();
     _model = createModel(context, () => JobsListModel());
 
+    // Agar is view-type ka data is session mein pehle hi load ho chuka hai
+    // (jobCache already populated), to skeleton bilkul nahi dikhana —
+    // seedha cached data dikhao aur background mein refresh hone do.
+    _isLoading = !_hasLoadedOnce;
+
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget!.jobViewType == JobsViewType.BROWSE) {
@@ -51,47 +92,57 @@ class _JobsListWidgetState extends State<JobsListWidget> {
         if ((_model.browseJobsRes?.succeeded ?? true)) {
           AppState().jobCache = JobCacheStruct(
             jobs: ((_model.browseJobsRes?.jsonBody ?? '')
-                    .toList()
-                    .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
-                    .toList() as Iterable<JobsListItemStruct?>)
+                .toList()
+                .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
+                .toList() as Iterable<JobsListItemStruct?>)
                 .withoutNulls,
             lastCursor: ((_model.browseJobsRes?.jsonBody ?? '')
-                    .toList()
-                    .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
-                    .toList() as Iterable<JobsListItemStruct?>)
+                .toList()
+                .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
+                .toList() as Iterable<JobsListItemStruct?>)
                 .withoutNulls
                 ?.lastOrNull
                 ?.createdAt,
             firstCursor: ((_model.browseJobsRes?.jsonBody ?? '')
-                    .toList()
-                    .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
-                    .toList() as Iterable<JobsListItemStruct?>)
+                .toList()
+                .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
+                .toList() as Iterable<JobsListItemStruct?>)
                 .withoutNulls
                 ?.firstOrNull
                 ?.createdAt,
             hasMore: true,
           );
-          _model.updatePage(() {});
+          _markLoaded();
         }
+
+        safeSetState(() {
+          _isLoading = false;
+        });
+        _model.updatePage(() {});
       } else {
         _model.dashboardJobsRes =
-            await SupabaseTablesGroup.getJobsListCall.call(
+        await SupabaseTablesGroup.getJobsListCall.call(
           params: '&customer_id=eq.${currentUserUid}',
         );
 
         if ((_model.dashboardJobsRes?.succeeded ?? true)) {
           AppState().jobCache = JobCacheStruct(
             jobs: ((_model.dashboardJobsRes?.jsonBody ?? '')
-                    .toList()
-                    .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
-                    .toList() as Iterable<JobsListItemStruct?>)
+                .toList()
+                .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
+                .toList() as Iterable<JobsListItemStruct?>)
                 .withoutNulls,
             lastCursor: '',
             firstCursor: '',
             hasMore: true,
           );
-          _model.updatePage(() {});
+          _markLoaded();
         }
+
+        safeSetState(() {
+          _isLoading = false;
+        });
+        _model.updatePage(() {});
       }
     });
 
@@ -121,19 +172,19 @@ class _JobsListWidgetState extends State<JobsListWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: 200.0,
                 child: TextFormField(
                   controller: _model.searchTextController,
                   focusNode: _model.searchFocusNode,
                   onChanged: (_) => EasyDebounce.debounce(
                     '_model.searchTextController',
-                    Duration(milliseconds: 300),
-                    () async {
+                    const Duration(milliseconds: 300),
+                        () async {
                       _model.searchJobApiRespone =
-                          await SupabaseTablesGroup.getJobsListCall.call(
+                      await SupabaseTablesGroup.getJobsListCall.call(
                         params:
-                            '${widget!.jobViewType != JobsViewType.BROWSE ? '&customer_id=eq.${currentUserUid}&' : ''}&or=(title.ilike.*${_model.searchTextController.text}*,category.ilike.*${_model.searchTextController.text}*)',
+                        '${widget!.jobViewType != JobsViewType.BROWSE ? '&customer_id=eq.${currentUserUid}&' : ''}&or=(title.ilike.*${_model.searchTextController.text}*,category.ilike.*${_model.searchTextController.text}*)',
                       );
 
                       if ((_model.searchJobApiRespone?.succeeded ?? true)) {
@@ -156,43 +207,43 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                   decoration: InputDecoration(
                     isDense: false,
                     labelStyle:
-                        AppTheme.of(context).labelMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: AppTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
-                              color: AppTheme.of(context).secondaryText,
-                              fontSize: 12.0,
-                              letterSpacing: 0.0,
-                              fontWeight: AppTheme.of(context)
-                                  .labelMedium
-                                  .fontWeight,
-                              fontStyle: AppTheme.of(context)
-                                  .labelMedium
-                                  .fontStyle,
-                            ),
+                    AppTheme.of(context).labelMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight: AppTheme.of(context)
+                            .labelMedium
+                            .fontWeight,
+                        fontStyle: AppTheme.of(context)
+                            .labelMedium
+                            .fontStyle,
+                      ),
+                      color: AppTheme.of(context).secondaryText,
+                      fontSize: 12.0,
+                      letterSpacing: 0.0,
+                      fontWeight: AppTheme.of(context)
+                          .labelMedium
+                          .fontWeight,
+                      fontStyle: AppTheme.of(context)
+                          .labelMedium
+                          .fontStyle,
+                    ),
                     hintText: 'Search jobs',
                     hintStyle:
-                        AppTheme.of(context).labelMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.normal,
-                                fontStyle: AppTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
-                              color: AppTheme.of(context).hint,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.normal,
-                              fontStyle: AppTheme.of(context)
-                                  .labelMedium
-                                  .fontStyle,
-                            ),
+                    AppTheme.of(context).labelMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight: FontWeight.normal,
+                        fontStyle: AppTheme.of(context)
+                            .labelMedium
+                            .fontStyle,
+                      ),
+                      color: AppTheme.of(context).hint,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.normal,
+                      fontStyle: AppTheme.of(context)
+                          .labelMedium
+                          .fontStyle,
+                    ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0x00000000),
                         width: 1.0,
                       ),
@@ -223,56 +274,56 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                     fillColor: AppTheme.of(context).alternate,
                     suffixIcon: _model.searchTextController!.text.isNotEmpty
                         ? InkWell(
-                            onTap: () async {
-                              _model.searchTextController?.clear();
-                              _model.searchJobApiRespone =
-                                  await SupabaseTablesGroup.getJobsListCall
-                                      .call(
-                                params:
-                                    '${widget!.jobViewType != JobsViewType.BROWSE ? '&customer_id=eq.${currentUserUid}&' : ''}&or=(title.ilike.*${_model.searchTextController.text}*,category.ilike.*${_model.searchTextController.text}*)',
-                              );
+                      onTap: () async {
+                        _model.searchTextController?.clear();
+                        _model.searchJobApiRespone =
+                        await SupabaseTablesGroup.getJobsListCall
+                            .call(
+                          params:
+                          '${widget!.jobViewType != JobsViewType.BROWSE ? '&customer_id=eq.${currentUserUid}&' : ''}&or=(title.ilike.*${_model.searchTextController.text}*,category.ilike.*${_model.searchTextController.text}*)',
+                        );
 
-                              if ((_model.searchJobApiRespone?.succeeded ??
-                                  true)) {
-                                if (_model.searchTextController.text != null &&
-                                    _model.searchTextController.text != '') {
-                                  _model.showSearchList = true;
-                                  safeSetState(() {});
-                                } else {
-                                  _model.showSearchList = false;
-                                  safeSetState(() {});
-                                }
-                              }
+                        if ((_model.searchJobApiRespone?.succeeded ??
+                            true)) {
+                          if (_model.searchTextController.text != null &&
+                              _model.searchTextController.text != '') {
+                            _model.showSearchList = true;
+                            safeSetState(() {});
+                          } else {
+                            _model.showSearchList = false;
+                            safeSetState(() {});
+                          }
+                        }
 
-                              safeSetState(() {});
-                              safeSetState(() {});
-                            },
-                            child: Icon(
-                              Icons.clear,
-                              color: AppTheme.of(context).tertiary,
-                              size: 26.0,
-                            ),
-                          )
+                        safeSetState(() {});
+                        safeSetState(() {});
+                      },
+                      child: Icon(
+                        Icons.clear,
+                        color: AppTheme.of(context).tertiary,
+                        size: 26.0,
+                      ),
+                    )
                         : null,
                   ),
                   style: AppTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.manrope(
-                          fontWeight: AppTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              AppTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            AppTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            AppTheme.of(context).bodyMedium.fontStyle,
-                      ),
+                    font: GoogleFonts.manrope(
+                      fontWeight: AppTheme.of(context)
+                          .bodyMedium
+                          .fontWeight,
+                      fontStyle:
+                      AppTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                    letterSpacing: 0.0,
+                    fontWeight:
+                    AppTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle:
+                    AppTheme.of(context).bodyMedium.fontStyle,
+                  ),
                   cursorColor: AppTheme.of(context).primaryText,
                   enableInteractiveSelection: true,
                   validator:
-                      _model.searchTextControllerValidator.asValidator(context),
+                  _model.searchTextControllerValidator.asValidator(context),
                 ),
               ),
             ),
@@ -283,32 +334,43 @@ class _JobsListWidgetState extends State<JobsListWidget> {
               AppTheme.of(context).designToken.spacing.lg, 0.0, 0.0),
           child: Builder(
             builder: (context) {
+              // Sirf tab skeleton dikhao jab bilkul koi cached data na ho
+              // (app session mein is view-type ka pehli dafa load) — ye
+              // sirf microseconds tak chalega jab tak fetch complete na
+              // ho jaye.
+              if (_isLoading) {
+                return Skeletonizer(
+                  enabled: true,
+                  child: _buildJobsSkeletonList(),
+                );
+              }
+
               final jobList = () {
-                    if (_model.showSearchList) {
-                      return ((_model.searchJobApiRespone?.jsonBody ?? '')
-                              .toList()
-                              .map<JobsListItemStruct?>(
-                                  JobsListItemStruct.maybeFromMap)
-                              .toList() as Iterable<JobsListItemStruct?>)
-                          .withoutNulls
-                          ?.sortedList(keyOf: (e) => e.createdAt, desc: true);
-                    } else if ((widget!.jobViewType ==
-                            JobsViewType.DASHBOARD) &&
-                        !_model.showSearchList) {
-                      return AppState()
-                          .jobCache
-                          .jobs
-                          .sortedList(keyOf: (e) => e.createdAt, desc: true)
-                          .take(5)
-                          .toList();
-                    } else {
-                      return AppState()
-                          .jobCache
-                          .jobs
-                          .sortedList(keyOf: (e) => e.createdAt, desc: true);
-                    }
-                  }()
-                      ?.toList() ??
+                if (_model.showSearchList) {
+                  return ((_model.searchJobApiRespone?.jsonBody ?? '')
+                      .toList()
+                      .map<JobsListItemStruct?>(
+                      JobsListItemStruct.maybeFromMap)
+                      .toList() as Iterable<JobsListItemStruct?>)
+                      .withoutNulls
+                      ?.sortedList(keyOf: (e) => e.createdAt, desc: true);
+                } else if ((widget!.jobViewType ==
+                    JobsViewType.DASHBOARD) &&
+                    !_model.showSearchList) {
+                  return AppState()
+                      .jobCache
+                      .jobs
+                      .sortedList(keyOf: (e) => e.createdAt, desc: true)
+                      .take(5)
+                      .toList();
+                } else {
+                  return AppState()
+                      .jobCache
+                      .jobs
+                      .sortedList(keyOf: (e) => e.createdAt, desc: true);
+                }
+              }()
+                  ?.toList() ??
                   [];
               if (jobList.isEmpty) {
                 return Center(
@@ -339,7 +401,7 @@ class _JobsListWidgetState extends State<JobsListWidget> {
                 scrollDirection: Axis.vertical,
                 itemCount: jobList.length,
                 separatorBuilder: (_, __) =>
-                    SizedBox(height: AppConstants.childPadding),
+                const SizedBox(height: AppConstants.childPadding),
                 itemBuilder: (context, jobListIndex) {
                   final jobListItem = jobList[jobListIndex];
                   return JobItemWidget(
@@ -352,6 +414,48 @@ class _JobsListWidgetState extends State<JobsListWidget> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildJobsSkeletonList() {
+    return ListView.separated(
+      padding: EdgeInsets.zero,
+      primary: false,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 5,
+      separatorBuilder: (_, __) =>
+      const SizedBox(height: AppConstants.childPadding),
+      itemBuilder: (context, index) => Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: AppTheme.of(context).alternate,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Placeholder job title'),
+                  SizedBox(height: 6),
+                  Text('Placeholder job subtitle line'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

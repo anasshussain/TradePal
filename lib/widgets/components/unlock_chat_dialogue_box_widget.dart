@@ -66,7 +66,7 @@ class _UnlockChatDialogueBoxWidgetState
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(32.0),
         child: Container(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -77,11 +77,11 @@ class _UnlockChatDialogueBoxWidgetState
                 width: 64.0,
                 height: 64.0,
                 decoration: BoxDecoration(
-                  color: Color(0x1A214FC7),
+                  color: const Color(0x1A214FC7),
                   borderRadius: BorderRadius.circular(9999.0),
                   shape: BoxShape.rectangle,
                 ),
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Icon(
                   Icons.lock_open_rounded,
                   color: AppTheme.of(context).primary,
@@ -137,7 +137,7 @@ class _UnlockChatDialogueBoxWidgetState
                           lineHeight: 1.4,
                         ),
                   ),
-                ].divide(SizedBox(height: 10.0)),
+                ].divide(const SizedBox(height: 10.0)),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -147,7 +147,7 @@ class _UnlockChatDialogueBoxWidgetState
                 ),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+                      const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
                   child: Container(
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -223,7 +223,7 @@ class _UnlockChatDialogueBoxWidgetState
 
                         if ((_model.paymentIntentResponse?.succeeded ?? true)) {
                           await Future.delayed(
-                            Duration(
+                            const Duration(
                               milliseconds: 100,
                             ),
                           );
@@ -251,10 +251,10 @@ class _UnlockChatDialogueBoxWidgetState
                       options: AppButtonOptions(
                         width: 150.0,
                         height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: AppTheme.of(context).primary,
                         textStyle:
                             AppTheme.of(context).titleSmall.override(
@@ -288,10 +288,10 @@ class _UnlockChatDialogueBoxWidgetState
                       options: AppButtonOptions(
                         width: 150.0,
                         height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: Colors.transparent,
                         textStyle:
                             AppTheme.of(context).titleSmall.override(
@@ -317,10 +317,10 @@ class _UnlockChatDialogueBoxWidgetState
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                  ].divide(SizedBox(height: 4.0)),
+                  ].divide(const SizedBox(height: 4.0)),
                 ),
               ),
-            ].divide(SizedBox(height: 20.0)),
+            ].divide(const SizedBox(height: 20.0)),
           ),
         ),
       ),

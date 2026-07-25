@@ -3,10 +3,8 @@ import '/repositories/backend.dart';
 import '/models/structs/index.dart';
 import 'package:flutter/material.dart';
 
-/// State management for the trader_profile screen (migrated from setState).
 class TraderProfileProvider extends ChangeNotifier {
-  ///  Local state fields for this page.
-
+  static bool isLoading = true;
 
   List<String> images = [
     'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
@@ -46,8 +44,6 @@ class TraderProfileProvider extends ChangeNotifier {
           int index, Function(BankDetailsStruct) updateFn) =>
       bankDetails[index] = updateFn(bankDetails[index]);
 
-
-  /// Notify observers without mutating state (replaces empty setState).
   bool _disposed = false;
 
   @override
@@ -56,14 +52,18 @@ class TraderProfileProvider extends ChangeNotifier {
     super.dispose();
   }
 
-  /// Notify observers without mutating state (replaces empty setState).
   void notify() {
     if (!_disposed) notifyListeners();
   }
 
-  /// Run [fn] then notify observers (replaces setState(() => ...)).
   void update(VoidCallback fn) {
     fn();
     if (!_disposed) notifyListeners();
+  }
+  void finishLoading() {
+    if (isLoading) {
+      isLoading = false;
+      notify();
+    }
   }
 }

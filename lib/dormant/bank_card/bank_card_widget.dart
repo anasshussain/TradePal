@@ -66,32 +66,32 @@ class _BankCardWidgetState extends State<BankCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
       child: Container(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24.0),
           child: Container(
             height: 200.0,
             decoration: BoxDecoration(
-              color: Color(0xFF1E293B),
+              color: const Color(0xFF1E293B),
               borderRadius: BorderRadius.circular(24.0),
               shape: BoxShape.rectangle,
             ),
             child: Padding(
-              padding: EdgeInsets.all(32.0),
+              padding: const EdgeInsets.all(32.0),
               child: Container(
                 child: Stack(
-                  alignment: AlignmentDirectional(-1.0, -1.0),
+                  alignment: const AlignmentDirectional(-1.0, -1.0),
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(1.0, -1.0),
+                      alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Container(
-                        alignment: AlignmentDirectional(1.0, -1.0),
+                        alignment: const AlignmentDirectional(1.0, -1.0),
                         child: Container(
                           width: 150.0,
                           height: 150.0,
                           decoration: BoxDecoration(
-                            color: Color(0x14FFFFFF),
+                            color: const Color(0x14FFFFFF),
                             borderRadius: BorderRadius.circular(9999.0),
                             shape: BoxShape.rectangle,
                           ),
@@ -99,14 +99,14 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(-1.0, 1.0),
+                      alignment: const AlignmentDirectional(-1.0, 1.0),
                       child: Container(
-                        alignment: AlignmentDirectional(-1.0, 1.0),
+                        alignment: const AlignmentDirectional(-1.0, 1.0),
                         child: Container(
                           width: 100.0,
                           height: 100.0,
                           decoration: BoxDecoration(
-                            color: Color(0x0FFFFFFF),
+                            color: const Color(0x0FFFFFFF),
                             borderRadius: BorderRadius.circular(9999.0),
                             shape: BoxShape.rectangle,
                           ),
@@ -114,7 +114,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,7 +145,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                                     .titleMedium
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFFF8FAFC),
+                                          color: const Color(0xFFF8FAFC),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:
@@ -173,7 +173,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFF64748B),
+                                          color: const Color(0xFF64748B),
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               AppTheme.of(context)
@@ -186,14 +186,14 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                           lineHeight: 1.4,
                                         ),
                                   ),
-                                ].divide(SizedBox(height: 2.0)),
+                                ].divide(const SizedBox(height: 2.0)),
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.contactless_rounded,
                                     color: Colors.white,
                                     size: 24.0,
@@ -202,8 +202,8 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                     width: 40.0,
                                     height: 30.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFEAB308),
-                                      boxShadow: [
+                                      color: const Color(0xFFEAB308),
+                                      boxShadow: const [
                                         BoxShadow(
                                           blurRadius: 4.0,
                                           color: Color(0xFF92400E),
@@ -216,12 +216,12 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                       borderRadius: BorderRadius.circular(6.0),
                                       shape: BoxShape.rectangle,
                                       border: Border.all(
-                                        color: Color(0xFFFDE68A),
+                                        color: const Color(0xFFFDE68A),
                                         width: 1.0,
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 10.0)),
+                                ].divide(const SizedBox(width: 10.0)),
                               ),
                             ],
                           ),
@@ -244,7 +244,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                             .headlineSmall
                                             .fontStyle,
                                       ),
-                                      color: Color(0xFFF8FAFC),
+                                      color: const Color(0xFFF8FAFC),
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: AppTheme.of(context)
@@ -252,7 +252,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                           .fontStyle,
                                     ),
                               ),
-                            ].divide(SizedBox(height: 4.0)),
+                            ].divide(const SizedBox(height: 4.0)),
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
@@ -279,7 +279,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFF94A3B8),
+                                          color: const Color(0xFF94A3B8),
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               AppTheme.of(context)
@@ -307,7 +307,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFFF8FAFC),
+                                          color: const Color(0xFFF8FAFC),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           fontStyle:
@@ -317,7 +317,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                           lineHeight: 1.4,
                                         ),
                                   ),
-                                ].divide(SizedBox(height: 2.0)),
+                                ].divide(const SizedBox(height: 2.0)),
                               ),
                               Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -339,7 +339,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                                     .labelSmall
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFF94A3B8),
+                                          color: const Color(0xFF94A3B8),
                                           letterSpacing: 0.0,
                                           fontWeight:
                                               AppTheme.of(context)
@@ -367,7 +367,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: Color(0xFFF8FAFC),
+                                          color: const Color(0xFFF8FAFC),
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           fontStyle:
@@ -377,7 +377,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                           lineHeight: 1.4,
                                         ),
                                   ),
-                                ].divide(SizedBox(height: 2.0)),
+                                ].divide(const SizedBox(height: 2.0)),
                               ),
                               Text(
                                 'VISA',
@@ -392,7 +392,7 @@ class _BankCardWidgetState extends State<BankCardWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: Color(0xFFCBD5E1),
+                                      color: const Color(0xFFCBD5E1),
                                       letterSpacing: 0.0,
                                       fontWeight: AppTheme.of(context)
                                           .bodyMedium

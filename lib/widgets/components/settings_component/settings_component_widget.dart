@@ -94,7 +94,7 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.32, 0.0),
+                    alignment: const AlignmentDirectional(0.32, 0.0),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 0.0,
@@ -168,7 +168,7 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
                             .spacing
                             .sm)),
                   ),
-                ].divide(SizedBox(width: AppConstants.childSpacing)),
+                ].divide(const SizedBox(width: AppConstants.childSpacing)),
               ),
             ],
           ),

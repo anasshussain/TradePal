@@ -91,7 +91,7 @@ class _AttachmentOptionComponentWidgetState
                   await widget.action?.call();
                 },
                 child: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -136,7 +136,7 @@ class _AttachmentOptionComponentWidgetState
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [

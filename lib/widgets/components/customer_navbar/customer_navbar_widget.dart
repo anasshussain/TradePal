@@ -61,7 +61,7 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
           BoxShadow(
             blurRadius: 0.0,
             color: AppTheme.of(context).border,
-            offset: Offset(
+            offset: const Offset(
               0.0,
               -1.0,
             ),
@@ -85,7 +85,7 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                 context.goNamed(
                   CustomerDashboardWidget.routeName,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 0),
@@ -95,7 +95,7 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
               },
               child: Container(
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +143,7 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                 context.goNamed(
                   CustomerInboxWidget.routeName,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 0),
@@ -153,9 +153,9 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
               },
               child: Container(
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Stack(
                     children: [
                       Column(
@@ -199,13 +199,13 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                         Container(
                           width: 14.0,
                           height: 14.0,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xFFFF3B30),
                             shape: BoxShape.circle,
                           ),
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
                                 AppState().totalMessagesCount.toString(),
@@ -250,7 +250,7 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                 context.goNamed(
                   CustomerProfileWidget.routeName,
                   extra: <String, dynamic>{
-                    '__transition_info__': TransitionInfo(
+                    '__transition_info__': const TransitionInfo(
                       hasTransition: true,
                       transitionType: PageTransitionType.fade,
                       duration: Duration(milliseconds: 0),
@@ -260,7 +260,7 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
               },
               child: Container(
                 height: 50.0,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,

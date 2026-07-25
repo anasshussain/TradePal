@@ -14,8 +14,8 @@ import '/auth/base_auth_user_provider.dart';
 
 import '/main.dart';
 import '/core/theme/app_theme.dart';
-import '/core/lat_lng.dart';
-import '/core/place.dart';
+import '/core/location/lat_lng.dart';
+import '/core/location/place.dart';
 import '/utils/util.dart';
 import '/core/routes/serialization_util.dart';
 
@@ -87,75 +87,75 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? SplashScreenWidget()
-          : SplashScreenWidget(),
+          ? const SplashScreenWidget()
+          : const SplashScreenWidget(),
       routes: [
         AppRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? SplashScreenWidget()
-              : SplashScreenWidget(),
+              ? const SplashScreenWidget()
+              : const SplashScreenWidget(),
         ),
         AppRoute(
           name: HomeWidget.routeName,
           path: HomeWidget.routePath,
-          builder: (context, params) => HomeWidget(),
+          builder: (context, params) => const HomeWidget(),
         ),
         AppRoute(
           name: PaymentSuccessWidget.routeName,
           path: PaymentSuccessWidget.routePath,
-          builder: (context, params) => PaymentSuccessWidget(),
+          builder: (context, params) => const PaymentSuccessWidget(),
         ),
         AppRoute(
           name: ProcessingStateWidget.routeName,
           path: ProcessingStateWidget.routePath,
-          builder: (context, params) => ProcessingStateWidget(),
+          builder: (context, params) => const ProcessingStateWidget(),
         ),
         AppRoute(
           name: CompleteBookingDialogWidget.routeName,
           path: CompleteBookingDialogWidget.routePath,
-          builder: (context, params) => CompleteBookingDialogWidget(),
+          builder: (context, params) => const CompleteBookingDialogWidget(),
         ),
         AppRoute(
           name: CompleteBookingPageWidget.routeName,
           path: CompleteBookingPageWidget.routePath,
-          builder: (context, params) => CompleteBookingPageWidget(),
+          builder: (context, params) => const CompleteBookingPageWidget(),
         ),
         AppRoute(
           name: BottomSheetAttachmentWidget.routeName,
           path: BottomSheetAttachmentWidget.routePath,
-          builder: (context, params) => BottomSheetAttachmentWidget(),
+          builder: (context, params) => const BottomSheetAttachmentWidget(),
         ),
         AppRoute(
           name: StripeConnectAccountSuccessWidget.routeName,
           path: StripeConnectAccountSuccessWidget.routePath,
-          builder: (context, params) => StripeConnectAccountSuccessWidget(),
+          builder: (context, params) => const StripeConnectAccountSuccessWidget(),
         ),
         AppRoute(
           name: NewScreen4Widget.routeName,
           path: NewScreen4Widget.routePath,
-          builder: (context, params) => NewScreen4Widget(),
+          builder: (context, params) => const NewScreen4Widget(),
         ),
         AppRoute(
           name: StripeConnectAccountRefreshWidget.routeName,
           path: StripeConnectAccountRefreshWidget.routePath,
-          builder: (context, params) => StripeConnectAccountRefreshWidget(),
+          builder: (context, params) => const StripeConnectAccountRefreshWidget(),
         ),
         AppRoute(
           name: PasswordChangedSuccessPageWidget.routeName,
           path: PasswordChangedSuccessPageWidget.routePath,
-          builder: (context, params) => PasswordChangedSuccessPageWidget(),
+          builder: (context, params) => const PasswordChangedSuccessPageWidget(),
         ),
         AppRoute(
           name: ChoosePathWidget.routeName,
           path: ChoosePathWidget.routePath,
-          builder: (context, params) => ChoosePathWidget(),
+          builder: (context, params) => const ChoosePathWidget(),
         ),
         AppRoute(
           name: BrowseTradePersonWidget.routeName,
           path: BrowseTradePersonWidget.routePath,
-          builder: (context, params) => BrowseTradePersonWidget(),
+          builder: (context, params) => const BrowseTradePersonWidget(),
         ),
         AppRoute(
           name: ForgetPasswordWidget.routeName,
@@ -170,57 +170,57 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         AppRoute(
           name: BrowseJobsWidget.routeName,
           path: BrowseJobsWidget.routePath,
-          builder: (context, params) => BrowseJobsWidget(),
+          builder: (context, params) => const BrowseJobsWidget(),
         ),
         AppRoute(
           name: CustomerDashboardWidget.routeName,
           path: CustomerDashboardWidget.routePath,
-          builder: (context, params) => CustomerDashboardWidget(),
+          builder: (context, params) => const CustomerDashboardWidget(),
         ),
         AppRoute(
           name: SignupWidget.routeName,
           path: SignupWidget.routePath,
-          builder: (context, params) => SignupWidget(),
+          builder: (context, params) => const SignupWidget(),
         ),
         AppRoute(
           name: VerifyEmailWidget.routeName,
           path: VerifyEmailWidget.routePath,
-          builder: (context, params) => VerifyEmailWidget(),
+          builder: (context, params) => const VerifyEmailWidget(),
         ),
         AppRoute(
           name: LoginWidget.routeName,
           path: LoginWidget.routePath,
-          builder: (context, params) => LoginWidget(),
+          builder: (context, params) => const LoginWidget(),
         ),
         AppRoute(
           name: ResetPasswordWidget.routeName,
           path: ResetPasswordWidget.routePath,
-          builder: (context, params) => ResetPasswordWidget(),
+          builder: (context, params) => const ResetPasswordWidget(),
         ),
         AppRoute(
           name: TraderProfileWidget.routeName,
           path: TraderProfileWidget.routePath,
-          builder: (context, params) => TraderProfileWidget(),
+          builder: (context, params) => const TraderProfileWidget(),
         ),
         AppRoute(
           name: CheckoutPageWidget.routeName,
           path: CheckoutPageWidget.routePath,
-          builder: (context, params) => CheckoutPageWidget(),
+          builder: (context, params) => const CheckoutPageWidget(),
         ),
         AppRoute(
           name: CustomerProfileWidget.routeName,
           path: CustomerProfileWidget.routePath,
-          builder: (context, params) => CustomerProfileWidget(),
+          builder: (context, params) => const CustomerProfileWidget(),
         ),
         AppRoute(
           name: BankCardsWidget.routeName,
           path: BankCardsWidget.routePath,
-          builder: (context, params) => BankCardsWidget(),
+          builder: (context, params) => const BankCardsWidget(),
         ),
         AppRoute(
           name: OnboardingWidget.routeName,
           path: OnboardingWidget.routePath,
-          builder: (context, params) => OnboardingWidget(),
+          builder: (context, params) => const OnboardingWidget(),
         ),
         AppRoute(
           name: ReviewWidget.routeName,
@@ -247,42 +247,42 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         AppRoute(
           name: AccountInactiveWidget.routeName,
           path: AccountInactiveWidget.routePath,
-          builder: (context, params) => AccountInactiveWidget(),
+          builder: (context, params) => const AccountInactiveWidget(),
         ),
         AppRoute(
           name: EditTraderProfileWidget.routeName,
           path: EditTraderProfileWidget.routePath,
-          builder: (context, params) => EditTraderProfileWidget(),
+          builder: (context, params) => const EditTraderProfileWidget(),
         ),
         AppRoute(
           name: EditCustomerProfieWidget.routeName,
           path: EditCustomerProfieWidget.routePath,
-          builder: (context, params) => EditCustomerProfieWidget(),
+          builder: (context, params) => const EditCustomerProfieWidget(),
         ),
         AppRoute(
           name: TpMyJobsWidget.routeName,
           path: TpMyJobsWidget.routePath,
-          builder: (context, params) => TpMyJobsWidget(),
+          builder: (context, params) => const TpMyJobsWidget(),
         ),
         AppRoute(
           name: NotificationPageWidget.routeName,
           path: NotificationPageWidget.routePath,
-          builder: (context, params) => NotificationPageWidget(),
+          builder: (context, params) => const NotificationPageWidget(),
         ),
         AppRoute(
           name: CustomerAllJobsWidget.routeName,
           path: CustomerAllJobsWidget.routePath,
-          builder: (context, params) => CustomerAllJobsWidget(),
+          builder: (context, params) => const CustomerAllJobsWidget(),
         ),
         AppRoute(
           name: TpInboxWidget.routeName,
           path: TpInboxWidget.routePath,
-          builder: (context, params) => TpInboxWidget(),
+          builder: (context, params) => const TpInboxWidget(),
         ),
         AppRoute(
           name: CustomerInboxWidget.routeName,
           path: CustomerInboxWidget.routePath,
-          builder: (context, params) => CustomerInboxWidget(),
+          builder: (context, params) => const CustomerInboxWidget(),
         ),
         AppRoute(
           name: ChatPageWidget.routeName,
@@ -333,7 +333,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         AppRoute(
           name: SplashScreenWidget.routeName,
           path: SplashScreenWidget.routePath,
-          builder: (context, params) => SplashScreenWidget(),
+          builder: (context, params) => const SplashScreenWidget(),
         ),
         AppRoute(
           name: JobDetailsWidget.routeName,
@@ -588,7 +588,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

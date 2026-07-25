@@ -1,4 +1,4 @@
-import '/core/lat_lng.dart';
+import '/core/location/lat_lng.dart';
 
 class AppPlace {
   const AppPlace({

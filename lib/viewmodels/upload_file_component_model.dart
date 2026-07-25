@@ -2,7 +2,7 @@ import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/upload_data.dart';
+import '/core/utils/upload_data.dart';
 import 'dart:ui';
 import '/widgets/components/upload_file_component/upload_file_component_widget.dart' show UploadFileComponentWidget;
 import 'package:flutter/material.dart';

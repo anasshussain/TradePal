@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/utils/enums/enums.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/jobs_list/jobs_list_widget.dart';
@@ -7,7 +9,7 @@ import '/widgets/app_drop_down.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/form_field_controller.dart';
+import '/core/utils/form_field_controller.dart';
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +39,11 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
     super.initState();
     _model = createModel(context, () => BrowseJobsModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _provider.update(() {
+        BrowseJobsProvider.isLoading = false;
+      });
+    });
   }
 
   @override
@@ -87,7 +93,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -104,19 +110,22 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      wrapWithModel(
-                        model: _model.pageHeaderSectiomModel,
-                        updateCallback: () => _provider.update(() {}),
-                        child: PageHeaderSectiomWidget(
-                          tag: 'MARKETPLACE',
-                          title: 'Available Jobs',
-                          subtitle:
-                              'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
-                          numberOfItems: valueOrDefault<int>(
-                            AppState().jobCache.jobs.length,
-                            0,
+                      Skeletonizer(
+                        enabled: BrowseJobsProvider.isLoading,
+                        child: wrapWithModel(
+                          model: _model.pageHeaderSectiomModel,
+                          updateCallback: () => _provider.update(() {}),
+                          child: PageHeaderSectiomWidget(
+                            tag: 'MARKETPLACE',
+                            title: 'Available Jobs',
+                            subtitle:
+                            'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
+                            numberOfItems: valueOrDefault<int>(
+                              AppState().jobCache.jobs.length,
+                              0,
+                            ),
+                            itemText: 'Jobs nearby',
                           ),
-                          itemText: 'Jobs nearby',
                         ),
                       ),
                       if (responsiveVisibility(
@@ -159,37 +168,37 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                 children: [
                                   AppDropDown<String>(
                                     controller:
-                                        _model.dropDownValueController1 ??=
-                                            FormFieldController<String>(null),
+                                    _model.dropDownValueController1 ??=
+                                        FormFieldController<String>(null),
                                     options: AppState().availableServices,
                                     onChanged: (val) => _provider.update(
-                                        () => _model.dropDownValue1 = val),
+                                            () => _model.dropDownValue1 = val),
                                     width: double.infinity,
                                     height: 50.0,
                                     maxHeight: 200.0,
                                     textStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                      font: GoogleFonts.manrope(
+                                        fontWeight:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     hintText: 'Plumbing..',
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
@@ -201,10 +210,10 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                         .secondaryBackground,
                                     elevation: 2.0,
                                     borderColor:
-                                        AppTheme.of(context).border,
+                                    AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: 8.0,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
@@ -213,9 +222,9 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                   ),
                                   AppDropDown<String>(
                                     controller:
-                                        _model.dropDownValueController2 ??=
-                                            FormFieldController<String>(null),
-                                    options: [
+                                    _model.dropDownValueController2 ??=
+                                        FormFieldController<String>(null),
+                                    options: const [
                                       '100',
                                       '200',
                                       '300',
@@ -228,32 +237,32 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                       '1000'
                                     ],
                                     onChanged: (val) => _provider.update(
-                                        () => _model.dropDownValue2 = val),
+                                            () => _model.dropDownValue2 = val),
                                     width: double.infinity,
                                     height: 50.0,
                                     textStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
+                                      font: GoogleFonts.manrope(
+                                        fontWeight:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     hintText: '\$100',
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
@@ -265,10 +274,10 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                         .secondaryBackground,
                                     elevation: 2.0,
                                     borderColor:
-                                        AppTheme.of(context).border,
+                                    AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: 8.0,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
@@ -282,37 +291,37 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                     text: 'Apply filters',
                                     options: AppButtonOptions(
                                       height: 50.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
+                                      const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
                                       color:
-                                          AppTheme.of(context).primary,
+                                      AppTheme.of(context).primary,
                                       textStyle: AppTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .titleSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .titleSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                          AppTheme.of(context)
+                                              .titleSmall
+                                              .fontWeight,
+                                          fontStyle:
+                                          AppTheme.of(context)
+                                              .titleSmall
+                                              .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight:
+                                        AppTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle:
+                                        AppTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
                                       elevation: 0.0,
                                       borderRadius: BorderRadius.circular(
                                           AppTheme.of(context)
@@ -321,7 +330,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                               .lg),
                                     ),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                             ),
@@ -330,22 +339,22 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                       wrapWithModel(
                         model: _model.jobsListModel,
                         updateCallback: () => _provider.update(() {}),
-                        child: JobsListWidget(
+                        child: const JobsListWidget(
                           jobViewType: JobsViewType.BROWSE,
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: AppConstants.spacing))
-                        .addToEnd(SizedBox(height: 50.0)),
+                        .divide(const SizedBox(height: AppConstants.spacing))
+                        .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.tpNavbarModel,
                   updateCallback: () => _provider.update(() {}),
-                  child: TpNavbarWidget(
+                  child: const TpNavbarWidget(
                     selectedIndex: 0,
                   ),
                 ),

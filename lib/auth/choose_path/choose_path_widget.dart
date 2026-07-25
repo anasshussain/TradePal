@@ -189,8 +189,8 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         ),
                       ),
                     ]
-                        .divide(SizedBox(height: AppConstants.spacing))
-                        .addToEnd(SizedBox(height: 60.0)),
+                        .divide(const SizedBox(height: AppConstants.spacing))
+                        .addToEnd(const SizedBox(height: 60.0)),
                   ),
                 ),
               ),
@@ -202,7 +202,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                 desktop: false,
               ))
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                         0.0,
@@ -220,7 +220,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                           BoxShadow(
                             blurRadius: 0.0,
                             color: AppTheme.of(context).border,
-                            offset: Offset(
+                            offset: const Offset(
                               0.0,
                               -1.0,
                             ),
@@ -241,9 +241,9 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                           options: AppButtonOptions(
                             width: 300.0,
                             height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: AppTheme.of(context).primary,
                             textStyle: AppTheme.of(context)
@@ -272,8 +272,8 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                                     .designToken
                                     .radius
                                     .lg),
-                            disabledColor: Color(0x58214FC7),
-                            disabledTextColor: Color(0x83FFFFFF),
+                            disabledColor: const Color(0x58214FC7),
+                            disabledTextColor: const Color(0x83FFFFFF),
                           ),
                         ),
                       ),

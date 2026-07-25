@@ -69,7 +69,7 @@ class MyTradePalSupabaseUser extends BaseAuthUser {
 Stream<BaseAuthUser> myTradePalSupabaseUserStream() {
   final supabaseAuthStream = SupaFlow.client.auth.onAuthStateChange.debounce(
       (authState) => authState.event == AuthChangeEvent.tokenRefreshed
-          ? TimerStream(authState, Duration(seconds: 1))
+          ? TimerStream(authState, const Duration(seconds: 1))
           : Stream.value(authState));
   return (!loggedIn
           ? Stream<AuthState?>.value(null).concatWith([supabaseAuthStream])

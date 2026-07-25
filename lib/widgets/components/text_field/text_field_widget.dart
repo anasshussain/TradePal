@@ -377,7 +377,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                     lineHeight: 1.4,
                   ),
             ),
-        ].divide(SizedBox(height: 6.0)),
+        ].divide(const SizedBox(height: 6.0)),
       ),
     );
   }

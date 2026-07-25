@@ -149,7 +149,7 @@ class _DownloadPDFWidgetState extends State<DownloadPDFWidget> {
           ),
         ),
         child: Stack(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           children: [
             Opacity(
               opacity: widget!.loading ? 0.0 : 1.0,
@@ -257,7 +257,7 @@ class _DownloadPDFWidgetState extends State<DownloadPDFWidget> {
                       false,
                     ))
                       widget!.iconEnd!,
-                  ].divide(SizedBox(width: 8.0)),
+                  ].divide(const SizedBox(width: 8.0)),
                 ),
               ),
             ),

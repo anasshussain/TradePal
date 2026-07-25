@@ -83,13 +83,13 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
             child: AppbarComponentWidget(
               title: 'My Trade Pal',
               showAction: false,
-              actionIcon: Icon(
+              actionIcon: const Icon(
                 Icons.person,
               ),
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -206,7 +206,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                   children: [
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, -1.0),
+                                          const AlignmentDirectional(-1.0, -1.0),
                                       child: Text(
                                         'NEW PASSWORD',
                                         style: AppTheme.of(context)
@@ -228,7 +228,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                             ),
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: double.infinity,
                                       child: TextFormField(
                                         controller:
@@ -236,7 +236,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                         focusNode: _model.passwordFocusNode,
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.passwordTextController',
-                                          Duration(milliseconds: 2000),
+                                          const Duration(milliseconds: 2000),
                                           () async {
                                             _provider.password = _model
                                                 .passwordTextController.text;
@@ -302,7 +302,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                         .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -413,7 +413,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: double.infinity,
                                       child: TextFormField(
                                         controller:
@@ -479,7 +479,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                         .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0x00000000),
                                               width: 1.0,
                                             ),
@@ -743,7 +743,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                               .fontStyle,
                                                     ),
                                               ),
-                                            ].divide(SizedBox(
+                                            ].divide(const SizedBox(
                                                 width: AppConstants
                                                     .childPadding)),
                                           ),
@@ -849,7 +849,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                               .fontStyle,
                                                     ),
                                               ),
-                                            ].divide(SizedBox(
+                                            ].divide(const SizedBox(
                                                 width: AppConstants
                                                     .childPadding)),
                                           ),
@@ -963,7 +963,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                                               .fontStyle,
                                                     ),
                                               ),
-                                            ].divide(SizedBox(
+                                            ].divide(const SizedBox(
                                                 width: AppConstants
                                                     .childPadding)),
                                           ),
@@ -1016,10 +1016,10 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                   options: AppButtonOptions(
                                     width: 300.0,
                                     height: 50.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     iconAlignment: IconAlignment.end,
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: AppTheme.of(context).primary,
                                     textStyle: AppTheme.of(context)
@@ -1055,11 +1055,11 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                   ),
                                 ),
                               ]
-                                  .divide(SizedBox(
+                                  .divide(const SizedBox(
                                       height: AppConstants.parentPagePadding))
-                                  .addToStart(SizedBox(
+                                  .addToStart(const SizedBox(
                                       height: AppConstants.parentPagePadding))
-                                  .addToEnd(SizedBox(height: 20.0)),
+                                  .addToEnd(const SizedBox(height: 20.0)),
                             ),
                           ),
                         ),
@@ -1070,7 +1070,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                                 .designToken
                                 .spacing
                                 .md))
-                        .addToEnd(SizedBox(height: 60.0)),
+                        .addToEnd(const SizedBox(height: 60.0)),
                   ),
                 ),
               ),

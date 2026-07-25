@@ -56,7 +56,7 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
     return Container(
       decoration: BoxDecoration(
         color: widget!.selected
-            ? Color(0x0D635BFF)
+            ? const Color(0x0D635BFF)
             : AppTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(8.0),
         shape: BoxShape.rectangle,
@@ -68,7 +68,7 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Container(
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -101,11 +101,11 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
                       ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 20.0,
                 height: 20.0,
                 child: Stack(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   children: [
                     if (widget!.selected ? true : false)
                       Icon(
@@ -126,7 +126,7 @@ class _PaymentMethodItemWidgetState extends State<PaymentMethodItemWidget> {
                   ],
                 ),
               ),
-            ].divide(SizedBox(width: 16.0)),
+            ].divide(const SizedBox(width: 16.0)),
           ),
         ),
       ),

@@ -53,7 +53,7 @@ class _EmptyListComponentWidgetState extends State<EmptyListComponentWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +97,7 @@ class _EmptyListComponentWidgetState extends State<EmptyListComponentWidget> {
                   fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
-        ].divide(SizedBox(height: AppConstants.childSpacing)),
+        ].divide(const SizedBox(height: AppConstants.childSpacing)),
       ),
     );
   }

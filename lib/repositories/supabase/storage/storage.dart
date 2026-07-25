@@ -1,4 +1,4 @@
-import '/core/upload_data.dart';
+import '/core/utils/upload_data.dart';
 import '/repositories/supabase/supabase.dart';
 
 Future<List<String>> uploadSupabaseStorageFiles({
@@ -22,7 +22,7 @@ Future<String> uploadSupabaseStorageFile({
   await storageBucket.uploadBinary(
     selectedFile.storagePath,
     selectedFile.bytes,
-    fileOptions: FileOptions(contentType: null),
+    fileOptions: const FileOptions(contentType: null),
   );
   return storageBucket.getPublicUrl(selectedFile.storagePath);
 }

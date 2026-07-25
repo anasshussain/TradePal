@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -13,8 +15,8 @@ import '/widgets/app_place_picker.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/core/form_field_controller.dart';
-import '/core/upload_data.dart';
+import '/core/utils/form_field_controller.dart';
+import '/core/utils/upload_data.dart';
 import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/utils/custom_code/actions/index.dart' as actions;
@@ -57,14 +59,11 @@ class _AddJobWidgetState extends State<AddJobWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddJobModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget!.jobData!.images.isNotEmpty) {
-        _provider.existingImages = widget!.jobData!.images.toList().cast<String>();
-        _provider.notify();
-      }
-    });
+    if (widget!.jobData != null && !_provider.hasLoadedOnce) {
+      _provider.loading = true;
+    } else {
+      _provider.loading = false;
+    }
 
     _model.jobTitleTextController ??=
         TextEditingController(text: widget!.jobData?.title);
@@ -122,7 +121,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
               action: () async {},
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -261,7 +260,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                     .fontStyle,
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 1.0,
                                         ),
@@ -329,7 +328,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .jobTitleTextControllerValidator
                                         .asValidator(context),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                               Column(
@@ -467,14 +466,14 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: AppConstants.radius2,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
                                     isSearchable: true,
                                     isMultiSelect: false,
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                               Column(
@@ -738,7 +737,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                     .fontStyle,
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 1.0,
                                         ),
@@ -808,7 +807,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .descriptionTextControllerValidator
                                         .asValidator(context),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                               Column(
@@ -853,7 +852,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                 widget!.jobData?.totalQuotes
                                                     ?.toString(),
                                           ),
-                                          options: [
+                                          options: const [
                                             '0',
                                             '1',
                                             '2',
@@ -914,7 +913,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           borderWidth: 0.0,
                                           borderRadius: AppConstants.radius2,
                                           margin:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 0.0, 12.0, 0.0),
                                           hidesUnderline: true,
                                           isOverButton: false,
@@ -924,7 +923,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           '(Maximum 10 quotes)',
                                           style: AppTheme.of(context)
@@ -957,10 +956,10 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                               ),
                                         ),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         width: AppConstants.childSpacing)),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                               AppPlacePicker(
@@ -1096,7 +1095,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         ),
                                       ),
                                     ),
-                                  ].divide(SizedBox(
+                                  ].divide(const SizedBox(
                                       height: AppConstants.childSpacing)),
                                 ),
                               Column(
@@ -1274,14 +1273,14 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(
+                                ].divide(const SizedBox(
                                     height: AppConstants.childSpacing)),
                               ),
                             ]
                                 .divide(
-                                    SizedBox(height: AppConstants.spacing))
+                                    const SizedBox(height: AppConstants.spacing))
                                 .around(
-                                    SizedBox(height: AppConstants.spacing)),
+                                    const SizedBox(height: AppConstants.spacing)),
                           ),
                         ),
                         Builder(
@@ -1365,7 +1364,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                         ),
                         if (widget!.jobData != null)
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Text(
                               'Please note that after adding new images old images will be removed.',
                               textAlign: TextAlign.center,
@@ -1405,7 +1404,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                               return MasonryGridView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
-                                    SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                 ),
                                 crossAxisSpacing: 8.0,
@@ -1458,7 +1457,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             'BY POSTING, YOU AGREE TO OUR TERMS OF\nSERVICE',
                             textAlign: TextAlign.center,
@@ -1498,9 +1497,9 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                             text: 'Button',
                             options: AppButtonOptions(
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: AppTheme.of(context).primary,
                               textStyle: AppTheme.of(context)
@@ -1531,7 +1530,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                             ? (widget!.jobData?.status == Status.ACTIVE)
                             : true)
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: AppButton(
                               onPressed: () async {
                                 _model.formValidation = true;
@@ -1784,17 +1783,17 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                               text: widget!.jobData != null
                                   ? 'Update Job'
                                   : 'Post Job',
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.send_outlined,
                                 size: 15.0,
                               ),
                               options: AppButtonOptions(
                                 width: double.infinity,
                                 height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 iconAlignment: IconAlignment.end,
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: AppTheme.of(context).primary,
                                 textStyle: AppTheme.of(context)
@@ -1905,7 +1904,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                       .fontStyle,
                                             ),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         width: AppConstants.childPadding)),
                                   ),
                                   Row(
@@ -1948,7 +1947,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                       .fontStyle,
                                             ),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         width: AppConstants.childPadding)),
                                   ),
                                   Row(
@@ -1991,7 +1990,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                       .fontStyle,
                                             ),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         width: AppConstants.childPadding)),
                                   ),
                                   Row(
@@ -2034,7 +2033,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                       .fontStyle,
                                             ),
                                       ),
-                                    ].divide(SizedBox(
+                                    ].divide(const SizedBox(
                                         width: AppConstants.childPadding)),
                                   ),
                                 ].divide(SizedBox(
@@ -2047,8 +2046,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                           ),
                         ),
                       ]
-                          .divide(SizedBox(height: AppConstants.spacing))
-                          .addToEnd(SizedBox(height: 80.0)),
+                          .divide(const SizedBox(height: AppConstants.spacing))
+                          .addToEnd(const SizedBox(height: 80.0)),
                     ),
                   ),
                 );
@@ -2056,7 +2055,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                 return wrapWithModel(
                   model: _model.jobDetailsLoaderModel,
                   updateCallback: () => _provider.notify(),
-                  child: JobDetailsLoaderWidget(),
+                  child: const JobDetailsLoaderWidget(),
                 );
               }
             },

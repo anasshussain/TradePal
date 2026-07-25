@@ -82,7 +82,7 @@ class _SkillChipComponentWidgetState extends State<SkillChipComponentWidget> {
           decoration: BoxDecoration(
             color: !widget!.callAction
                 ? AppTheme.of(context).primary
-                : Color(0x00000000),
+                : const Color(0x00000000),
             borderRadius: BorderRadius.circular(
                 AppTheme.of(context).designToken.radius.sm),
             border: Border.all(
@@ -93,7 +93,7 @@ class _SkillChipComponentWidgetState extends State<SkillChipComponentWidget> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +101,7 @@ class _SkillChipComponentWidgetState extends State<SkillChipComponentWidget> {
                 Opacity(
                   opacity: 0.8,
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Text(
                       valueOrDefault<String>(
                         widget!.title,
@@ -129,7 +129,7 @@ class _SkillChipComponentWidgetState extends State<SkillChipComponentWidget> {
                   ),
                 ),
                 if (widget!.showTrailingIcon)
-                  Icon(
+                  const Icon(
                     Icons.close_rounded,
                     color: Colors.white,
                     size: 16.0,

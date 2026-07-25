@@ -61,7 +61,7 @@ class _TextButtonWidgetState extends State<TextButtonWidget> {
       },
       child: Container(
         height: 48.0,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
