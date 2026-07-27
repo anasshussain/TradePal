@@ -758,7 +758,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                   (AppState().userProfileCache.userRole == 1) ||
                                       ((AppState().userProfileCache.userRole ==
                                               2) &&
-                                          (_provider.isProposalPaid == true)) ||
+                                          (_model.isProposalPaid == true)) ||
                                       (AppState().paidJobId == widget!.jobid),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(

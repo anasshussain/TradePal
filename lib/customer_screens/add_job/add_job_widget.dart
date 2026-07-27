@@ -1,4 +1,4 @@
-// import 'package:skeletonizer/skeletonizer.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
