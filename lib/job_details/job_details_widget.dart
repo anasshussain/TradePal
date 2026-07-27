@@ -2,7 +2,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
-import '/repositories/backend.dart';
+import '/repositories/backend.dart';    
 import '/utils/enums/enums.dart';
 import '/models/structs/index.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
