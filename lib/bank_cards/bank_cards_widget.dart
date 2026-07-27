@@ -36,7 +36,7 @@ class BankCardsWidget extends StatefulWidget {
 class _BankCardsWidgetState extends State<BankCardsWidget> {
   late BankCardsModel _model;
   List<BankDetailsStruct>? getCards;
-late BankCardsProvider _provider;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
 
@@ -65,7 +65,7 @@ late BankCardsProvider _provider;
         );
 
         if ((_model.bankDetailRes?.succeeded ?? true)) {
-          getCards  = ((_model.bankDetailRes?.jsonBody ?? '')
+          getCards = _model.bankCards = ((_model.bankDetailRes?.jsonBody ?? '')
                   .toList()
                   .map<BankDetailsStruct?>(BankDetailsStruct.maybeFromMap)
                   .toList() as Iterable<BankDetailsStruct?>)
@@ -206,7 +206,7 @@ late BankCardsProvider _provider;
                             icon: Icon(
                               Icons.add_rounded,
                               color: AppTheme.of(context).primary,
-                              size: 24.0,)),
+                              size: 24.0,
                           const SizedBox(height: 20),
                           const Text(
                             'No Cards Found',
@@ -267,10 +267,6 @@ late BankCardsProvider _provider;
                     ].divide(const SizedBox(height: 20.0)),
                   ),
                 ),
-                ),
-            ],
-          ),
-        ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),
           child: FloatingActionButton(
@@ -306,5 +302,6 @@ late BankCardsProvider _provider;
           ),
         ),
       ),
-    );}
+    );
+  }
 }
