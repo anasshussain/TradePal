@@ -361,70 +361,104 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                             enabled: isLoading,
                             child: Builder(
                               builder: (context) {
-                                // Loading ke dauran dummy placeholder list dikhao
-                                // taake Skeletonizer ko shimmer karne ke liye structure mile
                                 if (isLoading) {
                                   return ListView.separated(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        0, 0, 0, 80.0),
+                                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 80.0),
                                     primary: false,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount: 6,
                                     separatorBuilder: (_, __) =>
-                                    const SizedBox(
-                                        height:
-                                        AppConstants.childSpacing),
+                                    const SizedBox(height: AppConstants.childSpacing),
                                     itemBuilder: (context, index) {
-                                      // Bone-shaped placeholder (avatar + 2 lines)
-                                      // taake Skeletonizer isay shimmer kar sake
-                                      return Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          const CircleAvatar(
-                                            radius: 24.0,
-                                            backgroundColor:
-                                            Color(0xFFE0E0E0),
+                                      // Real InboxItemWidget ka exact structure copy kiya gaya hai:
+                                      // Material -> Container(decoration) -> Padding -> Row(image + column)
+                                      return Material(
+                                        color: Colors.transparent,
+                                        elevation: 0.0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              AppTheme.of(context).designToken.radius.lg),
+                                        ),
+                                        child: Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: AppTheme.of(context).secondaryBackground,
+                                            borderRadius: BorderRadius.circular(
+                                                AppTheme.of(context).designToken.radius.lg),
+                                            border: Border.all(
+                                              color: AppTheme.of(context).alternate,
+                                            ),
                                           ),
-                                          const SizedBox(width: 12.0),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(valueOrDefault<double>(
+                                              AppConstants.childPadding,
+                                              0.0,
+                                            )),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
+                                                // Real widget: ClipRRect(radius 12) + Image 56x56 (square, rounded — NOT circle)
                                                 Container(
-                                                  width: 140.0,
-                                                  height: 14.0,
+                                                  width: 56.0,
+                                                  height: 56.0,
                                                   decoration: BoxDecoration(
-                                                    color:
-                                                    const Color(0xFFE0E0E0),
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        4.0),
+                                                    color: const Color(0xFFE0E0E0),
+                                                    borderRadius: BorderRadius.circular(12.0),
                                                   ),
                                                 ),
-                                                const SizedBox(height: 8.0),
-                                                Container(
-                                                  width: 220.0,
-                                                  height: 12.0,
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                    const Color(0xFFE0E0E0),
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        4.0),
+                                                SizedBox(width: AppConstants.childSpacing),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      // Real widget: Row(spaceBetween) -> name (bodyLarge) + time (bodyMedium 12)
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            width: 120.0,
+                                                            height: (AppTheme.of(context).bodyLarge.fontSize ??
+                                                                16.0) +
+                                                                2.0,
+                                                            decoration: BoxDecoration(
+                                                              color: const Color(0xFFE0E0E0),
+                                                              borderRadius: BorderRadius.circular(4.0),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: 40.0,
+                                                            height: 14.0,
+                                                            decoration: BoxDecoration(
+                                                              color: const Color(0xFFE0E0E0),
+                                                              borderRadius: BorderRadius.circular(4.0),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(height: 8.0),
+                                                      // Real widget: last message (bodyMedium 12, ellipsis)
+                                                      Container(
+                                                        width: 220.0,
+                                                        height: 12.0,
+                                                        decoration: BoxDecoration(
+                                                          color: const Color(0xFFE0E0E0),
+                                                          borderRadius: BorderRadius.circular(4.0),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ],
+                                        ),
                                       );
                                     },
                                   );
                                 }
-
                                 final conversations = (_provider.showSearchList
                                     ? ((_model.searchJobApiRespone
                                     ?.jsonBody ??

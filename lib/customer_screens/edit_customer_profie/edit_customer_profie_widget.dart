@@ -33,6 +33,14 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
   final EditCustomerProfieProvider _provider = EditCustomerProfieProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _hasChanges = false;
+
+  void _markChanged() {
+    if (!_hasChanges) {
+      _hasChanges = true;
+      _provider.notify();
+    }
+  }
 
   @override
   void initState() {
@@ -68,11 +76,22 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
             : AppState().userProfileCache.zipcode);
     _model.postalcodeFocusNode ??= FocusNode();
 
+    _model.textController1!.addListener(_markChanged);
+    _model.textController3!.addListener(_markChanged);
+    _model.streetTextController!.addListener(_markChanged);
+    _model.streetadressTextController!.addListener(_markChanged);
+    _model.postalcodeTextController!.addListener(_markChanged);
+
     WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
+    _model.textController1?.removeListener(_markChanged);
+    _model.textController3?.removeListener(_markChanged);
+    _model.streetTextController?.removeListener(_markChanged);
+    _model.streetadressTextController?.removeListener(_markChanged);
+    _model.postalcodeTextController?.removeListener(_markChanged);
     _model.dispose();
     _provider.dispose();
 
@@ -92,6 +111,18 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
+    String _resolveAvatarUrl() {
+      final uploaded = _model.uploadedFileUrl_uploaded;
+      if (uploaded != null && uploaded.trim().isNotEmpty) {
+        return uploaded;
+      }
+      final cached = AppState().userProfileCache.avatarUrl;
+      if (cached.trim().isNotEmpty) {
+        return cached;
+      }
+      return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU';
+    }
+    final bool _canSave = _hasChanges && !_model.isDataUploading_uploaded;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -170,16 +201,34 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     ? Image.memory(
                                   _model.uploadedLocalFile_uploaded!.bytes!,
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => Icon(
+                                    Icons.person,
+                                    size: 50.0,
+                                    color: AppTheme.of(context).secondaryText,
+                                  ),
                                 )
                                     : Image.network(
-                                  valueOrDefault<String>(
-                                    _model.uploadedFileUrl_uploaded != null &&
-                                        _model.uploadedFileUrl_uploaded != ''
-                                        ? _model.uploadedFileUrl_uploaded
-                                        : AppState().userProfileCache.avatarUrl,
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
-                                  ),
+                                  _resolveAvatarUrl(),
+                                  key: ValueKey(_resolveAvatarUrl()),
                                   fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 24.0,
+                                        height: 24.0,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2.0,
+                                          color: AppTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) => Icon(
+                                    Icons.person,
+                                    size: 50.0,
+                                    color: AppTheme.of(context).secondaryText,
+                                  ),
                                 ),
                               ),
                             ),
@@ -217,9 +266,9 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                     _provider.update(() {
                                       _model.uploadedLocalFile_uploaded = localFile;
                                       _model.isDataUploading_uploaded = true;
+                                      _hasChanges = true;
                                     });
 
-                                    // Background mein upload
                                     uploadSupabaseStorageFiles(
                                       bucketName: 'general',
                                       selectedFiles: selectedMedia,
@@ -266,60 +315,6 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0,
-                            AppTheme.of(context).designToken.spacing.sm,
-                            0.0,
-                            0.0),
-                        child: RichText(
-                          textScaler: MediaQuery.of(context).textScaler,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'CHANGE PROFILE PICTURE',
-                                style: AppTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      color: AppTheme.of(context)
-                                          .primaryText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              )
-                            ],
-                            style: AppTheme.of(context)
-                                .bodySmall
-                                .override(
-                                  font: GoogleFonts.manrope(
-                                    fontWeight: AppTheme.of(context)
-                                        .bodySmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodySmall
-                                        .fontStyle,
-                                  ),
-                                  color: AppTheme.of(context).accent1,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .bodySmall
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodySmall
-                                      .fontStyle,
-                                ),
-                          ),
-                        ),
-                      ),
                       Material(
                         color: Colors.transparent,
                         elevation: 0.0,
@@ -327,7 +322,7 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                           borderRadius: BorderRadius.circular(
                               AppTheme.of(context)
                                   .designToken
-                                  .radius
+                                  .radius 
                                   .lg),
                         ),
                         child: Container(
@@ -1853,7 +1848,9 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                             0.0,
                             0.0),
                         child: AppButton(
-                          onPressed: () async {
+                          onPressed: !_canSave
+                              ? null
+                              : () async {
                             _model.updateUserResult =
                                 await SupabaseTablesGroup.updateUserCall.call(
                               profileImage:
@@ -1922,7 +1919,6 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                 2,
                               );
                             }
-
                             _provider.notify();
                           },
                           text: 'Save',
@@ -1933,7 +1929,9 @@ class _EditCustomerProfieWidgetState extends State<EditCustomerProfieWidget> {
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: AppTheme.of(context).primary,
+                            color: _canSave
+                                ? AppTheme.of(context).primary
+                                : AppTheme.of(context).alternate,
                             textStyle: AppTheme.of(context)
                                 .titleSmall
                                 .override(
