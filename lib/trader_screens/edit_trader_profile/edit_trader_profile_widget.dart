@@ -43,6 +43,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  bool _hasChanges = false;
+
+  void _markChanged() {
+    if (!_hasChanges) {
+      _hasChanges = true;
+      _provider.notify();
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -80,21 +88,33 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
         text: AppState().userProfileCache.insuranceAmount);
     _model.insuranceAmountFocusNode ??= FocusNode();
 
+    _model.nameTextController!.addListener(_markChanged);
+    _model.regNoTextController!.addListener(_markChanged);
+    _model.phoneTextController!.addListener(_markChanged);
+    _model.professionTextController!.addListener(_markChanged);
+    _model.serviceAreaTextController!.addListener(_markChanged);
+    _model.insuranceCompanyTextController!.addListener(_markChanged);
+    _model.insuranceAmountTextController!.addListener(_markChanged);
+
     WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
   @override
   void dispose() {
+    _model.nameTextController?.removeListener(_markChanged);
+    _model.regNoTextController?.removeListener(_markChanged);
+    _model.phoneTextController?.removeListener(_markChanged);
+    _model.professionTextController?.removeListener(_markChanged);
+    _model.serviceAreaTextController?.removeListener(_markChanged);
+    _model.insuranceCompanyTextController?.removeListener(_markChanged);
+    _model.insuranceAmountTextController?.removeListener(_markChanged);
     _model.dispose();
     _provider.dispose();
-
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     context.watch<AppState>();
-
     return ChangeNotifierProvider<EditTraderProfileProvider>.value(
       value: _provider,
       child: Consumer<EditTraderProfileProvider>(
@@ -104,11 +124,29 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
+
+    String _resolveAvatarUrl() {
+      final uploaded = _model.uploadedFileUrl_uploadImg;
+      if (uploaded != null && uploaded.trim().isNotEmpty) {
+        return uploaded;
+      }
+      final cached = AppState().userProfileCache.avatarUrl;
+      if (cached.trim().isNotEmpty) {
+        return cached;
+      }
+      return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU';
+    }
+
+    final bool _canSave = _hasChanges && !_model.isDataUploading_uploadImg;
+    debugPrint('DEBUG avatarUrl cached = "${AppState().userProfileCache.avatarUrl}"');
+    debugPrint('DEBUG uploadedFileUrl_uploadImg = "${_model.uploadedFileUrl_uploadImg}"');
+
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
-      },
+      },//
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
@@ -215,19 +253,34 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ? Image.memory(
                                             _model.uploadedLocalFile_uploadImg!.bytes!,
                                             fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) => Icon(
+                                              Icons.person,
+                                              size: 50.0,
+                                              color: AppTheme.of(context).secondaryText,
+                                            ),
                                           )
                                               : Image.network(
-                                            valueOrDefault<String>(
-                                              _model.uploadedFileUrl_uploadImg != null &&
-                                                  _model.uploadedFileUrl_uploadImg != ''
-                                                  ? _model.uploadedFileUrl_uploadImg
-                                                  : valueOrDefault<String>(
-                                                AppState().userProfileCache.avatarUrl,
-                                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
-                                                    ),
-                                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU',
-                                            ),
+                                            _resolveAvatarUrl(),
+                                            key: ValueKey(_resolveAvatarUrl()),
                                             fit: BoxFit.cover,
+                                            loadingBuilder: (context, child, loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 24.0,
+                                                  height: 24.0,
+                                                  child: CircularProgressIndicator(
+                                                    strokeWidth: 2.0,
+                                                    color: AppTheme.of(context).primary,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            errorBuilder: (context, error, stackTrace) => Icon(
+                                              Icons.person,
+                                              size: 50.0,
+                                              color: AppTheme.of(context).secondaryText,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -263,6 +316,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               _provider.update(() {
                                                 _model.uploadedLocalFile_uploadImg = localFile;
                                                 _model.isDataUploading_uploadImg = true;
+                                                _hasChanges = true;
                                               });
                                               uploadSupabaseStorageFiles(
                                                 bucketName: 'general',
@@ -2772,7 +2826,6 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         );
                                       },
                                     );
-
                                     if (_datePickedDate != null) {
                                       _provider.update(() {
                                         _model.datePicked = DateTime(
@@ -2780,10 +2833,12 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           _datePickedDate.month,
                                           _datePickedDate.day,
                                         );
+                                        _hasChanges = true;
                                       });
                                     } else if (_model.datePicked != null) {
                                       _provider.update(() {
                                         _model.datePicked = getCurrentTimestamp;
+                                        _hasChanges = true;
                                       });
                                     }
                                   },
@@ -2916,7 +2971,9 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                           ),
                         ),
                       AppButton(
-                        onPressed: () async {
+                        onPressed: !_canSave
+                            ? null
+                            : () async {
                           _model.updateUserResult =
                               await SupabaseTablesGroup.updateUserCall.call(
                             profileImage:
@@ -3028,7 +3085,9 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                               16.0, 0.0, 16.0, 0.0),
                           iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: AppTheme.of(context).primary,
+                          color: _canSave
+                              ? AppTheme.of(context).primary
+                              : AppTheme.of(context).alternate,
                           textStyle:
                               AppTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.inter(
