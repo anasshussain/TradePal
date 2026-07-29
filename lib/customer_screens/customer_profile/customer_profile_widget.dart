@@ -120,11 +120,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                               decoration: BoxDecoration(
                                 color: AppTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .md),
+                                borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
                                   color: AppTheme.of(context).alternate,
                                   width: 2.0,
