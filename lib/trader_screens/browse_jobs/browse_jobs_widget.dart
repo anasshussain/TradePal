@@ -105,7 +105,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                 padding: EdgeInsets.all(valueOrDefault<double>(
                   AppConstants.parentPagePadding,
                   0.0,
-                )),
+                )), //
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
