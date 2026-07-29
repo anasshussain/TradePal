@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:equatable/equatable.dart';
@@ -14,9 +13,7 @@ import 'package:mime_type/mime_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/browser_client.dart'
     if (dart.library.io) 'browser_client_stub.dart';
-
 import '/core/utils/uploaded_file.dart';
-
 import '/repositories/api_requests/get_streamed_response.dart';
 
 enum ApiCallType {
@@ -237,17 +234,6 @@ class ApiManager {
 
   static ApiManager? _instance;
   static ApiManager get instance => _instance ??= ApiManager._();
-
-  /// Get HTTP client with optional credentials support for web
-  ///
-  /// Parameters:
-  ///   - withCredentials: Whether to include credentials (cookies) with requests
-  ///     Only applies to web platform (BrowserClient)
-  ///     Default: false
-  ///
-  /// Returns a platform-specific HTTP client:
-  ///   - Web: BrowserClient with credentials setting applied
-  ///   - Mobile/Desktop: Standard http.Client
   static http.Client getClient({bool withCredentials = false}) {
     // For web platform, return BrowserClient with appropriate settings
     if (kIsWeb) {
@@ -258,13 +244,7 @@ class ApiManager {
     // (credentials are handled differently on these platforms)
     return http.Client();
   }
-
-  // If your API calls need authentication, populate this field once
-  // the user has authenticated. Alter this as needed.
   static String? _accessToken;
-  // You may want to call this if, for example, you make a change to the
-  // database and no longer want the cached result of a call that may
-  // have changed.
   static void clearCache(String callName) => _apiCache.keys
       .toSet()
       .forEach((k) => k.callName == callName ? _apiCache.remove(k) : null);
@@ -534,8 +514,6 @@ class ApiManager {
       apiUrl = 'https://$apiUrl';
     }
 
-    // If we've already made this exact call before and caching is on,
-    // return the cached result.
     if (cache && _apiCache.containsKey(callOptions)) {
       return _apiCache[callOptions]!;
     }
@@ -601,8 +579,6 @@ class ApiManager {
           );
           break;
       }
-
-      // If caching is on, cache the result (if present).
       if (cache) {
         _apiCache[callOptions] = result;
       }

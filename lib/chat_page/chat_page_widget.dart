@@ -18,7 +18,6 @@ import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
 import '/core/utils/upload_data.dart';
-import 'dart:math';
 import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/utils/custom_code/actions/index.dart' as actions;
@@ -38,7 +37,6 @@ import '/providers/chat_page_provider.dart';
 import '/viewmodels/chat_page_model.dart';
 export '/viewmodels/chat_page_model.dart';
 
-/// create a simple 2 way real time chat page with no picture icons
 class ChatPageWidget extends StatefulWidget {
   const ChatPageWidget({
     super.key,
@@ -174,7 +172,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                   }),
                 ]);
               }
-
               await actions.unsubscribe(
                 'proposal_payments',
               );
