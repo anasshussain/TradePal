@@ -79,6 +79,37 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
     return response;
   }
 
+  // ------- Per-tab refresh handlers (only refetch that tab's list) -------
+  Future<void> _refreshRequested() async {
+    final future = _fetchSubmittedJobs(Status.ACTIVE.name, (r) {
+      _cachedRequested = r;
+    });
+    setState(() {
+      _requestedJobsFuture = future;
+    });
+    await future;
+  }
+
+  Future<void> _refreshInProgress() async {
+    final future = _fetchSubmittedJobs(Status.IN_PROGRESS.name, (r) {
+      _cachedInProgress = r;
+    });
+    setState(() {
+      _inProgressJobsFuture = future;
+    });
+    await future;
+  }
+
+  Future<void> _refreshCompleted() async {
+    final future = _fetchSubmittedJobs(Status.COMPLETED.name, (r) {
+      _cachedCompleted = r;
+    });
+    setState(() {
+      _completedJobsFuture = future;
+    });
+    await future;
+  }
+
   @override
   void dispose() {
     _model.dispose();
@@ -166,6 +197,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             children: [
+              // ===== FIXED TAB BAR (does not scroll) =====
               Align(
                 alignment: const Alignment(0.0, 0),
                 child: TabBar(
@@ -214,6 +246,9 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                   },
                 ),
               ),
+              // ===== SCROLLABLE TAB CONTENT (starts below the tab bar) =====
+              // Each tab now has its own RefreshIndicator so pull-to-refresh
+              // only reloads that tab's list, not the whole page.
               Expanded(
                 child: TabBarView(
                   controller: _model.tabBarController,
@@ -224,11 +259,15 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         AppConstants.parentPagePadding,
                         0.0,
                       )),
-                      child: _buildJobsTab(
-                        future: _requestedJobsFuture,
-                        cached: _cachedRequested,
-                        title: 'REQUESTED',
-                        keyPrefix: 'Keyngq',
+                      child: RefreshIndicator(
+                        color: AppTheme.of(context).primary,
+                        onRefresh: _refreshRequested,
+                        child: _buildJobsTab(
+                          future: _requestedJobsFuture,
+                          cached: _cachedRequested,
+                          title: 'REQUESTED',
+                          keyPrefix: 'Keyngq',
+                        ),
                       ),
                     ),
                     // ------------------- IN-PROGRESS TAB -------------------
@@ -237,11 +276,15 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         AppConstants.parentPagePadding,
                         0.0,
                       )),
-                      child: _buildJobsTab(
-                        future: _inProgressJobsFuture,
-                        cached: _cachedInProgress,
-                        title: 'IN PROGRESS',
-                        keyPrefix: 'Keysee',
+                      child: RefreshIndicator(
+                        color: AppTheme.of(context).primary,
+                        onRefresh: _refreshInProgress,
+                        child: _buildJobsTab(
+                          future: _inProgressJobsFuture,
+                          cached: _cachedInProgress,
+                          title: 'IN PROGRESS',
+                          keyPrefix: 'Keysee',
+                        ),
                       ),
                     ),
                     // ------------------- COMPLETED TAB -------------------
@@ -250,11 +293,15 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         AppConstants.parentPagePadding,
                         0.0,
                       )),
-                      child: _buildJobsTab(
-                        future: _completedJobsFuture,
-                        cached: _cachedCompleted,
-                        title: 'COMPLETED',
-                        keyPrefix: 'Key707',
+                      child: RefreshIndicator(
+                        color: AppTheme.of(context).primary,
+                        onRefresh: _refreshCompleted,
+                        child: _buildJobsTab(
+                          future: _completedJobsFuture,
+                          cached: _cachedCompleted,
+                          title: 'COMPLETED',
+                          keyPrefix: 'Key707',
+                        ),
                       ),
                     ),
                   ],
@@ -304,14 +351,19 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           );
         }
         if (!hasAnyData) {
-          return EmptyListComponentWidget(
-            icon: Icon(
-              Icons.error_outline,
-              color: AppTheme.of(context).tertiary,
-              size: 40.0,
+          // Wrapped in a scrollable so RefreshIndicator can still be
+          // pulled even when there's no list to show yet.
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: EmptyListComponentWidget(
+              icon: Icon(
+                Icons.error_outline,
+                color: AppTheme.of(context).tertiary,
+                size: 40.0,
+              ),
+              title: title,
+              description: 'Jobs load nahi ho sake, dobara try karein',
             ),
-            title: title,
-            description: 'Jobs load nahi ho sake, dobara try karein',
           );
         }
 
@@ -331,14 +383,19 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             [];
 
         if (jobs.isEmpty) {
-          return EmptyListComponentWidget(
-            icon: Icon(
-              Icons.work_history_sharp,
-              color: AppTheme.of(context).tertiary,
-              size: 40.0,
+          // Wrapped in a scrollable so RefreshIndicator can still be
+          // pulled even when the list is empty.
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: EmptyListComponentWidget(
+              icon: Icon(
+                Icons.work_history_sharp,
+                color: AppTheme.of(context).tertiary,
+                size: 40.0,
+              ),
+              title: title,
+              description: 'JOBS NOT FOUND',
             ),
-            title: title,
-            description: 'JOBS NOT FOUND',
           );
         }
 
@@ -346,6 +403,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
           primary: false,
           shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemCount: jobs.length,
           separatorBuilder: (_, __) =>
