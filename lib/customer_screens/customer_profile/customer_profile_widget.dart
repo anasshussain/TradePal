@@ -185,7 +185,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                         style:
                             AppTheme.of(context).displaySmall.override(
                                   font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontStyle: AppTheme.of(context)
                                         .displaySmall
                                         .fontStyle,
@@ -197,56 +197,51 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       .fontStyle,
                                 ),
                       ),
-                      AppButton(
-                        onPressed: () async {
-                          context.pushNamed(
-                            EditCustomerProfieWidget.routeName,
-                            extra: <String, dynamic>{
-                              '__transition_info__': const TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.rightToLeft,
-                              ),
-                            },
-                          );
-                        },
-                        text: 'Edit Profile',
-                        icon: const Icon(
-                          Icons.edit_rounded,
-                          size: 26.0,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                          20.0,
+                          0.0,
+                          20.0,
+                          AppTheme.of(context).designToken.spacing.md,
                         ),
-                        options: AppButtonOptions(
-                          width: 300.0,
-                          height: 50.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Colors.transparent,
-                          textStyle:
-                              AppTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: AppTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
-                                    ),
-                                    color: AppTheme.of(context).primary,
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                          elevation: 0.0,
-                          borderSide: BorderSide(
-                            color: AppTheme.of(context).primary,
-                            width: 1.0,
+                        child: AppButton(
+                          onPressed: () async {
+                            context.pushNamed(EditTraderProfileWidget.routeName);
+                          },
+                          text: 'Edit profile',
+                          options: AppButtonOptions(
+                            width: 150,
+                            height: 37.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                              16.0,
+                              0.0,
+                              16.0,
+                              0.0,
+                            ),
+                            iconPadding: EdgeInsets.zero,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white.withOpacity(0.08)
+                                : Colors.black.withOpacity(0.06),
+
+                            textStyle: AppTheme.of(context).titleSmall.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.w400,
+                              ),
+                              color: AppTheme.of(context).primaryText,
+                              fontSize: 14,
+                              letterSpacing: 0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            elevation: 0,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white.withOpacity(0.05)
+                                  : Colors.black.withOpacity(0.04),
+                              width: 1,
+                            ),
+
+                            borderRadius: BorderRadius.circular(8.6),
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                       Align(

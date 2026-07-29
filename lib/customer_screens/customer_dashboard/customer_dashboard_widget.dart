@@ -38,25 +38,16 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
   final CustomerDashboardProvider _provider = CustomerDashboardProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Static flag: poori app session ke liye zinda rehta hai (widget dispose
-  // hone ke baad bhi). Isse dashboard par dobara aane par skeleton dobara
-  // nahi dikhega — sirf app ke pehle open hone par ek hi baar dikhega.
   static bool _hasLoadedJobsOnce = false;
-
   late Future<ApiCallResponse> _jobsListFuture;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => CustomerDashboardModel());
-
-    // Fetch hamesha chalega (fresh data ke liye), lekin skeleton sirf
-    // pehli dafa dikhega — baad mein ye silently background mein hoga.
     _jobsListFuture = _fetchJobs();
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {});
-    // NOTE: yahan se _provider.update(() {}) hata diya —
-    // isi ne rebuild force karke future dobara banaya tha
   }
 
   Future<ApiCallResponse> _fetchJobs() async {
@@ -130,9 +121,6 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                 child: FutureBuilder<ApiCallResponse>(
                   future: _jobsListFuture,
                   builder: (context, snapshot) {
-                    // Skeleton sirf pehli dafa dikhega (jab tak kabhi
-                    // successfully load nahi hua). Baad mein hamesha
-                    // silently refresh hoga, koi loader nahi dikhega.
                     final isLoading = !_hasLoadedJobsOnce &&
                         snapshot.connectionState == ConnectionState.waiting;
 
