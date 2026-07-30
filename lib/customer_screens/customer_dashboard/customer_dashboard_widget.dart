@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
@@ -38,9 +39,6 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
   final CustomerDashboardProvider _provider = CustomerDashboardProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Static flag: poori app session ke liye zinda rehta hai (widget dispose
-  // hone ke baad bhi). Isse dashboard par dobara aane par skeleton dobara
-  // nahi dikhega — sirf app ke pehle open hone par ek hi baar dikhega.
   static bool _hasLoadedJobsOnce = false;
 
   late Future<ApiCallResponse> _jobsListFuture;
@@ -50,13 +48,9 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
     super.initState();
     _model = createModel(context, () => CustomerDashboardModel());
 
-    // Fetch hamesha chalega (fresh data ke liye), lekin skeleton sirf
-    // pehli dafa dikhega — baad mein ye silently background mein hoga.
     _jobsListFuture = _fetchJobs();
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {});
-    // NOTE: yahan se _provider.update(() {}) hata diya —
-    // isi ne rebuild force karke future dobara banaya tha
   }
 
   Future<ApiCallResponse> _fetchJobs() async {
@@ -104,10 +98,14 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
             child: AppbarComponentWidget(
               title: 'Home',
               showAction: true,
-              actionIcon: Icon(
-                Icons.notifications_rounded,
-                color: AppTheme.of(context).secondary,
-                size: 26.0,
+              actionIcon: SvgPicture.asset(
+                'assets/images/bell.svg',
+                width: 21.5,
+                height: 21.5,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF1B7FA3),
+                  BlendMode.srcIn,
+                ),
               ),
               action: () async {
                 context.pushNamed(NotificationPageWidget.routeName);
@@ -130,9 +128,6 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                 child: FutureBuilder<ApiCallResponse>(
                   future: _jobsListFuture,
                   builder: (context, snapshot) {
-                    // Skeleton sirf pehli dafa dikhega (jab tak kabhi
-                    // successfully load nahi hua). Baad mein hamesha
-                    // silently refresh hoga, koi loader nahi dikhega.
                     final isLoading = !_hasLoadedJobsOnce &&
                         snapshot.connectionState == ConnectionState.waiting;
 
