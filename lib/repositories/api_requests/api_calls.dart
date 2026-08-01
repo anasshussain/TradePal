@@ -33,6 +33,18 @@ class SupabaseEdgeFunctionsGroup {
       SendPushNotificationCall();
   static OnboardingStripeConnectAccountCall onboardingStripeConnectAccountCall =
       OnboardingStripeConnectAccountCall();
+  static CreateStripeCustomerCall createStripeCustomerCall =
+      CreateStripeCustomerCall();
+  static CreateEphemeralKeyCall createEphemeralKeyCall =
+      CreateEphemeralKeyCall();
+
+  static CreateConnectAccountOnboarding createConnectAccountOnboarding =
+      CreateConnectAccountOnboarding();
+
+  static ManageConnectAccounts manageConnectAccounts = ManageConnectAccounts();
+  static CreatePaymentIntentCall createPaymentIntentCall =
+      CreatePaymentIntentCall();
+  static GetStripeBalanceCall getStripeBalanceCall = GetStripeBalanceCall();
 }
 
 class SendOtpCall {
@@ -161,6 +173,8 @@ class DeleteBankAccountCall {
     String? accountId = '',
     String? bankAccountId = '',
   }) async {
+    debugPrint("The Account id is ${accountId}");
+    debugPrint("The Bank Account id is ${bankAccountId}");
     final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
 
     final apiRequestBody = '''
@@ -307,6 +321,130 @@ class OnboardingStripeConnectAccountCall {
   String? url(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.url''',
+      ));
+}
+
+class CreateConnectAccountOnboarding {
+  Future<ApiCallResponse> call({
+    String? userId = '',
+    String? email = '',
+  }) async {
+    final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
+
+    final apiRequestBody = '''
+{
+  "user_id": "${escapeStringForJson(userId)}",
+  "email": "${escapeStringForJson(email)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'create connect account onboarding',
+      apiUrl: '${baseUrl}/create_connect_account_onboarding',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
+      },
+      params: {},
+      body: apiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? url(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.url''',
+      ));
+}
+
+class ManageConnectAccounts {
+  Future<ApiCallResponse> call({String? userId = ''}) async {
+    final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
+
+    final apiRequestBody = '''
+{
+  "user_id": "${escapeStringForJson(userId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'manage connect account',
+      apiUrl: '${baseUrl}/manage_connect_account',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrd2RqZHloYnVqbnFleXRrYm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MTQ2OTUsImV4cCI6MjA4NzQ5MDY5NX0.rZ31XNG9-SVgP8zeq_d7k6w99PdxvkGpVBlDH0j35TY',
+      },
+      params: {},
+      body: apiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? url(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.url''',
+      ));
+}
+
+class GetStripeBalanceCall {
+  Future<ApiCallResponse> call({String? userId = ''}) async {
+    final baseUrl = SupabaseEdgeFunctionsGroup.getBaseUrl();
+
+    final apiRequestBody = '''
+{
+  "user_id": "${escapeStringForJson(userId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'get stripe balance',
+      apiUrl: '${baseUrl}/get_stripe_balance',
+      callType: ApiCallType.POST,
+      headers: SupabaseEdgeFunctionsGroup.headers,
+      params: {},
+      body: apiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+
+  int? available(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.available''',
+      ));
+
+  int? pending(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.pending''',
+      ));
+
+  String? currency(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.currency''',
       ));
 }
 
@@ -1767,7 +1905,7 @@ class CreatePaymentFeeCall {
     return ApiManager.instance.makeApiCall(
       callName: 'create payment fee',
       apiUrl:
-          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/create-proposal-payment',
+          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/create_proposal_payment_intent',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -1799,6 +1937,429 @@ class CreatePaymentFeeCall {
         response,
         r'''$.payment_intent_id''',
       ));
+}
+
+class CreatePaymentIntentCall {
+
+ 
+  static Future<ApiCallResponse> call({
+    String? jobId = '',
+    String? token = '',
+    String? stripeCustomerId = '',
+    String? customerEmail = '',
+    String? userId = '',
+    String? tradepersonId = '',
+    int? amount = 0,
+  }) async {
+     debugPrint("payment intent execution started ");
+    final apiRequestBody = '''
+{
+  "stripe_customer_id": "${escapeStringForJson(stripeCustomerId)}",
+  "customer_email": "${escapeStringForJson(customerEmail)}",
+  "user_id": "${escapeStringForJson(userId)}",
+  "tradeperson_id": "${escapeStringForJson(tradepersonId)}",
+  "job_id": "${escapeStringForJson(jobId)}",
+  "amount": $amount
+}''';
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'create payment intent',
+      apiUrl:
+          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/customer_payment_intent',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      body: apiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.success''',
+        ),
+      );
+
+  static String? clientSecret(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.client_secret''',
+        ),
+      );
+
+  static String? paymentIntentId(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.payment_intent''',
+        ),
+      );
+
+  static String? customerId(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.customer''',
+        ),
+      );
+
+  static String? ephemeralKey(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.ephemeral_key''',
+        ),
+      );
+}
+
+class ReleaseFundsCall {
+  static Future<ApiCallResponse> call({
+    String? paymentIntentId = '',
+    String? token = '',
+  }) async {
+    debugPrint("release funds execution started ");
+    final apiRequestBody = '''
+{
+  "payment_intent_id": "${escapeStringForJson(paymentIntentId)}"
+}''';
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'release funds',
+      apiUrl:
+          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/release_funds',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      body: apiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.success''',
+        ),
+      );
+
+  static String? transferId(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.transfer_id''',
+        ),
+      );
+
+  static String? error(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.error''',
+        ),
+      );
+}
+
+class CreateStripeCustomerCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    debugPrint("create stripe customer function execution started ");
+    ApiCallResponse response = await ApiManager.instance.makeApiCall(
+      callName: 'create stripe customer',
+      apiUrl:
+          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/create_stripe_customer',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      body: '{}',
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+
+    debugPrint("Succeeded: ${response.succeeded}");
+    debugPrint("Status Code: ${response.statusCode}");
+    debugPrint("Body: ${response.bodyText}");
+    debugPrint("JSON: ${response.jsonBody}");
+    return response;
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.success''',
+        ),
+      );
+
+  static String? customerId(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.customerId''',
+        ),
+      );
+
+  static bool? alreadyExists(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.alreadyExists''',
+        ),
+      );
+
+  static String? message(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.message''',
+        ),
+      );
+}
+
+class CreateEphemeralKeyCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    debugPrint("create ephemeral key function execution started");
+
+    ApiCallResponse response = await ApiManager.instance.makeApiCall(
+        callName: 'create ephemeral key',
+        apiUrl:
+            'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/create_ephemeral_key',
+        callType: ApiCallType.POST,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        body: '{}',
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false);
+
+    debugPrint("Succeeded: ${response.succeeded}");
+    debugPrint("Status Code: ${response.statusCode}");
+    debugPrint("Body: ${response.bodyText}");
+    debugPrint("JSON: ${response.jsonBody}");
+
+    return response;
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.success''',
+        ),
+      );
+
+  static String? customerId(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.customer_id''',
+        ),
+      );
+
+  static String? ephemeralKey(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.ephemeral_key''',
+        ),
+      );
+
+  static String? message(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.message''',
+        ),
+      );
+}
+
+class CreateSetupIntentCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    debugPrint("create setup intent function execution started");
+
+    ApiCallResponse response = await ApiManager.instance.makeApiCall(
+      callName: 'create setup intent',
+      apiUrl:
+          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/create_setup_intent',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      body: '{}',
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+
+    debugPrint("Succeeded: ${response.succeeded}");
+    debugPrint("Body: ${response.bodyText}");
+
+    return response;
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.success''',
+        ),
+      );
+
+  static String? clientSecret(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.client_secret''',
+        ),
+      );
+
+  static String? customerId(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.customer_id''',
+        ),
+      );
+
+  static String? ephemeralKey(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.ephemeral_key''',
+        ),
+      );
+
+  static String? message(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.message''',
+        ),
+      );
+}
+
+class ListPaymentMethodsCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    debugPrint("list payment methods function execution started");
+
+    ApiCallResponse response = await ApiManager.instance.makeApiCall(
+      callName: 'list payment methods',
+      apiUrl:
+          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/list_payment_methods',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      body: '{}',
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+
+    debugPrint("Succeeded: ${response.succeeded}");
+    debugPrint("Body: ${response.bodyText}");
+
+    return response;
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.success''',
+        ),
+      );
+
+  static List<dynamic> paymentMethods(dynamic response) {
+    final methods = getJsonField(response, r'''$.payment_methods''');
+    return methods is List ? methods : const [];
+  }
+}
+
+class DeletePaymentMethodCall {
+  static Future<ApiCallResponse> call({
+    String? paymentMethodId = '',
+    String? token = '',
+  }) async {
+    debugPrint("delete payment method function execution started");
+
+    final apiRequestBody = '''
+{
+  "payment_method_id": "${escapeStringForJson(paymentMethodId)}"
+}''';
+
+    ApiCallResponse response = await ApiManager.instance.makeApiCall(
+      callName: 'delete payment method',
+      apiUrl:
+          'https://ykwdjdyhbujnqeytkbmk.supabase.co/functions/v1/delete_payment_method',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      body: apiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+
+    debugPrint("Succeeded: ${response.succeeded}");
+    debugPrint("Body: ${response.bodyText}");
+
+    return response;
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(
+        getJsonField(
+          response,
+          r'''$.success''',
+        ),
+      );
+
+  static String? message(dynamic response) => castToType<String>(
+        getJsonField(
+          response,
+          r'''$.message''',
+        ),
+      );
 }
 
 class ApiPagingParams {

@@ -12,8 +12,15 @@ export '/auth/base_auth_user_provider.dart';
 
 class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   @override
-  Future signOut() {
-    return SupaFlow.client.auth.signOut();
+  // Future signOut() {
+  //   return SupaFlow.client.auth.signOut();
+  // }
+  Future signOut() async {
+    await SupaFlow.client.auth.signOut();
+
+    currentUser = MyTradePalSupabaseUser(null);
+
+    AppStateNotifier.instance.update(currentUser!);
   }
 
   @override
@@ -38,7 +45,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   }) async {
     try {
       if (!loggedIn) {
-         return;
+        return;
       }
       await currentUser?.updateEmail(email);
     } on AuthException catch (e) {
@@ -136,6 +143,7 @@ class SupabaseAuthManager extends AuthManager with EmailSignInManager {
       if (authUser != null) {
         currentUser = authUser;
         AppStateNotifier.instance.update(authUser);
+        debugPrint("LOGIN USER: ${currentUser?.uid}");
       }
       return authUser;
     } on AuthException catch (e) {

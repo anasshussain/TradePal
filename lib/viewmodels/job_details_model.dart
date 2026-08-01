@@ -35,6 +35,20 @@ class JobDetailsModel extends AppModel<JobDetailsWidget> {
   TextEditingController? quoteTextFieldTextController;
   String? Function(BuildContext, String?)?
       quoteTextFieldTextControllerValidator;
+  String? _quoteTextFieldTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Please enter your quote amount';
+    }
+
+    final amount = int.tryParse(val);
+    if (amount == null || amount <= 0) {
+      return 'Please enter a valid quote amount';
+    }
+
+    return null;
+  }
+
   // State field(s) for ChoiceChips widget.
   FormFieldController<List<String>>? choiceChipsValueController;
   String? get choiceChipsValue =>
@@ -86,6 +100,8 @@ class JobDetailsModel extends AppModel<JobDetailsWidget> {
     appbarComponentModel = createModel(context, () => AppbarComponentModel());
     jobLocationComponentModel =
         createModel(context, () => JobLocationComponentModel());
+    quoteTextFieldTextControllerValidator =
+        _quoteTextFieldTextControllerValidator;
     descriptionTextControllerValidator = _descriptionTextControllerValidator;
     jobDetailsLoaderModel = createModel(context, () => JobDetailsLoaderModel());
   }

@@ -1,3 +1,5 @@
+import 'package:my_trade_pal/auth/supabase_auth/auth_util.dart';
+import 'package:my_trade_pal/repositories/api_requests/api_calls.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '/utils/enums/enums.dart';
@@ -119,7 +121,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                             tag: 'MARKETPLACE',
                             title: 'Available Jobs',
                             subtitle:
-                            'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
+                                'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
                             numberOfItems: valueOrDefault<int>(
                               AppState().jobCache.jobs.length,
                               0,
@@ -140,19 +142,13 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context)
-                                    .designToken
-                                    .radius
-                                    .lg),
+                                AppTheme.of(context).designToken.radius.lg),
                           ),
                           child: Container(
                             decoration: BoxDecoration(
                               color: AppTheme.of(context).alternate,
                               borderRadius: BorderRadius.circular(
-                                  AppTheme.of(context)
-                                      .designToken
-                                      .radius
-                                      .lg),
+                                  AppTheme.of(context).designToken.radius.lg),
                               border: Border.all(
                                 color: Colors.transparent,
                               ),
@@ -168,53 +164,48 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                 children: [
                                   AppDropDown<String>(
                                     controller:
-                                    _model.dropDownValueController1 ??=
-                                        FormFieldController<String>(null),
+                                        _model.dropDownValueController1 ??=
+                                            FormFieldController<String>(null),
                                     options: AppState().availableServices,
                                     onChanged: (val) => _provider.update(
-                                            () => _model.dropDownValue1 = val),
+                                        () => _model.dropDownValue1 = val),
                                     width: double.infinity,
                                     height: 50.0,
                                     maxHeight: 200.0,
                                     textStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight:
-                                      AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle:
-                                      AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
+                                        ),
                                     hintText: 'Plumbing..',
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
-                                      color: AppTheme.of(context)
-                                          .secondaryText,
+                                      color: AppTheme.of(context).secondaryText,
                                       size: 24.0,
                                     ),
                                     fillColor: AppTheme.of(context)
                                         .secondaryBackground,
                                     elevation: 2.0,
-                                    borderColor:
-                                    AppTheme.of(context).border,
+                                    borderColor: AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: 8.0,
-                                    margin: const EdgeInsetsDirectional.fromSTEB(
-                                        12.0, 0.0, 12.0, 0.0),
+                                    margin:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
                                     isSearchable: false,
@@ -222,8 +213,8 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                   ),
                                   AppDropDown<String>(
                                     controller:
-                                    _model.dropDownValueController2 ??=
-                                        FormFieldController<String>(null),
+                                        _model.dropDownValueController2 ??=
+                                            FormFieldController<String>(null),
                                     options: const [
                                       '100',
                                       '200',
@@ -237,48 +228,43 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                       '1000'
                                     ],
                                     onChanged: (val) => _provider.update(
-                                            () => _model.dropDownValue2 = val),
+                                        () => _model.dropDownValue2 = val),
                                     width: double.infinity,
                                     height: 50.0,
                                     textStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight:
-                                      AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle:
-                                      AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
+                                        ),
                                     hintText: '\$100',
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
-                                      color: AppTheme.of(context)
-                                          .secondaryText,
+                                      color: AppTheme.of(context).secondaryText,
                                       size: 24.0,
                                     ),
                                     fillColor: AppTheme.of(context)
                                         .secondaryBackground,
                                     elevation: 2.0,
-                                    borderColor:
-                                    AppTheme.of(context).border,
+                                    borderColor: AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: 8.0,
-                                    margin: const EdgeInsetsDirectional.fromSTEB(
-                                        12.0, 0.0, 12.0, 0.0),
+                                    margin:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
                                     isSearchable: false,
@@ -291,37 +277,33 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                     text: 'Apply filters',
                                     options: AppButtonOptions(
                                       height: 50.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 0.0, 16.0, 0.0),
                                       iconPadding:
-                                      const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                      AppTheme.of(context).primary,
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: AppTheme.of(context).primary,
                                       textStyle: AppTheme.of(context)
                                           .titleSmall
                                           .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight:
-                                          AppTheme.of(context)
-                                              .titleSmall
-                                              .fontWeight,
-                                          fontStyle:
-                                          AppTheme.of(context)
-                                              .titleSmall
-                                              .fontStyle,
-                                        ),
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
-                                        fontWeight:
-                                        AppTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle:
-                                        AppTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
+                                            font: GoogleFonts.inter(
+                                              fontWeight: AppTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                            ),
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                            fontWeight: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontStyle,
+                                          ),
                                       elevation: 0.0,
                                       borderRadius: BorderRadius.circular(
                                           AppTheme.of(context)

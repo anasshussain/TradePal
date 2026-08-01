@@ -1,5 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:my_trade_pal/widgets/components/appbar_component/appbar_component_widget.dart';
-
+import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -36,10 +37,10 @@ class BankCardsWidget extends StatefulWidget {
 class _BankCardsWidgetState extends State<BankCardsWidget> {
   late BankCardsModel _model;
   List<BankDetailsStruct>? getCards;
-late BankCardsProvider _provider;
+  late BankCardsProvider _provider = BankCardsProvider();
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
-
   @override
   void initState() {
     super.initState();
@@ -48,40 +49,79 @@ late BankCardsProvider _provider;
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.userStripeRow = await SupabaseTablesGroup.getStripeRowCall.call(
-        userId: 'eq.${currentUserUid}',
-      );
+      try {
+        debugPrint('[CardsDebug] currentUserUid=$currentUserUid');
 
-      if ((_model.userStripeRow?.succeeded ?? true)) {
-        _model.bankDetailRes =
-            await SupabaseEdgeFunctionsGroup.getBankAccDetailsCall.call(
-          accountId: ((_model.userStripeRow?.jsonBody ?? '')
-                  .toList()
-                  .map<StripeDataStruct?>(StripeDataStruct.maybeFromMap)
-                  .toList() as Iterable<StripeDataStruct?>)
-              .withoutNulls
-              ?.firstOrNull
-              ?.stripeAccountId,
+        _model.userStripeRow = await SupabaseTablesGroup.getStripeRowCall.call(
+          userId: 'eq.${currentUserUid}',
         );
 
-        if ((_model.bankDetailRes?.succeeded ?? true)) {
-          getCards  = ((_model.bankDetailRes?.jsonBody ?? '')
-                  .toList()
-                  .map<BankDetailsStruct?>(BankDetailsStruct.maybeFromMap)
-                  .toList() as Iterable<BankDetailsStruct?>)
-              .withoutNulls
-              .toList()
-              .cast<BankDetailsStruct>();
-          _provider.stripeDetails = ((_model.userStripeRow?.jsonBody ?? '')
+        debugPrint(
+            '[CardsDebug] getStripeRowCall: succeeded=${_model.userStripeRow?.succeeded} statusCode=${_model.userStripeRow?.statusCode} body=${_model.userStripeRow?.bodyText}');
+
+        if ((_model.userStripeRow?.succeeded ?? true)) {
+          // Note: jsonBody is `dynamic`, so this whole chain is dynamically
+          // dispatched. `whereType<T>()` is a real Iterable method (unlike
+          // the `withoutNulls` extension, which can't be resolved through a
+          // dynamic receiver and throws NoSuchMethodError at runtime). The
+          // explicit `List<StripeDataStruct>` annotation is also required:
+          // without it, `stripeAccounts` would infer type `dynamic`, and the
+          // `firstWhereOrNull`/`firstOrNull` extensions below would fail the
+          // same way even though the runtime object is a proper List.
+          final List<StripeDataStruct> stripeAccounts =
+              (_model.userStripeRow?.jsonBody ?? '')
                   .toList()
                   .map<StripeDataStruct?>(StripeDataStruct.maybeFromMap)
-                  .toList() as Iterable<StripeDataStruct?>)
-              .withoutNulls
-              ?.firstOrNull;
-          safeSetState(() {
-            isLoading = false;
-          });
+                  .whereType<StripeDataStruct>()
+                  .toList();
+
+          debugPrint(
+              '[CardsDebug] parsed ${stripeAccounts.length} stripe_accounts row(s): ${stripeAccounts.map((a) => '${a.stripeAccountId} (charges=${a.chargesEnabled}, payouts=${a.payoutsEnabled})').toList()}');
+
+          // A user can end up with more than one stripe_accounts row (e.g. a
+          // double-tapped "Connect Stripe" creating two Stripe accounts).
+          // Prefer the fully onboarded one over a stale/incomplete duplicate.
+          final stripeAccount = stripeAccounts.firstWhereOrNull(
+                (a) => a.payoutsEnabled && a.chargesEnabled,
+              ) ??
+              stripeAccounts.firstWhereOrNull((a) => a.stripeAccountId.isNotEmpty) ??
+              stripeAccounts.firstOrNull;
+
+          final stripeAccountId = stripeAccount?.stripeAccountId;
+          debugPrint('[CardsDebug] chosen stripeAccountId=$stripeAccountId');
+
+          if (stripeAccountId != null && stripeAccountId.isNotEmpty) {
+            _model.bankDetailRes =
+                await SupabaseEdgeFunctionsGroup.getBankAccDetailsCall.call(
+              accountId: stripeAccountId,
+            );
+
+            debugPrint(
+                '[CardsDebug] get-bankAccounts: succeeded=${_model.bankDetailRes?.succeeded} statusCode=${_model.bankDetailRes?.statusCode} body=${_model.bankDetailRes?.bodyText}');
+
+            if ((_model.bankDetailRes?.succeeded ?? true)) {
+              getCards = (_model.bankDetailRes?.jsonBody ?? '')
+                  .toList()
+                  .map<BankDetailsStruct?>(BankDetailsStruct.maybeFromMap)
+                  .whereType<BankDetailsStruct>()
+                  .toList();
+              _provider.stripeDetails = stripeAccount;
+              debugPrint('[CardsDebug] parsed ${getCards?.length} card(s)');
+            } else {
+              debugPrint(
+                  '[CardsDebug] get-bankAccounts failed: ${_model.bankDetailRes?.bodyText}');
+            }
+          } else {
+            debugPrint(
+                '[CardsDebug] no usable stripe_account_id found, skipping bank account fetch');
+          }
         }
+      } catch (e, s) {
+        debugPrint('[CardsDebug] EXCEPTION loading bank cards: $e\n$s');
+      } finally {
+        safeSetState(() {
+          isLoading = false;
+        });
       }
     });
 
@@ -113,168 +153,106 @@ late BankCardsProvider _provider;
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        body: SingleChildScrollView(
-          primary: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.credit_card_off_outlined,
-                            size: 80,
-                            color: Colors.grey.shade400,
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'My Cards',
-                                    style: AppTheme.of(context)
-                                        .headlineMedium
-                                        .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .headlineMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: AppTheme.of(context)
-                                              .primaryText,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .headlineMedium
-                                                  .fontStyle,
-                                          lineHeight: 1.4,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                'Manage your payment methods',
-                                style: AppTheme.of(context)
-                                    .bodySmall
-                                    .override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: AppTheme.of(context)
-                                            .bodySmall
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodySmall
-                                            .fontStyle,
-                                      ),
-                                      color: AppTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: AppTheme.of(context)
-                                          .bodySmall
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodySmall
-                                          .fontStyle,
-                                      lineHeight: 1.4,
-                                    ),
-                              ),
-                            ].divide(const SizedBox(height: 2.0)),
-                          ),
-                          AppIconButton(
-                            borderRadius: 10.0,
-                            buttonSize: 40.0,
-                            fillColor: AppTheme.of(context)
-                                .secondaryBackground,
-                            icon: Icon(
-                              Icons.add_rounded,
-                              color: AppTheme.of(context).primary,
-                              size: 24.0,)),
-                          const SizedBox(height: 20),
-                          const Text(
-                            'No Cards Found',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0,
-                                valueOrDefault<double>(
-                                  AppConstants.parentPagePadding,
-                                  0.0,
-                                ),
-                                0.0,
-                                0.0),
-                            // Only this list subtree rebuilds when bankCards
-                            // changes; the Scaffold/AppBar above are built once.
-                            child: Consumer<BankCardsProvider>(
-                              builder: (context, provider, _) {
-                                final bank = provider.bankCards.toList();
-
-                                return ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: bank.length,
-                                  separatorBuilder: (_, __) => SizedBox(
-                                      height: AppTheme.of(context)
-                                          .designToken
-                                          .spacing
-                                          .lg),
-                                  itemBuilder: (context, bankIndex) {
-                                    final bankItem = bank[bankIndex];
-                                    return Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
-                                      child: BankCardComponentWidget(
-                                        key: Key(
-                                            'Keywhx_${bankIndex}_of_${bank.length}'),
-                                        bankCardDetail: bankItem,
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ].divide(const SizedBox(height: 10.0)),
-                      ),
-                    ].divide(const SizedBox(height: 20.0)),
-                  ),
-                ),
-                ),
-            ],
+        appBar: AppBar(
+          backgroundColor: AppTheme.of(context).primaryBackground,
+          automaticallyImplyLeading: false,
+          title: AppbarComponentWidget(
+            title: 'Bank Cards',
+            showAction: false,
+            actionIcon: null,
+            action: () async {},
           ),
         ),
+        body: (getCards == null || getCards!.isEmpty)
+            ? Skeletonizer(
+                enabled: isLoading,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.credit_card_off_outlined,
+                          size: 80,
+                          color: Colors.grey.shade400,
+                        ),
+                        const SizedBox(height: 20),
+                      
+                      
+                        const Text(
+                          'No Cards Found',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "You haven't added any payment cards yet.\nAdd your first card to continue.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey.shade600,
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            : Skeletonizer(
+                enabled: isLoading,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 100),
+                  child: Builder(
+                    builder: (context) {
+                      final bank = getCards ?? [];
+
+                      return ListView.separated(
+                        padding: EdgeInsets.zero,
+                        clipBehavior: Clip.none,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: bank.length,
+                        separatorBuilder: (_, __) => SizedBox(
+                            height:
+                                AppTheme.of(context).designToken.spacing.lg),
+                        itemBuilder: (context, bankIndex) {
+                          return InkWell(
+                            onTap: () async {
+                              debugPrint("the data is ${bank[bankIndex]}");
+                              ApiCallResponse response =
+                                  await SupabaseEdgeFunctionsGroup
+                                      .deleteBankAccountCall
+                                      .call(
+                                          accountId: bank[bankIndex].account,
+                                          bankAccountId: bank[bankIndex].id);
+                              setState(() {
+                                bank.removeAt(bankIndex);
+
+                                debugPrint("Success: ${response.succeeded}");
+                                debugPrint("Status: ${response.statusCode}");
+                                debugPrint("JSON: ${response.jsonBody}");
+                              });
+                            },
+                            child: BankCardComponentWidget(
+                                key: Key(
+                                    'Keywhx_${bankIndex}_of_${bank.length}'),
+                                bankCardDetail: bank[bankIndex]),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(20),
           child: FloatingActionButton(
-            backgroundColor:  AppTheme.of(context).secondary,
+            enableFeedback: true,
+            backgroundColor: AppTheme.of(context).secondary,
             onPressed: () async {
               _model.connectStripe = await SupabaseEdgeFunctionsGroup
                   .onboardingStripeConnectAccountCall
@@ -306,5 +284,6 @@ late BankCardsProvider _provider;
           ),
         ),
       ),
-    );}
+    );
+  }
 }
