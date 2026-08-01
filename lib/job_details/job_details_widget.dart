@@ -2389,6 +2389,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                   model: _model.jobDetailsLoaderModel,
                   updateCallback: () => _provider.notify(),
                   child: const JobDetailsLoaderWidget(),
+                  // this is job_detail page.
                 );
               }
             },
