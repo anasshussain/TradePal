@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
@@ -95,10 +96,14 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
             child: AppbarComponentWidget(
               title: 'Home',
               showAction: true,
-              actionIcon: Icon(
-                Icons.notifications_rounded,
-                color: AppTheme.of(context).secondary,
-                size: 26.0,
+              actionIcon: SvgPicture.asset(
+                'assets/images/bell.svg',
+                width: 21.5,
+                height: 21.5,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF1B7FA3),
+                  BlendMode.srcIn,
+                ),
               ),
               action: () async {
                 context.pushNamed(NotificationPageWidget.routeName);

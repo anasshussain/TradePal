@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '/utils/enums/enums.dart';
@@ -95,9 +96,14 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
             child: AppbarComponentWidget(
               title: 'Home',
               showAction: true,
-              actionIcon: Icon(
-                Icons.notifications_rounded,
-                color: AppTheme.of(context).secondary,
+              actionIcon: SvgPicture.asset(
+                'assets/images/bell.svg',
+                width: 21.5,
+                height: 21.5,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF1B7FA3),
+                  BlendMode.srcIn,
+                ),
               ),
               action: () async {
                 context.pushNamed(NotificationPageWidget.routeName);
