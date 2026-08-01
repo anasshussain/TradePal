@@ -1,6 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../widgets/page_header.dart';
 import '/utils/enums/enums.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/jobs_list/jobs_list_widget.dart';
@@ -87,33 +88,33 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.update(() {}),
-            child: AppbarComponentWidget(
-              title: 'Home',
-              showAction: true,
-              actionIcon: SvgPicture.asset(
-                'assets/images/bell.svg',
-                width: 21.5,
-                height: 21.5,
-                colorFilter: const ColorFilter.mode(
-                  Color(0xFF1B7FA3),
-                  BlendMode.srcIn,
-                ),
-              ),
-              action: () async {
-                context.pushNamed(NotificationPageWidget.routeName);
-              },
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 0.0,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.update(() {}),
+        //     child: AppbarComponentWidget(
+        //       title: 'Home',
+        //       showAction: true,
+        //       actionIcon: SvgPicture.asset(
+        //         'assets/images/bell.svg',
+        //         width: 21.5,
+        //         height: 21.5,
+        //         colorFilter: const ColorFilter.mode(
+        //           Color(0xFF1B7FA3),
+        //           BlendMode.srcIn,
+        //         ),
+        //       ),
+        //       action: () async {
+        //         context.pushNamed(NotificationPageWidget.routeName);
+        //       },
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        //   elevation: 0.0,
+        // ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -135,16 +136,11 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                           child: wrapWithModel(
                             model: _model.pageHeaderSectiomModel,
                             updateCallback: () => _provider.update(() {}),
-                            child: PageHeaderSectiomWidget(
+                            child: const PageHeaderWidget(
                               tag: 'MARKETPLACE',
                               title: 'Available Jobs',
                               subtitle:
                               'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
-                              numberOfItems: valueOrDefault<int>(
-                                AppState().jobCache.jobs.length,
-                                0,
-                              ),
-                              itemText: 'Jobs nearby',
                             ),
                           ),
                         ),

@@ -368,11 +368,13 @@ class _JobItemWidgetState extends State<JobItemWidget> {
                           wrapWithModel(
                             model: _model.textButtonModel,
                             updateCallback: () => safeSetState(() {}),
-                            child: TextButtonWidget(
-                              label: 'View details',
-                              color: AppTheme.of(context).primary,
-                              action: () async {},
-                            ),
+                            child: Row(
+                              children: [
+                                Text("View Details", style: TextStyle( color: AppTheme.of(context).primary,fontWeight: FontWeight.bold),),
+                                SizedBox(width: 2,),
+                                Icon(Icons.arrow_forward_ios_rounded, color: AppTheme.of(context).primary, size: 14 )
+                              ],
+                            )
                           ),
                         ].divide(const SizedBox(width: AppConstants.childSpacing)),
                       ),
