@@ -23,7 +23,7 @@ void main() async {
 
   await initFirebase();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  await NotificationService.instance.init();
+  // await NotificationService.instance.init();
 
   final appState = AppState(); // Initialize AppState
   await Future.wait([
