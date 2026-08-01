@@ -1,3 +1,5 @@
+import 'package:skeletonizer/skeletonizer.dart';
+import '/repositories/api_requests/api_calls.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
 import '/widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
@@ -22,13 +24,24 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
   late BrowseTradePersonModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  static bool _hasLoadedTradePersonsOnce = false;
+
+  late Future<ApiCallResponse> _tradePersonListFuture;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => BrowseTradePersonModel());
+    _tradePersonListFuture = _fetchTradePersons();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+  Future<ApiCallResponse> _fetchTradePersons() async {
+    // Placeholder — real API call ready hote hi yahan replace karna hai.
+    await Future.delayed(const Duration(milliseconds: 800));
+    final response = ApiCallResponse(null, {}, 200);
+    _hasLoadedTradePersonsOnce = true;
+    return response;
   }
 
   @override
@@ -72,23 +85,48 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
                   AppConstants.parentPagePadding,
                   0.0,
                 )),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      wrapWithModel(
-                        model: _model.pageHeaderSectiomModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: const PageHeaderSectiomWidget(
-                          tag: 'DISCOVER EXCELLENCE',
-                          title: 'Expert Hands for\nProfessional\nResults',
-                          subtitle: 'default text',
-                          numberOfItems: 100,
-                          itemText: 'Vetted Pros',
+                child: FutureBuilder<ApiCallResponse>(
+                  future: _tradePersonListFuture,
+                  builder: (context, snapshot) {
+                    // Skeleton sirf pehli dafa dikhega (jab tak kabhi
+                    // successfully load nahi hua). Baad mein hamesha
+                    // silently refresh hoga, koi loader nahi dikhega.
+                    final isLoading = !_hasLoadedTradePersonsOnce &&
+                        snapshot.connectionState == ConnectionState.waiting;
+
+                    return RefreshIndicator(
+                      color: AppTheme.of(context).primary,
+                      onRefresh: () async {
+                        setState(() {
+                          _tradePersonListFuture = _fetchTradePersons();
+                        });
+                      },
+                      child: SingleChildScrollView(
+                        child: Skeletonizer(
+                          enabled: isLoading,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              wrapWithModel(
+                                model: _model.pageHeaderSectiomModel,
+                                updateCallback: () => safeSetState(() {}),
+                                child: const PageHeaderSectiomWidget(
+                                  tag: 'DISCOVER EXCELLENCE',
+                                  title: 'Expert Hands for\nProfessional\nResults',
+                                  subtitle: 'default text',
+                                  numberOfItems: 100,
+                                  itemText: 'Vetted Pros',
+                                ),
+                              ),
+                              _buildTradePersonSkeletonList(context),
+                            ].divide(
+                                const SizedBox(height: AppConstants.spacing)),
+                          ),
                         ),
                       ),
-                    ].divide(const SizedBox(height: AppConstants.spacing)),
-                  ),
+                    );
+                  },
                 ),
               ),
               Align(
@@ -110,6 +148,48 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTradePersonSkeletonList(BuildContext context) {
+    return ListView.separated(
+      padding: EdgeInsets.zero,
+      primary: false,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 5,
+      separatorBuilder: (_, __) =>
+      const SizedBox(height: AppConstants.childPadding),
+      itemBuilder: (context, index) => Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: AppTheme.of(context).alternate,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Placeholder tradeperson name'),
+                  SizedBox(height: 6),
+                  Text('Placeholder tradeperson subtitle'),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

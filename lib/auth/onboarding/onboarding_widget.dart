@@ -1,14 +1,11 @@
 import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/core/routes/index.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart' as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +33,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => OnboardingModel());
-
     WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
   }
 
@@ -44,7 +40,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
   void dispose() {
     _model.dispose();
     _provider.dispose();
-
     super.dispose();
   }
 
@@ -150,6 +145,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
+                                  color: Colors.grey.shade700,
                                   fontStyle: AppTheme.of(context)
                                       .labelLarge
                                       .fontStyle,
@@ -335,7 +331,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 alignment: const AlignmentDirectional(
                                                     -1.0, -1.0),
                                                 child: Text(
-                                                  'We test every professional\n before they join our app.\n Quality is guaranteed.',
+                                                  'Every professional is carefully verified\n before joining \n so you can hire with confidence.',
                                                   style: AppTheme.of(
                                                           context)
                                                       .bodyLarge
@@ -467,7 +463,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                               const AlignmentDirectional(
                                                                   -1.0, -1.0),
                                                           child: Text(
-                                                            'Precision Matching',
+                                                            'Smart Matching ',
                                                             style: AppTheme
                                                                     .of(context)
                                                                 .titleSmall
@@ -501,7 +497,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                               const AlignmentDirectional(
                                                                   -1.0, -1.0),
                                                           child: Text(
-                                                            'Our system instantly finds\n the best person for\n your work.',
+                                                            'We quickly match you with\n the right professional for\n your job.',
                                                             style: AppTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -580,7 +576,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       const AlignmentDirectional(
                                                           -1.0, -1.0),
                                                   child: Text(
-                                                    'TRUSTED ACTIONS',
+                                                    'Why Choose Us',
                                                     style: AppTheme.of(
                                                             context)
                                                         .labelSmall
@@ -642,7 +638,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
-                                                            'Hire With Confidence',
+                                                            'Hire Confidently',
                                                             style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
@@ -768,7 +764,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
-                                                            'Quality Work',
+                                                            'Quality Service',
                                                             style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
@@ -825,7 +821,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
-                                                            'Trusted Experts',
+                                                            'Skilled Experts',
                                                             style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
@@ -894,7 +890,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
-                                                            'Verified & Reliable',
+                                                            'Verified & Trusted',
                                                             style: AppTheme
                                                                     .of(context)
                                                                 .bodySmall
@@ -1037,7 +1033,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         ),
                                   ),
                                   Text(
-                                    'Enjoy a smooth, smart dashboard experience. Track live bids and monitor your project in real time.',
+                                    'Stay organized with a simple dashboard. Track bids and monitor your projects in real time.',
                                     textAlign: TextAlign.center,
                                     style: AppTheme.of(context)
                                         .bodyLarge
@@ -1538,7 +1534,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    '\"The platform handles the noise,\nallowing me to focus on the structure\nand design of my home.\"',
+                                                    '\"Everything was easy to manage,\nso I could focus on building my home.\"',
                                                     style: AppTheme.of(
                                                             context)
                                                         .bodySmall
@@ -1743,7 +1739,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                         .sm)),
                                                               ),
                                                               Text(
-                                                                '\"Found a great plumber in\nminutes. The verification\nbadge gave me peace of\nmind.\"',
+                                                                '\"I found a trusted plumber in \nminutes. The verification\n gave me confidence.\"',
                                                                 style: AppTheme.of(
                                                                         context)
                                                                     .bodyLarge
@@ -1883,7 +1879,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         ),
                                   ),
                                   Text(
-                                    'Every transaction is protected by\ninstitutional-grade encryption, ensuring\nyour professional integrity is never\ncompromised.',
+                                    'Every payment is protected with\nadvanced security, \nkeeping your information safe.',
                                     textAlign: TextAlign.center,
                                     style: AppTheme.of(context)
                                         .bodyLarge
@@ -1992,7 +1988,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       ),
                                             ),
                                             Text(
-                                              'Funds are kept secure and released only after milestone approval. Our system ensures safe, transparent payments for both clients and contractors.\nFunds are kept secure and released only after milestone approval. Our system ensures safe, transparent payments for both clients and contractors.',
+                                              'Payments stay secure and are released only after milestone approval,\nensuring safe and transparent transactions for everyone.',
                                               textAlign: TextAlign.start,
                                               style:
                                                   AppTheme.of(context)
@@ -2548,7 +2544,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         fillColor: AppTheme.of(context).primary,
                         icon: Icon(
                           Icons.arrow_forward,
-                          color: AppTheme.of(context).alternate,
+                          color: Colors.white,
                           size: 24.0,
                         ),
                         onPressed: () async {

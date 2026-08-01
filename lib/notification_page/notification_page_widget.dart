@@ -1,5 +1,4 @@
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -9,18 +8,14 @@ import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/notification_item_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/notification_page_provider.dart';
 import '/viewmodels/notification_page_model.dart';
 export '/viewmodels/notification_page_model.dart';
 
-/// create a notification page
 class NotificationPageWidget extends StatefulWidget {
   const NotificationPageWidget({super.key});
 
@@ -42,25 +37,34 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
     super.initState();
     _model = createModel(context, () => NotificationPageModel());
 
+    final bool alreadyLoaded = _provider.isAlreadyLoaded();
+    if (alreadyLoaded) {
+      _provider.restoreFromCache();
+    }
+
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _provider.setLoading(true); // loading start
+      if (!alreadyLoaded) {
+        _provider.setLoading(true);
 
-      _model.notifications = await SupabaseTablesGroup.getNotificationsCall.call(
-        userId: currentUserUid,
-      );
+        _model.notifications = await SupabaseTablesGroup.getNotificationsCall.call(
+          userId: currentUserUid,
+        );
 
-      if ((_model.notifications?.succeeded ?? true)) {
-        _provider.notificationsPageState = ((_model.notifications?.jsonBody ?? '')
-            .toList()
-            .map<NotificationsStruct?>(NotificationsStruct.maybeFromMap)
-            .toList() as Iterable<NotificationsStruct?>)
-            .withoutNulls
-            .toList()
-            .cast<NotificationsStruct>();
+        if ((_model.notifications?.succeeded ?? true)) {
+          final fetchedList = ((_model.notifications?.jsonBody ?? '')
+              .toList()
+              .map<NotificationsStruct?>(NotificationsStruct.maybeFromMap)
+              .toList() as Iterable<NotificationsStruct?>)
+              .withoutNulls
+              .toList()
+              .cast<NotificationsStruct>();
+
+          _provider.notificationsPageState = fetchedList;
+          _provider.saveToCache(fetchedList);
+        }
+        _provider.setLoading(false);
       }
-      _provider.setLoading(false);
     });
-
     WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
@@ -68,7 +72,6 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
   void dispose() {
     _model.dispose();
     _provider.dispose();
-
     super.dispose();
   }
 

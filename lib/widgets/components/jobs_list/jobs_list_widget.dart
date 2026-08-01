@@ -32,25 +32,6 @@ class JobsListWidget extends StatefulWidget {
 
 class _JobsListWidgetState extends State<JobsListWidget> {
   late JobsListModel _model;
-
-  // ---------------------------------------------------------------------
-  // CACHE FLAGS: `static` hone ki wajah se poori app session ke liye zinda
-  // rehte hain, widget dispose hone ke baad bhi. Ye widget dono jagah
-  // (BROWSE aur DASHBOARD view) reuse hota hai, isliye har view type ka
-  // apna alag flag hai.
-  //
-  // Pehle koi loading state hi nahi thi — jab tak API se data na aaye,
-  // `AppState().jobCache.jobs` khaali hota tha, aur khaali list ko turant
-  // "No jobs yet" wale empty widget se render kar diya jata tha. 5 second
-  // baad jab asal data aata tha to list replace ho jati thi — yehi
-  // "pehle empty widget, phir data" wala flash tha.
-  //
-  // Fix: jab tak is session mein is view-type ka data pehli dafa load na
-  // ho jaye, hum skeleton dikhate hain (empty widget nahi). Dobara visit
-  // par flag already true hoga aur `AppState().jobCache` mein purana data
-  // maujood hoga, is liye skeleton bhi nahi chalega — data foran (turant)
-  // show hoga.
-  // ---------------------------------------------------------------------
   static bool _hasLoadedBrowseOnce = false;
   static bool _hasLoadedDashboardOnce = false;
 
@@ -78,10 +59,6 @@ class _JobsListWidgetState extends State<JobsListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => JobsListModel());
-
-    // Agar is view-type ka data is session mein pehle hi load ho chuka hai
-    // (jobCache already populated), to skeleton bilkul nahi dikhana —
-    // seedha cached data dikhao aur background mein refresh hone do.
     _isLoading = !_hasLoadedOnce;
 
     // On component load action.
