@@ -1,17 +1,10 @@
 import 'dart:convert';
-import 'dart:typed_data';
-import '/models/structs/index.dart';
-
 import 'package:flutter/foundation.dart';
-
 import '/utils/util.dart';
 import '/repositories/api_requests/api_manager.dart';
-
 export '/repositories/api_requests/api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'privateApiCall';
-
-/// Start supabase edge functions Group Code
 
 class SupabaseEdgeFunctionsGroup {
   static String getBaseUrl() =>

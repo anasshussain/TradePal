@@ -61,17 +61,17 @@ class _AppIconButtonState extends State<AppIconButton> {
 
   void _updateIcon() {
     final isFontAwesome = widget.icon is FaIcon;
+    final isIcon = widget.icon is Icon;
+
     if (isFontAwesome) {
       FaIcon icon = widget.icon as FaIcon;
-      // FaIcon.icon unwraps back to a plain IconData, so rebuild the wrapper
-      // to keep Font Awesome's own sizing/alignment.
       effectiveIcon = FaIcon(
         icon.icon != null ? FaIconData(icon.icon!) : null,
         size: icon.size,
       );
       iconSize = icon.size;
       iconColor = icon.color;
-    } else {
+    } else if (isIcon) {
       Icon icon = widget.icon as Icon;
       effectiveIcon = Icon(
         icon.icon,
@@ -79,6 +79,10 @@ class _AppIconButtonState extends State<AppIconButton> {
       );
       iconSize = icon.size;
       iconColor = icon.color;
+    } else {
+      effectiveIcon = widget.icon;
+      iconSize = widget.buttonSize;
+      iconColor = null;
     }
   }
 

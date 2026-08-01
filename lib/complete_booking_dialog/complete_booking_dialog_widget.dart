@@ -1,11 +1,10 @@
+import '../dormant/add_stripe/add_stripe_widget.dart';
 import '/widgets/components/button4/button4_widget.dart';
 import '/widgets/components/trust_bullet3/trust_bullet3_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/complete_booking_dialog_provider.dart';
@@ -64,7 +63,7 @@ class _CompleteBookingDialogWidgetState
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: const Color(0x99FFFFFF),
+        // backgroundColor: const Color(0x99FFFFFF),
         body: Stack(
           alignment: const AlignmentDirectional(-1.0, -1.0),
           children: [
@@ -131,35 +130,21 @@ class _CompleteBookingDialogWidgetState
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Complete Booking First',
+                                        'Secure Your Booking',
                                         textAlign: TextAlign.center,
-                                        style: AppTheme.of(context)
-                                            .headlineSmall
-                                            .override(
-                                              font: GoogleFonts.manrope(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                              lineHeight: 1.3,
-                                            ),
+                                        style: AppTheme.of(context).headlineSmall.override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context).headlineSmall.fontWeight,
+                                            fontStyle: AppTheme.of(context).headlineSmall.fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context).headlineSmall.fontWeight,
+                                          fontStyle: AppTheme.of(context).headlineSmall.fontStyle,
+                                          lineHeight: 1.3,
+                                        ),
                                       ),
                                       Text(
-                                        'To share contact details and continue fully, complete the booking first.',
+                                        'Complete your payment to confirm this booking and unlock full access to contact details, photos, and chat.',
                                         textAlign: TextAlign.center,
                                         style: AppTheme.of(context)
                                             .bodyMedium
@@ -278,7 +263,7 @@ class _CompleteBookingDialogWidgetState
                                   wrapWithModel(
                                     model: _model.buttonModel1,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: const Button4Widget(
+                                    child: Button4Widget(
                                       content: 'Continue Booking',
                                       iconPresent: false,
                                       iconEndPresent: false,
@@ -287,13 +272,31 @@ class _CompleteBookingDialogWidgetState
                                       fullWidth: true,
                                       loading: false,
                                       disabled: false,
+                                      onPressed: () async {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: MediaQuery.viewInsetsOf(context),
+                                              child: const AddStripeWidget(
+                                                title: 'Complete Your Payment',
+                                                subtitle:
+                                                'Add your payment details to confirm and secure this booking.',
+                                                buttonLabel: 'Confirm & Pay',
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
                                     ),
                                   ),
                                   wrapWithModel(
                                     model: _model.buttonModel2,
                                     updateCallback: () => _provider.update(() {}),
-                                    child: const Button4Widget(
-                                      content: 'Okay',
+                                    child: Button4Widget(
+                                      content: 'Cancel',
                                       iconPresent: false,
                                       iconEndPresent: false,
                                       variant: 'ghost',
@@ -301,6 +304,9 @@ class _CompleteBookingDialogWidgetState
                                       fullWidth: true,
                                       loading: false,
                                       disabled: false,
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                      },
                                     ),
                                   ),
                                 ].divide(const SizedBox(height: 8.0)),
@@ -313,7 +319,7 @@ class _CompleteBookingDialogWidgetState
                   ),
                 ),
               ),
-            ),
+            ),//
           ],
         ),
       ),

@@ -36,6 +36,10 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  // Bumped on pull-to-refresh so only JobsListWidget remounts and
+  // refetches its own data — header, filters, and button are untouched.
+  int _jobsListRefreshKey = 0;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +49,13 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
       _provider.update(() {
         BrowseJobsProvider.isLoading = false;
       });
+    });
+  }
+
+  // Refreshes only the jobs list — nothing else on the page reloads.
+  Future<void> _refreshJobsList() async {
+    setState(() {
+      _jobsListRefreshKey++;
     });
   }
 
@@ -86,9 +97,14 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
             child: AppbarComponentWidget(
               title: 'Home',
               showAction: true,
-              actionIcon: Icon(
-                Icons.notifications_rounded,
-                color: AppTheme.of(context).secondary,
+              actionIcon: SvgPicture.asset(
+                'assets/images/bell.svg',
+                width: 21.5,
+                height: 21.5,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF1B7FA3),
+                  BlendMode.srcIn,
+                ),
               ),
               action: () async {
                 context.pushNamed(NotificationPageWidget.routeName);
@@ -126,7 +142,6 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                               AppState().jobCache.jobs.length,
                               0,
                             ),
-                            itemText: 'Jobs nearby',
                           ),
                         ),
                       ),
@@ -285,7 +300,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                               0.0, 0.0, 0.0, 0.0),
                                       color: AppTheme.of(context).primary,
                                       textStyle: AppTheme.of(context)
-                                          .titleSmall
+                                          .bodyMedium
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: AppTheme.of(context)
@@ -307,27 +322,35 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                       elevation: 0.0,
                                       borderRadius: BorderRadius.circular(
                                           AppTheme.of(context)
-                                              .designToken
-                                              .radius
-                                              .lg),
+                                              .titleSmall
+                                              .fontStyle,
+                                        ),
+                                        elevation: 0.0,
+                                        borderRadius: BorderRadius.circular(
+                                            AppTheme.of(context)
+                                                .designToken
+                                                .radius
+                                                .lg),
+                                      ),
                                     ),
-                                  ),
-                                ].divide(const SizedBox(
-                                    height: AppConstants.childSpacing)),
+                                  ].divide(const SizedBox(
+                                      height: AppConstants.childSpacing)),
+                                ),
                               ),
                             ),
                           ),
+                        wrapWithModel(
+                          model: _model.jobsListModel,
+                          updateCallback: () => _provider.update(() {}),
+                          child: JobsListWidget(
+                            key: ValueKey(_jobsListRefreshKey),
+                            jobViewType: JobsViewType.BROWSE,
+                          ),
                         ),
-                      wrapWithModel(
-                        model: _model.jobsListModel,
-                        updateCallback: () => _provider.update(() {}),
-                        child: const JobsListWidget(
-                          jobViewType: JobsViewType.BROWSE,
-                        ),
-                      ),
-                    ]
-                        .divide(const SizedBox(height: AppConstants.spacing))
-                        .addToEnd(const SizedBox(height: 50.0)),
+                      ]
+                          .divide(const SizedBox(height: AppConstants.spacing))
+                          .addToEnd(const SizedBox(height: 50.0)),
+                    ),
                   ),
                 ),
               ),

@@ -9,6 +9,7 @@ class JobDetailsProvider extends ChangeNotifier {
   static final Map<String, bool?> _cachedIsProposalSubmitted = {};
   static final Map<String, bool?> _cachedIsPaymentPaid = {};
   static final Map<String, UserStruct?> _cachedUser = {};
+  static final Map<String, String?> _cachedSubmittedProposalStatus = {};
 
   bool loading = true;
 
@@ -16,16 +17,23 @@ class JobDetailsProvider extends ChangeNotifier {
   void updateFetchedJobStruct(Function(JobDataStruct) updateFn) {
     updateFn(fetchedJob ??= JobDataStruct());
   }
+
   bool? isProposalSubmitted;
+  String? submittedProposalStatus;
 
   List<ProposalListStruct> proposalsList = [];
+
   void addToProposalsList(ProposalListStruct item) => proposalsList.add(item);
+
   void removeFromProposalsList(ProposalListStruct item) =>
       proposalsList.remove(item);
+
   void removeAtIndexFromProposalsList(int index) =>
       proposalsList.removeAt(index);
+
   void insertAtIndexInProposalsList(int index, ProposalListStruct item) =>
       proposalsList.insert(index, item);
+
   void updateProposalsListAtIndex(
       int index, Function(ProposalListStruct) updateFn) =>
       proposalsList[index] = updateFn(proposalsList[index]);
@@ -33,6 +41,7 @@ class JobDetailsProvider extends ChangeNotifier {
   bool? isPaymentPaid;
 
   UserStruct? user;
+
   void updateUserStruct(Function(UserStruct) updateFn) {
     updateFn(user ??= UserStruct());
   }
@@ -63,6 +72,7 @@ class JobDetailsProvider extends ChangeNotifier {
     isProposalSubmitted = _cachedIsProposalSubmitted[jobId];
     isPaymentPaid = _cachedIsPaymentPaid[jobId];
     user = _cachedUser[jobId];
+    submittedProposalStatus = _cachedSubmittedProposalStatus[jobId];
     loading = false;
   }
 
@@ -73,6 +83,7 @@ class JobDetailsProvider extends ChangeNotifier {
     _cachedIsProposalSubmitted[jobId] = isProposalSubmitted;
     _cachedIsPaymentPaid[jobId] = isPaymentPaid;
     _cachedUser[jobId] = user;
+    _cachedSubmittedProposalStatus[jobId] = submittedProposalStatus;
     markLoaded(jobId);
   }
 

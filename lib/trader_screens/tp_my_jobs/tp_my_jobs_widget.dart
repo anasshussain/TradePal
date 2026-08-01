@@ -79,6 +79,37 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
     return response;
   }
 
+  // ------- Per-tab refresh handlers (only refetch that tab's list) -------
+  Future<void> _refreshRequested() async {
+    final future = _fetchSubmittedJobs(Status.ACTIVE.name, (r) {
+      _cachedRequested = r;
+    });
+    setState(() {
+      _requestedJobsFuture = future;
+    });
+    await future;
+  }
+
+  Future<void> _refreshInProgress() async {
+    final future = _fetchSubmittedJobs(Status.IN_PROGRESS.name, (r) {
+      _cachedInProgress = r;
+    });
+    setState(() {
+      _inProgressJobsFuture = future;
+    });
+    await future;
+  }
+
+  Future<void> _refreshCompleted() async {
+    final future = _fetchSubmittedJobs(Status.COMPLETED.name, (r) {
+      _cachedCompleted = r;
+    });
+    setState(() {
+      _completedJobsFuture = future;
+    });
+    await future;
+  }
+
   @override
   void dispose() {
     _model.dispose();
@@ -124,130 +155,179 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
         ),
         body: SafeArea(
           top: true,
-          child: Stack(
+          child: Builder(
+            builder: (context) {
+              final activeIndex = _model.tabBarController!.index;
+              final activeFuture = [
+                _requestedJobsFuture,
+                _inProgressJobsFuture,
+                _completedJobsFuture,
+              ][activeIndex];
+              final activeCached = [
+                _cachedRequested,
+                _cachedInProgress,
+                _cachedCompleted,
+              ][activeIndex];
+
+              return FutureBuilder<ApiCallResponse>(
+                future: activeFuture,
+                initialData: activeCached,
+                builder: (context, activeSnapshot) {
+                  final isPageLoading = activeCached == null &&
+                      activeSnapshot.connectionState ==
+                          ConnectionState.waiting;
+
+                  return Skeletonizer(
+                    enabled: isPageLoading,
+                    child: _buildTabsStack(context),
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabsStack(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: const AlignmentDirectional(0.0, 0.0),
+          child: Column(
             children: [
+              // ===== FIXED TAB BAR (does not scroll) =====
               Align(
-                alignment: const AlignmentDirectional(0.0, 0.0),
-                child: Column(
+                alignment: const Alignment(0.0, 0),
+                child: TabBar(
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.center,
+                  labelColor: AppTheme.of(context).primary,
+                  unselectedLabelColor:
+                  AppTheme.of(context).secondaryText.withOpacity(0.5),
+                  labelStyle: AppTheme.of(context).titleMedium.override(
+                    font: GoogleFonts.manrope(
+                      fontWeight: FontWeight.w700,
+                      fontStyle:
+                      AppTheme.of(context).titleMedium.fontStyle,
+                    ),
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.w700,
+                    fontStyle:
+                    AppTheme.of(context).titleMedium.fontStyle,
+                  ),
+                  unselectedLabelStyle:
+                  AppTheme.of(context).titleMedium.override(
+                    font: GoogleFonts.manrope(
+                      fontWeight: FontWeight.w500,
+                      fontStyle: AppTheme.of(context)
+                          .titleMedium
+                          .fontStyle,
+                    ),
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500,
+                    fontStyle:
+                    AppTheme.of(context).titleMedium.fontStyle,
+                  ),
+                  indicatorColor: AppTheme.of(context).primary,
+                  indicatorWeight: 3.0,
+                  padding: const EdgeInsets.all(6.0),
+                  tabs: const [
+                    Tab(text: 'Requested'),
+                    Tab(text: 'in-Progress'),
+                    Tab(text: 'Completed'),
+                  ],
+                  controller: _model.tabBarController,
+                  onTap: (i) async {
+                    [() async {}, () async {}, () async {}][i]();
+                  },
+                ),
+              ),
+              // ===== SCROLLABLE TAB CONTENT (starts below the tab bar) =====
+              // Each tab now has its own RefreshIndicator so pull-to-refresh
+              // only reloads that tab's list, not the whole page.
+              Expanded(
+                child: TabBarView(
+                  controller: _model.tabBarController,
                   children: [
-                    Align(
-                      alignment: const Alignment(0.0, 0),
-                      child: TabBar(
-                        isScrollable: true,
-                        tabAlignment: TabAlignment.center,
-                        labelColor: AppTheme.of(context).primary,
-                        unselectedLabelColor:
-                        AppTheme.of(context).secondaryText.withOpacity(0.5),
-                        labelStyle: AppTheme.of(context).titleMedium.override(
-                          font: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w700,
-                            fontStyle:
-                            AppTheme.of(context).titleMedium.fontStyle,
-                          ),
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w700,
-                          fontStyle:
-                          AppTheme.of(context).titleMedium.fontStyle,
+                    // ------------------- REQUESTED TAB -------------------
+                    Padding(
+                      padding: EdgeInsets.all(valueOrDefault<double>(
+                        AppConstants.parentPagePadding,
+                        0.0,
+                      )),
+                      child: RefreshIndicator(
+                        color: AppTheme.of(context).primary,
+                        onRefresh: _refreshRequested,
+                        child: _buildJobsTab(
+                          future: _requestedJobsFuture,
+                          cached: _cachedRequested,
+                          title: 'REQUESTED',
+                          keyPrefix: 'Keyngq',
                         ),
-                        unselectedLabelStyle:
-                        AppTheme.of(context).titleMedium.override(
-                          font: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w500,
-                            fontStyle: AppTheme.of(context)
-                                .titleMedium
-                                .fontStyle,
-                          ),
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                          fontStyle:
-                          AppTheme.of(context).titleMedium.fontStyle,
-                        ),
-                        indicatorColor: AppTheme.of(context).primary,
-                        indicatorWeight: 3.0,
-                        padding: const EdgeInsets.all(6.0),
-                        tabs: const [
-                          Tab(text: 'Requested'),
-                          Tab(text: 'in-Progress'),
-                          Tab(text: 'Completed'),
-                        ],
-                        controller: _model.tabBarController,
-                        onTap: (i) async {
-                          [() async {}, () async {}, () async {}][i]();
-                        },
                       ),
                     ),
-                    Expanded(
-                      child: TabBarView(
-                        controller: _model.tabBarController,
-                        children: [
-                          // ------------------- REQUESTED TAB -------------------
-                          Padding(
-                            padding: EdgeInsets.all(valueOrDefault<double>(
-                              AppConstants.parentPagePadding,
-                              0.0,
-                            )),
-                            child: _buildJobsTab(
-                              future: _requestedJobsFuture,
-                              cached: _cachedRequested,
-                              title: 'REQUESTED',
-                              keyPrefix: 'Keyngq',
-                            ),
-                          ),
-                          // ------------------- IN-PROGRESS TAB -------------------
-                          Padding(
-                            padding: EdgeInsets.all(valueOrDefault<double>(
-                              AppConstants.parentPagePadding,
-                              0.0,
-                            )),
-                            child: _buildJobsTab(
-                              future: _inProgressJobsFuture,
-                              cached: _cachedInProgress,
-                              title: 'IN PROGRESS',
-                              keyPrefix: 'Keysee',
-                            ),
-                          ),
-                          // ------------------- COMPLETED TAB -------------------
-                          Padding(
-                            padding: EdgeInsets.all(valueOrDefault<double>(
-                              AppConstants.parentPagePadding,
-                              0.0,
-                            )),
-                            child: _buildJobsTab(
-                              future: _completedJobsFuture,
-                              cached: _cachedCompleted,
-                              title: 'COMPLETED',
-                              keyPrefix: 'Key707',
-                            ),
-                          ),
-                        ],
+                    // ------------------- IN-PROGRESS TAB -------------------
+                    Padding(
+                      padding: EdgeInsets.all(valueOrDefault<double>(
+                        AppConstants.parentPagePadding,
+                        0.0,
+                      )),
+                      child: RefreshIndicator(
+                        color: AppTheme.of(context).primary,
+                        onRefresh: _refreshInProgress,
+                        child: _buildJobsTab(
+                          future: _inProgressJobsFuture,
+                          cached: _cachedInProgress,
+                          title: 'IN PROGRESS',
+                          keyPrefix: 'Keysee',
+                        ),
+                      ),
+                    ),
+                    // ------------------- COMPLETED TAB -------------------
+                    Padding(
+                      padding: EdgeInsets.all(valueOrDefault<double>(
+                        AppConstants.parentPagePadding,
+                        0.0,
+                      )),
+                      child: RefreshIndicator(
+                        color: AppTheme.of(context).primary,
+                        onRefresh: _refreshCompleted,
+                        child: _buildJobsTab(
+                          future: _completedJobsFuture,
+                          cached: _cachedCompleted,
+                          title: 'COMPLETED',
+                          keyPrefix: 'Key707',
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.tpNavbarModel,
-                  updateCallback: () => _provider.update(() {}),
-                  child: const Hero(
-                    tag: 'traderNavbar',
-                    transitionOnUserGestures: true,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: TpNavbarWidget(
-                        selectedIndex: 1,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
-      ),
+        Align(
+          alignment: const AlignmentDirectional(0.0, 1.0),
+          child: wrapWithModel(
+            model: _model.tpNavbarModel,
+            updateCallback: () => _provider.update(() {}),
+            child: const Hero(
+              tag: 'traderNavbar',
+              transitionOnUserGestures: true,
+              child: Material(
+                color: Colors.transparent,
+                child: TpNavbarWidget(
+                  selectedIndex: 1,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -264,8 +344,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
         final hasAnyData = snapshot.hasData;
         final isFirstEverLoad = cached == null &&
             snapshot.connectionState == ConnectionState.waiting;
-
-        // Sirf tab skeleton dikhao jab bilkul koi purana data na ho.
         if (isFirstEverLoad) {
           return Skeletonizer(
             enabled: true,
@@ -273,14 +351,19 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           );
         }
         if (!hasAnyData) {
-          return EmptyListComponentWidget(
-            icon: Icon(
-              Icons.error_outline,
-              color: AppTheme.of(context).tertiary,
-              size: 40.0,
+          // Wrapped in a scrollable so RefreshIndicator can still be
+          // pulled even when there's no list to show yet.
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: EmptyListComponentWidget(
+              icon: Icon(
+                Icons.error_outline,
+                color: AppTheme.of(context).tertiary,
+                size: 40.0,
+              ),
+              title: title,
+              description: 'Jobs load nahi ho sake, dobara try karein',
             ),
-            title: title,
-            description: 'Jobs load nahi ho sake, dobara try karein',
           );
         }
 
@@ -300,14 +383,19 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             [];
 
         if (jobs.isEmpty) {
-          return EmptyListComponentWidget(
-            icon: Icon(
-              Icons.work_history_sharp,
-              color: AppTheme.of(context).tertiary,
-              size: 40.0,
+          // Wrapped in a scrollable so RefreshIndicator can still be
+          // pulled even when the list is empty.
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: EmptyListComponentWidget(
+              icon: Icon(
+                Icons.work_history_sharp,
+                color: AppTheme.of(context).tertiary,
+                size: 40.0,
+              ),
+              title: title,
+              description: 'JOBS NOT FOUND',
             ),
-            title: title,
-            description: 'JOBS NOT FOUND',
           );
         }
 
@@ -315,6 +403,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 100.0),
           primary: false,
           shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemCount: jobs.length,
           separatorBuilder: (_, __) =>
