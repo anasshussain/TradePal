@@ -40,14 +40,12 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   static bool _hasLoadedJobsOnce = false;
-
   late Future<ApiCallResponse> _jobsListFuture;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => CustomerDashboardModel());
-
     _jobsListFuture = _fetchJobs();
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {});

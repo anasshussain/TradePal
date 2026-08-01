@@ -36,6 +36,14 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
   final TraderProfileProvider _provider = TraderProfileProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String _resolveAvatarUrl() {
+    final cached = AppState().userProfileCache.avatarUrl;
+    if (cached.trim().isNotEmpty) {
+      return cached;
+    }
+    return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -50,7 +58,6 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
   void dispose() {
     _model.dispose();
     _provider.dispose();
-
     super.dispose();
   }
 
@@ -126,15 +133,10 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     .secondaryBackground,
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: Image.network(
-                                    AppState().userProfileCache.avatarUrl,
-                                  ).image,
+                                  image: NetworkImage(_resolveAvatarUrl()),
+                                  onError: (exception, stackTrace) {},
                                 ),
-                                borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .md),
+                                borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
                                   color: Colors.white,
                                   width: 2.0,
@@ -206,332 +208,324 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0,
-                            0.0,
-                            0.0,
-                            AppTheme.of(context)
-                                .designToken
-                                .spacing
-                                .md),
+                          20.0,
+                          0.0,
+                          20.0,
+                          AppTheme.of(context).designToken.spacing.md,
+                        ),
                         child: AppButton(
                           onPressed: () async {
-                            context
-                                .pushNamed(EditTraderProfileWidget.routeName);
+                            context.pushNamed(EditTraderProfileWidget.routeName);
                           },
-                          text: 'Edit Profile',
-                          icon: const Icon(
-                            Icons.edit_rounded,
-                            size: 26.0,
-                          ),
+                          text: 'Edit profile',
                           options: AppButtonOptions(
-                            width: 300.0,
-                            height: 50.0,
+                            width: 150,
+                            height: 37.0,
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: Colors.transparent,
-                            textStyle: AppTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                                  color: AppTheme.of(context).primary,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
-                            elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: AppTheme.of(context).primary,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
-                      Material(
-                        color: Colors.transparent,
-                        elevation: 0.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              AppTheme.of(context)
-                                  .designToken
-                                  .radius
-                                  .lg),
-                        ),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: AppTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(
-                                AppTheme.of(context)
-                                    .designToken
-                                    .radius
-                                    .lg),
-                            border: Border.all(
-                              color: AppTheme.of(context).alternate,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(valueOrDefault<double>(
-                              AppConstants.childPadding,
+                              16.0,
                               0.0,
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Personal Details',
-                                  style: AppTheme.of(context)
-                                      .titleMedium
-                                      .override(
-                                        font: GoogleFonts.manrope(
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .titleMedium
-                                                  .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: AppTheme.of(context)
-                                            .titleMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'FULL NAME',
-                                      style: AppTheme.of(context)
-                                          .labelSmall
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .labelSmall
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .labelSmall
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                    Text(
-                                      valueOrDefault<String>(
-                                        AppState().userProfileCache.name,
-                                        'name',
-                                      ),
-                                      style: AppTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            font: GoogleFonts.manrope(
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                                if (AppState().userProfileCache.profession !=
-                                        null &&
-                                    AppState().userProfileCache.profession !=
-                                        '')
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'REGISTRATION NUMBER',
-                                        style: AppTheme.of(context)
-                                            .labelSmall
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelSmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .labelSmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                      Text(
-                                        valueOrDefault<String>(
-                                          AppState()
-                                              .userProfileCache
-                                              .registrationNumber,
-                                          'reg no',
-                                        ),
-                                        style: AppTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              font: GoogleFonts.manrope(
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyLarge
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                if (AppState().userProfileCache.serviceArea !=
-                                        null &&
-                                    AppState().userProfileCache.serviceArea !=
-                                        '')
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'SERVICE AREA',
-                                        style: AppTheme.of(context)
-                                            .labelSmall
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelSmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .labelSmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                      Text(
-                                        valueOrDefault<String>(
-                                          AppState()
-                                              .userProfileCache
-                                              .serviceArea,
-                                          'service area',
-                                        ),
-                                        style: AppTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              font: GoogleFonts.manrope(
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyLarge
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                if (AppState().userProfileCache.phone !=
-                                        null &&
-                                    AppState().userProfileCache.phone != '')
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'PHONE',
-                                        style: AppTheme.of(context)
-                                            .labelSmall
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelSmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .labelSmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                      Text(
-                                        valueOrDefault<String>(
-                                          AppState().userProfileCache.phone,
-                                          'Phone',
-                                        ),
-                                        style: AppTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              font: GoogleFonts.manrope(
-                                                fontWeight: FontWeight.w500,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyLarge
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                              ].divide(const SizedBox(
-                                  height: AppConstants.childSpacing)),
+                              16.0,
+                              0.0,
                             ),
+                            iconPadding: EdgeInsets.zero,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white.withOpacity(0.08)
+                                : Colors.black.withOpacity(0.06),
+
+                            textStyle: AppTheme.of(context).titleSmall.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.w400,
+                              ),
+                              color: AppTheme.of(context).primaryText,
+                              fontSize: 14,
+                              letterSpacing: 0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            elevation: 0,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white.withOpacity(0.05)
+                                  : Colors.black.withOpacity(0.04),
+                              width: 1,
+                            ),
+
+                            borderRadius: BorderRadius.circular(8.6),
                           ),
                         ),
                       ),
+                      /// COMMENT DO NOT REMOVE "MAAZ".
+                      // Material(
+                      //   color: Colors.transparent,
+                      //   elevation: 0.0,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(
+                      //         AppTheme.of(context)
+                      //             .designToken
+                      //             .radius
+                      //             .lg),
+                      //   ),
+                      //   child: Container(
+                      //     width: double.infinity,
+                      //     decoration: BoxDecoration(
+                      //       color: AppTheme.of(context)
+                      //           .secondaryBackground,
+                      //       borderRadius: BorderRadius.circular(
+                      //           AppTheme.of(context)
+                      //               .designToken
+                      //               .radius
+                      //               .lg),
+                      //       border: Border.all(
+                      //         color: AppTheme.of(context).alternate,
+                      //       ),
+                      //     ),
+                      //     child: Padding(
+                      //       padding: EdgeInsets.all(valueOrDefault<double>(
+                      //         AppConstants.childPadding,
+                      //         0.0,
+                      //       )),
+                      //       child: Column(
+                      //         mainAxisSize: MainAxisSize.max,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             'Personal Details',
+                      //             style: AppTheme.of(context)
+                      //                 .titleMedium
+                      //                 .override(
+                      //                   font: GoogleFonts.manrope(
+                      //                     fontWeight: FontWeight.bold,
+                      //                     fontStyle:
+                      //                         AppTheme.of(context)
+                      //                             .titleMedium
+                      //                             .fontStyle,
+                      //                   ),
+                      //                   letterSpacing: 0.0,
+                      //                   fontWeight: FontWeight.bold,
+                      //                   fontStyle: AppTheme.of(context)
+                      //                       .titleMedium
+                      //                       .fontStyle,
+                      //                 ),
+                      //           ),
+                      //           Column(
+                      //             mainAxisSize: MainAxisSize.max,
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 'FULL NAME',
+                      //                 style: AppTheme.of(context)
+                      //                     .labelSmall
+                      //                     .override(
+                      //                       font: GoogleFonts.inter(
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.bold,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .labelSmall
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //               Text(
+                      //                 valueOrDefault<String>(
+                      //                   AppState().userProfileCache.name,
+                      //                   'name',
+                      //                 ),
+                      //                 style: AppTheme.of(context)
+                      //                     .bodyLarge
+                      //                     .override(
+                      //                       font: GoogleFonts.manrope(
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.w500,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .bodyLarge
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //           if (AppState().userProfileCache.profession !=
+                      //                   null &&
+                      //               AppState().userProfileCache.profession !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'REGISTRATION NUMBER',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .registrationNumber,
+                      //                     'reg no',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.serviceArea !=
+                      //                   null &&
+                      //               AppState().userProfileCache.serviceArea !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'SERVICE AREA',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .serviceArea,
+                      //                     'service area',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.phone !=
+                      //                   null &&
+                      //               AppState().userProfileCache.phone != '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'PHONE',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState().userProfileCache.phone,
+                      //                     'Phone',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //         ].divide(const SizedBox(
+                      //             height: AppConstants.childSpacing)),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       if (responsiveVisibility(
                         context: context,
                         phone: false,

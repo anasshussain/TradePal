@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 class NotificationPageProvider extends ChangeNotifier {
   bool isLoading = true;
 
+  static bool _isLoaded = false;
+  static List<NotificationsStruct> _cachedNotifications = [];
+
   List<NotificationsStruct> notificationsPageState = [];
   void addToNotificationsPageState(NotificationsStruct item) =>
       notificationsPageState.add(item);
@@ -14,15 +17,27 @@ class NotificationPageProvider extends ChangeNotifier {
   void removeAtIndexFromNotificationsPageState(int index) =>
       notificationsPageState.removeAt(index);
   void insertAtIndexInNotificationsPageState(
-          int index, NotificationsStruct item) =>
+      int index, NotificationsStruct item) =>
       notificationsPageState.insert(index, item);
   void updateNotificationsPageStateAtIndex(
-          int index, Function(NotificationsStruct) updateFn) =>
+      int index, Function(NotificationsStruct) updateFn) =>
       notificationsPageState[index] = updateFn(notificationsPageState[index]);
 
   void setLoading(bool value) {
     isLoading = value;
     notify();
+  }
+
+  bool isAlreadyLoaded() => _isLoaded;
+
+  void restoreFromCache() {
+    notificationsPageState = _cachedNotifications;
+    isLoading = false;
+  }
+
+  void saveToCache(List<NotificationsStruct> data) {
+    _cachedNotifications = data;
+    _isLoaded = true;
   }
 
   bool _disposed = false;

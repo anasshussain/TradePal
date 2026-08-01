@@ -23,12 +23,8 @@ void main() async {
 
   await initFirebase();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  // await NotificationService.instance.init();
+  await NotificationService.instance.init();
 
-  // These three are mutually independent: Supabase reads its own hardcoded
-  // credentials, and the other two only wrap SharedPreferences.getInstance().
-  // Overlapping them removes the serialized round-trips from cold start; they
-  // still run after the Firebase chain, so ordering against it is unchanged.
   final appState = AppState(); // Initialize AppState
   await Future.wait([
     SupaFlow.initialize(),
