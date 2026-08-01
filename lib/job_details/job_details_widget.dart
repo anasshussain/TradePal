@@ -162,6 +162,20 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
               _provider.saveToCache(widget!.jobId); // ADDED
               _provider.notify();
             }
+            _provider.submittedProposalStatus = ((_model.getSubmittedJobData?.jsonBody ?? '')
+                .toList()
+                .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
+                .toList() as Iterable<SubmittedProposalStruct?>)
+                .withoutNulls
+                ?.firstOrNull
+                ?.status;
+            _provider.isProposalSubmitted = true;
+            _provider.loading = false;
+            _provider.notify();
+          } else {
+            _provider.isProposalSubmitted = false;
+            _provider.loading = false;
+            _provider.notify();
           }
         } else {
           await actions.showToast(
@@ -171,6 +185,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
           );
         }
       }
+      _provider.saveToCache(widget!.jobId);
     });
 
     _model.quoteTextFieldTextController ??= TextEditingController();
@@ -1600,33 +1615,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            if (((AppState()
-                                                            .userProfileCache
-                                                            .userRole ==
-                                                        2) &&
-                                                    ((_provider.isProposalSubmitted ==
-                                                            true) &&
-                                                        (((_model.getSubmittedJobData
-                                                                                ?.jsonBody ??
-                                                                            '')
-                                                                        .toList()
-                                                                        .map<SubmittedProposalStruct?>(
-                                                                            SubmittedProposalStruct
-                                                                                .maybeFromMap)
-                                                                        .toList()
-                                                                    as Iterable<
-                                                                        SubmittedProposalStruct?>)
-                                                                .withoutNulls
-                                                                ?.firstOrNull
-                                                                ?.status ==
-                                                            Status.ACCEPTED
-                                                                .name)) &&
-                                                    (widget!.jobView !=
-                                                        JobDetailsView.chat) &&
-                                                    (_provider.isPaymentPaid ==
-                                                        true)) ||
-                                                (AppState().paidJobId ==
-                                                    widget!.jobId))
+                                            if (((AppState().userProfileCache.userRole == 2) &&
+                                                ((_provider.isProposalSubmitted == true) &&
+                                                    (_provider.submittedProposalStatus == Status.ACCEPTED.name)) &&
+                                                (widget!.jobView != JobDetailsView.chat) &&
+                                                (_provider.isPaymentPaid == true)) ||
+                                                (AppState().paidJobId == widget!.jobId))
                                               Align(
                                                 alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
@@ -1864,34 +1858,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                   'Button pressed ...');
                                                             },
                                                   text: valueOrDefault<String>(
-                                                    () {
-                                                      if ((_provider.isProposalSubmitted ==
-                                                              true) &&
-                                                          (((_model.getSubmittedJobData?.jsonBody ?? '')
-                                                                          .toList()
-                                                                          .map<SubmittedProposalStruct?>(SubmittedProposalStruct
-                                                                              .maybeFromMap)
-                                                                          .toList()
-                                                                      as Iterable<
-                                                                          SubmittedProposalStruct?>)
-                                                                  .withoutNulls
-                                                                  ?.firstOrNull
-                                                                  ?.status ==
-                                                              Status.ACCEPTED
-                                                                  .name)) {
+                                                        () {
+                                                      if ((_provider.isProposalSubmitted == true) &&
+                                                          (_provider.submittedProposalStatus == Status.ACCEPTED.name)) {
                                                         return 'Accepted';
-                                                      } else if ((_provider
-                                                                  .isProposalSubmitted ==
-                                                              true) &&
-                                                          (((_model.getSubmittedJobData?.jsonBody ??
-                                                                          '')
-                                                                      .toList()
-                                                                      .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
-                                                                      .toList() as Iterable<SubmittedProposalStruct?>)
-                                                                  .withoutNulls
-                                                                  ?.firstOrNull
-                                                                  ?.status ==
-                                                              Status.REJECTED.name)) {
+                                                      } else if ((_provider.isProposalSubmitted == true) &&
+                                                          (_provider.submittedProposalStatus == Status.REJECTED.name)) {
                                                         return 'Rejected';
                                                       } else {
                                                         return 'Already Proposed';
@@ -1963,22 +1935,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            if ((_provider.isProposalSubmitted ==
-                                                    true) &&
-                                                (((_model.getSubmittedJobData
-                                                                        ?.jsonBody ??
-                                                                    '')
-                                                                .toList()
-                                                                .map<SubmittedProposalStruct?>(
-                                                                    SubmittedProposalStruct
-                                                                        .maybeFromMap)
-                                                                .toList()
-                                                            as Iterable<
-                                                                SubmittedProposalStruct?>)
-                                                        .withoutNulls
-                                                        ?.firstOrNull
-                                                        ?.status ==
-                                                    Status.ACCEPTED.name))
+                                            if ((_provider.isProposalSubmitted == true) &&
+                                                (_provider.submittedProposalStatus == Status.ACCEPTED.name))
                                               Align(
                                                 alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
