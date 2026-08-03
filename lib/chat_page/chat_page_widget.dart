@@ -1,3 +1,5 @@
+import 'package:my_trade_pal/auth/supabase_auth/helper.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -72,6 +74,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
   @override
   void initState() {
     super.initState();
+    debugPrint('DEBUG jobid: ${widget.jobid}');
     _model = createModel(context, () => ChatPageModel());
 
     // On page load action.
@@ -421,7 +424,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       TextSpan(
                                                         text: valueOrDefault<
                                                             String>(
-                                                          _provider.jobData?.title,
+                                                          _provider
+                                                              .jobData?.title,
                                                           '....',
                                                         ),
                                                         style:
@@ -484,8 +488,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                               ),
                                             ].divide(const SizedBox(
-                                                width: AppConstants
-                                                    .childSpacing)),
+                                                width:
+                                                    AppConstants.childSpacing)),
                                           ),
                                         ),
                                         Text(
@@ -511,8 +515,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                         ),
                                       ]
                                           .divide(const SizedBox(
-                                              width:
-                                                  AppConstants.childSpacing))
+                                              width: AppConstants.childSpacing))
                                           .around(const SizedBox(
                                               width:
                                                   AppConstants.childSpacing)),
@@ -600,7 +603,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     ?.firstOrNull;
                                                 _provider.notify();
                                               }
-                                            } else if (_provider.jobData?.status ==
+                                            } else if (_provider
+                                                    .jobData?.status ==
                                                 Status.ACTIVE) {
                                               _model.jobAssignedRes =
                                                   await SupabaseTablesGroup
@@ -686,11 +690,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           options: AppButtonOptions(
                                             width: 300.0,
                                             height: 50.0,
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 0.0, 16.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(16.0, 0.0, 16.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional
+                                                    .fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: _provider.jobData?.status ==
                                                     Status.IN_PROGRESS
@@ -841,9 +845,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
                                           itemCount: messages.length,
-                                          separatorBuilder: (_, __) => const SizedBox(
-                                              height:
-                                                  AppConstants.childPadding),
+                                          separatorBuilder: (_, __) =>
+                                              const SizedBox(
+                                                  height: AppConstants
+                                                      .childPadding),
                                           itemBuilder:
                                               (context, messagesIndex) {
                                             final messagesItem =
@@ -1455,7 +1460,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                         if (_provider.jobData != null) {
                           return Builder(
                             builder: (context) {
-                              if (_provider.jobData?.status != Status.COMPLETED) {
+                              if (_provider.jobData?.status !=
+                                  Status.COMPLETED) {
                                 return Padding(
                                   padding:
                                       EdgeInsets.all(valueOrDefault<double>(
@@ -1476,8 +1482,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Stack(
-                                              alignment: const AlignmentDirectional(
-                                                  1.0, -1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      1.0, -1.0),
                                               children: [
                                                 ClipRRect(
                                                   borderRadius:
@@ -1553,7 +1560,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             '')
                                                     ? null
                                                     : () async {
-                                                        if (_provider.isAssigned) {
+                                                        if (_provider
+                                                            .isAssigned) {
                                                           await showModalBottomSheet(
                                                             isScrollControlled:
                                                                 true,
@@ -1615,14 +1623,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         }
                                                                         if (selectedUploadedFiles.length ==
                                                                             selectedMedia.length) {
-                                                                          _provider.update(
-                                                                              () {
+                                                                          _provider
+                                                                              .update(() {
                                                                             _model.uploadedLocalFile_locallyUploadedImage =
                                                                                 selectedUploadedFiles.first;
                                                                           });
                                                                         } else {
-                                                                          _provider.update(
-                                                                              () {});
+                                                                          _provider
+                                                                              .update(() {});
                                                                           return;
                                                                         }
                                                                       }
@@ -1801,7 +1809,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 .userProfileCache
                                                                 .userRole ==
                                                             2) &&
-                                                        (_provider.isProposalPaid ==
+                                                        (_provider
+                                                                .isProposalPaid ==
                                                             true))) {
                                                   if (functions.canSendMessage(
                                                       _model
@@ -1816,9 +1825,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 ?.isNotEmpty ??
                                                             false)) {
                                                       {
-                                                        _provider.update(() => _model
-                                                                .isDataUploading_uploadedFileImagePath =
-                                                            true);
+                                                        _provider.update(() =>
+                                                            _model.isDataUploading_uploadedFileImagePath =
+                                                                true);
                                                         var selectedUploadedFiles =
                                                             <UploadedFile>[];
                                                         var selectedMedia =
@@ -2004,14 +2013,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
 
                                                         await Future.wait([
                                                           Future(() async {
-                                                            _provider.update(() {
+                                                            _provider
+                                                                .update(() {
                                                               _model
                                                                   .messageTextFieldTextController
                                                                   ?.clear();
                                                             });
                                                           }),
                                                           Future(() async {
-                                                            _provider.update(() {
+                                                            _provider
+                                                                .update(() {
                                                               _model.isDataUploading_locallyUploadedImage =
                                                                   false;
                                                               _model.uploadedLocalFile_locallyUploadedImage = UploadedFile(
@@ -2101,8 +2112,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             ),
                                           ),
                                         ].divide(const SizedBox(
-                                            width:
-                                                AppConstants.childSpacing)),
+                                            width: AppConstants.childSpacing)),
                                       ),
                                     ].divide(const SizedBox(
                                         height: AppConstants.childSpacing)),
@@ -2111,49 +2121,303 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                               } else {
                                 return Container(
                                   width: double.infinity,
-                                  height: 60.0,
                                   decoration: const BoxDecoration(),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: AppTheme.of(context).success,
-                                        size: 24.0,
-                                      ),
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
-                                        child: Text(
-                                          'This job has been completed',
-                                          style: AppTheme.of(context)
-                                              .titleSmall
-                                              .override(
-                                                font: GoogleFonts.manrope(
-                                                  fontWeight:
-                                                      AppTheme.of(context)
-                                                          .titleSmall
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      AppTheme.of(context)
-                                                          .titleSmall
-                                                          .fontStyle,
-                                                ),
-                                                color: AppTheme.of(context)
-                                                    .success,
-                                                letterSpacing: 0.0,
-                                                fontWeight: AppTheme.of(context)
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.all(valueOrDefault<double>(
+                                      AppConstants.childPadding,
+                                      0.0,
+                                    )),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.check_circle,
+                                              color:
+                                                  AppTheme.of(context).success,
+                                              size: 24.0,
+                                            ),
+                                            Align(
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
+                                              child: Text(
+                                                'This job has been completed',
+                                                style: AppTheme.of(context)
                                                     .titleSmall
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
+                                                    .override(
+                                                      font: GoogleFonts.manrope(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .success,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
                                               ),
+                                            ),
+                                          ].divide(const SizedBox(
+                                              width:
+                                                  AppConstants.childSpacing)),
                                         ),
-                                      ),
-                                    ].divide(const SizedBox(
-                                        width: AppConstants.childSpacing)),
+                                        if ((AppState()
+                                                    .userProfileCache
+                                                    .userRole ==
+                                                1) &&
+                                            !_model.paymentCompleted)
+                                          AppButton(
+                                            onPressed: _model
+                                                    .isProcessingPayment
+                                                ? () async {}
+                                                : () async {
+                                                    print(
+                                                        "make payment tapped");
+                                                    _model.isProcessingPayment =
+                                                        true;
+
+                                                    print(
+                                                        " _model.isProcessingPayment ${_model.isProcessingPayment}");
+                                                    _provider.notify();
+
+                                                    final acceptedApplications =
+                                                        await ApplicationsTable()
+                                                            .querySingleRow(
+                                                      queryFn: (q) => q
+                                                          .eqOrNull('job_id',
+                                                              widget!.jobid)
+                                                          .eqOrNull(
+                                                              'status',
+                                                              Status.ACCEPTED
+                                                                  .name),
+                                                    );
+                                                    print(
+                                                        "accepted applications are ${acceptedApplications}");
+                                                    final quoteAmount =
+                                                        acceptedApplications
+                                                            .firstOrNull
+                                                            ?.quoteAmount;
+                                                    print(
+                                                        "quoteAmount is ${quoteAmount}");
+                                                    if (quoteAmount == null) {
+                                                      _model.isProcessingPayment =
+                                                          false;
+                                                      _provider.notify();
+                                                      await actions.showToast(
+                                                        context,
+                                                        'Unable to find the accepted quote for this job.',
+                                                        2,
+                                                      );
+                                                      return;
+                                                    }
+
+                                                    final stripeCustomerId =
+                                                        await currentUserStripeCustomerId;
+                                                    print(
+                                                        "stripeCustomerId is ${stripeCustomerId} and job id is ${widget.jobid} and current jwt is ${currentJwtToken}\n customer email is ${currentUserEmail}\n current user id is ${currentUserUid}\n tp id is ${widget!.member?.id}");
+                                                    _model.createPaymentIntentRes =
+                                                        await CreatePaymentIntentCall
+                                                            .call(
+                                                      jobId: widget!.jobid,
+                                                      token: currentJwtToken,
+                                                      stripeCustomerId:
+                                                          stripeCustomerId,
+                                                      customerEmail:
+                                                          currentUserEmail,
+                                                      userId: currentUserUid,
+                                                      tradepersonId:
+                                                          widget!.member?.id,
+                                                      amount:
+                                                          (quoteAmount * 100)
+                                                              .round(),
+                                                    );
+
+                                                    final success =
+                                                        CreatePaymentIntentCall
+                                                            .success(_model
+                                                                .createPaymentIntentRes
+                                                                ?.jsonBody);
+
+                                                    if (success == true) {
+                                                      final clientSecret =
+                                                          CreatePaymentIntentCall
+                                                              .clientSecret(_model
+                                                                  .createPaymentIntentRes
+                                                                  ?.jsonBody);
+                                                      final returnedCustomerId =
+                                                          CreatePaymentIntentCall
+                                                              .customerId(_model
+                                                                  .createPaymentIntentRes
+                                                                  ?.jsonBody);
+                                                      final ephemeralKey =
+                                                          CreatePaymentIntentCall
+                                                              .ephemeralKey(_model
+                                                                  .createPaymentIntentRes
+                                                                  ?.jsonBody);
+                                                      final paymentIntentId =
+                                                          CreatePaymentIntentCall
+                                                              .paymentIntentId(
+                                                                  _model
+                                                                      .createPaymentIntentRes
+                                                                      ?.jsonBody);
+
+                                                      if (clientSecret !=
+                                                              null &&
+                                                          returnedCustomerId !=
+                                                              null &&
+                                                          ephemeralKey !=
+                                                              null) {
+                                                        final paymentSuccess =
+                                                            await actions
+                                                                .makePayment(
+                                                          clientSecret:
+                                                              clientSecret,
+                                                          customerId:
+                                                              returnedCustomerId,
+                                                          ephemeralKey:
+                                                              ephemeralKey,
+                                                        );
+
+                                                        if (paymentSuccess) {
+                                                          _model.paymentCompleted =
+                                                              true;
+                                                          await actions
+                                                              .showToast(
+                                                            context,
+                                                            'Payment successful',
+                                                            2,
+                                                          );
+
+                                                          if (paymentIntentId !=
+                                                              null) {
+                                                            _model.releaseFundsRes =
+                                                                await ReleaseFundsCall
+                                                                    .call(
+                                                              paymentIntentId:
+                                                                  paymentIntentId,
+                                                              token:
+                                                                  currentJwtToken,
+                                                            );
+
+                                                            final releaseFundsSuccess =
+                                                                ReleaseFundsCall
+                                                                    .success(_model
+                                                                        .releaseFundsRes
+                                                                        ?.jsonBody);
+
+                                                            if (releaseFundsSuccess !=
+                                                                true) {
+                                                              final releaseFundsError =
+                                                                  ReleaseFundsCall.error(
+                                                                          _model
+                                                                              .releaseFundsRes
+                                                                              ?.jsonBody) ??
+                                                                      'Please contact support.';
+                                                              print(
+                                                                  'Release funds failed: $releaseFundsError');
+                                                              await actions
+                                                                  .showToast(
+                                                                context,
+                                                                'Payment received, but releasing funds to the tradesperson failed: $releaseFundsError',
+                                                                3,
+                                                              );
+                                                            }
+                                                          }
+                                                        } else {
+                                                          await actions
+                                                              .showToast(
+                                                            context,
+                                                            'Payment failed',
+                                                            2,
+                                                          );
+                                                        }
+                                                      } else {
+                                                        await actions.showToast(
+                                                          context,
+                                                          'Unable to start payment. Please try again.',
+                                                          2,
+                                                        );
+                                                      }
+                                                    } else {
+                                                      await actions.showToast(
+                                                        context,
+                                                        'Unable to start payment. Please try again.',
+                                                        2,
+                                                      );
+                                                    }
+
+                                                    _model.isProcessingPayment =
+                                                        false;
+                                                    _provider.notify();
+                                                  },
+                                            text: _model.isProcessingPayment
+                                                ? 'Processing...'
+                                                : 'Make Payment',
+                                            options: AppButtonOptions(
+                                              width: 200.0,
+                                              height: 44.0,
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      16.0, 0.0, 16.0, 0.0),
+                                              iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  AppTheme.of(context).primary,
+                                              textStyle: AppTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: Colors.white,
+                                                    fontSize: 14.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                      ].divide(const SizedBox(
+                                          height: AppConstants.childSpacing)),
+                                    ),
                                   ),
                                 );
                               }

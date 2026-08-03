@@ -1,4 +1,5 @@
 import '../../components/logout_confirmation_dialog.dart';
+import '/saved_cards/saved_cards_widget.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
@@ -353,7 +354,15 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       description:
                                           'Cards, transaction history and billing',
                                       showTrailingIcon: false,
-                                      onTap: () async {},
+                                      onTap: () async {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SavedCardsWidget(),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ]

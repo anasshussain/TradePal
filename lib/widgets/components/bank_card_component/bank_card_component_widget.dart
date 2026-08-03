@@ -15,10 +15,7 @@ import '/viewmodels/bank_card_component_model.dart';
 export '/viewmodels/bank_card_component_model.dart';
 
 class BankCardComponentWidget extends StatefulWidget {
-  const BankCardComponentWidget({
-    super.key,
-    required this.bankCardDetail,
-  });
+  const BankCardComponentWidget({super.key, required this.bankCardDetail});
 
   final BankDetailsStruct? bankCardDetail;
 
@@ -88,7 +85,6 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
               Material(
                 color: Colors.transparent,
                 child: GestureDetector(
-                  
                   onTapDown: (_) {
                     setState(() => _pressed = true);
                   },
@@ -127,18 +123,23 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Checkbox(
-                          value: false,
+                          value: widget.bankCardDetail?.defaultForCurrency ??
+                              false,
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
                           visualDensity: VisualDensity.compact,
-                          onChanged: (value) {
-                            // Handle checkbox
-                          },
-                         activeColor: const Color(0xff214FC7),
-  side: const BorderSide(
-    color: Colors.white70,
-  ),
-                          
+                          onChanged:
+                              widget.bankCardDetail?.defaultForCurrency == true
+                                  ? null
+                                  : (_) async {
+                                      // Call your Edge Function
+                                      // Set this bank account as default
+                                      // Reload the list
+                                    },
+                          activeColor: const Color(0xff214FC7),
+                          side: const BorderSide(
+                            color: Colors.white70,
+                          ),
                         ),
                         TextButton.icon(
                           onPressed: () {},
@@ -237,27 +238,30 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color(0xff57C84D),
-                      Color(0xff39B54A),
-                    ],
+              Visibility(
+                visible: widget.bankCardDetail!.defaultForCurrency,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  "DEFAULT",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: .5,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xff57C84D),
+                        Color(0xff39B54A),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    "DEFAULT",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: .5,
+                    ),
                   ),
                 ),
               ),

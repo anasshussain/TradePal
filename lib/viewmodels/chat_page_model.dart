@@ -46,6 +46,14 @@ class ChatPageModel extends AppModel<ChatPageWidget> {
   // Stores action output result for [Backend Call - API (send push notification)] action in IconButton widget.
   ApiCallResponse? messageNotificationRes;
 
+  // Stores action output result for [Backend Call - API (create payment intent)] action in Make Payment button.
+  ApiCallResponse? createPaymentIntentRes;
+  bool isProcessingPayment = false;
+  bool paymentCompleted = false;
+
+  // Stores action output result for [Backend Call - API (release funds)] action in Make Payment button.
+  ApiCallResponse? releaseFundsRes;
+
   @override
   void initState(BuildContext context) {
     appbarComponentModel = createModel(context, () => AppbarComponentModel());

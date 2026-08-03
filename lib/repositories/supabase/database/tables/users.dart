@@ -97,4 +97,8 @@ class UsersRow extends SupabaseDataRow {
 
   String? get deviceToken => getField<String>('device_token');
   set deviceToken(String? value) => setField<String>('device_token', value);
+
+  String? get stripeCustomerId => getField<String>('stripe_customer_id');
+  set stripeCustomerId(String? value) =>
+      setField<String>('stripe_customer_id', value);
 }
