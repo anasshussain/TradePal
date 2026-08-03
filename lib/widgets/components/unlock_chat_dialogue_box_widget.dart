@@ -98,20 +98,16 @@ class _UnlockChatDialogueBoxWidgetState
                     textAlign: TextAlign.center,
                     style: AppTheme.of(context).titleLarge.override(
                           font: GoogleFonts.manrope(
-                            fontWeight: AppTheme.of(context)
-                                .titleLarge
-                                .fontWeight,
-                            fontStyle: AppTheme.of(context)
-                                .titleLarge
-                                .fontStyle,
+                            fontWeight:
+                                AppTheme.of(context).titleLarge.fontWeight,
+                            fontStyle:
+                                AppTheme.of(context).titleLarge.fontStyle,
                           ),
                           color: AppTheme.of(context).primaryText,
                           letterSpacing: 0.0,
-                          fontWeight: AppTheme.of(context)
-                              .titleLarge
-                              .fontWeight,
-                          fontStyle:
-                              AppTheme.of(context).titleLarge.fontStyle,
+                          fontWeight:
+                              AppTheme.of(context).titleLarge.fontWeight,
+                          fontStyle: AppTheme.of(context).titleLarge.fontStyle,
                           lineHeight: 1.4,
                         ),
                   ),
@@ -120,20 +116,16 @@ class _UnlockChatDialogueBoxWidgetState
                     textAlign: TextAlign.center,
                     style: AppTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.manrope(
-                            fontWeight: AppTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: AppTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
+                            fontWeight:
+                                AppTheme.of(context).bodyMedium.fontWeight,
+                            fontStyle:
+                                AppTheme.of(context).bodyMedium.fontStyle,
                           ),
                           color: AppTheme.of(context).secondaryText,
                           letterSpacing: 0.0,
-                          fontWeight: AppTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              AppTheme.of(context).bodyMedium.fontStyle,
+                          fontWeight:
+                              AppTheme.of(context).bodyMedium.fontWeight,
+                          fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
                           lineHeight: 1.4,
                         ),
                   ),
@@ -146,8 +138,8 @@ class _UnlockChatDialogueBoxWidgetState
                   shape: BoxShape.rectangle,
                 ),
                 child: Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 10.0, 20.0, 10.0),
                   child: Container(
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -156,9 +148,7 @@ class _UnlockChatDialogueBoxWidgetState
                       children: [
                         Text(
                           'Access Fee',
-                          style: AppTheme.of(context)
-                              .labelMedium
-                              .override(
+                          style: AppTheme.of(context).labelMedium.override(
                                 font: GoogleFonts.inter(
                                   fontWeight: AppTheme.of(context)
                                       .labelMedium
@@ -167,23 +157,18 @@ class _UnlockChatDialogueBoxWidgetState
                                       .labelMedium
                                       .fontStyle,
                                 ),
-                                color:
-                                    AppTheme.of(context).secondaryText,
+                                color: AppTheme.of(context).secondaryText,
                                 letterSpacing: 0.0,
-                                fontWeight: AppTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
+                                fontWeight:
+                                    AppTheme.of(context).labelMedium.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).labelMedium.fontStyle,
                                 lineHeight: 1.4,
                               ),
                         ),
                         Text(
                           '£7.99',
-                          style: AppTheme.of(context)
-                              .titleMedium
-                              .override(
+                          style: AppTheme.of(context).titleMedium.override(
                                 font: GoogleFonts.manrope(
                                   fontWeight: FontWeight.bold,
                                   fontStyle: AppTheme.of(context)
@@ -193,9 +178,8 @@ class _UnlockChatDialogueBoxWidgetState
                                 color: AppTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
-                                fontStyle: AppTheme.of(context)
-                                    .titleMedium
-                                    .fontStyle,
+                                fontStyle:
+                                    AppTheme.of(context).titleMedium.fontStyle,
                                 lineHeight: 1.4,
                               ),
                         ),
@@ -222,6 +206,14 @@ class _UnlockChatDialogueBoxWidgetState
                         );
 
                         if ((_model.paymentIntentResponse?.succeeded ?? true)) {
+                          ApiCallResponse epehemeralKeyResponse =
+                              await CreateEphemeralKeyCall.call(
+                                  token: currentJwtToken);
+
+                          debugPrint(
+                              "Ephemeral Key response is ${CreateEphemeralKeyCall.ephemeralKey(
+                            epehemeralKeyResponse.jsonBody,
+                          )!}");
                           await Future.delayed(
                             const Duration(
                               milliseconds: 100,
@@ -236,12 +228,22 @@ class _UnlockChatDialogueBoxWidgetState
                             'update',
                             () async {},
                           );
+
                           _model.paymentRes = await actions.makePayment(
-                            getJsonField(
+                            clientSecret: getJsonField(
                               (_model.paymentIntentResponse?.jsonBody ?? ''),
                               r'''$.client_secret''',
                             ).toString(),
+                            customerId: getJsonField(
+                                    (_model.paymentIntentResponse?.jsonBody ??
+                                        ''),
+                                    r'''$.customer_id''')
+                                .toString(),
+                            ephemeralKey: CreateEphemeralKeyCall.ephemeralKey(
+                                epehemeralKeyResponse.jsonBody)!,
                           );
+                          debugPrint(
+                              "make payment sheet response is ====> ${_model.paymentRes}");
                         }
                         Navigator.pop(context);
 
@@ -253,29 +255,24 @@ class _UnlockChatDialogueBoxWidgetState
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: AppTheme.of(context).primary,
-                        textStyle:
-                            AppTheme.of(context).titleSmall.override(
-                                  font: GoogleFonts.manrope(
-                                    fontWeight: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                                  color: Colors.white,
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
+                        textStyle: AppTheme.of(context).titleSmall.override(
+                              font: GoogleFonts.manrope(
+                                fontWeight:
+                                    AppTheme.of(context).titleSmall.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).titleSmall.fontStyle,
+                              ),
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                              fontWeight:
+                                  AppTheme.of(context).titleSmall.fontWeight,
+                              fontStyle:
+                                  AppTheme.of(context).titleSmall.fontStyle,
+                            ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
@@ -290,29 +287,24 @@ class _UnlockChatDialogueBoxWidgetState
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: Colors.transparent,
-                        textStyle:
-                            AppTheme.of(context).titleSmall.override(
-                                  font: GoogleFonts.manrope(
-                                    fontWeight: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                                  color: AppTheme.of(context).primary,
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
+                        textStyle: AppTheme.of(context).titleSmall.override(
+                              font: GoogleFonts.manrope(
+                                fontWeight:
+                                    AppTheme.of(context).titleSmall.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).titleSmall.fontStyle,
+                              ),
+                              color: AppTheme.of(context).primary,
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                              fontWeight:
+                                  AppTheme.of(context).titleSmall.fontWeight,
+                              fontStyle:
+                                  AppTheme.of(context).titleSmall.fontStyle,
+                            ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(8.0),
                       ),

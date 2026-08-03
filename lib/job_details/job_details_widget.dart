@@ -1,3 +1,4 @@
+import 'package:my_trade_pal/auth/supabase_auth/helper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
@@ -69,20 +70,24 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
           jobId: widget!.jobId,
         );
 
-        if ((_model.getJobDetails?.succeeded ?? true)) {
-          _provider.fetchedJob = ((_model.getJobDetails?.jsonBody ?? '')
-              .toList()
-              .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-              .toList() as Iterable<JobDataStruct?>)
-              .withoutNulls
-              ?.firstOrNull;
-          _provider.notify();
-          if (_provider.fetchedJob?.customerId == currentUserUid) {
-            _model.getApplicationList =
-            await SupabaseTablesGroup.getSubmittedProposalsCall.call(
-              params:
-              'select=*,jobs!inner(*),users(device_token,total_reviews,average_rating)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
-            );
+          if ((_model.getApplicationList?.succeeded ?? true)) {
+            _provider.loading = false;
+            _provider.proposalsList = ((_model.getApplicationList?.jsonBody ??
+                        '')
+                    .toList()
+                    .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
+                    .toList() as Iterable<ProposalListStruct?>)
+                .withoutNulls
+                .toList()
+                .cast<ProposalListStruct>();
+            _provider.notify();
+          }
+        } else {
+          _model.getSubmittedJobData =
+              await SupabaseTablesGroup.getSubmittedProposalsCall.call(
+            params:
+                'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
+          );
 
             if ((_model.getApplicationList?.succeeded ?? true)) {
               _provider.loading = false;
@@ -236,8 +241,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
             updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Job Details',
-              showAction: (_provider.fetchedJob?.customerId == currentUserUid) &&
-                  (_provider.fetchedJob?.status == Status.ACTIVE),
+              showAction:
+                  (_provider.fetchedJob?.customerId == currentUserUid) &&
+                      (_provider.fetchedJob?.status == Status.ACTIVE),
               actionIcon: Icon(
                 Icons.edit_rounded,
                 color: AppTheme.of(context).secondaryText,
@@ -417,16 +423,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               elevation: 0.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .md),
+                                    AppTheme.of(context).designToken.radius.md),
                               ),
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.of(context)
-                                      .secondaryBackground,
+                                  color:
+                                      AppTheme.of(context).secondaryBackground,
                                   borderRadius: BorderRadius.circular(
                                       AppTheme.of(context)
                                           .designToken
@@ -437,13 +440,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(valueOrDefault<double>(
+                                  padding:
+                                      EdgeInsets.all(valueOrDefault<double>(
                                     AppConstants.childPadding,
                                     0.0,
                                   )),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'SCOPE OF WORK',
@@ -511,16 +516,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               elevation: 0.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .lg),
+                                    AppTheme.of(context).designToken.radius.lg),
                               ),
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.of(context)
-                                      .secondaryBackground,
+                                  color:
+                                      AppTheme.of(context).secondaryBackground,
                                   borderRadius: BorderRadius.circular(
                                       AppTheme.of(context)
                                           .designToken
@@ -531,13 +533,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(valueOrDefault<double>(
+                                  padding:
+                                      EdgeInsets.all(valueOrDefault<double>(
                                     AppConstants.childPadding,
                                     0.0,
                                   )),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'GALLERY',
@@ -674,7 +678,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               locatioId: _provider.fetchedJob!.locationId,
                             ),
                           ),
-                          if (_provider.fetchedJob?.customerId != currentUserUid)
+                          if (_provider.fetchedJob?.customerId !=
+                              currentUserUid)
                             Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -688,8 +693,10 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         AppTheme.of(context).secondary
                                       ],
                                       stops: const [0.0, 1.0],
-                                      begin: const AlignmentDirectional(-1.0, 0.14),
-                                      end: const AlignmentDirectional(1.0, -0.14),
+                                      begin: const AlignmentDirectional(
+                                          -1.0, 0.14),
+                                      end: const AlignmentDirectional(
+                                          1.0, -0.14),
                                     ),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(
@@ -732,13 +739,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               .radius
                                               .md),
                                       border: Border.all(
-                                        color: AppTheme.of(context)
-                                            .alternate,
+                                        color: AppTheme.of(context).alternate,
                                       ),
                                     ),
                                     child: Form(
                                       key: _model.formKey,
-                                      autovalidateMode: AutovalidateMode.disabled,
+                                      autovalidateMode:
+                                          AutovalidateMode.disabled,
                                       child: Padding(
                                         padding:
                                         EdgeInsets.all(valueOrDefault<double>(
@@ -1127,7 +1134,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     BorderRadius.circular(
                                                         8.0),
                                                   ),
-                                                  unselectedChipStyle: ChipStyle(
+                                                  unselectedChipStyle:
+                                                      ChipStyle(
                                                     backgroundColor:
                                                     AppTheme.of(
                                                         context)
@@ -1175,7 +1183,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   chipSpacing: 8.0,
                                                   rowSpacing: 8.0,
                                                   multiselect: false,
-                                                  alignment: WrapAlignment.start,
+                                                  alignment:
+                                                      WrapAlignment.start,
                                                   controller: _model
                                                       .choiceChipsValueController ??=
                                                       FormFieldController<
@@ -1406,12 +1415,14 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 ),
                                               ),
                                             ),
-                                            if (!_provider.isProposalSubmitted! &&
+                                            if (!_provider
+                                                    .isProposalSubmitted! &&
                                                 (widget!.jobView !=
                                                     JobDetailsView.chat))
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed: () async {
                                                     _model.formResult = true;
@@ -1421,8 +1432,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         !_model
                                                             .formKey.currentState!
                                                             .validate()) {
-                                                      _provider.update(() => _model
-                                                          .formResult = false);
+                                                      _provider.update(() =>
+                                                          _model.formResult =
+                                                              false);
                                                       return;
                                                     }
                                                     if (_model.formResult!) {
@@ -1436,8 +1448,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         message: _model
                                                             .descriptionTextController
                                                             .text,
-                                                        quoteAmount: int.tryParse(
-                                                            _model
+                                                        quoteAmount:
+                                                            int.tryParse(_model
                                                                 .quoteTextFieldTextController
                                                                 .text),
                                                         duration: _model
@@ -1496,8 +1508,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                   ?.customerId,
                                                               extraData: <String,
                                                                   dynamic>{
-                                                                'member': <String,
-                                                                    String>{
+                                                                'member':
+                                                                    <String,
+                                                                        String>{
                                                                   'username':
                                                                   '\"\"',
                                                                   'avatarurl':
@@ -1610,15 +1623,35 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            if (((AppState().userProfileCache.userRole == 2) &&
-                                                ((_provider.isProposalSubmitted == true) &&
-                                                    (_provider.submittedProposalStatus == Status.ACCEPTED.name)) &&
-                                                (widget!.jobView != JobDetailsView.chat) &&
-                                                (_provider.isPaymentPaid == true)) ||
-                                                (AppState().paidJobId == widget!.jobId))
+                                            if (((AppState()
+                                                            .userProfileCache
+                                                            .userRole ==
+                                                        2) &&
+                                                    ((_provider.isProposalSubmitted ==
+                                                            true) &&
+                                                        (((_model.getSubmittedJobData?.jsonBody ??
+                                                                            '')
+                                                                        .toList()
+                                                                        .map<SubmittedProposalStruct?>(SubmittedProposalStruct
+                                                                            .maybeFromMap)
+                                                                        .toList()
+                                                                    as Iterable<
+                                                                        SubmittedProposalStruct?>)
+                                                                .withoutNulls
+                                                                ?.firstOrNull
+                                                                ?.status ==
+                                                            Status.ACCEPTED
+                                                                .name)) &&
+                                                    (widget!.jobView !=
+                                                        JobDetailsView.chat) &&
+                                                    (_provider.isPaymentPaid ==
+                                                        true)) ||
+                                                (AppState().paidJobId ==
+                                                    widget!.jobId))
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed: () async {
                                                     _model.startChat =
@@ -1658,7 +1691,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                     ?.jsonBody ??
                                                                     ''))
                                                                     ?.conversationId,
-                                                                ParamType.String,
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                               'username':
                                                               serializeParam(
@@ -1701,7 +1735,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                               'jobid':
                                                               serializeParam(
                                                                 widget!.jobId,
-                                                                ParamType.String,
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                               'member':
                                                               serializeParam(
@@ -1709,13 +1744,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                   id: _provider
                                                                       .user?.id,
                                                                   name: _provider
-                                                                      .user?.name,
-                                                                  avatarUrl: _provider
                                                                       .user
-                                                                      ?.avatarUrl,
-                                                                  deviceToken: _provider
-                                                                      .user
-                                                                      ?.deviceToken,
+                                                                      ?.name,
+                                                                  avatarUrl:
+                                                                      _provider
+                                                                          .user
+                                                                          ?.avatarUrl,
+                                                                  deviceToken:
+                                                                      _provider
+                                                                          .user
+                                                                          ?.deviceToken,
                                                                 ),
                                                                 ParamType
                                                                     .DataStruct,
@@ -1842,8 +1880,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             if (_provider.isProposalSubmitted ??
                                                 true)
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed:
                                                   _provider.isProposalSubmitted!
@@ -1933,8 +1972,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             if ((_provider.isProposalSubmitted == true) &&
                                                 (_provider.submittedProposalStatus == Status.ACCEPTED.name))
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed: (_provider
                                                       .isPaymentPaid! ||
@@ -2072,7 +2112,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                           if (_provider.proposalsList.isNotEmpty)
                             Builder(
                               builder: (context) {
-                                final proposals = _provider.proposalsList.toList();
+                                final proposals =
+                                    _provider.proposalsList.toList();
 
                                 return ListView.separated(
                                   padding: EdgeInsets.zero,
@@ -2102,7 +2143,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                           'select=*,jobs!inner(*)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
                                         );
 
-                                        if ((_model.updateApiResult?.succeeded ??
+                                        if ((_model
+                                                .updateApiResult?.succeeded ??
                                             true)) {
                                           _provider.updateProposalsListAtIndex(
                                             proposalsIndex,
@@ -2281,7 +2323,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               );
                                             }),
                                             Future(() async {
-                                              _provider.updateProposalsListAtIndex(
+                                              _provider
+                                                  .updateProposalsListAtIndex(
                                                 proposalsIndex,
                                                     (e) => e
                                                   ..status = Status.ACCEPTED.name,
@@ -2361,7 +2404,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               );
                                             }),
                                             Future(() async {
-                                              _provider.updateProposalsListAtIndex(
+                                              _provider
+                                                  .updateProposalsListAtIndex(
                                                 proposalsIndex,
                                                     (e) => e
                                                   ..status = Status.REJECTED.name,
@@ -2378,7 +2422,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               },
                             ),
                         ]
-                            .divide(const SizedBox(height: AppConstants.childSpacing))
+                            .divide(const SizedBox(
+                                height: AppConstants.childSpacing))
                             .addToEnd(const SizedBox(height: 80.0)),
                       ),
                     ),

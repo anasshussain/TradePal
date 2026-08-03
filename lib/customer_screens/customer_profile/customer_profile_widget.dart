@@ -1,6 +1,7 @@
 import '../../components/logout_confirmation_dialog.dart';
 import '../../widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
 import '../../widgets/page_header.dart';
+import '/saved_cards/saved_cards_widget.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
@@ -180,6 +181,19 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         color: Colors.white,
                                         width: 2.0,
                                       ),
+                                      title: 'Payment methods',
+                                      description:
+                                          'Cards, transaction history and billing',
+                                      showTrailingIcon: false,
+                                      onTap: () async {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SavedCardsWidget(),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),

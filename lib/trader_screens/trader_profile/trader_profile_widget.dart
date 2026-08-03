@@ -1,3 +1,10 @@
+import 'package:flutter/scheduler.dart';
+import 'package:my_trade_pal/connect_stripe_screen.dart';
+import 'package:my_trade_pal/saved_cards/saved_cards_widget.dart';
+import 'package:my_trade_pal/stripe/stripe_onboarding_webview/stripe_onboarding_webview_widget.dart';
+import '/utils/custom_code/actions/index.dart' as actions;
+import 'package:my_trade_pal/repositories/api_requests/api_calls.dart';
+import 'package:my_trade_pal/viewmodels/bank_cards_model.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../components/logout_confirmation_dialog.dart';
@@ -37,22 +44,15 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
   final TraderProfileProvider _provider = TraderProfileProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  String _resolveAvatarUrl() {
-    final cached = AppState().userProfileCache.avatarUrl;
-    if (cached.trim().isNotEmpty) {
-      return cached;
-    }
-    return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU';
-  }
-
+  // var stripeRow;
+  // bool payoutsEnabled = false;
+  // bool chargesEnabled = false;
+  // bool hasStripeAccount = false;
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TraderProfileModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _provider.finishLoading();
-    });
+    _model = createModel(context, () => TraderProfileModel());
   }
 
   @override
@@ -60,6 +60,37 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
     _model.dispose();
     _provider.dispose();
     super.dispose();
+  }
+
+  static const _stripeConnectReturnUrl =
+      'https://trade-connect-x1mzbx.flutterflow.app/stripeConnectAccountSuccess';
+  static const _stripeConnectRefreshUrl =
+      'https://trade-connect-x1mzbx.flutterflow.app/stripeConnectAccountRefresh';
+
+  Future<void> _openStripeOnboarding(String url) async {
+    final result = await Navigator.push<StripeOnboardingResult>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => StripeOnboardingWebviewWidget(
+          url: url,
+          returnUrl: _stripeConnectReturnUrl,
+          refreshUrl: _stripeConnectRefreshUrl,
+          title: 'Stripe Onboarding',
+        ),
+      ),
+    );
+
+    if (!mounted) return;
+
+    if (result == StripeOnboardingResult.completed) {
+      await actions.showToast(context, 'Stripe onboarding completed!', 2);
+    } else if (result == StripeOnboardingResult.refreshNeeded) {
+      await actions.showToast(
+        context,
+        'That onboarding link expired. Please try again.',
+        2,
+      );
+    }
   }
 
   @override
@@ -768,13 +799,11 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .headlineLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .headlineLarge
                                                                 .fontStyle,
                                                       ),
@@ -782,13 +811,11 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       fontSize: 30.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .headlineLarge
                                                               .fontWeight,
                                                       fontStyle:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .headlineLarge
                                                               .fontStyle,
                                                     ),
