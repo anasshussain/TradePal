@@ -71,31 +71,29 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
           jobId: widget!.jobId,
         );
 
-          if ((_model.getApplicationList?.succeeded ?? true)) {
-            _provider.loading = false;
-            _provider.proposalsList = ((_model.getApplicationList?.jsonBody ??
-                        '')
-                    .toList()
-                    .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
-                    .toList() as Iterable<ProposalListStruct?>)
-                .withoutNulls
-                .toList()
-                .cast<ProposalListStruct>();
-            _provider.notify();
-          }
-        } else {
-          _model.getSubmittedJobData =
-              await SupabaseTablesGroup.getSubmittedProposalsCall.call(
-            params:
-                'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
-          );
+        if ((_model.getJobDetails?.succeeded ?? true)) {
+          _provider.fetchedJob = ((_model.getJobDetails?.jsonBody ?? '')
+                  .toList()
+                  .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                  .toList() as Iterable<JobDataStruct?>)
+              .withoutNulls
+              ?.firstOrNull;
+          _provider.notify();
+
+          if (_provider.fetchedJob?.customerId == currentUserUid) {
+            _model.getApplicationList =
+                await SupabaseTablesGroup.getSubmittedProposalsCall.call(
+              params:
+                  'select=*,jobs!inner(*),users(device_token,total_reviews,average_rating)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
+            );
 
             if ((_model.getApplicationList?.succeeded ?? true)) {
               _provider.loading = false;
-              _provider.proposalsList = ((_model.getApplicationList?.jsonBody ?? '')
-                  .toList()
-                  .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
-                  .toList() as Iterable<ProposalListStruct?>)
+              _provider.proposalsList = ((_model.getApplicationList?.jsonBody ??
+                          '')
+                      .toList()
+                      .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
+                      .toList() as Iterable<ProposalListStruct?>)
                   .withoutNulls
                   .toList()
                   .cast<ProposalListStruct>();
@@ -104,28 +102,28 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
             }
           } else {
             _model.getSubmittedJobData =
-            await SupabaseTablesGroup.getSubmittedProposalsCall.call(
+                await SupabaseTablesGroup.getSubmittedProposalsCall.call(
               params:
-              'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
+                  'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
             );
 
             if (((_model.getSubmittedJobData?.jsonBody ?? '')
-                .toList()
-                .map<SubmittedProposalStruct?>(
-                SubmittedProposalStruct.maybeFromMap)
-                .toList() as Iterable<SubmittedProposalStruct?>)
+                    .toList()
+                    .map<SubmittedProposalStruct?>(
+                        SubmittedProposalStruct.maybeFromMap)
+                    .toList() as Iterable<SubmittedProposalStruct?>)
                 .withoutNulls
                 .isNotEmpty) {
               _model.paymentStatus =
-              await SupabaseTablesGroup.getProposalPaymentCall.call(
+                  await SupabaseTablesGroup.getProposalPaymentCall.call(
                 jobId: widget!.jobId,
                 tradepersonId: currentUserUid,
               );
 
               if ((_model.paymentStatus?.succeeded ?? true)) {
                 if (SupabaseTablesGroup.getProposalPaymentCall.paymentStatus(
-                  (_model.paymentStatus?.jsonBody ?? ''),
-                ) ==
+                      (_model.paymentStatus?.jsonBody ?? ''),
+                    ) ==
                     PaymentStatus.paid.name) {
                   await Future.wait([
                     Future(() async {
@@ -134,9 +132,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                     Future(() async {
                       _model.getUser = await SupabaseTablesGroup.getUserCall.call(
                         userId: ((_model.getJobDetails?.jsonBody ?? '')
-                            .toList()
-                            .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-                            .toList() as Iterable<JobDataStruct?>)
+                                .toList()
+                                .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                                .toList() as Iterable<JobDataStruct?>)
                             .withoutNulls
                             ?.firstOrNull
                             ?.customerId,
@@ -144,9 +142,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
 
                       if ((_model.getUser?.succeeded ?? true)) {
                         _provider.user = ((_model.getUser?.jsonBody ?? '')
-                            .toList()
-                            .map<UserStruct?>(UserStruct.maybeFromMap)
-                            .toList() as Iterable<UserStruct?>)
+                                .toList()
+                                .map<UserStruct?>(UserStruct.maybeFromMap)
+                                .toList() as Iterable<UserStruct?>)
                             .withoutNulls
                             ?.firstOrNull;
                         _provider.notify();
@@ -157,6 +155,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                   _provider.isPaymentPaid = false;
                 }
               }
+              _provider.submittedProposalStatus = ((_model.getSubmittedJobData?.jsonBody ?? '')
+                  .toList()
+                  .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
+                  .toList() as Iterable<SubmittedProposalStruct?>)
+                  .withoutNulls
+                  ?.firstOrNull
+                  ?.status;
               _provider.isProposalSubmitted = true;
               _provider.loading = false;
               _provider.saveToCache(widget!.jobId); // ADDED
@@ -167,20 +172,6 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
               _provider.saveToCache(widget!.jobId); // ADDED
               _provider.notify();
             }
-            _provider.submittedProposalStatus = ((_model.getSubmittedJobData?.jsonBody ?? '')
-                .toList()
-                .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
-                .toList() as Iterable<SubmittedProposalStruct?>)
-                .withoutNulls
-                ?.firstOrNull
-                ?.status;
-            _provider.isProposalSubmitted = true;
-            _provider.loading = false;
-            _provider.notify();
-          } else {
-            _provider.isProposalSubmitted = false;
-            _provider.loading = false;
-            _provider.notify();
           }
         } else {
           await actions.showToast(

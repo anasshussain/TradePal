@@ -43,6 +43,14 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
   final TraderProfileProvider _provider = TraderProfileProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String _resolveAvatarUrl() {
+    final cached = AppState().userProfileCache.avatarUrl;
+    if (cached.trim().isNotEmpty) {
+      return cached;
+    }
+    return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU';
+  }
+
   // var stripeRow;
   // bool payoutsEnabled = false;
   // bool chargesEnabled = false;
@@ -517,8 +525,6 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               ].divide(const SizedBox(
                                   height: AppConstants.childSpacing)),
                             ),
-
-                            borderRadius: BorderRadius.circular(8.6),
                           ),
                         ),
                       ),
