@@ -1,6 +1,10 @@
 import '../../components/logout_confirmation_dialog.dart';
+<<<<<<< HEAD
 import '../../widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
 import '../../widgets/page_header.dart';
+=======
+import '/saved_cards/saved_cards_widget.dart';
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
 import '/auth/supabase_auth/auth_util.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
@@ -318,8 +322,387 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                     color: AppTheme.of(context).alternate,
                                   ),
                                 ),
+<<<<<<< HEAD
                                 child: Padding(
                                   padding: EdgeInsets.all(valueOrDefault<double>(
+=======
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        valueOrDefault<String>(
+                          AppState().userProfileCache.name,
+                          'Guest user',
+                        ),
+                        style:
+                            AppTheme.of(context).displaySmall.override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: AppTheme.of(context)
+                                        .displaySmall
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w800,
+                                  fontStyle: AppTheme.of(context)
+                                      .displaySmall
+                                      .fontStyle,
+                                ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                          20.0,
+                          0.0,
+                          20.0,
+                          AppTheme.of(context).designToken.spacing.md,
+                        ),
+                        child: AppButton(
+                          onPressed: () async {
+                            context.pushNamed(EditTraderProfileWidget.routeName);
+                          },
+                          text: 'Edit profile',
+                          options: AppButtonOptions(
+                            width: 150,
+                            height: 37.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                              16.0,
+                              0.0,
+                              16.0,
+                              0.0,
+                            ),
+                            iconPadding: EdgeInsets.zero,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white.withOpacity(0.08)
+                                : Colors.black.withOpacity(0.06),
+
+                            textStyle: AppTheme.of(context).titleSmall.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.w400,
+                              ),
+                              color: AppTheme.of(context).primaryText,
+                              fontSize: 14,
+                              letterSpacing: 0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            elevation: 0,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white.withOpacity(0.05)
+                                  : Colors.black.withOpacity(0.04),
+                              width: 1,
+                            ),
+
+                            borderRadius: BorderRadius.circular(8.6),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0,
+                              AppTheme.of(context)
+                                  .designToken
+                                  .spacing
+                                  .lg,
+                              0.0,
+                              0.0),
+                          child: Text(
+                            'ACCOUNT DETAILS',
+                            style: AppTheme.of(context)
+                                .labelSmall
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontWeight,
+                                  fontStyle: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontStyle,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0,
+                            AppTheme.of(context).designToken.spacing.md,
+                            0.0,
+                            0.0),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .lg),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context)
+                                      .designToken
+                                      .radius
+                                      .lg),
+                              border: Border.all(
+                                color: AppTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(valueOrDefault<double>(
+                                AppConstants.childPadding,
+                                0.0,
+                              )),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  wrapWithModel(
+                                    model: _model.settingsComponentModel1,
+                                    updateCallback: () => _provider.update(() {}),
+                                    child: SettingsComponentWidget(
+                                      icon: Icon(
+                                        Icons.person_sharp,
+                                        color:
+                                            AppTheme.of(context).info,
+                                      ),
+                                      title: 'Personal information',
+                                      description:
+                                          'Name, email and contact details',
+                                      showTrailingIcon: false,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                            EditCustomerProfieWidget.routeName);
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 1.0,
+                                    decoration: BoxDecoration(
+                                      color: AppTheme.of(context)
+                                          .alternate,
+                                    ),
+                                  ),
+                                  wrapWithModel(
+                                    model: _model.settingsComponentModel2,
+                                    updateCallback: () => _provider.update(() {}),
+                                    child: SettingsComponentWidget(
+                                      icon: Icon(
+                                        Icons.credit_card_outlined,
+                                        color:
+                                            AppTheme.of(context).info,
+                                      ),
+                                      title: 'Payment methods',
+                                      description:
+                                          'Cards, transaction history and billing',
+                                      showTrailingIcon: false,
+                                      onTap: () async {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SavedCardsWidget(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ]
+                                    .divide(const SizedBox(
+                                        height: AppConstants.childSpacing))
+                                    .around(const SizedBox(
+                                        height: AppConstants.childSpacing)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0,
+                              AppTheme.of(context)
+                                  .designToken
+                                  .spacing
+                                  .lg,
+                              0.0,
+                              0.0),
+                          child: Text(
+                            'MARKETPLACE ACTIVITY',
+                            style: AppTheme.of(context)
+                                .labelSmall
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontWeight,
+                                  fontStyle: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontStyle,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0,
+                            AppTheme.of(context).designToken.spacing.md,
+                            0.0,
+                            0.0),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .lg),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context)
+                                      .designToken
+                                      .radius
+                                      .lg),
+                              border: Border.all(
+                                color: AppTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(valueOrDefault<double>(
+                                AppConstants.childPadding,
+                                0.0,
+                              )),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  wrapWithModel(
+                                    model: _model.settingsComponentModel3,
+                                    updateCallback: () => _provider.update(() {}),
+                                    child: SettingsComponentWidget(
+                                      icon: Icon(
+                                        Icons.construction_rounded,
+                                        color:
+                                            AppTheme.of(context).info,
+                                      ),
+                                      title: 'My jobs',
+                                      description:
+                                          'Active, ongoing and completed jobs',
+                                      showTrailingIcon: false,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                            CustomerAllJobsWidget.routeName);
+                                      },
+                                    ),
+                                  ),
+                                ].divide(const SizedBox(
+                                    height: AppConstants.childSpacing)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0,
+                              AppTheme.of(context)
+                                  .designToken
+                                  .spacing
+                                  .lg,
+                              0.0,
+                              0.0),
+                          child: Text(
+                            'PREFERENCES & SECURITY',
+                            style: AppTheme.of(context)
+                                .labelSmall
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontWeight,
+                                  fontStyle: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontStyle,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0,
+                            AppTheme.of(context).designToken.spacing.md,
+                            0.0,
+                            0.0),
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .lg),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context)
+                                      .designToken
+                                      .radius
+                                      .lg),
+                              border: Border.all(
+                                color: AppTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding:
+                                      EdgeInsets.all(valueOrDefault<double>(
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                     AppConstants.childPadding,
                                     0.0,
                                   )),

@@ -1,3 +1,10 @@
+import 'package:flutter/scheduler.dart';
+import 'package:my_trade_pal/connect_stripe_screen.dart';
+import 'package:my_trade_pal/saved_cards/saved_cards_widget.dart';
+import 'package:my_trade_pal/stripe/stripe_onboarding_webview/stripe_onboarding_webview_widget.dart';
+import '/utils/custom_code/actions/index.dart' as actions;
+import 'package:my_trade_pal/repositories/api_requests/api_calls.dart';
+import 'package:my_trade_pal/viewmodels/bank_cards_model.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../components/logout_confirmation_dialog.dart';
@@ -45,14 +52,15 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
     return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU';
   }
 
+  // var stripeRow;
+  // bool payoutsEnabled = false;
+  // bool chargesEnabled = false;
+  // bool hasStripeAccount = false;
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TraderProfileModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _provider.finishLoading();
-    });
+    _model = createModel(context, () => TraderProfileModel());
   }
 
   @override
@@ -60,6 +68,37 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
     _model.dispose();
     _provider.dispose();
     super.dispose();
+  }
+
+  static const _stripeConnectReturnUrl =
+      'https://trade-connect-x1mzbx.flutterflow.app/stripeConnectAccountSuccess';
+  static const _stripeConnectRefreshUrl =
+      'https://trade-connect-x1mzbx.flutterflow.app/stripeConnectAccountRefresh';
+
+  Future<void> _openStripeOnboarding(String url) async {
+    final result = await Navigator.push<StripeOnboardingResult>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => StripeOnboardingWebviewWidget(
+          url: url,
+          returnUrl: _stripeConnectReturnUrl,
+          refreshUrl: _stripeConnectRefreshUrl,
+          title: 'Stripe Onboarding',
+        ),
+      ),
+    );
+
+    if (!mounted) return;
+
+    if (result == StripeOnboardingResult.completed) {
+      await actions.showToast(context, 'Stripe onboarding completed!', 2);
+    } else if (result == StripeOnboardingResult.refreshNeeded) {
+      await actions.showToast(
+        context,
+        'That onboarding link expired. Please try again.',
+        2,
+      );
+    }
   }
 
   @override
@@ -121,6 +160,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
+<<<<<<< HEAD
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Stack(
@@ -131,6 +171,691 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   elevation: 0.0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
+=======
+                          Material(
+                            color: Colors.transparent,
+                            elevation: 0.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context).designToken.radius.md),
+                            ),
+                            child: Container(
+                              width: 128.0,
+                              height: 128.0,
+                              decoration: BoxDecoration(
+                                color: AppTheme.of(context).secondaryBackground,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(_resolveAvatarUrl()),
+                                  onError: (exception, stackTrace) {},
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                    AppTheme.of(context).designToken.radius.md),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.28, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 95.0, 0.0, 0.0),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 0.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      valueOrDefault<double>(
+                                    AppConstants.radius1,
+                                    0.0,
+                                  )),
+                                ),
+                                child: Container(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  decoration: BoxDecoration(
+                                    color: AppTheme.of(context).primary,
+                                    borderRadius: BorderRadius.circular(
+                                        valueOrDefault<double>(
+                                      AppConstants.radius1,
+                                      0.0,
+                                    )),
+                                  ),
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 0.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(0.0),
+                                    child: SvgPicture.asset(
+                                      'assets/images/star.svg',
+                                      width: 16.0,
+                                      height: 16.0,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        valueOrDefault<String>(
+                          AppState().userProfileCache.name,
+                          'user name',
+                        ),
+                        style: AppTheme.of(context).displaySmall.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.w800,
+                                fontStyle:
+                                    AppTheme.of(context).displaySmall.fontStyle,
+                              ),
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w800,
+                              fontStyle:
+                                  AppTheme.of(context).displaySmall.fontStyle,
+                            ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0,
+                            AppTheme.of(context).designToken.spacing.md),
+                        child: AppButton(
+                          onPressed: () async {
+                            context.pushNamed(EditTraderProfileWidget.routeName);
+                          },
+                          text: 'Edit profile',
+                          options: AppButtonOptions(
+                            width: 150,
+                            height: 37.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Colors.transparent,
+                            textStyle: AppTheme.of(context).titleSmall.override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: AppTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: AppTheme.of(context).primary,
+                                  letterSpacing: 0.0,
+                                  fontWeight: AppTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle:
+                                      AppTheme.of(context).titleSmall.fontStyle,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: AppTheme.of(context).primary,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                      Material(
+                        color: Colors.transparent,
+                        elevation: 0.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              AppTheme.of(context).designToken.radius.lg),
+                        ),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppTheme.of(context).secondaryBackground,
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context).designToken.radius.lg),
+                            border: Border.all(
+                              color: AppTheme.of(context).alternate,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(valueOrDefault<double>(
+                              AppConstants.childPadding,
+                              0.0,
+                            )),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Personal Details',
+                                  style:
+                                      AppTheme.of(context).titleMedium.override(
+                                            font: GoogleFonts.manrope(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: AppTheme.of(context)
+                                                  .titleMedium
+                                                  .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: AppTheme.of(context)
+                                                .titleMedium
+                                                .fontStyle,
+                                          ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'FULL NAME',
+                                      style: AppTheme.of(context)
+                                          .labelSmall
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelSmall
+                                                .fontStyle,
+                                          ),
+                                    ),
+                                    Text(
+                                      valueOrDefault<String>(
+                                        AppState().userProfileCache.name,
+                                        'name',
+                                      ),
+                                      style: AppTheme.of(context)
+                                          .bodyLarge
+                                          .override(
+                                            font: GoogleFonts.manrope(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyLarge
+                                                .fontStyle,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                if (AppState().userProfileCache.profession !=
+                                        null &&
+                                    AppState().userProfileCache.profession !=
+                                        '')
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'REGISTRATION NUMBER',
+                                        style: AppTheme.of(context)
+                                            .labelSmall
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                      Text(
+                                        valueOrDefault<String>(
+                                          AppState()
+                                              .userProfileCache
+                                              .registrationNumber,
+                                          'reg no',
+                                        ),
+                                        style: AppTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                if (AppState().userProfileCache.serviceArea !=
+                                        null &&
+                                    AppState().userProfileCache.serviceArea !=
+                                        '')
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'SERVICE AREA',
+                                        style: AppTheme.of(context)
+                                            .labelSmall
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                      Text(
+                                        valueOrDefault<String>(
+                                          AppState()
+                                              .userProfileCache
+                                              .serviceArea,
+                                          'service area',
+                                        ),
+                                        style: AppTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                if (AppState().userProfileCache.phone != null &&
+                                    AppState().userProfileCache.phone != '')
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'PHONE',
+                                        style: AppTheme.of(context)
+                                            .labelSmall
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                      Text(
+                                        valueOrDefault<String>(
+                                          AppState().userProfileCache.phone,
+                                          'Phone',
+                                        ),
+                                        style: AppTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                              ].divide(const SizedBox(
+                                  height: AppConstants.childSpacing)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      /// COMMENT DO NOT REMOVE "MAAZ".
+                      // Material(
+                      //   color: Colors.transparent,
+                      //   elevation: 0.0,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(
+                      //         AppTheme.of(context)
+                      //             .designToken
+                      //             .radius
+                      //             .lg),
+                      //   ),
+                      //   child: Container(
+                      //     width: double.infinity,
+                      //     decoration: BoxDecoration(
+                      //       color: AppTheme.of(context)
+                      //           .secondaryBackground,
+                      //       borderRadius: BorderRadius.circular(
+                      //           AppTheme.of(context)
+                      //               .designToken
+                      //               .radius
+                      //               .lg),
+                      //       border: Border.all(
+                      //         color: AppTheme.of(context).alternate,
+                      //       ),
+                      //     ),
+                      //     child: Padding(
+                      //       padding: EdgeInsets.all(valueOrDefault<double>(
+                      //         AppConstants.childPadding,
+                      //         0.0,
+                      //       )),
+                      //       child: Column(
+                      //         mainAxisSize: MainAxisSize.max,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             'Personal Details',
+                      //             style: AppTheme.of(context)
+                      //                 .titleMedium
+                      //                 .override(
+                      //                   font: GoogleFonts.manrope(
+                      //                     fontWeight: FontWeight.bold,
+                      //                     fontStyle:
+                      //                         AppTheme.of(context)
+                      //                             .titleMedium
+                      //                             .fontStyle,
+                      //                   ),
+                      //                   letterSpacing: 0.0,
+                      //                   fontWeight: FontWeight.bold,
+                      //                   fontStyle: AppTheme.of(context)
+                      //                       .titleMedium
+                      //                       .fontStyle,
+                      //                 ),
+                      //           ),
+                      //           Column(
+                      //             mainAxisSize: MainAxisSize.max,
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 'FULL NAME',
+                      //                 style: AppTheme.of(context)
+                      //                     .labelSmall
+                      //                     .override(
+                      //                       font: GoogleFonts.inter(
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.bold,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .labelSmall
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //               Text(
+                      //                 valueOrDefault<String>(
+                      //                   AppState().userProfileCache.name,
+                      //                   'name',
+                      //                 ),
+                      //                 style: AppTheme.of(context)
+                      //                     .bodyLarge
+                      //                     .override(
+                      //                       font: GoogleFonts.manrope(
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.w500,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .bodyLarge
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //           if (AppState().userProfileCache.profession !=
+                      //                   null &&
+                      //               AppState().userProfileCache.profession !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'REGISTRATION NUMBER',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .registrationNumber,
+                      //                     'reg no',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.serviceArea !=
+                      //                   null &&
+                      //               AppState().userProfileCache.serviceArea !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'SERVICE AREA',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .serviceArea,
+                      //                     'service area',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.phone !=
+                      //                   null &&
+                      //               AppState().userProfileCache.phone != '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'PHONE',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState().userProfileCache.phone,
+                      //                     'Phone',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //         ].divide(const SizedBox(
+                      //             height: AppConstants.childSpacing)),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                        desktop: false,
+                      ))
+                        Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context).designToken.radius.lg),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context).primary,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context).designToken.radius.lg),
+                              border: Border.all(
+                                color: AppTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(valueOrDefault<double>(
+                                AppConstants.childPadding,
+                                0.0,
+                              )),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                         AppTheme.of(context)
                                             .designToken
                                             .radius
@@ -154,6 +879,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       ),
                                     ),
                                   ),
+<<<<<<< HEAD
                                 ),
                                 Align(
                                   alignment: const AlignmentDirectional(0.28, 0.0),
@@ -189,11 +915,44 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             width: 16.0,
                                             height: 16.0,
                                             fit: BoxFit.contain,
+=======
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .md,
+                                        0.0,
+                                        0.0),
+                                    child: Text(
+                                      'Earnings Dashboard',
+                                      style: AppTheme.of(context)
+                                          .titleMedium
+                                          .override(
+                                            font: GoogleFonts.manrope(
+                                              fontWeight: AppTheme.of(context)
+                                                  .titleMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .titleMedium
+                                                  .fontStyle,
+                                            ),
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                            fontWeight: AppTheme.of(context)
+                                                .titleMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .titleMedium
+                                                .fontStyle,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
+<<<<<<< HEAD
                                 ),
                               ],
                             ),
@@ -216,6 +975,32 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       fontStyle: AppTheme.of(context)
                                           .displaySmall
                                           .fontStyle,
+=======
+                                  Opacity(
+                                    opacity: 0.8,
+                                    child: Text(
+                                      'View your recent payouts and financial analytics.',
+                                      style: AppTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                            ),
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                            fontWeight: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                     ),
                           ),
                           Padding(
@@ -248,6 +1033,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w400,
                                   ),
+<<<<<<< HEAD
                                   color: AppTheme.of(context).primaryText,
                                   fontSize: 14,
                                   letterSpacing: 0,
@@ -763,18 +1549,78 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                     style: TextStyle(),
                                                   )
                                                 ],
+=======
+                                  Opacity(
+                                    opacity: 0.8,
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0,
+                                          AppTheme.of(context)
+                                              .designToken
+                                              .spacing
+                                              .lg,
+                                          0.0,
+                                          0.0),
+                                      child: Text(
+                                        'CURRENT BALANCE',
+                                        style: AppTheme.of(context)
+                                            .labelSmall
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight: AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontStyle,
+                                              ),
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .sm,
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .md),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        RichText(
+                                          textScaler:
+                                              MediaQuery.of(context).textScaler,
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '£',
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                 style: AppTheme.of(context)
                                                     .headlineLarge
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .headlineLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .headlineLarge
                                                                 .fontStyle,
                                                       ),
@@ -782,13 +1628,11 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                       fontSize: 30.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .headlineLarge
                                                               .fontWeight,
                                                       fontStyle:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .headlineLarge
                                                               .fontStyle,
                                                     ),
@@ -965,11 +1809,19 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
                                                         AppTheme.of(context)
+<<<<<<< HEAD
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
                                                         AppTheme.of(context)
                                                             .bodyMedium
+=======
+                                                            .headlineLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .headlineLarge
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                             .fontStyle,
                                                   ),
                                                   color:
@@ -978,6 +1830,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   letterSpacing: 0.0,
                                                   fontWeight:
                                                       AppTheme.of(context)
+<<<<<<< HEAD
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
@@ -990,6 +1843,53 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             elevation: 0.0,
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
+=======
+                                                          .headlineLarge
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      AppTheme.of(context)
+                                                          .headlineLarge
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: const AlignmentDirectional(
+                                              0.32, 0.0),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            elevation: 0.0,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      valueOrDefault<double>(
+                                                AppConstants.radius1,
+                                                0.0,
+                                              )),
+                                            ),
+                                            child: Container(
+                                              width: 40.0,
+                                              height: 40.0,
+                                              decoration: BoxDecoration(
+                                                color: AppTheme.of(context)
+                                                    .secondary,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        valueOrDefault<double>(
+                                                  AppConstants.radius1,
+                                                  0.0,
+                                                )),
+                                              ),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
+                                              child: const Icon(
+                                                Icons.arrow_forward_ios,
+                                                color: Colors.white,
+                                                size: 14.0,
+                                              ),
+                                            ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                           ),
                                           unselectedChipStyle: ChipStyle(
                                             backgroundColor:
@@ -1048,6 +1948,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 ),
                               ),
                             ),
+<<<<<<< HEAD
                           if (AppState().userProfileCache.insuranceCompany !=
                                   null &&
                               AppState().userProfileCache.insuranceCompany != '')
@@ -1819,24 +2720,29 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               ),
                             ),
                           Material(
+=======
+                          ),
+                        ),
+                      if (AppState().userProfileCache.skills.isNotEmpty)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0,
+                              AppTheme.of(context).designToken.spacing.md,
+                              0.0,
+                              0.0),
+                          child: Material(
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                             color: Colors.transparent,
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  AppTheme.of(context)
-                                      .designToken
-                                      .radius
-                                      .lg),
+                                  AppTheme.of(context).designToken.radius.lg),
                             ),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: AppTheme.of(context)
-                                    .secondaryBackground,
+                                color: AppTheme.of(context).secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .lg),
+                                    AppTheme.of(context).designToken.radius.lg),
                                 border: Border.all(
                                   color: AppTheme.of(context).alternate,
                                 ),
@@ -1849,6 +2755,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
+<<<<<<< HEAD
                                     wrapWithModel(
                                       model: _model.settingsComponentModel1,
                                       updateCallback: () => _provider.notify(),
@@ -2106,8 +3013,140 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   AppTheme.of(context)
                                                       .titleSmall
                                                       .fontStyle,
+=======
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0,
+                                          AppTheme.of(context)
+                                              .designToken
+                                              .spacing
+                                              .lg,
+                                          0.0,
+                                          0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: SvgPicture.asset(
+                                              'assets/images/compas.svg',
+                                              width: 22.0,
+                                              height: 22.0,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Skills & Expertise',
+                                            style: AppTheme.of(context)
+                                                .titleMedium
+                                                .override(
+                                                  font: GoogleFonts.manrope(
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .titleMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .titleMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      AppTheme.of(context)
+                                                          .titleMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      AppTheme.of(context)
+                                                          .titleMedium
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                        ].divide(SizedBox(
+                                            width: AppTheme.of(context)
+                                                .designToken
+                                                .spacing
+                                                .sm)),
+                                      ),
+                                    ),
+                                    AppChoiceChips(
+                                      options: AppState()
+                                          .userProfileCache
+                                          .skills
+                                          .map((label) => ChipData(label))
+                                          .toList(),
+                                      onChanged: (val) => _provider.update(() =>
+                                          _model.choiceChipsValue =
+                                              val?.firstOrNull),
+                                      selectedChipStyle: ChipStyle(
+                                        backgroundColor: AppTheme.of(context)
+                                            .secondaryBackground,
+                                        textStyle: AppTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                              ),
+                                              color: AppTheme.of(context)
+                                                  .secondaryText,
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                             ),
                                       ),
+<<<<<<< HEAD
+=======
+                                      unselectedChipStyle: ChipStyle(
+                                        backgroundColor: AppTheme.of(context)
+                                            .secondaryBackground,
+                                        textStyle: AppTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                              ),
+                                              color: AppTheme.of(context)
+                                                  .secondaryText,
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                            ),
+                                        iconColor: Colors.transparent,
+                                        iconSize: 16.0,
+                                        elevation: 0.0,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      chipSpacing: 8.0,
+                                      rowSpacing: 8.0,
+                                      multiselect: false,
+                                      alignment: WrapAlignment.start,
+                                      controller:
+                                          _model.choiceChipsValueController ??=
+                                              FormFieldController<List<String>>(
+                                        [],
+                                      ),
+                                      wrapped: true,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                     ),
                                   ].divide(SizedBox(
                                       width: AppTheme.of(context)
@@ -2118,11 +3157,1091 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               ),
                             ),
                           ),
+<<<<<<< HEAD
                         ]
                             .divide(const SizedBox(height: AppConstants.childSpacing))
                             .addToEnd(const SizedBox(height: 50.0)),
                       ),
                     ],
+=======
+                        ),
+                      if (AppState().userProfileCache.insuranceCompany !=
+                              null &&
+                          AppState().userProfileCache.insuranceCompany != '')
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0,
+                              AppTheme.of(context).designToken.spacing.md,
+                              0.0,
+                              0.0),
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 0.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context).designToken.radius.lg),
+                            ),
+                            child: Container(
+                              width: double.infinity,
+                              height: 218.0,
+                              decoration: BoxDecoration(
+                                color: AppTheme.of(context).secondaryBackground,
+                                borderRadius: BorderRadius.circular(
+                                    AppTheme.of(context).designToken.radius.lg),
+                                border: Border.all(
+                                  color: AppTheme.of(context).alternate,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 8.0,
+                                    height: 218.0,
+                                    decoration: BoxDecoration(
+                                      color: AppTheme.of(context).primary,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(8.0),
+                                        bottomLeft: Radius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.all(valueOrDefault<double>(
+                                        AppConstants.childPadding,
+                                        0.0,
+                                      )),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: SvgPicture.asset(
+                                                      'assets/images/guard.svg',
+                                                      width: 22.0,
+                                                      height: 22.0,
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'Insurance Status',
+                                                    style: AppTheme.of(context)
+                                                        .titleMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .manrope(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                  ),
+                                                ].divide(SizedBox(
+                                                    width: AppTheme.of(context)
+                                                        .designToken
+                                                        .spacing
+                                                        .sm)),
+                                              ),
+                                              Container(
+                                                width: 54.0,
+                                                height: 19.0,
+                                                decoration: BoxDecoration(
+                                                  color: AppTheme.of(context)
+                                                      .primary,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          AppTheme.of(context)
+                                                              .designToken
+                                                              .radius
+                                                              .sm),
+                                                ),
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Text(
+                                                    'ACTIVE',
+                                                    style: AppTheme.of(context)
+                                                        .bodySmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .manrope(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: const Color(
+                                                              0xFFF8F7FF),
+                                                          fontSize: 10.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodySmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodySmall
+                                                                  .fontStyle,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ].divide(SizedBox(
+                                                width: AppTheme.of(context)
+                                                    .designToken
+                                                    .spacing
+                                                    .sm)),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Provider',
+                                                style: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                              Text(
+                                                AppState()
+                                                    .userProfileCache
+                                                    .insuranceCompany,
+                                                style: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      font: GoogleFonts.manrope(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                      ),
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                          Divider(
+                                            thickness: 1.0,
+                                            color:
+                                                AppTheme.of(context).alternate,
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Coverage',
+                                                style: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                              RichText(
+                                                textScaler:
+                                                    MediaQuery.of(context)
+                                                        .textScaler,
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: '£',
+                                                      style:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .manrope(
+                                                                  fontWeight: AppTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: AppTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                                fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                              ),
+                                                    ),
+                                                    TextSpan(
+                                                      text: AppState()
+                                                          .userProfileCache
+                                                          .insuranceAmount,
+                                                      style: const TextStyle(),
+                                                    )
+                                                  ],
+                                                  style: AppTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Divider(
+                                            thickness: 1.0,
+                                            color:
+                                                AppTheme.of(context).alternate,
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Expires',
+                                                style: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                              Text(
+                                                AppState()
+                                                    .userProfileCache
+                                                    .insuranceExpiry,
+                                                style: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      font: GoogleFonts.manrope(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                      ),
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                          Divider(
+                                            thickness: 1.0,
+                                            color:
+                                                AppTheme.of(context).alternate,
+                                          ),
+                                        ].divide(SizedBox(
+                                            height: AppTheme.of(context)
+                                                .designToken
+                                                .spacing
+                                                .md)),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                        desktop: false,
+                      ))
+                        Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context).designToken.radius.lg),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context).secondaryBackground,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context).designToken.radius.lg),
+                              border: Border.all(
+                                color: AppTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(valueOrDefault<double>(
+                                AppConstants.childPadding,
+                                0.0,
+                              )),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .lg,
+                                        0.0,
+                                        0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Portfolio\nHighlights',
+                                          style: AppTheme.of(context)
+                                              .titleLarge
+                                              .override(
+                                                font: GoogleFonts.manrope(
+                                                  fontWeight:
+                                                      AppTheme.of(context)
+                                                          .titleLarge
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      AppTheme.of(context)
+                                                          .titleLarge
+                                                          .fontStyle,
+                                                ),
+                                                fontSize: 20.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: AppTheme.of(context)
+                                                    .titleLarge
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .titleLarge
+                                                    .fontStyle,
+                                              ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: SvgPicture.asset(
+                                                'assets/images/upload.svg',
+                                                width: 12.0,
+                                                height: 12.0,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                            Text(
+                                              'MANAGE\nGALLERY',
+                                              style: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    color:
+                                                        const Color(0xFF214FC7),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                          ]
+                                              .divide(SizedBox(
+                                                  width: AppTheme.of(context)
+                                                      .designToken
+                                                      .spacing
+                                                      .lg))
+                                              .around(SizedBox(
+                                                  width: AppTheme.of(context)
+                                                      .designToken
+                                                      .spacing
+                                                      .lg)),
+                                        ),
+                                      ].divide(SizedBox(
+                                          width: AppTheme.of(context)
+                                              .designToken
+                                              .spacing
+                                              .sm)),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .lg,
+                                        0.0,
+                                        0.0),
+                                    child: Builder(
+                                      builder: (context) {
+                                        final image = _provider.images.toList();
+
+                                        return GridView.builder(
+                                          padding: EdgeInsets.zero,
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 12.0,
+                                            mainAxisSpacing: 12.0,
+                                            childAspectRatio: 1.15,
+                                          ),
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: image.length,
+                                          itemBuilder: (context, imageIndex) {
+                                            final imageItem = image[imageIndex];
+                                            return ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.network(
+                                                'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
+                                                width: 131.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .md,
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .lg),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _provider.addToImages('1');
+                                        _provider.notify();
+                                      },
+                                      child: Container(
+                                        width: 131.0,
+                                        height: 120.0,
+                                        decoration: BoxDecoration(
+                                          color: AppTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius: BorderRadius.circular(
+                                              AppTheme.of(context)
+                                                  .designToken
+                                                  .radius
+                                                  .md),
+                                          border: Border.all(
+                                            color: AppTheme.of(context).border,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.camera_enhance,
+                                              color: AppTheme.of(context)
+                                                  .primaryText,
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              'ADD PROJECT',
+                                              style: AppTheme.of(context)
+                                                  .labelSmall
+                                                  .override(
+                                                    font: GoogleFonts.inter(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .labelSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .labelSmall
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                          ].divide(SizedBox(
+                                              height: AppTheme.of(context)
+                                                  .designToken
+                                                  .spacing
+                                                  .sm)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ].divide(SizedBox(
+                                    height: AppTheme.of(context)
+                                        .designToken
+                                        .spacing
+                                        .sm)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      Material(
+                        color: Colors.transparent,
+                        elevation: 0.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              AppTheme.of(context).designToken.radius.lg),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppTheme.of(context).secondaryBackground,
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context).designToken.radius.lg),
+                            border: Border.all(
+                              color: AppTheme.of(context).alternate,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(valueOrDefault<double>(
+                              AppConstants.childPadding,
+                              0.0,
+                            )),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                wrapWithModel(
+                                  model: _model.settingsComponentModel1,
+                                  updateCallback: () => _provider.notify(),
+                                  child: SettingsComponentWidget(
+                                    icon: const Icon(
+                                      Icons.payment,
+                                      color: Colors.white,
+                                      size: 22.0,
+                                    ),
+                                    title: 'Payout Methods',
+                                    description:
+                                        'Receive your payments directly into \nyour bank account.',
+                                    showTrailingIcon: false,
+                                    onTap: () async {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => ConnectStripeScreen(
+                                            onConnectStripe: () async {
+                                              final response =
+                                                  await SupabaseEdgeFunctionsGroup
+                                                      .createConnectAccountOnboarding
+                                                      .call(
+                                                userId: currentUserUid,
+                                                email: currentUserEmail,
+                                              );
+
+                                              if (response.succeeded) {
+                                                final onboardingUrl =
+                                                    getJsonField(
+                                                  response.jsonBody,
+                                                  r'$.url',
+                                                ).toString();
+
+                                                await _openStripeOnboarding(
+                                                    onboardingUrl);
+                                              } else {
+                                                // Handle error
+                                                print(response.bodyText);
+                                              }
+                                            },
+                                            onManagePayouts: () async {
+                                              debugPrint(
+                                                  "Current auth uid: $currentUserUid");
+                                              final manageResponse =
+                                                  await SupabaseEdgeFunctionsGroup
+                                                      .manageConnectAccounts
+                                                      .call(
+                                                          userId:
+                                                              currentUserUid);
+                                              if (manageResponse.succeeded) {
+                                                final onboardingUrl =
+                                                    getJsonField(
+                                                  manageResponse.jsonBody,
+                                                  r'$.url',
+                                                ).toString();
+
+                                                await _openStripeOnboarding(
+                                                    onboardingUrl);
+                                              } else {
+                                                // Handle error
+                                                print(manageResponse.bodyText);
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                      // context
+                                      //     .pushNamed(BankCardsWidget.routeName);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 337.0,
+                                  child: Divider(
+                                    thickness: 1.0,
+                                    color: AppTheme.of(context).alternate,
+                                  ),
+                                ),
+                                wrapWithModel(
+                                  model: _model.settingsComponentModel7,
+                                  updateCallback: () => _provider.notify(),
+                                  child: SettingsComponentWidget(
+                                    icon: const Icon(
+                                      Icons.credit_card_outlined,
+                                      color: Colors.white,
+                                      size: 22.0,
+                                    ),
+                                    title: 'Payment Methods',
+                                    description:
+                                        'Save a card to pay proposal fees faster.',
+                                    showTrailingIcon: false,
+                                    onTap: () async {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              const SavedCardsWidget(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 337.0,
+                                  child: Divider(
+                                    thickness: 1.0,
+                                    color: AppTheme.of(context).alternate,
+                                  ),
+                                ),
+                                wrapWithModel(
+                                  model: _model.settingsComponentModel2,
+                                  updateCallback: () => _provider.notify(),
+                                  child: SettingsComponentWidget(
+                                    icon: const Icon(
+                                      Icons.lock_outline,
+                                      color: Colors.white,
+                                      size: 22.0,
+                                    ),
+                                    title: 'Security',
+                                    description: '2FA ENABLED',
+                                    showTrailingIcon: false,
+                                    onTap: () async {},
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 337.0,
+                                  child: Divider(
+                                    thickness: 1.0,
+                                    color: AppTheme.of(context).alternate,
+                                  ),
+                                ),
+                                wrapWithModel(
+                                  model: _model.settingsComponentModel3,
+                                  updateCallback: () => _provider.notify(),
+                                  child: SettingsComponentWidget(
+                                    icon: const Icon(
+                                      Icons.lock_outline,
+                                      color: Colors.white,
+                                      size: 22.0,
+                                    ),
+                                    title: 'Notifications',
+                                    description:
+                                        'Push alerts and email settings',
+                                    showTrailingIcon: false,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                          NotificationPageWidget.routeName);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 337.0,
+                                  child: Divider(
+                                    thickness: 1.0,
+                                    color: AppTheme.of(context).alternate,
+                                  ),
+                                ),
+                                wrapWithModel(
+                                  model: _model.settingsComponentModel4,
+                                  updateCallback: () => _provider.notify(),
+                                  child: SettingsComponentWidget(
+                                    icon: const Icon(
+                                      Icons.notifications_none,
+                                      color: Colors.white,
+                                      size: 22.0,
+                                    ),
+                                    title: 'Preferences',
+                                    description: 'PUSH & EMAIL ACTIVE',
+                                    showTrailingIcon: false,
+                                    onTap: () async {},
+                                  ),
+                                ),
+                                Divider(
+                                  thickness: 2.0,
+                                  color: AppTheme.of(context).alternate,
+                                ),
+                                wrapWithModel(
+                                  model: _model.settingsComponentModel5,
+                                  updateCallback: () => _provider.notify(),
+                                  child: SettingsComponentWidget(
+                                    icon: Icon(
+                                      Icons.password,
+                                      color: AppTheme.of(context).info,
+                                    ),
+                                    title: 'Change Password',
+                                    description:
+                                        'Update your password to keep your account secure.',
+                                    showTrailingIcon: false,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                          ResetPasswordWidget.routeName);
+                                    },
+                                  ),
+                                ),
+                                Divider(
+                                  thickness: 2.0,
+                                  color: AppTheme.of(context).alternate,
+                                ),
+                                Builder(
+                                  builder: (context) => wrapWithModel(
+                                    model: _model.settingsComponentModel6,
+                                    updateCallback: () => _provider.notify(),
+                                    child: SettingsComponentWidget(
+                                      icon: const Icon(
+                                        Icons.dark_mode_outlined,
+                                        color: Colors.white,
+                                        size: 22.0,
+                                      ),
+                                      title: 'Appearances',
+                                      description: 'LIGHT, DARK, or SYSTEM',
+                                      showTrailingIcon: false,
+                                      onTap: () async {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                          0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  FocusScope.of(dialogContext)
+                                                      .unfocus();
+                                                  FocusManager
+                                                      .instance.primaryFocus
+                                                      ?.unfocus();
+                                                },
+                                                child:
+                                                    const ThemePickerWidget(),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ].divide(const SizedBox(
+                                  height: AppConstants.childSpacing)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          final confirmLogout = await showDialog<bool>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                elevation: 0,
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                alignment: const AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                child: LogoutConfirmationDialog(
+                                  onConfirm: () async {
+                                    await action_blocks
+                                        .deleteFcmFromBackend(context);
+                                    await action_blocks.clearAppData(context);
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    await authManager.signOut();
+                                    GoRouter.of(context)
+                                        .clearRedirectLocation();
+
+                                    context.goNamedAuth(
+                                        OnboardingWidget.routeName,
+                                        context.mounted);
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                          if (confirmLogout != true) return;
+                          await action_blocks.deleteFcmFromBackend(context);
+                          await action_blocks.clearAppData(context);
+
+                          GoRouter.of(context).prepareAuthEvent();
+                          await authManager.signOut();
+                          GoRouter.of(context).clearRedirectLocation();
+
+                          if (context.mounted) {
+                            context.goNamedAuth(
+                              OnboardingWidget.routeName,
+                              context.mounted,
+                            );
+                          }
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(),
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                                AppTheme.of(context).designToken.spacing.lg),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.logout,
+                                  color: Color(0xFFBA1A1A),
+                                  size: 24.0,
+                                ),
+                                Align(
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 0.0),
+                                  child: Text(
+                                    'LOGOUT FROM DEVICE',
+                                    style: AppTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontStyle,
+                                          ),
+                                          color: const Color(0xFFBA1A1A),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .titleSmall
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .titleSmall
+                                              .fontStyle,
+                                        ),
+                                  ),
+                                ),
+                              ].divide(SizedBox(
+                                  width: AppTheme.of(context)
+                                      .designToken
+                                      .spacing
+                                      .md)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]
+                        .divide(
+                            const SizedBox(height: AppConstants.childSpacing))
+                        .addToEnd(const SizedBox(height: 50.0)),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                   ),
                 ),
               ),

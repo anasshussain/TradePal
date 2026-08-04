@@ -33,5 +33,5 @@ abstract class BaseAuthUser {
   String? get phoneNumber => authUserInfo.phoneNumber;
 }
 
-BaseAuthUser? currentUser;
+ BaseAuthUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;

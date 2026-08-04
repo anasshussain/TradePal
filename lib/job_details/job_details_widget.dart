@@ -1,3 +1,4 @@
+import 'package:my_trade_pal/auth/supabase_auth/helper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
@@ -71,25 +72,27 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
 
         if ((_model.getJobDetails?.succeeded ?? true)) {
           _provider.fetchedJob = ((_model.getJobDetails?.jsonBody ?? '')
-              .toList()
-              .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-              .toList() as Iterable<JobDataStruct?>)
+                  .toList()
+                  .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                  .toList() as Iterable<JobDataStruct?>)
               .withoutNulls
               ?.firstOrNull;
           _provider.notify();
+
           if (_provider.fetchedJob?.customerId == currentUserUid) {
             _model.getApplicationList =
-            await SupabaseTablesGroup.getSubmittedProposalsCall.call(
+                await SupabaseTablesGroup.getSubmittedProposalsCall.call(
               params:
-              'select=*,jobs!inner(*),users(device_token,total_reviews,average_rating)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
+                  'select=*,jobs!inner(*),users(device_token,total_reviews,average_rating)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
             );
 
             if ((_model.getApplicationList?.succeeded ?? true)) {
               _provider.loading = false;
-              _provider.proposalsList = ((_model.getApplicationList?.jsonBody ?? '')
-                  .toList()
-                  .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
-                  .toList() as Iterable<ProposalListStruct?>)
+              _provider.proposalsList = ((_model.getApplicationList?.jsonBody ??
+                          '')
+                      .toList()
+                      .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
+                      .toList() as Iterable<ProposalListStruct?>)
                   .withoutNulls
                   .toList()
                   .cast<ProposalListStruct>();
@@ -98,28 +101,28 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
             }
           } else {
             _model.getSubmittedJobData =
-            await SupabaseTablesGroup.getSubmittedProposalsCall.call(
+                await SupabaseTablesGroup.getSubmittedProposalsCall.call(
               params:
-              'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
+                  'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
             );
 
             if (((_model.getSubmittedJobData?.jsonBody ?? '')
-                .toList()
-                .map<SubmittedProposalStruct?>(
-                SubmittedProposalStruct.maybeFromMap)
-                .toList() as Iterable<SubmittedProposalStruct?>)
+                    .toList()
+                    .map<SubmittedProposalStruct?>(
+                        SubmittedProposalStruct.maybeFromMap)
+                    .toList() as Iterable<SubmittedProposalStruct?>)
                 .withoutNulls
                 .isNotEmpty) {
               _model.paymentStatus =
-              await SupabaseTablesGroup.getProposalPaymentCall.call(
+                  await SupabaseTablesGroup.getProposalPaymentCall.call(
                 jobId: widget!.jobId,
                 tradepersonId: currentUserUid,
               );
 
               if ((_model.paymentStatus?.succeeded ?? true)) {
                 if (SupabaseTablesGroup.getProposalPaymentCall.paymentStatus(
-                  (_model.paymentStatus?.jsonBody ?? ''),
-                ) ==
+                      (_model.paymentStatus?.jsonBody ?? ''),
+                    ) ==
                     PaymentStatus.paid.name) {
                   await Future.wait([
                     Future(() async {
@@ -128,9 +131,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                     Future(() async {
                       _model.getUser = await SupabaseTablesGroup.getUserCall.call(
                         userId: ((_model.getJobDetails?.jsonBody ?? '')
-                            .toList()
-                            .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-                            .toList() as Iterable<JobDataStruct?>)
+                                .toList()
+                                .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                                .toList() as Iterable<JobDataStruct?>)
                             .withoutNulls
                             ?.firstOrNull
                             ?.customerId,
@@ -138,9 +141,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
 
                       if ((_model.getUser?.succeeded ?? true)) {
                         _provider.user = ((_model.getUser?.jsonBody ?? '')
-                            .toList()
-                            .map<UserStruct?>(UserStruct.maybeFromMap)
-                            .toList() as Iterable<UserStruct?>)
+                                .toList()
+                                .map<UserStruct?>(UserStruct.maybeFromMap)
+                                .toList() as Iterable<UserStruct?>)
                             .withoutNulls
                             ?.firstOrNull;
                         _provider.notify();
@@ -151,6 +154,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                   _provider.isPaymentPaid = false;
                 }
               }
+              _provider.submittedProposalStatus = ((_model.getSubmittedJobData?.jsonBody ?? '')
+                  .toList()
+                  .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
+                  .toList() as Iterable<SubmittedProposalStruct?>)
+                  .withoutNulls
+                  ?.firstOrNull
+                  ?.status;
               _provider.isProposalSubmitted = true;
               _provider.loading = false;
               _provider.saveToCache(widget!.jobId); // ADDED
@@ -161,6 +171,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
               _provider.saveToCache(widget!.jobId); // ADDED
               _provider.notify();
             }
+<<<<<<< HEAD
             _provider.submittedProposalStatus = ((_model.getSubmittedJobData?.jsonBody ?? '')
                 .toList()
                 .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
@@ -171,6 +182,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
             _provider.isProposalSubmitted = true;
             _provider.loading = false;
             _provider.notify();
+=======
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
           }
         } else {
           await actions.showToast(
@@ -236,8 +249,9 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
             updateCallback: () => _provider.notify(),
             child: AppbarComponentWidget(
               title: 'Job Details',
-              showAction: (_provider.fetchedJob?.customerId == currentUserUid) &&
-                  (_provider.fetchedJob?.status == Status.ACTIVE),
+              showAction:
+                  (_provider.fetchedJob?.customerId == currentUserUid) &&
+                      (_provider.fetchedJob?.status == Status.ACTIVE),
               actionIcon: Icon(
                 Icons.edit_rounded,
                 color: AppTheme.of(context).secondaryText,
@@ -295,6 +309,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   _provider.fetchedJob?.category,
                                   'Unknown category',
                                 ),
+<<<<<<< HEAD
                                 style: AppTheme.of(context)
                                     .bodySmall
                                     .override(
@@ -311,6 +326,22 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       .bodySmall
                                       .fontStyle,
                                 ),
+=======
+                                style: AppTheme.of(context).bodySmall.override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodySmall
+                                            .fontStyle,
+                                      ),
+                                      color: AppTheme.of(context).primary,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: AppTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
+                                    ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                               ),
                             ].divide(const SizedBox(
                                 width: AppConstants.parentPagePadding)),
@@ -320,6 +351,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               _provider.fetchedJob?.title,
                               'Unknown Title',
                             ),
+<<<<<<< HEAD
                             style: AppTheme.of(context)
                                 .displaySmall
                                 .override(
@@ -339,6 +371,25 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   .displaySmall
                                   .fontStyle,
                             ),
+=======
+                            style: AppTheme.of(context).displaySmall.override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: AppTheme.of(context)
+                                        .displaySmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .displaySmall
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: AppTheme.of(context)
+                                      .displaySmall
+                                      .fontWeight,
+                                  fontStyle: AppTheme.of(context)
+                                      .displaySmall
+                                      .fontStyle,
+                                ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
@@ -349,6 +400,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 size: 24.0,
                               ),
                               Text(
+<<<<<<< HEAD
                                 dateTimeFormat("relative", functions.convertDateStringtoDateTIme(
                                   _provider.fetchedJob?.createdAt ?? DateTime.now().toString(),
                                 )),
@@ -367,6 +419,27 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
+=======
+                                dateTimeFormat(
+                                    "relative",
+                                    functions.convertDateStringtoDateTIme(
+                                      _provider.fetchedJob?.createdAt ??
+                                          DateTime.now().toString(),
+                                    )),
+                                style: AppTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: FontWeight.normal,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                               ),
                             ].divide(SizedBox(
                                 width: AppTheme.of(context)
@@ -387,6 +460,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   _provider.fetchedJob?.budgetMin?.toString(),
                                   'Unknown category',
                                 )}',
+<<<<<<< HEAD
                                 style: AppTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -404,6 +478,22 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
+=======
+                                style: AppTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      color: AppTheme.of(context).secondaryText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                               ),
                             ].divide(SizedBox(
                                 width: AppTheme.of(context)
@@ -417,16 +507,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               elevation: 0.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .md),
+                                    AppTheme.of(context).designToken.radius.md),
                               ),
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.of(context)
-                                      .secondaryBackground,
+                                  color:
+                                      AppTheme.of(context).secondaryBackground,
                                   borderRadius: BorderRadius.circular(
                                       AppTheme.of(context)
                                           .designToken
@@ -437,19 +524,22 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(valueOrDefault<double>(
+                                  padding:
+                                      EdgeInsets.all(valueOrDefault<double>(
                                     AppConstants.childPadding,
                                     0.0,
                                   )),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'SCOPE OF WORK',
                                         style: AppTheme.of(context)
                                             .labelMedium
                                             .override(
+<<<<<<< HEAD
                                           font: GoogleFonts.inter(
                                             fontWeight:
                                             AppTheme.of(context)
@@ -470,12 +560,31 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               .labelMedium
                                               .fontStyle,
                                         ),
+=======
+                                              font: GoogleFonts.inter(
+                                                fontWeight: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                            ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                       ),
                                       Text(
                                         _provider.fetchedJob!.description,
                                         style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
+<<<<<<< HEAD
                                           font: GoogleFonts.manrope(
                                             fontWeight:
                                             AppTheme.of(context)
@@ -496,6 +605,24 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               .bodyMedium
                                               .fontStyle,
                                         ),
+=======
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                            ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                       ),
                                     ].divide(const SizedBox(
                                         height: AppConstants.childSpacing)),
@@ -511,16 +638,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               elevation: 0.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .lg),
+                                    AppTheme.of(context).designToken.radius.lg),
                               ),
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.of(context)
-                                      .secondaryBackground,
+                                  color:
+                                      AppTheme.of(context).secondaryBackground,
                                   borderRadius: BorderRadius.circular(
                                       AppTheme.of(context)
                                           .designToken
@@ -531,19 +655,22 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(valueOrDefault<double>(
+                                  padding:
+                                      EdgeInsets.all(valueOrDefault<double>(
                                     AppConstants.childPadding,
                                     0.0,
                                   )),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'GALLERY',
                                         style: AppTheme.of(context)
                                             .labelMedium
                                             .override(
+<<<<<<< HEAD
                                           font: GoogleFonts.inter(
                                             fontWeight:
                                             AppTheme.of(context)
@@ -569,6 +696,30 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         builder: (context) {
                                           final images = _provider.fetchedJob?.images
                                               ?.toList() ??
+=======
+                                              font: GoogleFonts.inter(
+                                                fontWeight: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                      Builder(
+                                        builder: (context) {
+                                          final images = _provider
+                                                  .fetchedJob?.images
+                                                  ?.toList() ??
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                               [];
 
                                           return Wrap(
@@ -583,9 +734,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             verticalDirection:
                                             VerticalDirection.down,
                                             clipBehavior: Clip.none,
+<<<<<<< HEAD
                                             children: List.generate(images.length,
                                                     (imagesIndex) {
                                                   final imagesItem =
+=======
+                                            children: List.generate(
+                                                images.length, (imagesIndex) {
+                                              final imagesItem =
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                   images[imagesIndex];
                                                   return InkWell(
                                                     splashColor: Colors.transparent,
@@ -593,6 +750,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     hoverColor: Colors.transparent,
                                                     highlightColor:
                                                     Colors.transparent,
+<<<<<<< HEAD
                                                     onTap: () async {
                                                       await Navigator.push(
                                                         context,
@@ -603,6 +761,19 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           AppExpandedImageView(
                                                             image: CachedNetworkImage(
                                                               fadeInDuration:
+=======
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      type: PageTransitionType
+                                                          .fade,
+                                                      child:
+                                                          AppExpandedImageView(
+                                                        image:
+                                                            CachedNetworkImage(
+                                                          fadeInDuration:
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                               const Duration(
                                                                   milliseconds:
                                                                   300),
@@ -656,7 +827,46 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       ),
                                                     ),
                                                   );
+<<<<<<< HEAD
                                                 }),
+=======
+                                                },
+                                                child: Hero(
+                                                  tag: imagesItem,
+                                                  transitionOnUserGestures:
+                                                      true,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: CachedNetworkImage(
+                                                      fadeInDuration:
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  300),
+                                                      fadeOutDuration:
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  300),
+                                                      imageUrl: imagesItem,
+                                                      width: 100.0,
+                                                      height: 100.0,
+                                                      fit: BoxFit.cover,
+                                                      errorWidget: (context,
+                                                              error,
+                                                              stackTrace) =>
+                                                          Image.asset(
+                                                        'assets/images/error_image.svg',
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                           );
                                         },
                                       ),
@@ -674,7 +884,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               locatioId: _provider.fetchedJob!.locationId,
                             ),
                           ),
-                          if (_provider.fetchedJob?.customerId != currentUserUid)
+                          if (_provider.fetchedJob?.customerId !=
+                              currentUserUid)
                             Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -688,8 +899,10 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         AppTheme.of(context).secondary
                                       ],
                                       stops: const [0.0, 1.0],
-                                      begin: const AlignmentDirectional(-1.0, 0.14),
-                                      end: const AlignmentDirectional(1.0, -0.14),
+                                      begin: const AlignmentDirectional(
+                                          -1.0, 0.14),
+                                      end: const AlignmentDirectional(
+                                          1.0, -0.14),
                                     ),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(
@@ -732,16 +945,21 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               .radius
                                               .md),
                                       border: Border.all(
-                                        color: AppTheme.of(context)
-                                            .alternate,
+                                        color: AppTheme.of(context).alternate,
                                       ),
                                     ),
                                     child: Form(
                                       key: _model.formKey,
-                                      autovalidateMode: AutovalidateMode.disabled,
+                                      autovalidateMode:
+                                          AutovalidateMode.disabled,
                                       child: Padding(
+<<<<<<< HEAD
                                         padding:
                                         EdgeInsets.all(valueOrDefault<double>(
+=======
+                                        padding: EdgeInsets.all(
+                                            valueOrDefault<double>(
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                           AppConstants.parentPagePadding,
                                           0.0,
                                         )),
@@ -757,6 +975,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               children: [
                                                 Text(
                                                   'Submit Proposal',
+<<<<<<< HEAD
                                                   style: AppTheme.of(
                                                       context)
                                                       .titleLarge
@@ -820,6 +1039,66 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               ].divide(SizedBox(
                                                   height:
                                                   AppTheme.of(context)
+=======
+                                                  style: AppTheme.of(context)
+                                                      .titleLarge
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleLarge
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleLarge
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .titleLarge
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .titleLarge
+                                                                .fontStyle,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  'Secure this project by providing your best\nquote and timeline.',
+                                                  style: AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                ),
+                                              ].divide(SizedBox(
+                                                  height: AppTheme.of(context)
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -831,6 +1110,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               children: [
                                                 Text(
                                                   'YOUR PROPOSED QUOTE',
+<<<<<<< HEAD
                                                   style:
                                                   AppTheme.of(context)
                                                       .labelSmall
@@ -860,6 +1140,33 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         .labelSmall
                                                         .fontStyle,
                                                   ),
+=======
+                                                  style: AppTheme.of(context)
+                                                      .labelSmall
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .labelSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .labelSmall
+                                                                .fontStyle,
+                                                      ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                 ),
                                                 TextFormField(
                                                   controller: _model
@@ -871,6 +1178,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
+<<<<<<< HEAD
                                                     labelStyle: AppTheme
                                                         .of(context)
                                                         .labelMedium
@@ -932,6 +1240,73 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     OutlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color: Color(0x00000000),
+=======
+                                                    labelStyle: AppTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                    hintText: '100',
+                                                    hintStyle: AppTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide:
+                                                          const BorderSide(
+                                                        color:
+                                                            Color(0x00000000),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
@@ -939,9 +1314,17 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           8.0),
                                                     ),
                                                     focusedBorder:
+<<<<<<< HEAD
                                                     OutlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color: Color(0x00000000),
+=======
+                                                        OutlineInputBorder(
+                                                      borderSide:
+                                                          const BorderSide(
+                                                        color:
+                                                            Color(0x00000000),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
@@ -952,9 +1335,14 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
+<<<<<<< HEAD
                                                         AppTheme.of(
                                                             context)
                                                             .error,
+=======
+                                                            AppTheme.of(context)
+                                                                .error,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
@@ -965,9 +1353,14 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
+<<<<<<< HEAD
                                                         AppTheme.of(
                                                             context)
                                                             .error,
+=======
+                                                            AppTheme.of(context)
+                                                                .error,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
@@ -976,6 +1369,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     ),
                                                     filled: true,
                                                     fillColor:
+<<<<<<< HEAD
                                                     AppTheme.of(
                                                         context)
                                                         .alternate,
@@ -1015,6 +1409,44 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                                   ),
+=======
+                                                        AppTheme.of(context)
+                                                            .alternate,
+                                                    prefixIcon: Icon(
+                                                      Icons
+                                                          .currency_pound_outlined,
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .secondaryText,
+                                                    ),
+                                                  ),
+                                                  style: AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                   cursorColor:
                                                   AppTheme.of(context)
                                                       .primaryText,
@@ -1025,8 +1457,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       .asValidator(context),
                                                 ),
                                               ].divide(SizedBox(
+<<<<<<< HEAD
                                                   height:
                                                   AppTheme.of(context)
+=======
+                                                  height: AppTheme.of(context)
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -1038,6 +1474,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               children: [
                                                 Text(
                                                   'ESTIMATED TIMELINE',
+<<<<<<< HEAD
                                                   style:
                                                   AppTheme.of(context)
                                                       .labelSmall
@@ -1067,6 +1504,33 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         .labelSmall
                                                         .fontStyle,
                                                   ),
+=======
+                                                  style: AppTheme.of(context)
+                                                      .labelSmall
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .labelSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .labelSmall
+                                                                .fontStyle,
+                                                      ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                 ),
                                                 AppChoiceChips(
                                                   options: const [
@@ -1081,6 +1545,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           val?.firstOrNull),
                                                   selectedChipStyle: ChipStyle(
                                                     backgroundColor:
+<<<<<<< HEAD
                                                     AppTheme.of(
                                                         context)
                                                         .primary,
@@ -1121,14 +1586,52 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     AppTheme.of(
                                                         context)
                                                         .info,
+=======
+                                                        AppTheme.of(context)
+                                                            .primary,
+                                                    textStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .manrope(
+                                                                fontWeight: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              color: AppTheme.of(
+                                                                      context)
+                                                                  .info,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                              fontStyle: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                            ),
+                                                    iconColor:
+                                                        AppTheme.of(context)
+                                                            .info,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                     iconSize: 16.0,
                                                     elevation: 0.0,
                                                     borderRadius:
                                                     BorderRadius.circular(
                                                         8.0),
                                                   ),
-                                                  unselectedChipStyle: ChipStyle(
+                                                  unselectedChipStyle:
+                                                      ChipStyle(
                                                     backgroundColor:
+<<<<<<< HEAD
                                                     AppTheme.of(
                                                         context)
                                                         .accent1,
@@ -1166,6 +1669,41 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           .fontStyle,
                                                     ),
                                                     iconColor: Colors.transparent,
+=======
+                                                        AppTheme.of(context)
+                                                            .accent1,
+                                                    textStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .manrope(
+                                                                fontWeight: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              color: AppTheme.of(
+                                                                      context)
+                                                                  .secondaryText,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                              fontStyle: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                            ),
+                                                    iconColor:
+                                                        Colors.transparent,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                     iconSize: 16.0,
                                                     elevation: 0.0,
                                                     borderRadius:
@@ -1175,7 +1713,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   chipSpacing: 8.0,
                                                   rowSpacing: 8.0,
                                                   multiselect: false,
-                                                  alignment: WrapAlignment.start,
+                                                  alignment:
+                                                      WrapAlignment.start,
                                                   controller: _model
                                                       .choiceChipsValueController ??=
                                                       FormFieldController<
@@ -1185,8 +1724,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   wrapped: true,
                                                 ),
                                               ].divide(SizedBox(
+<<<<<<< HEAD
                                                   height:
                                                   AppTheme.of(context)
+=======
+                                                  height: AppTheme.of(context)
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -1196,6 +1739,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               style: AppTheme.of(context)
                                                   .bodyMedium
                                                   .override(
+<<<<<<< HEAD
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
                                                   AppTheme.of(
@@ -1220,13 +1764,39 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                               ),
+=======
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                             ),
                                             Container(
                                               width: double.infinity,
                                               height: 200.0,
                                               decoration: BoxDecoration(
+<<<<<<< HEAD
                                                 color:
                                                 AppTheme.of(context)
+=======
+                                                color: AppTheme.of(context)
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                     .alternate,
                                               ),
                                               child: Padding(
@@ -1247,6 +1817,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       isDense: false,
+<<<<<<< HEAD
                                                       labelStyle: AppTheme
                                                           .of(context)
                                                           .labelMedium
@@ -1280,6 +1851,39 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             .labelMedium
                                                             .fontStyle,
                                                       ),
+=======
+                                                      labelStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: AppTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: AppTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                color: AppTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                              ),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                       hintText:
                                                       'Describe your experience with similar high-end ${valueOrDefault<String>(
                                                         SupabaseTablesGroup
@@ -1291,6 +1895,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         ),
                                                         'title',
                                                       )}',
+<<<<<<< HEAD
                                                       hintStyle: AppTheme
                                                           .of(context)
                                                           .labelMedium
@@ -1321,44 +1926,109 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       enabledBorder:
                                                       OutlineInputBorder(
                                                         borderSide: const BorderSide(
+=======
+                                                      hintStyle:
+                                                          AppTheme.of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontStyle: AppTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                color: AppTheme.of(
+                                                                        context)
+                                                                    .hint,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                           color:
                                                           Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
+<<<<<<< HEAD
                                                         BorderRadius.circular(
                                                             0.0),
                                                       ),
                                                       focusedBorder:
                                                       OutlineInputBorder(
                                                         borderSide: const BorderSide(
+=======
+                                                            BorderRadius
+                                                                .circular(0.0),
+                                                      ),
+                                                      focusedBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                           color:
                                                           Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
+<<<<<<< HEAD
                                                         BorderRadius.circular(
                                                             0.0),
                                                       ),
                                                       errorBorder:
                                                       OutlineInputBorder(
                                                         borderSide: const BorderSide(
+=======
+                                                            BorderRadius
+                                                                .circular(0.0),
+                                                      ),
+                                                      errorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                           color:
                                                           Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
+<<<<<<< HEAD
                                                         BorderRadius.circular(
                                                             0.0),
                                                       ),
                                                       focusedErrorBorder:
                                                       OutlineInputBorder(
                                                         borderSide: const BorderSide(
+=======
+                                                            BorderRadius
+                                                                .circular(0.0),
+                                                      ),
+                                                      focusedErrorBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide:
+                                                            const BorderSide(
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                           color:
                                                           Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
+<<<<<<< HEAD
                                                         BorderRadius.circular(
                                                             0.0),
                                                       ),
@@ -1397,6 +2067,44 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     AppTheme.of(
                                                         context)
                                                         .primaryText,
+=======
+                                                            BorderRadius
+                                                                .circular(0.0),
+                                                      ),
+                                                    ),
+                                                    style: AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .manrope(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                    maxLines: 5,
+                                                    cursorColor:
+                                                        AppTheme.of(context)
+                                                            .primaryText,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                     enableInteractiveSelection:
                                                     true,
                                                     validator: _model
@@ -1406,23 +2114,33 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 ),
                                               ),
                                             ),
-                                            if (!_provider.isProposalSubmitted! &&
+                                            if (!_provider
+                                                    .isProposalSubmitted! &&
                                                 (widget!.jobView !=
                                                     JobDetailsView.chat))
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed: () async {
                                                     _model.formResult = true;
                                                     if (_model.formKey
+<<<<<<< HEAD
                                                         .currentState ==
                                                         null ||
                                                         !_model
                                                             .formKey.currentState!
+=======
+                                                                .currentState ==
+                                                            null ||
+                                                        !_model.formKey
+                                                            .currentState!
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                             .validate()) {
-                                                      _provider.update(() => _model
-                                                          .formResult = false);
+                                                      _provider.update(() =>
+                                                          _model.formResult =
+                                                              false);
                                                       return;
                                                     }
                                                     if (_model.formResult!) {
@@ -1436,8 +2154,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         message: _model
                                                             .descriptionTextController
                                                             .text,
-                                                        quoteAmount: int.tryParse(
-                                                            _model
+                                                        quoteAmount:
+                                                            int.tryParse(_model
                                                                 .quoteTextFieldTextController
                                                                 .text),
                                                         duration: _model
@@ -1496,13 +2214,20 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                   ?.customerId,
                                                               extraData: <String,
                                                                   dynamic>{
-                                                                'member': <String,
-                                                                    String>{
+                                                                'member':
+                                                                    <String,
+                                                                        String>{
                                                                   'username':
                                                                   '\"\"',
                                                                   'avatarurl':
+<<<<<<< HEAD
                                                                   '\"\"',
                                                                   'jobid': '\"\"',
+=======
+                                                                      '\"\"',
+                                                                  'jobid':
+                                                                      '\"\"',
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                                   'member_id':
                                                                   '\"\"',
                                                                   'member_name':
@@ -1558,12 +2283,20 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
+<<<<<<< HEAD
                                                     padding: const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
+=======
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                            16.0, 0.0),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                     iconAlignment:
                                                     IconAlignment.end,
                                                     iconPadding:
+<<<<<<< HEAD
                                                     const EdgeInsetsDirectional
                                                         .fromSTEB(0.0, 0.0,
                                                         0.0, 0.0),
@@ -1607,18 +2340,82 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             .designToken
                                                             .radius
                                                             .lg),
+=======
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                    color: AppTheme.of(context)
+                                                        .primary,
+                                                    textStyle: AppTheme.of(
+                                                            context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            AppTheme.of(context)
+                                                                .designToken
+                                                                .radius
+                                                                .lg),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                   ),
                                                 ),
                                               ),
-                                            if (((AppState().userProfileCache.userRole == 2) &&
-                                                ((_provider.isProposalSubmitted == true) &&
-                                                    (_provider.submittedProposalStatus == Status.ACCEPTED.name)) &&
-                                                (widget!.jobView != JobDetailsView.chat) &&
-                                                (_provider.isPaymentPaid == true)) ||
-                                                (AppState().paidJobId == widget!.jobId))
+                                            if (((AppState()
+                                                            .userProfileCache
+                                                            .userRole ==
+                                                        2) &&
+                                                    ((_provider.isProposalSubmitted ==
+                                                            true) &&
+                                                        (((_model.getSubmittedJobData?.jsonBody ??
+                                                                            '')
+                                                                        .toList()
+                                                                        .map<SubmittedProposalStruct?>(SubmittedProposalStruct
+                                                                            .maybeFromMap)
+                                                                        .toList()
+                                                                    as Iterable<
+                                                                        SubmittedProposalStruct?>)
+                                                                .withoutNulls
+                                                                ?.firstOrNull
+                                                                ?.status ==
+                                                            Status.ACCEPTED
+                                                                .name)) &&
+                                                    (widget!.jobView !=
+                                                        JobDetailsView.chat) &&
+                                                    (_provider.isPaymentPaid ==
+                                                        true)) ||
+                                                (AppState().paidJobId ==
+                                                    widget!.jobId))
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed: () async {
                                                     _model.startChat =
@@ -1652,17 +2449,26 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                 .routeName,
                                                             queryParameters: {
                                                               'conversationId':
+<<<<<<< HEAD
                                                               serializeParam(
                                                                 StartChatStruct.maybeFromMap((_model
                                                                     .startChat
                                                                     ?.jsonBody ??
                                                                     ''))
+=======
+                                                                  serializeParam(
+                                                                StartChatStruct.maybeFromMap(
+                                                                        (_model.startChat?.jsonBody ??
+                                                                            ''))
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                                     ?.conversationId,
-                                                                ParamType.String,
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                               'username':
                                                               serializeParam(
                                                                 currentUserUid !=
+<<<<<<< HEAD
                                                                     StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
                                                                         ''))
                                                                         ?.userA
@@ -1678,10 +2484,26 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                     ?.userB
                                                                     ?.name,
                                                                 ParamType.String,
+=======
+                                                                        StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ?? ''))
+                                                                            ?.userA
+                                                                            ?.id
+                                                                    ? StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
+                                                                            ''))
+                                                                        ?.userA
+                                                                        ?.name
+                                                                    : StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
+                                                                            ''))
+                                                                        ?.userB
+                                                                        ?.name,
+                                                                ParamType
+                                                                    .String,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                               ),
                                                               'avatarUrl':
                                                               serializeParam(
                                                                 currentUserUid !=
+<<<<<<< HEAD
                                                                     StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
                                                                         ''))
                                                                         ?.userA
@@ -1697,11 +2519,28 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                     ?.userB
                                                                     ?.avatarUrl,
                                                                 ParamType.String,
+=======
+                                                                        StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
+                                                                                ''))
+                                                                            ?.userA
+                                                                            ?.id
+                                                                    ? StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
+                                                                            ''))
+                                                                        ?.userA
+                                                                        ?.avatarUrl
+                                                                    : StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
+                                                                            ''))
+                                                                        ?.userB
+                                                                        ?.avatarUrl,
+                                                                ParamType
+                                                                    .String,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                               ),
                                                               'jobid':
                                                               serializeParam(
                                                                 widget!.jobId,
-                                                                ParamType.String,
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                               'member':
                                                               serializeParam(
@@ -1709,13 +2548,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                   id: _provider
                                                                       .user?.id,
                                                                   name: _provider
-                                                                      .user?.name,
-                                                                  avatarUrl: _provider
                                                                       .user
-                                                                      ?.avatarUrl,
-                                                                  deviceToken: _provider
-                                                                      .user
-                                                                      ?.deviceToken,
+                                                                      ?.name,
+                                                                  avatarUrl:
+                                                                      _provider
+                                                                          .user
+                                                                          ?.avatarUrl,
+                                                                  deviceToken:
+                                                                      _provider
+                                                                          .user
+                                                                          ?.deviceToken,
                                                                 ),
                                                                 ParamType
                                                                     .DataStruct,
@@ -1730,15 +2572,28 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             title:
                                                             'Conversation Started by Trade Person',
                                                             message:
+<<<<<<< HEAD
                                                             'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
                                                             type: NotificationType
                                                                 .APPLICATION.name,
+=======
+                                                                'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
+                                                            type:
+                                                                NotificationType
+                                                                    .APPLICATION
+                                                                    .name,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                             userId:
                                                             currentUserUid,
                                                             referenceId:
                                                             widget!.jobId,
                                                             recieverid:
+<<<<<<< HEAD
                                                             _provider.user?.id,
+=======
+                                                                _provider
+                                                                    .user?.id,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                             extraData: <String,
                                                                 dynamic>{
                                                               'member': <String,
@@ -1786,6 +2641,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
+<<<<<<< HEAD
                                                     padding: const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
@@ -1831,6 +2687,54 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       color: AppTheme.of(
                                                           context)
                                                           .primary,
+=======
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                            16.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                    color: Colors.transparent,
+                                                    textStyle: AppTheme.of(
+                                                            context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: AppTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .primary,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -1842,9 +2746,11 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             if (_provider.isProposalSubmitted ??
                                                 true)
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
+<<<<<<< HEAD
                                                   onPressed:
                                                   _provider.isProposalSubmitted!
                                                       ? null
@@ -1852,6 +2758,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     print(
                                                         'Button pressed ...');
                                                   },
+=======
+                                                  onPressed: _provider
+                                                          .isProposalSubmitted!
+                                                      ? null
+                                                      : () {
+                                                          print(
+                                                              'Button pressed ...');
+                                                        },
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                   text: valueOrDefault<String>(
                                                         () {
                                                       if ((_provider.isProposalSubmitted == true) &&
@@ -1873,6 +2788,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
+<<<<<<< HEAD
                                                     padding: const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
@@ -1927,14 +2843,69 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             .designToken
                                                             .radius
                                                             .lg),
+=======
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                            16.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                    iconColor:
+                                                        AppTheme.of(context)
+                                                            .primary,
+                                                    color: AppTheme.of(context)
+                                                        .alternate,
+                                                    textStyle: AppTheme.of(
+                                                            context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: AppTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            AppTheme.of(context)
+                                                                .designToken
+                                                                .radius
+                                                                .lg),
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                   ),
                                                 ),
                                               ),
                                             if ((_provider.isProposalSubmitted == true) &&
                                                 (_provider.submittedProposalStatus == Status.ACCEPTED.name))
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed: (_provider
                                                       .isPaymentPaid! ||
@@ -1943,6 +2914,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           widget!.jobId))
                                                       ? null
                                                       : () async {
+<<<<<<< HEAD
                                                     await actions
                                                         .unsubscribe(
                                                       'proposal_payments',
@@ -1995,11 +2967,99 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       (AppState()
                                                           .paidJobId ==
                                                           widget!.jobId)
+=======
+                                                          await actions
+                                                              .unsubscribe(
+                                                            'proposal_payments',
+                                                          );
+                                                          debugPrint(
+                                                              "Pay button pressed");
+                                                          _model.paymentIntentResponse =
+                                                              await CreatePaymentFeeCall
+                                                                  .call(
+                                                            jobId:
+                                                                widget!.jobId,
+                                                            token:
+                                                                currentJwtToken,
+                                                          );
+                                                          debugPrint(
+                                                              "Payment Intent created");
+                                                          if ((_model
+                                                                  .paymentIntentResponse
+                                                                  ?.succeeded ??
+                                                              true)) {
+                                                            ApiCallResponse
+                                                                epehemeralKeyResponse =
+                                                                await CreateEphemeralKeyCall
+                                                                    .call(
+                                                                        token:
+                                                                            currentJwtToken);
+
+                                                            debugPrint(
+                                                                "Ephemeral Key response is ${CreateEphemeralKeyCall.ephemeralKey(
+                                                              epehemeralKeyResponse
+                                                                  .jsonBody,
+                                                            )!}");
+                                                            await Future
+                                                                .delayed(
+                                                              const Duration(
+                                                                milliseconds:
+                                                                    100,
+                                                              ),
+                                                            );
+                                                            await actions
+                                                                .subscribe(
+                                                              'proposal_payments',
+                                                              'stripe_payment_intent_id',
+                                                              CreatePaymentFeeCall
+                                                                  .paymentIntentId(
+                                                                (_model.paymentIntentResponse
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                              )!,
+                                                              'update',
+                                                              () async {},
+                                                            );
+                                                            _model.paymentRes =
+                                                                await actions
+                                                                    .makePayment(
+                                                              clientSecret:
+                                                                  getJsonField(
+                                                                (_model.paymentIntentResponse
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                                r'''$.client_secret''',
+                                                              ).toString(),
+                                                              customerId:
+                                                                  getJsonField(
+                                                                (_model.paymentIntentResponse
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                                r'''$.customer_id''',
+                                                              ).toString(),
+                                                              ephemeralKey:
+                                                                  CreateEphemeralKeyCall
+                                                                      .ephemeralKey(
+                                                                epehemeralKeyResponse
+                                                                    .jsonBody,
+                                                              )!,
+                                                            );
+                                                          }
+
+                                                          _provider.notify();
+                                                        },
+                                                  text: _provider
+                                                              .isPaymentPaid! ||
+                                                          (AppState()
+                                                                  .paidJobId ==
+                                                              widget!.jobId)
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                       ? 'Payment Paid'
                                                       : 'Pay now',
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
+<<<<<<< HEAD
                                                     padding: const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
@@ -2045,6 +3105,53 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       color: AppTheme.of(
                                                           context)
                                                           .primaryText,
+=======
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                            16.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                    color: AppTheme.of(context)
+                                                        .primary,
+                                                    textStyle: AppTheme.of(
+                                                            context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .manrope(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .primaryText,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                     ),
                                                     borderRadius:
                                                     BorderRadius.circular(
@@ -2054,11 +3161,18 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               ),
                                           ]
                                               .divide(SizedBox(
+<<<<<<< HEAD
                                               height:
                                               AppTheme.of(context)
                                                   .designToken
                                                   .spacing
                                                   .xl))
+=======
+                                                  height: AppTheme.of(context)
+                                                      .designToken
+                                                      .spacing
+                                                      .xl))
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                               .addToEnd(const SizedBox(
                                               height: AppConstants
                                                   .parentPagePadding)),
@@ -2072,7 +3186,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                           if (_provider.proposalsList.isNotEmpty)
                             Builder(
                               builder: (context) {
-                                final proposals = _provider.proposalsList.toList();
+                                final proposals =
+                                    _provider.proposalsList.toList();
 
                                 return ListView.separated(
                                   padding: EdgeInsets.zero,
@@ -2102,7 +3217,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                           'select=*,jobs!inner(*)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
                                         );
 
-                                        if ((_model.updateApiResult?.succeeded ??
+                                        if ((_model
+                                                .updateApiResult?.succeeded ??
                                             true)) {
                                           _provider.updateProposalsListAtIndex(
                                             proposalsIndex,
@@ -2236,8 +3352,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                           applicationId: proposalsItem.id,
                                         );
 
+<<<<<<< HEAD
                                         if ((_model
                                             .proposalAcceptedRes?.succeeded ??
+=======
+                                        if ((_model.proposalAcceptedRes
+                                                ?.succeeded ??
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                             true)) {
                                           await Future.wait([
                                             Future(() async {
@@ -2251,9 +3372,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 type: NotificationType
                                                     .APPLICATION.name,
                                                 userId: currentUserUid,
+<<<<<<< HEAD
                                                 referenceId: proposalsItem.jobId,
                                                 recieverid:
                                                 proposalsItem.tradespersonId,
+=======
+                                                referenceId:
+                                                    proposalsItem.jobId,
+                                                recieverid: proposalsItem
+                                                    .tradespersonId,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                 extraData: <String, dynamic>{
                                                   'member': <String, String?>{
                                                     'username': '\"\"',
@@ -2281,10 +3409,17 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               );
                                             }),
                                             Future(() async {
-                                              _provider.updateProposalsListAtIndex(
+                                              _provider
+                                                  .updateProposalsListAtIndex(
                                                 proposalsIndex,
+<<<<<<< HEAD
                                                     (e) => e
                                                   ..status = Status.ACCEPTED.name,
+=======
+                                                (e) => e
+                                                  ..status =
+                                                      Status.ACCEPTED.name,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                               );
                                               _provider.notify();
                                             }),
@@ -2309,8 +3444,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                           applicationId: proposalsItem.id,
                                         );
 
+<<<<<<< HEAD
                                         if ((_model
                                             .proposalRejectedRes?.succeeded ??
+=======
+                                        if ((_model.proposalRejectedRes
+                                                ?.succeeded ??
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                             true)) {
                                           await Future.wait([
                                             Future(() async {
@@ -2331,9 +3471,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 type: NotificationType
                                                     .APPLICATION.name,
                                                 userId: currentUserUid,
+<<<<<<< HEAD
                                                 referenceId: proposalsItem.jobId,
                                                 recieverid:
                                                 proposalsItem.tradespersonId,
+=======
+                                                referenceId:
+                                                    proposalsItem.jobId,
+                                                recieverid: proposalsItem
+                                                    .tradespersonId,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                                 extraData: <String, dynamic>{
                                                   'member': <String, String?>{
                                                     'username': '\"\"',
@@ -2361,10 +3508,17 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               );
                                             }),
                                             Future(() async {
-                                              _provider.updateProposalsListAtIndex(
+                                              _provider
+                                                  .updateProposalsListAtIndex(
                                                 proposalsIndex,
+<<<<<<< HEAD
                                                     (e) => e
                                                   ..status = Status.REJECTED.name,
+=======
+                                                (e) => e
+                                                  ..status =
+                                                      Status.REJECTED.name,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                                               );
                                               _provider.notify();
                                             }),
@@ -2378,7 +3532,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               },
                             ),
                         ]
-                            .divide(const SizedBox(height: AppConstants.childSpacing))
+                            .divide(const SizedBox(
+                                height: AppConstants.childSpacing))
                             .addToEnd(const SizedBox(height: 80.0)),
                       ),
                     ),

@@ -1,4 +1,6 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:my_trade_pal/auth/supabase_auth/auth_util.dart';
+import 'package:my_trade_pal/repositories/api_requests/api_calls.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../widgets/page_header.dart';
@@ -124,6 +126,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                   AppConstants.parentPagePadding,
                   0.0,
                 )),
+<<<<<<< HEAD
                 child: RefreshIndicator(
                   color: AppTheme.of(context).primary,
                   onRefresh: _refreshJobsList,
@@ -141,217 +144,217 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                               title: 'Available Jobs',
                               subtitle:
                               'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
+=======
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Skeletonizer(
+                        enabled: BrowseJobsProvider.isLoading,
+                        child: wrapWithModel(
+                          model: _model.pageHeaderSectiomModel,
+                          updateCallback: () => _provider.update(() {}),
+                          child: PageHeaderSectiomWidget(
+                            tag: 'MARKETPLACE',
+                            title: 'Available Jobs',
+                            subtitle:
+                                'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
+                            numberOfItems: valueOrDefault<int>(
+                              AppState().jobCache.jobs.length,
+                              0,
+>>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                             ),
                           ),
                         ),
-                        if (responsiveVisibility(
-                          context: context,
-                          phone: false,
-                          tablet: false,
-                          tabletLandscape: false,
-                          desktop: false,
-                        ))
-                          Material(
-                            color: Colors.transparent,
-                            elevation: 0.0,
-                            shape: RoundedRectangleBorder(
+                      ),
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                        desktop: false,
+                      ))
+                        Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context).designToken.radius.lg),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context).alternate,
                               borderRadius: BorderRadius.circular(
-                                  AppTheme.of(context)
-                                      .designToken
-                                      .radius
-                                      .lg),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppTheme.of(context).alternate,
-                                borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .lg),
-                                border: Border.all(
-                                  color: Colors.transparent,
-                                ),
+                                  AppTheme.of(context).designToken.radius.lg),
+                              border: Border.all(
+                                color: Colors.transparent,
                               ),
-                              child: Padding(
-                                padding: EdgeInsets.all(valueOrDefault<double>(
-                                  AppConstants.childPadding,
-                                  0.0,
-                                )),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppDropDown<String>(
-                                      controller:
-                                      _model.dropDownValueController1 ??=
-                                          FormFieldController<String>(null),
-                                      options: AppState().availableServices,
-                                      onChanged: (val) => _provider.update(
-                                              () => _model.dropDownValue1 = val),
-                                      width: double.infinity,
-                                      height: 50.0,
-                                      maxHeight: 200.0,
-                                      textStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                        font: GoogleFonts.manrope(
-                                          fontWeight:
-                                          AppTheme.of(context)
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(valueOrDefault<double>(
+                                AppConstants.childPadding,
+                                0.0,
+                              )),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController1 ??=
+                                            FormFieldController<String>(null),
+                                    options: AppState().availableServices,
+                                    onChanged: (val) => _provider.update(
+                                        () => _model.dropDownValue1 = val),
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    maxHeight: 200.0,
+                                    textStyle: AppTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
                                               .bodyMedium
                                               .fontWeight,
-                                          fontStyle:
-                                          AppTheme.of(context)
+                                          fontStyle: AppTheme.of(context)
                                               .bodyMedium
                                               .fontStyle,
                                         ),
-                                        letterSpacing: 0.0,
-                                        fontWeight:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      hintText: 'Plumbing..',
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        color: AppTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
-                                      ),
-                                      fillColor: AppTheme.of(context)
-                                          .secondaryBackground,
-                                      elevation: 2.0,
-                                      borderColor:
-                                      AppTheme.of(context).border,
-                                      borderWidth: 0.0,
-                                      borderRadius: 8.0,
-                                      margin: const EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 12.0, 0.0),
-                                      hidesUnderline: true,
-                                      isOverButton: false,
-                                      isSearchable: false,
-                                      isMultiSelect: false,
+                                    hintText: 'Plumbing..',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: AppTheme.of(context).secondaryText,
+                                      size: 24.0,
                                     ),
-                                    AppDropDown<String>(
-                                      controller:
-                                      _model.dropDownValueController2 ??=
-                                          FormFieldController<String>(null),
-                                      options: const [
-                                        '100',
-                                        '200',
-                                        '300',
-                                        '400',
-                                        '500',
-                                        '600',
-                                        '700',
-                                        '800',
-                                        '900',
-                                        '1000'
-                                      ],
-                                      onChanged: (val) => _provider.update(
-                                              () => _model.dropDownValue2 = val),
-                                      width: double.infinity,
-                                      height: 50.0,
-                                      textStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                        font: GoogleFonts.manrope(
-                                          fontWeight:
-                                          AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontWeight,
-                                          fontStyle:
-                                          AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle:
-                                        AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      hintText: '\$100',
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        color: AppTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
-                                      ),
-                                      fillColor: AppTheme.of(context)
-                                          .secondaryBackground,
-                                      elevation: 2.0,
-                                      borderColor:
-                                      AppTheme.of(context).border,
-                                      borderWidth: 0.0,
-                                      borderRadius: 8.0,
-                                      margin: const EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 12.0, 0.0),
-                                      hidesUnderline: true,
-                                      isOverButton: false,
-                                      isSearchable: false,
-                                      isMultiSelect: false,
-                                    ),
-                                    AppButton(
-                                      onPressed: () {
-                                        print('Button pressed ...');
-                                      },
-                                      text: 'Apply filters',
-                                      options: AppButtonOptions(
-                                        height: 50.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        iconPadding:
+                                    fillColor: AppTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor: AppTheme.of(context).border,
+                                    borderWidth: 0.0,
+                                    borderRadius: 8.0,
+                                    margin:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        color:
-                                        AppTheme.of(context).primary,
-                                        textStyle: AppTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight:
-                                            AppTheme.of(context)
+                                            12.0, 0.0, 12.0, 0.0),
+                                    hidesUnderline: true,
+                                    isOverButton: false,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  ),
+                                  AppDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController2 ??=
+                                            FormFieldController<String>(null),
+                                    options: const [
+                                      '100',
+                                      '200',
+                                      '300',
+                                      '400',
+                                      '500',
+                                      '600',
+                                      '700',
+                                      '800',
+                                      '900',
+                                      '1000'
+                                    ],
+                                    onChanged: (val) => _provider.update(
+                                        () => _model.dropDownValue2 = val),
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    textStyle: AppTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
+                                        ),
+                                    hintText: '\$100',
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: AppTheme.of(context).secondaryText,
+                                      size: 24.0,
+                                    ),
+                                    fillColor: AppTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor: AppTheme.of(context).border,
+                                    borderWidth: 0.0,
+                                    borderRadius: 8.0,
+                                    margin:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 12.0, 0.0),
+                                    hidesUnderline: true,
+                                    isOverButton: false,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
+                                  ),
+                                  AppButton(
+                                    onPressed: () {
+                                      print('Button pressed ...');
+                                    },
+                                    text: 'Apply filters',
+                                    options: AppButtonOptions(
+                                      height: 50.0,
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 0.0, 16.0, 0.0),
+                                      iconPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: AppTheme.of(context).primary,
+                                      textStyle: AppTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: AppTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                            ),
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                            fontWeight: AppTheme.of(context)
                                                 .titleSmall
                                                 .fontWeight,
-                                            fontStyle:
-                                            AppTheme.of(context)
+                                            fontStyle: AppTheme.of(context)
                                                 .titleSmall
                                                 .fontStyle,
                                           ),
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                          fontWeight:
+                                      elevation: 0.0,
+                                      borderRadius: BorderRadius.circular(
                                           AppTheme.of(context)
-                                              .titleSmall
-                                              .fontWeight,
-                                          fontStyle:
-                                          AppTheme.of(context)
-                                              .titleSmall
-                                              .fontStyle,
-                                        ),
-                                        elevation: 0.0,
-                                        borderRadius: BorderRadius.circular(
-                                            AppTheme.of(context)
-                                                .designToken
-                                                .radius
-                                                .lg),
-                                      ),
+                                              .designToken
+                                              .radius
+                                              .lg),
                                     ),
-                                  ].divide(const SizedBox(
-                                      height: AppConstants.childSpacing)),
-                                ),
+                                  ),
+                                ].divide(const SizedBox(
+                                    height: AppConstants.childSpacing)),
                               ),
                             ),
                           ),
+                        ),
                         wrapWithModel(
                           model: _model.jobsListModel,
                           updateCallback: () => _provider.update(() {}),
@@ -366,7 +369,6 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                     ),
                   ),
                 ),
-              ),
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
@@ -383,4 +385,4 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
       ),
     );
   }
-} 
+}

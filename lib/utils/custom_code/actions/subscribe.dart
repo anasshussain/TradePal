@@ -55,6 +55,7 @@ Future<void> subscribe(
             ),
             callback: (payload) async {
               print('Your payload is $payload');
+              
               if (table == "proposal_payments") {
                 final status = payload.newRecord['payment_status'];
                 final jobId = payload.newRecord['job_id']?.toString();

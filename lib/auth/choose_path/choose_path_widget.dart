@@ -1,3 +1,5 @@
+import 'package:my_trade_pal/auth/supabase_auth/auth_util.dart';
+import 'package:my_trade_pal/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
 import '/utils/enums/enums.dart';
 import '/widgets/components/choose_path_component/choose_path_component_widget.dart';
@@ -38,7 +40,8 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
     super.initState();
     _model = createModel(context, () => ChoosePathModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
@@ -86,39 +89,32 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                       Text(
                         'Let\'s get you started',
                         textAlign: TextAlign.center,
-                        style:
-                            AppTheme.of(context).displaySmall.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: AppTheme.of(context)
-                                        .displaySmall
-                                        .fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: AppTheme.of(context)
-                                      .displaySmall
-                                      .fontStyle,
-                                ),
+                        style: AppTheme.of(context).displaySmall.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.bold,
+                                fontStyle:
+                                    AppTheme.of(context).displaySmall.fontStyle,
+                              ),
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle:
+                                  AppTheme.of(context).displaySmall.fontStyle,
+                            ),
                       ),
                       Text(
                         'Choose the path that best describes\nyou to personalise your experience.',
                         textAlign: TextAlign.center,
-                        style: AppTheme.of(context)
-                            .titleMedium
-                            .override(
+                        style: AppTheme.of(context).titleMedium.override(
                               font: GoogleFonts.manrope(
                                 fontWeight: FontWeight.normal,
-                                fontStyle: AppTheme.of(context)
-                                    .titleMedium
-                                    .fontStyle,
+                                fontStyle:
+                                    AppTheme.of(context).titleMedium.fontStyle,
                               ),
                               color: AppTheme.of(context).secondaryText,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
-                              fontStyle: AppTheme.of(context)
-                                  .titleMedium
-                                  .fontStyle,
+                              fontStyle:
+                                  AppTheme.of(context).titleMedium.fontStyle,
                               lineHeight: 0.0,
                             ),
                       ),
@@ -128,6 +124,8 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          await CreateStripeCustomerCall.call(
+                              token: currentJwtToken);
                           await action_blocks.updateChoosePathOnboarding(
                             context,
                             selectedRole: UserRole.customer,
@@ -150,8 +148,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                             borderColor:
                                 _provider.selectedRole == UserRole.customer
                                     ? AppTheme.of(context).accent1
-                                    : AppTheme.of(context)
-                                        .secondaryBackground,
+                                    : AppTheme.of(context).secondaryBackground,
                           ),
                         ),
                       ),
@@ -161,6 +158,8 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          await CreateStripeCustomerCall.call(
+                              token: currentJwtToken);
                           await action_blocks.updateChoosePathOnboarding(
                             context,
                             selectedRole: UserRole.trades_person,
@@ -183,8 +182,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                             borderColor:
                                 _provider.selectedRole == UserRole.trades_person
                                     ? AppTheme.of(context).accent2
-                                    : AppTheme.of(context)
-                                        .secondaryBackground,
+                                    : AppTheme.of(context).secondaryBackground,
                           ),
                         ),
                       ),
@@ -246,9 +244,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: AppTheme.of(context).primary,
-                            textStyle: AppTheme.of(context)
-                                .titleSmall
-                                .override(
+                            textStyle: AppTheme.of(context).titleSmall.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: AppTheme.of(context)
                                         .titleSmall
@@ -262,16 +258,12 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                                   fontWeight: AppTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
+                                  fontStyle:
+                                      AppTheme.of(context).titleSmall.fontStyle,
                                 ),
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context)
-                                    .designToken
-                                    .radius
-                                    .lg),
+                                AppTheme.of(context).designToken.radius.lg),
                             disabledColor: const Color(0x58214FC7),
                             disabledTextColor: const Color(0x83FFFFFF),
                           ),

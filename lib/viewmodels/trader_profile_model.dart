@@ -30,6 +30,8 @@ class TraderProfileModel extends AppModel<TraderProfileWidget> {
   late SettingsComponentModel settingsComponentModel5;
   // Model for settings_component component.
   late SettingsComponentModel settingsComponentModel6;
+  // Model for settings_component component.
+  late SettingsComponentModel settingsComponentModel7;
   // Model for tp_navbar component.
   late TpNavbarModel tpNavbarModel;
 
@@ -48,6 +50,8 @@ class TraderProfileModel extends AppModel<TraderProfileWidget> {
         createModel(context, () => SettingsComponentModel());
     settingsComponentModel6 =
         createModel(context, () => SettingsComponentModel());
+    settingsComponentModel7 =
+        createModel(context, () => SettingsComponentModel());
     tpNavbarModel = createModel(context, () => TpNavbarModel());
   }
 
@@ -60,6 +64,7 @@ class TraderProfileModel extends AppModel<TraderProfileWidget> {
     settingsComponentModel4.dispose();
     settingsComponentModel5.dispose();
     settingsComponentModel6.dispose();
+    settingsComponentModel7.dispose();
     tpNavbarModel.dispose();
   }
 }
