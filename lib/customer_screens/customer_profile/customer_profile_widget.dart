@@ -1,10 +1,16 @@
 import '../../components/logout_confirmation_dialog.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import '../../widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
 import '../../widgets/page_header.dart';
 =======
 import '/saved_cards/saved_cards_widget.dart';
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+import '../../widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
+import '../../widgets/page_header.dart';
+import '/saved_cards/saved_cards_widget.dart';
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
 import '/auth/supabase_auth/auth_util.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
@@ -184,6 +190,19 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                         color: Colors.white,
                                         width: 2.0,
                                       ),
+                                      title: 'Payment methods',
+                                      description:
+                                          'Cards, transaction history and billing',
+                                      showTrailingIcon: false,
+                                      onTap: () async {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SavedCardsWidget(),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
@@ -322,6 +341,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                     color: AppTheme.of(context).alternate,
                                   ),
                                 ),
+<<<<<<< HEAD
 <<<<<<< HEAD
                                 child: Padding(
                                   padding: EdgeInsets.all(valueOrDefault<double>(
@@ -703,6 +723,10 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                   padding:
                                       EdgeInsets.all(valueOrDefault<double>(
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+                                child: Padding(
+                                  padding: EdgeInsets.all(valueOrDefault<double>(
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                     AppConstants.childPadding,
                                     0.0,
                                   )),

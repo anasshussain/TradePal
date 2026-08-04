@@ -143,6 +143,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                               title: 'Available Jobs',
                               subtitle:
                               'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
+<<<<<<< HEAD
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -160,6 +161,8 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                             numberOfItems: valueOrDefault<int>(
                               AppState().jobCache.jobs.length,
                               0,
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                             ),
                           ),
                         ),

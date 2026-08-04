@@ -161,6 +161,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Stack(
@@ -171,6 +174,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   elevation: 0.0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
+<<<<<<< HEAD
 =======
                           Material(
                             color: Colors.transparent,
@@ -856,6 +860,8 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                         AppTheme.of(context)
                                             .designToken
                                             .radius
@@ -880,6 +886,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     ),
                                   ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                 ),
                                 Align(
                                   alignment: const AlignmentDirectional(0.28, 0.0),
@@ -915,6 +924,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             width: 16.0,
                                             height: 16.0,
                                             fit: BoxFit.contain,
+<<<<<<< HEAD
 =======
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -947,12 +957,17 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                 .titleMedium
                                                 .fontStyle,
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                 ),
                               ],
                             ),
@@ -975,6 +990,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       fontStyle: AppTheme.of(context)
                                           .displaySmall
                                           .fontStyle,
+<<<<<<< HEAD
 =======
                                   Opacity(
                                     opacity: 0.8,
@@ -1001,6 +1017,8 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                 .fontStyle,
                                           ),
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                     ),
                           ),
                           Padding(
@@ -1034,6 +1052,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                     fontWeight: FontWeight.w400,
                                   ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                   color: AppTheme.of(context).primaryText,
                                   fontSize: 14,
                                   letterSpacing: 0,
@@ -1448,6 +1469,352 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                         .fontStyle,
                                               ),
                                         ),
+                                        style: AppTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                              ].divide(const SizedBox(
+                                  height: AppConstants.childSpacing)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      /// COMMENT DO NOT REMOVE "MAAZ".
+                      // Material(
+                      //   color: Colors.transparent,
+                      //   elevation: 0.0,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(
+                      //         AppTheme.of(context)
+                      //             .designToken
+                      //             .radius
+                      //             .lg),
+                      //   ),
+                      //   child: Container(
+                      //     width: double.infinity,
+                      //     decoration: BoxDecoration(
+                      //       color: AppTheme.of(context)
+                      //           .secondaryBackground,
+                      //       borderRadius: BorderRadius.circular(
+                      //           AppTheme.of(context)
+                      //               .designToken
+                      //               .radius
+                      //               .lg),
+                      //       border: Border.all(
+                      //         color: AppTheme.of(context).alternate,
+                      //       ),
+                      //     ),
+                      //     child: Padding(
+                      //       padding: EdgeInsets.all(valueOrDefault<double>(
+                      //         AppConstants.childPadding,
+                      //         0.0,
+                      //       )),
+                      //       child: Column(
+                      //         mainAxisSize: MainAxisSize.max,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             'Personal Details',
+                      //             style: AppTheme.of(context)
+                      //                 .titleMedium
+                      //                 .override(
+                      //                   font: GoogleFonts.manrope(
+                      //                     fontWeight: FontWeight.bold,
+                      //                     fontStyle:
+                      //                         AppTheme.of(context)
+                      //                             .titleMedium
+                      //                             .fontStyle,
+                      //                   ),
+                      //                   letterSpacing: 0.0,
+                      //                   fontWeight: FontWeight.bold,
+                      //                   fontStyle: AppTheme.of(context)
+                      //                       .titleMedium
+                      //                       .fontStyle,
+                      //                 ),
+                      //           ),
+                      //           Column(
+                      //             mainAxisSize: MainAxisSize.max,
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 'FULL NAME',
+                      //                 style: AppTheme.of(context)
+                      //                     .labelSmall
+                      //                     .override(
+                      //                       font: GoogleFonts.inter(
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.bold,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .labelSmall
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //               Text(
+                      //                 valueOrDefault<String>(
+                      //                   AppState().userProfileCache.name,
+                      //                   'name',
+                      //                 ),
+                      //                 style: AppTheme.of(context)
+                      //                     .bodyLarge
+                      //                     .override(
+                      //                       font: GoogleFonts.manrope(
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.w500,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .bodyLarge
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //           if (AppState().userProfileCache.profession !=
+                      //                   null &&
+                      //               AppState().userProfileCache.profession !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'REGISTRATION NUMBER',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .registrationNumber,
+                      //                     'reg no',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.serviceArea !=
+                      //                   null &&
+                      //               AppState().userProfileCache.serviceArea !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'SERVICE AREA',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .serviceArea,
+                      //                     'service area',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.phone !=
+                      //                   null &&
+                      //               AppState().userProfileCache.phone != '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'PHONE',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState().userProfileCache.phone,
+                      //                     'Phone',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //         ].divide(const SizedBox(
+                      //             height: AppConstants.childSpacing)),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                        desktop: false,
+                      ))
+                        Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context).designToken.radius.lg),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context).primary,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context).designToken.radius.lg),
+                              border: Border.all(
+                                color: AppTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(valueOrDefault<double>(
+                                AppConstants.childPadding,
+                                0.0,
+                              )),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .lg,
+                                        0.0,
+                                        0.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/card.svg',
+                                        width: 22.0,
+                                        height: 22.0,
+                                        fit: BoxFit.contain,
                                       ),
                                       Opacity(
                                         opacity: 0.8,
@@ -1549,6 +1916,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                     style: TextStyle(),
                                                   )
                                                 ],
+<<<<<<< HEAD
 =======
                                   Opacity(
                                     opacity: 0.8,
@@ -1611,6 +1979,8 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               TextSpan(
                                                 text: '£',
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                                 style: AppTheme.of(context)
                                                     .headlineLarge
                                                     .override(
@@ -1810,11 +2180,15 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                     fontWeight:
                                                         AppTheme.of(context)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
                                                         AppTheme.of(context)
                                                             .bodyMedium
+<<<<<<< HEAD
 =======
                                                             .headlineLarge
                                                             .fontWeight,
@@ -1822,6 +2196,8 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                         AppTheme.of(context)
                                                             .headlineLarge
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                                             .fontStyle,
                                                   ),
                                                   color:
@@ -1831,6 +2207,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   fontWeight:
                                                       AppTheme.of(context)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
@@ -1843,6 +2222,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                             elevation: 0.0,
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
+<<<<<<< HEAD
 =======
                                                           .headlineLarge
                                                           .fontWeight,
@@ -1890,6 +2270,8 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                               ),
                                             ),
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                           ),
                                           unselectedChipStyle: ChipStyle(
                                             backgroundColor:
@@ -1949,6 +2331,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               ),
                             ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                           if (AppState().userProfileCache.insuranceCompany !=
                                   null &&
                               AppState().userProfileCache.insuranceCompany != '')
@@ -2720,6 +3105,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               ),
                             ),
                           Material(
+<<<<<<< HEAD
 =======
                           ),
                         ),
@@ -2732,17 +3118,26 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                               0.0),
                           child: Material(
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                             color: Colors.transparent,
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  AppTheme.of(context).designToken.radius.lg),
+                                  AppTheme.of(context)
+                                      .designToken
+                                      .radius
+                                      .lg),
                             ),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: AppTheme.of(context).secondaryBackground,
+                                color: AppTheme.of(context)
+                                    .secondaryBackground,
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context).designToken.radius.lg),
+                                    AppTheme.of(context)
+                                        .designToken
+                                        .radius
+                                        .lg),
                                 border: Border.all(
                                   color: AppTheme.of(context).alternate,
                                 ),
@@ -2756,6 +3151,9 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                     wrapWithModel(
                                       model: _model.settingsComponentModel1,
                                       updateCallback: () => _provider.notify(),
@@ -3013,6 +3411,7 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                   AppTheme.of(context)
                                                       .titleSmall
                                                       .fontStyle,
+<<<<<<< HEAD
 =======
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -3147,6 +3546,10 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                       ),
                                       wrapped: true,
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+                                            ),
+                                      ),
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                                     ),
                                   ].divide(SizedBox(
                                       width: AppTheme.of(context)
@@ -3158,11 +3561,15 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             ),
                           ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                         ]
                             .divide(const SizedBox(height: AppConstants.childSpacing))
                             .addToEnd(const SizedBox(height: 50.0)),
                       ),
                     ],
+<<<<<<< HEAD
 =======
                         ),
                       if (AppState().userProfileCache.insuranceCompany !=
@@ -4242,6 +4649,8 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                             const SizedBox(height: AppConstants.childSpacing))
                         .addToEnd(const SizedBox(height: 50.0)),
 >>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
+=======
+>>>>>>> f6d819bd9178aff871b50d1dc9055bd57aec8454
                   ),
                 ),
               ),
