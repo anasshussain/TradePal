@@ -10,8 +10,6 @@ import 'package:provider/provider.dart';
 import '/viewmodels/customer_navbar_model.dart';
 export '/viewmodels/customer_navbar_model.dart';
 
-/// can you create a navbar that has room for 5 icons, each one with a text
-/// field below
 class CustomerNavbarWidget extends StatefulWidget {
   const CustomerNavbarWidget({
     super.key,

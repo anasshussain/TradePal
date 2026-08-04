@@ -1,6 +1,5 @@
 import 'package:my_trade_pal/auth/supabase_auth/helper.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/repositories/backend.dart';
@@ -172,6 +171,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
               _provider.saveToCache(widget!.jobId); // ADDED
               _provider.notify();
             }
+            _provider.submittedProposalStatus = ((_model.getSubmittedJobData?.jsonBody ?? '')
+                .toList()
+                .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
+                .toList() as Iterable<SubmittedProposalStruct?>)
+                .withoutNulls
+                ?.firstOrNull
+                ?.status;
+            _provider.isProposalSubmitted = true;
+            _provider.loading = false;
+            _provider.notify();
           }
         } else {
           await actions.showToast(
@@ -297,20 +306,22 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   _provider.fetchedJob?.category,
                                   'Unknown category',
                                 ),
-                                style: AppTheme.of(context).bodySmall.override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodySmall
-                                            .fontStyle,
-                                      ),
-                                      color: AppTheme.of(context).primary,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodySmall
-                                          .fontStyle,
-                                    ),
+                                style: AppTheme.of(context)
+                                    .bodySmall
+                                    .override(
+                                  font: GoogleFonts.manrope(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: AppTheme.of(context)
+                                        .bodySmall
+                                        .fontStyle,
+                                  ),
+                                  color: AppTheme.of(context).primary,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: AppTheme.of(context)
+                                      .bodySmall
+                                      .fontStyle,
+                                ),
                               ),
                             ].divide(const SizedBox(
                                 width: AppConstants.parentPagePadding)),
@@ -320,23 +331,25 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                               _provider.fetchedJob?.title,
                               'Unknown Title',
                             ),
-                            style: AppTheme.of(context).displaySmall.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: AppTheme.of(context)
-                                        .displaySmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .displaySmall
-                                        .fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: AppTheme.of(context)
-                                      .displaySmall
-                                      .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .displaySmall
-                                      .fontStyle,
-                                ),
+                            style: AppTheme.of(context)
+                                .displaySmall
+                                .override(
+                              font: GoogleFonts.inter(
+                                fontWeight: AppTheme.of(context)
+                                    .displaySmall
+                                    .fontWeight,
+                                fontStyle: AppTheme.of(context)
+                                    .displaySmall
+                                    .fontStyle,
+                              ),
+                              letterSpacing: 0.0,
+                              fontWeight: AppTheme.of(context)
+                                  .displaySmall
+                                  .fontWeight,
+                              fontStyle: AppTheme.of(context)
+                                  .displaySmall
+                                  .fontStyle,
+                            ),
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
@@ -347,25 +360,24 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                 size: 24.0,
                               ),
                               Text(
-                                dateTimeFormat(
-                                    "relative",
-                                    functions.convertDateStringtoDateTIme(
-                                      _provider.fetchedJob?.createdAt ??
-                                          DateTime.now().toString(),
-                                    )),
-                                style: AppTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.normal,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                dateTimeFormat("relative", functions.convertDateStringtoDateTIme(
+                                  _provider.fetchedJob?.createdAt ?? DateTime.now().toString(),
+                                )),
+                                style: AppTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  font: GoogleFonts.manrope(
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: AppTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: AppTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
                               ),
                             ].divide(SizedBox(
                                 width: AppTheme.of(context)
@@ -386,20 +398,23 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                   _provider.fetchedJob?.budgetMin?.toString(),
                                   'Unknown category',
                                 )}',
-                                style: AppTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      color: AppTheme.of(context).secondaryText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                style: AppTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  font: GoogleFonts.manrope(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: AppTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  color: AppTheme.of(context)
+                                      .secondaryText,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: AppTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
                               ),
                             ].divide(SizedBox(
                                 width: AppTheme.of(context)
@@ -445,44 +460,52 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         style: AppTheme.of(context)
                                             .labelMedium
                                             .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                            ),
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                            AppTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle:
+                                            AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                          AppTheme.of(context)
+                                              .labelMedium
+                                              .fontWeight,
+                                          fontStyle:
+                                          AppTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
+                                        ),
                                       ),
                                       Text(
                                         _provider.fetchedJob!.description,
                                         style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.manrope(
-                                                fontWeight: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                            ),
+                                          font: GoogleFonts.manrope(
+                                            fontWeight:
+                                            AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontWeight,
+                                            fontStyle:
+                                            AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                          AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontWeight,
+                                          fontStyle:
+                                          AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
+                                        ),
                                       ),
                                     ].divide(const SizedBox(
                                         height: AppConstants.childSpacing)),
@@ -530,122 +553,119 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                         style: AppTheme.of(context)
                                             .labelMedium
                                             .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                            ),
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                            AppTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle:
+                                            AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                          AppTheme.of(context)
+                                              .labelMedium
+                                              .fontWeight,
+                                          fontStyle:
+                                          AppTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
+                                        ),
                                       ),
                                       Builder(
                                         builder: (context) {
-                                          final images = _provider
-                                                  .fetchedJob?.images
-                                                  ?.toList() ??
+                                          final images = _provider.fetchedJob?.images
+                                              ?.toList() ??
                                               [];
 
                                           return Wrap(
                                             spacing: AppConstants.childSpacing,
                                             runSpacing:
-                                                AppConstants.childSpacing,
+                                            AppConstants.childSpacing,
                                             alignment: WrapAlignment.start,
                                             crossAxisAlignment:
-                                                WrapCrossAlignment.start,
+                                            WrapCrossAlignment.start,
                                             direction: Axis.horizontal,
                                             runAlignment: WrapAlignment.start,
                                             verticalDirection:
-                                                VerticalDirection.down,
+                                            VerticalDirection.down,
                                             clipBehavior: Clip.none,
-                                            children: List.generate(
-                                                images.length, (imagesIndex) {
-                                              final imagesItem =
+                                            children: List.generate(images.length,
+                                                    (imagesIndex) {
+                                                  final imagesItem =
                                                   images[imagesIndex];
-                                              return InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
+                                                  return InkWell(
+                                                    splashColor: Colors.transparent,
+                                                    focusColor: Colors.transparent,
+                                                    hoverColor: Colors.transparent,
+                                                    highlightColor:
                                                     Colors.transparent,
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    PageTransition(
-                                                      type: PageTransitionType
-                                                          .fade,
-                                                      child:
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                        context,
+                                                        PageTransition(
+                                                          type:
+                                                          PageTransitionType.fade,
+                                                          child:
                                                           AppExpandedImageView(
-                                                        image:
-                                                            CachedNetworkImage(
-                                                          fadeInDuration:
+                                                            image: CachedNetworkImage(
+                                                              fadeInDuration:
                                                               const Duration(
                                                                   milliseconds:
-                                                                      300),
-                                                          fadeOutDuration:
+                                                                  300),
+                                                              fadeOutDuration:
                                                               const Duration(
                                                                   milliseconds:
-                                                                      300),
-                                                          imageUrl: imagesItem,
-                                                          fit: BoxFit.contain,
-                                                          errorWidget: (context,
+                                                                  300),
+                                                              imageUrl: imagesItem,
+                                                              fit: BoxFit.contain,
+                                                              errorWidget: (context,
                                                                   error,
                                                                   stackTrace) =>
-                                                              Image.asset(
-                                                            'assets/images/error_image.svg',
-                                                            fit: BoxFit.contain,
+                                                                  Image.asset(
+                                                                    'assets/images/error_image.svg',
+                                                                    fit: BoxFit.contain,
+                                                                  ),
+                                                            ),
+                                                            allowRotation: false,
+                                                            tag: imagesItem,
+                                                            useHeroAnimation: true,
                                                           ),
                                                         ),
-                                                        allowRotation: false,
-                                                        tag: imagesItem,
-                                                        useHeroAnimation: true,
+                                                      );
+                                                    },
+                                                    child: Hero(
+                                                      tag: imagesItem,
+                                                      transitionOnUserGestures: true,
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                        child: CachedNetworkImage(
+                                                          fadeInDuration: const Duration(
+                                                              milliseconds: 300),
+                                                          fadeOutDuration: const Duration(
+                                                              milliseconds: 300),
+                                                          imageUrl: imagesItem,
+                                                          width: 100.0,
+                                                          height: 100.0,
+                                                          fit: BoxFit.cover,
+                                                          errorWidget: (context,
+                                                              error,
+                                                              stackTrace) =>
+                                                              Image.asset(
+                                                                'assets/images/error_image.svg',
+                                                                width: 100.0,
+                                                                height: 100.0,
+                                                                fit: BoxFit.cover,
+                                                              ),
+                                                        ),
                                                       ),
                                                     ),
                                                   );
-                                                },
-                                                child: Hero(
-                                                  tag: imagesItem,
-                                                  transitionOnUserGestures:
-                                                      true,
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: CachedNetworkImage(
-                                                      fadeInDuration:
-                                                          const Duration(
-                                                              milliseconds:
-                                                                  300),
-                                                      fadeOutDuration:
-                                                          const Duration(
-                                                              milliseconds:
-                                                                  300),
-                                                      imageUrl: imagesItem,
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      fit: BoxFit.cover,
-                                                      errorWidget: (context,
-                                                              error,
-                                                              stackTrace) =>
-                                                          Image.asset(
-                                                        'assets/images/error_image.svg',
-                                                        width: 100.0,
-                                                        height: 100.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }),
+                                                }),
                                           );
                                         },
                                       ),
@@ -732,81 +752,86 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       autovalidateMode:
                                           AutovalidateMode.disabled,
                                       child: Padding(
-                                        padding: EdgeInsets.all(
-                                            valueOrDefault<double>(
+                                        padding:
+                                        EdgeInsets.all(valueOrDefault<double>(
                                           AppConstants.parentPagePadding,
                                           0.0,
                                         )),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   'Submit Proposal',
-                                                  style: AppTheme.of(context)
+                                                  style: AppTheme.of(
+                                                      context)
                                                       .titleLarge
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.manrope(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleLarge
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleLarge
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(context)
-                                                                .titleLarge
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .titleLarge
-                                                                .fontStyle,
-                                                      ),
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleLarge
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleLarge
+                                                          .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .titleLarge
+                                                        .fontWeight,
+                                                    fontStyle:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .titleLarge
+                                                        .fontStyle,
+                                                  ),
                                                 ),
                                                 Text(
                                                   'Secure this project by providing your best\nquote and timeline.',
-                                                  style: AppTheme.of(context)
+                                                  style: AppTheme.of(
+                                                      context)
                                                       .bodyMedium
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.manrope(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                    fontStyle:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                                  ),
                                                 ),
                                               ].divide(SizedBox(
-                                                  height: AppTheme.of(context)
+                                                  height:
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -814,35 +839,39 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   'YOUR PROPOSED QUOTE',
-                                                  style: AppTheme.of(context)
+                                                  style:
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelSmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(context)
-                                                                .labelSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .labelSmall
-                                                                .fontStyle,
-                                                      ),
+                                                    font:
+                                                    GoogleFonts.inter(
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                    fontStyle:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                                  ),
                                                 ),
                                                 TextFormField(
                                                   controller: _model
@@ -854,162 +883,162 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
-                                                    labelStyle: AppTheme.of(
-                                                            context)
+                                                    labelStyle: AppTheme
+                                                        .of(context)
                                                         .labelMedium
                                                         .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                    ),
                                                     hintText: '100',
-                                                    hintStyle: AppTheme.of(
-                                                            context)
+                                                    hintStyle: AppTheme
+                                                        .of(context)
                                                         .labelMedium
                                                         .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                    ),
                                                     enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
+                                                    OutlineInputBorder(
+                                                      borderSide: const BorderSide(
+                                                        color: Color(0x00000000),
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                     ),
                                                     focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
-                                                        color:
-                                                            Color(0x00000000),
+                                                    OutlineInputBorder(
+                                                      borderSide: const BorderSide(
+                                                        color: Color(0x00000000),
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                     ),
                                                     errorBorder:
-                                                        OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
-                                                            AppTheme.of(context)
-                                                                .error,
+                                                        AppTheme.of(
+                                                            context)
+                                                            .error,
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                     ),
                                                     focusedErrorBorder:
-                                                        OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
-                                                            AppTheme.of(context)
-                                                                .error,
+                                                        AppTheme.of(
+                                                            context)
+                                                            .error,
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                     ),
                                                     filled: true,
                                                     fillColor:
-                                                        AppTheme.of(context)
-                                                            .alternate,
+                                                    AppTheme.of(
+                                                        context)
+                                                        .alternate,
                                                     prefixIcon: Icon(
                                                       Icons
                                                           .currency_pound_outlined,
-                                                      color:
-                                                          AppTheme.of(context)
-                                                              .secondaryText,
+                                                      color: AppTheme.of(
+                                                          context)
+                                                          .secondaryText,
                                                     ),
                                                   ),
-                                                  style: AppTheme.of(context)
+                                                  style: AppTheme.of(
+                                                      context)
                                                       .bodyMedium
                                                       .override(
-                                                        font:
-                                                            GoogleFonts.manrope(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                    fontStyle:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                                  ),
                                                   cursorColor:
-                                                      AppTheme.of(context)
-                                                          .primaryText,
+                                                  AppTheme.of(context)
+                                                      .primaryText,
                                                   enableInteractiveSelection:
-                                                      true,
+                                                  true,
                                                   validator: _model
                                                       .quoteTextFieldTextControllerValidator
                                                       .asValidator(context),
                                                 ),
                                               ].divide(SizedBox(
-                                                  height: AppTheme.of(context)
+                                                  height:
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -1017,35 +1046,39 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   'ESTIMATED TIMELINE',
-                                                  style: AppTheme.of(context)
+                                                  style:
+                                                  AppTheme.of(context)
                                                       .labelSmall
                                                       .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelSmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(context)
-                                                                .labelSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .labelSmall
-                                                                .fontStyle,
-                                                      ),
+                                                    font:
+                                                    GoogleFonts.inter(
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelSmall
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .labelSmall
+                                                          .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                    fontStyle:
+                                                    AppTheme.of(
+                                                        context)
+                                                        .labelSmall
+                                                        .fontStyle,
+                                                  ),
                                                 ),
                                                 AppChoiceChips(
                                                   options: const [
@@ -1056,91 +1089,101 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ],
                                                   onChanged: (val) =>
                                                       safeSetState(() => _model
-                                                              .choiceChipsValue =
+                                                          .choiceChipsValue =
                                                           val?.firstOrNull),
                                                   selectedChipStyle: ChipStyle(
                                                     backgroundColor:
-                                                        AppTheme.of(context)
-                                                            .primary,
-                                                    textStyle:
-                                                        AppTheme.of(context)
+                                                    AppTheme.of(
+                                                        context)
+                                                        .primary,
+                                                    textStyle: AppTheme
+                                                        .of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                      font:
+                                                      GoogleFonts.manrope(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
                                                             .bodyMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .manrope(
-                                                                fontWeight: AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                              color: AppTheme.of(
-                                                                      context)
-                                                                  .info,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight: AppTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                              fontStyle: AppTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                            ),
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                      ),
+                                                      color:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .info,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                    ),
                                                     iconColor:
-                                                        AppTheme.of(context)
-                                                            .info,
+                                                    AppTheme.of(
+                                                        context)
+                                                        .info,
                                                     iconSize: 16.0,
                                                     elevation: 0.0,
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    BorderRadius.circular(
+                                                        8.0),
                                                   ),
                                                   unselectedChipStyle:
                                                       ChipStyle(
                                                     backgroundColor:
-                                                        AppTheme.of(context)
-                                                            .accent1,
-                                                    textStyle:
-                                                        AppTheme.of(context)
+                                                    AppTheme.of(
+                                                        context)
+                                                        .accent1,
+                                                    textStyle: AppTheme
+                                                        .of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                      font:
+                                                      GoogleFonts.manrope(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
                                                             .bodyMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .manrope(
-                                                                fontWeight: AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                              color: AppTheme.of(
-                                                                      context)
-                                                                  .secondaryText,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight: AppTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                              fontStyle: AppTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                            ),
-                                                    iconColor:
-                                                        Colors.transparent,
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                      ),
+                                                      color:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .secondaryText,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                    ),
+                                                    iconColor: Colors.transparent,
                                                     iconSize: 16.0,
                                                     elevation: 0.0,
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    BorderRadius.circular(
+                                                        8.0),
                                                   ),
                                                   chipSpacing: 8.0,
                                                   rowSpacing: 8.0,
@@ -1148,15 +1191,16 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   alignment:
                                                       WrapAlignment.start,
                                                   controller: _model
-                                                          .choiceChipsValueController ??=
+                                                      .choiceChipsValueController ??=
                                                       FormFieldController<
                                                           List<String>>(
-                                                    [],
-                                                  ),
+                                                        [],
+                                                      ),
                                                   wrapped: true,
                                                 ),
                                               ].divide(SizedBox(
-                                                  height: AppTheme.of(context)
+                                                  height:
+                                                  AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -1166,32 +1210,37 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               style: AppTheme.of(context)
                                                   .bodyMedium
                                                   .override(
-                                                    font: GoogleFonts.manrope(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
+                                                font: GoogleFonts.manrope(
+                                                  fontWeight:
+                                                  AppTheme.of(
+                                                      context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                                  fontStyle:
+                                                  AppTheme.of(
+                                                      context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                AppTheme.of(
+                                                    context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle:
+                                                AppTheme.of(
+                                                    context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                              ),
                                             ),
                                             Container(
                                               width: double.infinity,
                                               height: 200.0,
                                               decoration: BoxDecoration(
-                                                color: AppTheme.of(context)
+                                                color:
+                                                AppTheme.of(context)
                                                     .alternate,
                                               ),
                                               child: Padding(
@@ -1212,159 +1261,158 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       isDense: false,
-                                                      labelStyle:
-                                                          AppTheme.of(context)
+                                                      labelStyle: AppTheme
+                                                          .of(context)
+                                                          .labelMedium
+                                                          .override(
+                                                        font:
+                                                        GoogleFonts.inter(
+                                                          fontWeight:
+                                                          AppTheme.of(
+                                                              context)
                                                               .labelMedium
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: AppTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                fontSize: 12.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: AppTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                                fontStyle: AppTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                              ),
+                                                              .fontWeight,
+                                                          fontStyle:
+                                                          AppTheme.of(
+                                                              context)
+                                                              .labelMedium
+                                                              .fontStyle,
+                                                        ),
+                                                        color: AppTheme
+                                                            .of(context)
+                                                            .secondaryText,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .labelMedium
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                      ),
                                                       hintText:
-                                                          'Describe your experience with similar high-end ${valueOrDefault<String>(
+                                                      'Describe your experience with similar high-end ${valueOrDefault<String>(
                                                         SupabaseTablesGroup
                                                             .getJobDetailsCall
                                                             .title(
                                                           (_model.getJobDetails
-                                                                  ?.jsonBody ??
+                                                              ?.jsonBody ??
                                                               ''),
                                                         ),
                                                         'title',
                                                       )}',
-                                                      hintStyle:
-                                                          AppTheme.of(context)
+                                                      hintStyle: AppTheme
+                                                          .of(context)
+                                                          .labelMedium
+                                                          .override(
+                                                        font:
+                                                        GoogleFonts.inter(
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .normal,
+                                                          fontStyle:
+                                                          AppTheme.of(
+                                                              context)
                                                               .labelMedium
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: AppTheme.of(
-                                                                        context)
-                                                                    .hint,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                                fontStyle: AppTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                              ),
+                                                              .fontStyle,
+                                                        ),
+                                                        color: AppTheme
+                                                            .of(context)
+                                                            .hint,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                        FontWeight.normal,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                      ),
                                                       enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide:
-                                                            const BorderSide(
+                                                      OutlineInputBorder(
+                                                        borderSide: const BorderSide(
                                                           color:
-                                                              Color(0x00000000),
+                                                          Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
+                                                        BorderRadius.circular(
+                                                            0.0),
                                                       ),
                                                       focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide:
-                                                            const BorderSide(
+                                                      OutlineInputBorder(
+                                                        borderSide: const BorderSide(
                                                           color:
-                                                              Color(0x00000000),
+                                                          Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
+                                                        BorderRadius.circular(
+                                                            0.0),
                                                       ),
                                                       errorBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide:
-                                                            const BorderSide(
+                                                      OutlineInputBorder(
+                                                        borderSide: const BorderSide(
                                                           color:
-                                                              Color(0x00000000),
+                                                          Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
+                                                        BorderRadius.circular(
+                                                            0.0),
                                                       ),
                                                       focusedErrorBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide:
-                                                            const BorderSide(
+                                                      OutlineInputBorder(
+                                                        borderSide: const BorderSide(
                                                           color:
-                                                              Color(0x00000000),
+                                                          Color(0x00000000),
                                                           width: 1.0,
                                                         ),
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
+                                                        BorderRadius.circular(
+                                                            0.0),
                                                       ),
                                                     ),
-                                                    style: AppTheme.of(context)
+                                                    style: AppTheme.of(
+                                                        context)
                                                         .bodyMedium
                                                         .override(
-                                                          font: GoogleFonts
-                                                              .manrope(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                      font:
+                                                      GoogleFonts.manrope(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                    ),
                                                     maxLines: 5,
                                                     cursorColor:
-                                                        AppTheme.of(context)
-                                                            .primaryText,
+                                                    AppTheme.of(
+                                                        context)
+                                                        .primaryText,
                                                     enableInteractiveSelection:
-                                                        true,
+                                                    true,
                                                     validator: _model
                                                         .descriptionTextControllerValidator
                                                         .asValidator(context),
@@ -1384,10 +1432,10 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   onPressed: () async {
                                                     _model.formResult = true;
                                                     if (_model.formKey
-                                                                .currentState ==
-                                                            null ||
-                                                        !_model.formKey
-                                                            .currentState!
+                                                        .currentState ==
+                                                        null ||
+                                                        !_model
+                                                            .formKey.currentState!
                                                             .validate()) {
                                                       _provider.update(() =>
                                                           _model.formResult =
@@ -1396,12 +1444,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     }
                                                     if (_model.formResult!) {
                                                       _model.submitProposalAPi =
-                                                          await SupabaseTablesGroup
-                                                              .submitProposalCall
-                                                              .call(
+                                                      await SupabaseTablesGroup
+                                                          .submitProposalCall
+                                                          .call(
                                                         jobId: widget!.jobId,
                                                         tradespersonId:
-                                                            currentUserUid,
+                                                        currentUserUid,
                                                         message: _model
                                                             .descriptionTextController
                                                             .text,
@@ -1412,12 +1460,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         duration: _model
                                                             .choiceChipsValue,
                                                         status:
-                                                            Status.PENDING.name,
+                                                        Status.PENDING.name,
                                                       );
 
                                                       if ((_model
-                                                              .submitProposalAPi
-                                                              ?.succeeded ??
+                                                          .submitProposalAPi
+                                                          ?.succeeded ??
                                                           true)) {
                                                         await Future.wait([
                                                           Future(() async {
@@ -1425,41 +1473,41 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                 .insertNotifications(
                                                               context,
                                                               title:
-                                                                  'New Proposal Recieved',
+                                                              'New Proposal Recieved',
                                                               message:
-                                                                  '${valueOrDefault<String>(
+                                                              '${valueOrDefault<String>(
                                                                 AppState()
                                                                     .userProfileCache
                                                                     .name,
                                                                 'You',
                                                               )} has sent a job proposal',
                                                               type:
-                                                                  NotificationType
-                                                                      .PROPOSAL
-                                                                      .name,
+                                                              NotificationType
+                                                                  .PROPOSAL
+                                                                  .name,
                                                               userId:
-                                                                  currentUserUid,
+                                                              currentUserUid,
                                                               referenceId: ((_model
-                                                                              .getJobDetails
-                                                                              ?.jsonBody ??
-                                                                          '')
-                                                                      .toList()
-                                                                      .map<JobDataStruct?>(
-                                                                          JobDataStruct
-                                                                              .maybeFromMap)
-                                                                      .toList() as Iterable<JobDataStruct?>)
+                                                                  .getJobDetails
+                                                                  ?.jsonBody ??
+                                                                  '')
+                                                                  .toList()
+                                                                  .map<JobDataStruct?>(
+                                                                  JobDataStruct
+                                                                      .maybeFromMap)
+                                                                  .toList() as Iterable<JobDataStruct?>)
                                                                   .withoutNulls
                                                                   ?.firstOrNull
                                                                   ?.id,
                                                               recieverid: ((_model
-                                                                              .getJobDetails
-                                                                              ?.jsonBody ??
-                                                                          '')
-                                                                      .toList()
-                                                                      .map<JobDataStruct?>(
-                                                                          JobDataStruct
-                                                                              .maybeFromMap)
-                                                                      .toList() as Iterable<JobDataStruct?>)
+                                                                  .getJobDetails
+                                                                  ?.jsonBody ??
+                                                                  '')
+                                                                  .toList()
+                                                                  .map<JobDataStruct?>(
+                                                                  JobDataStruct
+                                                                      .maybeFromMap)
+                                                                  .toList() as Iterable<JobDataStruct?>)
                                                                   .withoutNulls
                                                                   ?.firstOrNull
                                                                   ?.customerId,
@@ -1469,34 +1517,33 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                     <String,
                                                                         String>{
                                                                   'username':
-                                                                      '\"\"',
+                                                                  '\"\"',
                                                                   'avatarurl':
-                                                                      '\"\"',
-                                                                  'jobid':
-                                                                      '\"\"',
+                                                                  '\"\"',
+                                                                  'jobid': '\"\"',
                                                                   'member_id':
-                                                                      '\"\"',
+                                                                  '\"\"',
                                                                   'member_name':
-                                                                      '\"\"',
+                                                                  '\"\"',
                                                                   'member_avatar':
-                                                                      '\"\"',
+                                                                  '\"\"',
                                                                 },
                                                               },
                                                             );
                                                           }),
                                                           Future(() async {
                                                             _model.assignedNotificationOutput =
-                                                                await SupabaseEdgeFunctionsGroup
-                                                                    .sendPushNotificationCall
-                                                                    .call(
+                                                            await SupabaseEdgeFunctionsGroup
+                                                                .sendPushNotificationCall
+                                                                .call(
                                                               deviceToken: _provider
                                                                   .fetchedJob
                                                                   ?.customer
                                                                   ?.deviceToken,
                                                               title:
-                                                                  'New Proposal Received',
+                                                              'New Proposal Received',
                                                               body:
-                                                                  '${AppState().userProfileCache.name} has sent a job proposal',
+                                                              '${AppState().userProfileCache.name} has sent a job proposal',
                                                               dataJson: {},
                                                             );
                                                           }),
@@ -1529,55 +1576,55 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                            16.0, 0.0),
+                                                    padding: const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
                                                     iconAlignment:
-                                                        IconAlignment.end,
+                                                    IconAlignment.end,
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                    color: AppTheme.of(context)
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0.0, 0.0,
+                                                        0.0, 0.0),
+                                                    color: AppTheme.of(
+                                                        context)
                                                         .primary,
-                                                    textStyle: AppTheme.of(
-                                                            context)
+                                                    textStyle: AppTheme
+                                                        .of(context)
                                                         .titleSmall
                                                         .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                      ),
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                    ),
                                                     elevation: 0.0,
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            AppTheme.of(context)
-                                                                .designToken
-                                                                .radius
-                                                                .lg),
+                                                    BorderRadius.circular(
+                                                        AppTheme.of(
+                                                            context)
+                                                            .designToken
+                                                            .radius
+                                                            .lg),
                                                   ),
                                                 ),
                                               ),
@@ -1613,20 +1660,20 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 child: AppButton(
                                                   onPressed: () async {
                                                     _model.startChat =
-                                                        await SupbaseRpcGroup
-                                                            .getConversationBetweenUsersCall
-                                                            .call(
+                                                    await SupbaseRpcGroup
+                                                        .getConversationBetweenUsersCall
+                                                        .call(
                                                       userA: currentUserUid,
                                                       userB: ((_model.getJobDetails
-                                                                          ?.jsonBody ??
-                                                                      '')
-                                                                  .toList()
-                                                                  .map<JobDataStruct?>(
-                                                                      JobDataStruct
-                                                                          .maybeFromMap)
-                                                                  .toList()
-                                                              as Iterable<
-                                                                  JobDataStruct?>)
+                                                          ?.jsonBody ??
+                                                          '')
+                                                          .toList()
+                                                          .map<JobDataStruct?>(
+                                                          JobDataStruct
+                                                              .maybeFromMap)
+                                                          .toList()
+                                                      as Iterable<
+                                                          JobDataStruct?>)
                                                           .withoutNulls
                                                           ?.firstOrNull
                                                           ?.customerId,
@@ -1634,7 +1681,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     );
 
                                                     if ((_model.startChat
-                                                            ?.succeeded ??
+                                                        ?.succeeded ??
                                                         true)) {
                                                       await Future.wait([
                                                         Future(() async {
@@ -1643,57 +1690,61 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                 .routeName,
                                                             queryParameters: {
                                                               'conversationId':
-                                                                  serializeParam(
-                                                                StartChatStruct.maybeFromMap(
-                                                                        (_model.startChat?.jsonBody ??
-                                                                            ''))
+                                                              serializeParam(
+                                                                StartChatStruct.maybeFromMap((_model
+                                                                    .startChat
+                                                                    ?.jsonBody ??
+                                                                    ''))
                                                                     ?.conversationId,
                                                                 ParamType
                                                                     .String,
                                                               ),
                                                               'username':
-                                                                  serializeParam(
+                                                              serializeParam(
                                                                 currentUserUid !=
-                                                                        StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ?? ''))
-                                                                            ?.userA
-                                                                            ?.id
-                                                                    ? StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
-                                                                            ''))
+                                                                    StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
+                                                                        ''))
                                                                         ?.userA
-                                                                        ?.name
-                                                                    : StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
-                                                                            ''))
-                                                                        ?.userB
-                                                                        ?.name,
-                                                                ParamType
-                                                                    .String,
+                                                                        ?.id
+                                                                    ? StartChatStruct.maybeFromMap(
+                                                                    (_model.startChat?.jsonBody ??
+                                                                        ''))
+                                                                    ?.userA
+                                                                    ?.name
+                                                                    : StartChatStruct.maybeFromMap(
+                                                                    (_model.startChat?.jsonBody ??
+                                                                        ''))
+                                                                    ?.userB
+                                                                    ?.name,
+                                                                ParamType.String,
                                                               ),
                                                               'avatarUrl':
-                                                                  serializeParam(
+                                                              serializeParam(
                                                                 currentUserUid !=
-                                                                        StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
-                                                                                ''))
-                                                                            ?.userA
-                                                                            ?.id
-                                                                    ? StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
-                                                                            ''))
+                                                                    StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
+                                                                        ''))
                                                                         ?.userA
-                                                                        ?.avatarUrl
-                                                                    : StartChatStruct.maybeFromMap((_model.startChat?.jsonBody ??
-                                                                            ''))
-                                                                        ?.userB
-                                                                        ?.avatarUrl,
-                                                                ParamType
-                                                                    .String,
+                                                                        ?.id
+                                                                    ? StartChatStruct.maybeFromMap(
+                                                                    (_model.startChat?.jsonBody ??
+                                                                        ''))
+                                                                    ?.userA
+                                                                    ?.avatarUrl
+                                                                    : StartChatStruct.maybeFromMap(
+                                                                    (_model.startChat?.jsonBody ??
+                                                                        ''))
+                                                                    ?.userB
+                                                                    ?.avatarUrl,
+                                                                ParamType.String,
                                                               ),
                                                               'jobid':
-                                                                  serializeParam(
+                                                              serializeParam(
                                                                 widget!.jobId,
                                                                 ParamType
                                                                     .String,
                                                               ),
                                                               'member':
-                                                                  serializeParam(
+                                                              serializeParam(
                                                                 MembersStruct(
                                                                   id: _provider
                                                                       .user?.id,
@@ -1720,51 +1771,48 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                               .insertNotifications(
                                                             context,
                                                             title:
-                                                                'Conversation Started by Trade Person',
+                                                            'Conversation Started by Trade Person',
                                                             message:
-                                                                'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
-                                                            type:
-                                                                NotificationType
-                                                                    .APPLICATION
-                                                                    .name,
+                                                            'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
+                                                            type: NotificationType
+                                                                .APPLICATION.name,
                                                             userId:
-                                                                currentUserUid,
+                                                            currentUserUid,
                                                             referenceId:
-                                                                widget!.jobId,
+                                                            widget!.jobId,
                                                             recieverid:
-                                                                _provider
-                                                                    .user?.id,
+                                                            _provider.user?.id,
                                                             extraData: <String,
                                                                 dynamic>{
                                                               'member': <String,
                                                                   String?>{
                                                                 'username':
-                                                                    '\"\"',
+                                                                '\"\"',
                                                                 'avatarurl':
-                                                                    '\"\"',
+                                                                '\"\"',
                                                                 'jobid': '\"\"',
                                                                 'member_id':
-                                                                    '\"\"',
+                                                                '\"\"',
                                                                 'member_name':
-                                                                    '\"\"',
+                                                                '\"\"',
                                                                 'member_avatar':
-                                                                    '\"\"',
+                                                                '\"\"',
                                                               },
                                                             },
                                                           );
                                                         }),
                                                         Future(() async {
                                                           _model.messageNotificationRes =
-                                                              await SupabaseEdgeFunctionsGroup
-                                                                  .sendPushNotificationCall
-                                                                  .call(
+                                                          await SupabaseEdgeFunctionsGroup
+                                                              .sendPushNotificationCall
+                                                              .call(
                                                             deviceToken: _provider
                                                                 .user
                                                                 ?.deviceToken,
                                                             title:
-                                                                'Conversation Started by Trade Person',
+                                                            'Conversation Started by Trade Person',
                                                             body:
-                                                                'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
+                                                            'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
                                                             dataJson: {},
                                                           );
                                                         }),
@@ -1781,57 +1829,56 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                            16.0, 0.0),
+                                                    padding: const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0.0, 0.0,
+                                                        0.0, 0.0),
                                                     color: Colors.transparent,
-                                                    textStyle: AppTheme.of(
-                                                            context)
+                                                    textStyle: AppTheme
+                                                        .of(context)
                                                         .titleSmall
                                                         .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: AppTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                      ),
+                                                      color:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .primary,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                    ),
                                                     elevation: 0.0,
                                                     borderSide: BorderSide(
-                                                      color:
-                                                          AppTheme.of(context)
-                                                              .primary,
+                                                      color: AppTheme.of(
+                                                          context)
+                                                          .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    BorderRadius.circular(
+                                                        8.0),
                                                   ),
                                                 ),
                                               ),
@@ -1842,13 +1889,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     const AlignmentDirectional(
                                                         0.0, 0.0),
                                                 child: AppButton(
-                                                  onPressed: _provider
-                                                          .isProposalSubmitted!
+                                                  onPressed:
+                                                  _provider.isProposalSubmitted!
                                                       ? null
                                                       : () {
-                                                          print(
-                                                              'Button pressed ...');
-                                                        },
+                                                    print(
+                                                        'Button pressed ...');
+                                                  },
                                                   text: valueOrDefault<String>(
                                                         () {
                                                       if ((_provider.isProposalSubmitted == true) &&
@@ -1870,58 +1917,60 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                            16.0, 0.0),
+                                                    padding: const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0.0, 0.0,
+                                                        0.0, 0.0),
                                                     iconColor:
-                                                        AppTheme.of(context)
-                                                            .primary,
-                                                    color: AppTheme.of(context)
+                                                    AppTheme.of(
+                                                        context)
+                                                        .primary,
+                                                    color: AppTheme.of(
+                                                        context)
                                                         .alternate,
-                                                    textStyle: AppTheme.of(
-                                                            context)
+                                                    textStyle: AppTheme
+                                                        .of(context)
                                                         .titleSmall
                                                         .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: AppTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                      ),
+                                                      color:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .primaryText,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                    ),
                                                     elevation: 0.0,
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            AppTheme.of(context)
-                                                                .designToken
-                                                                .radius
-                                                                .lg),
+                                                    BorderRadius.circular(
+                                                        AppTheme.of(
+                                                            context)
+                                                            .designToken
+                                                            .radius
+                                                            .lg),
                                                   ),
                                                 ),
                                               ),
@@ -1933,163 +1982,131 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         0.0, 0.0),
                                                 child: AppButton(
                                                   onPressed: (_provider
-                                                              .isPaymentPaid! ||
-                                                          (AppState()
-                                                                  .paidJobId ==
-                                                              widget!.jobId))
+                                                      .isPaymentPaid! ||
+                                                      (AppState()
+                                                          .paidJobId ==
+                                                          widget!.jobId))
                                                       ? null
                                                       : () async {
-                                                          await actions
-                                                              .unsubscribe(
-                                                            'proposal_payments',
-                                                          );
-                                                          debugPrint(
-                                                              "Pay button pressed");
-                                                          _model.paymentIntentResponse =
-                                                              await CreatePaymentFeeCall
-                                                                  .call(
-                                                            jobId:
-                                                                widget!.jobId,
-                                                            token:
-                                                                currentJwtToken,
-                                                          );
-                                                          debugPrint(
-                                                              "Payment Intent created");
-                                                          if ((_model
-                                                                  .paymentIntentResponse
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            ApiCallResponse
-                                                                epehemeralKeyResponse =
-                                                                await CreateEphemeralKeyCall
-                                                                    .call(
-                                                                        token:
-                                                                            currentJwtToken);
+                                                    await actions
+                                                        .unsubscribe(
+                                                      'proposal_payments',
+                                                    );
+                                                    _model.paymentIntentResponse =
+                                                    await CreatePaymentFeeCall
+                                                        .call(
+                                                      jobId: widget!.jobId,
+                                                      token:
+                                                      currentJwtToken,
+                                                    );
 
-                                                            debugPrint(
-                                                                "Ephemeral Key response is ${CreateEphemeralKeyCall.ephemeralKey(
-                                                              epehemeralKeyResponse
-                                                                  .jsonBody,
-                                                            )!}");
-                                                            await Future
-                                                                .delayed(
-                                                              const Duration(
-                                                                milliseconds:
-                                                                    100,
-                                                              ),
-                                                            );
-                                                            await actions
-                                                                .subscribe(
-                                                              'proposal_payments',
-                                                              'stripe_payment_intent_id',
-                                                              CreatePaymentFeeCall
-                                                                  .paymentIntentId(
-                                                                (_model.paymentIntentResponse
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              )!,
-                                                              'update',
-                                                              () async {},
-                                                            );
-                                                            _model.paymentRes =
-                                                                await actions
-                                                                    .makePayment(
-                                                              clientSecret:
-                                                                  getJsonField(
-                                                                (_model.paymentIntentResponse
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                                r'''$.client_secret''',
-                                                              ).toString(),
-                                                              customerId:
-                                                                  getJsonField(
-                                                                (_model.paymentIntentResponse
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                                r'''$.customer_id''',
-                                                              ).toString(),
-                                                              ephemeralKey:
-                                                                  CreateEphemeralKeyCall
-                                                                      .ephemeralKey(
-                                                                epehemeralKeyResponse
-                                                                    .jsonBody,
-                                                              )!,
-                                                            );
-                                                          }
+                                                    if ((_model
+                                                        .paymentIntentResponse
+                                                        ?.succeeded ??
+                                                        true)) {
+                                                      await Future.delayed(
+                                                        const Duration(
+                                                          milliseconds: 100,
+                                                        ),
+                                                      );
+                                                      await actions
+                                                          .subscribe(
+                                                        'proposal_payments',
+                                                        'stripe_payment_intent_id',
+                                                        CreatePaymentFeeCall
+                                                            .paymentIntentId(
+                                                          (_model.paymentIntentResponse
+                                                              ?.jsonBody ??
+                                                              ''),
+                                                        )!,
+                                                        'update',
+                                                            () async {},
+                                                      );
+                                                      _model.paymentRes =
+                                                      await actions
+                                                          .makePayment(
+                                                        getJsonField(
+                                                          (_model.paymentIntentResponse
+                                                              ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.client_secret''',
+                                                        ).toString(),
+                                                      );
+                                                    }
 
-                                                          _provider.notify();
-                                                        },
-                                                  text: _provider
-                                                              .isPaymentPaid! ||
-                                                          (AppState()
-                                                                  .paidJobId ==
-                                                              widget!.jobId)
+                                                    _provider.notify();
+                                                  },
+                                                  text: _provider.isPaymentPaid! ||
+                                                      (AppState()
+                                                          .paidJobId ==
+                                                          widget!.jobId)
                                                       ? 'Payment Paid'
                                                       : 'Pay now',
                                                   options: AppButtonOptions(
                                                     width: 300.0,
                                                     height: 50.0,
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                            16.0, 0.0),
+                                                    padding: const EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                    color: AppTheme.of(context)
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(0.0, 0.0,
+                                                        0.0, 0.0),
+                                                    color: AppTheme.of(
+                                                        context)
                                                         .primary,
-                                                    textStyle: AppTheme.of(
-                                                            context)
+                                                    textStyle: AppTheme
+                                                        .of(context)
                                                         .titleSmall
                                                         .override(
-                                                          font: GoogleFonts
-                                                              .manrope(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
+                                                      font:
+                                                      GoogleFonts.manrope(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                      ),
+                                                      color: Colors.white,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                    ),
                                                     elevation: 0.0,
                                                     borderSide: BorderSide(
-                                                      color:
-                                                          AppTheme.of(context)
-                                                              .primaryText,
+                                                      color: AppTheme.of(
+                                                          context)
+                                                          .primaryText,
                                                     ),
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
+                                                    BorderRadius.circular(
+                                                        8.0),
                                                   ),
                                                 ),
                                               ),
                                           ]
                                               .divide(SizedBox(
-                                                  height: AppTheme.of(context)
-                                                      .designToken
-                                                      .spacing
-                                                      .xl))
+                                              height:
+                                              AppTheme.of(context)
+                                                  .designToken
+                                                  .spacing
+                                                  .xl))
                                               .addToEnd(const SizedBox(
-                                                  height: AppConstants
-                                                      .parentPagePadding)),
+                                              height: AppConstants
+                                                  .parentPagePadding)),
                                         ),
                                       ),
                                     ),
@@ -2116,7 +2133,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                           .md),
                                   itemBuilder: (context, proposalsIndex) {
                                     final proposalsItem =
-                                        proposals[proposalsIndex];
+                                    proposals[proposalsIndex];
                                     return TradepersonPreviewWidget(
                                       key: Key(
                                           'Keyw4o_${proposalsIndex}_of_${proposals.length}'),
@@ -2124,11 +2141,11 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       jobViewType: widget!.jobView!,
                                       callback: () async {
                                         _model.updateApiResult =
-                                            await SupabaseTablesGroup
-                                                .getSubmittedProposalsCall
-                                                .call(
+                                        await SupabaseTablesGroup
+                                            .getSubmittedProposalsCall
+                                            .call(
                                           params:
-                                              'select=*,jobs!inner(*)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
+                                          'select=*,jobs!inner(*)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
                                         );
 
                                         if ((_model
@@ -2136,120 +2153,120 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             true)) {
                                           _provider.updateProposalsListAtIndex(
                                             proposalsIndex,
-                                            (e) => e
+                                                (e) => e
                                               ..tradespersonId = (((_model
-                                                                      .updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  .updateApiResult
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.tradespersonId
                                               ..jobId = (((_model.updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.jobId
                                               ..message = (((_model.updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.message
                                               ..id = (((_model.updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.id
                                               ..quoteAmount = (((_model
-                                                                      .updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  .updateApiResult
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.quoteAmount
                                               ..status = (((_model.updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.status
                                               ..createdAt = (((_model.updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.createdAt
                                               ..duration = (((_model.updateApiResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toList()
-                                                              .map<SubmittedProposalStruct?>(
-                                                                  SubmittedProposalStruct
-                                                                      .maybeFromMap)
-                                                              .toList()
-                                                          as Iterable<
-                                                              SubmittedProposalStruct?>)
-                                                      .withoutNulls
-                                                      ?.elementAtOrNull(
-                                                          proposalsIndex))
+                                                  ?.jsonBody ??
+                                                  '')
+                                                  .toList()
+                                                  .map<SubmittedProposalStruct?>(
+                                                  SubmittedProposalStruct
+                                                      .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  SubmittedProposalStruct?>)
+                                                  .withoutNulls
+                                                  ?.elementAtOrNull(
+                                                  proposalsIndex))
                                                   ?.duration,
                                           );
                                           _provider.notify();
@@ -2259,15 +2276,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       },
                                       onAccept: () async {
                                         _model.proposalAcceptedRes =
-                                            await SupabaseTablesGroup
-                                                .updateProposalStatusCall
-                                                .call(
+                                        await SupabaseTablesGroup
+                                            .updateProposalStatusCall
+                                            .call(
                                           status: Status.ACCEPTED.name,
                                           applicationId: proposalsItem.id,
                                         );
 
-                                        if ((_model.proposalAcceptedRes
-                                                ?.succeeded ??
+                                        if ((_model
+                                            .proposalAcceptedRes?.succeeded ??
                                             true)) {
                                           await Future.wait([
                                             Future(() async {
@@ -2275,16 +2292,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   .insertNotifications(
                                                 context,
                                                 title:
-                                                    'Congratulations Proposal Accepted',
+                                                'Congratulations Proposal Accepted',
                                                 message:
-                                                    'Complete your payment to start chatting with the customer.',
+                                                'Complete your payment to start chatting with the customer.',
                                                 type: NotificationType
                                                     .APPLICATION.name,
                                                 userId: currentUserUid,
-                                                referenceId:
-                                                    proposalsItem.jobId,
-                                                recieverid: proposalsItem
-                                                    .tradespersonId,
+                                                referenceId: proposalsItem.jobId,
+                                                recieverid:
+                                                proposalsItem.tradespersonId,
                                                 extraData: <String, dynamic>{
                                                   'member': <String, String?>{
                                                     'username': '\"\"',
@@ -2299,15 +2315,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             }),
                                             Future(() async {
                                               _model.acceptedNotificationRes =
-                                                  await SupabaseEdgeFunctionsGroup
-                                                      .sendPushNotificationCall
-                                                      .call(
+                                              await SupabaseEdgeFunctionsGroup
+                                                  .sendPushNotificationCall
+                                                  .call(
                                                 deviceToken: proposalsItem
                                                     .users.deviceToken,
                                                 title:
-                                                    'Congratulations Proposal Accepted',
+                                                'Congratulations Proposal Accepted',
                                                 body:
-                                                    'Complete your payment to start chatting with the customer.',
+                                                'Complete your payment to start chatting with the customer.',
                                                 dataJson: {},
                                               );
                                             }),
@@ -2315,9 +2331,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               _provider
                                                   .updateProposalsListAtIndex(
                                                 proposalsIndex,
-                                                (e) => e
-                                                  ..status =
-                                                      Status.ACCEPTED.name,
+                                                    (e) => e
+                                                  ..status = Status.ACCEPTED.name,
                                               );
                                               _provider.notify();
                                             }),
@@ -2335,15 +2350,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                       },
                                       onReject: () async {
                                         _model.proposalRejectedRes =
-                                            await SupabaseTablesGroup
-                                                .updateProposalStatusCall
-                                                .call(
+                                        await SupabaseTablesGroup
+                                            .updateProposalStatusCall
+                                            .call(
                                           status: Status.REJECTED.name,
                                           applicationId: proposalsItem.id,
                                         );
 
-                                        if ((_model.proposalRejectedRes
-                                                ?.succeeded ??
+                                        if ((_model
+                                            .proposalRejectedRes?.succeeded ??
                                             true)) {
                                           await Future.wait([
                                             Future(() async {
@@ -2358,16 +2373,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   .insertNotifications(
                                                 context,
                                                 title:
-                                                    'Proposal Rejected. Keep Applying!',
+                                                'Proposal Rejected. Keep Applying!',
                                                 message:
-                                                    'No worries! There are many other jobs available. Try again.',
+                                                'No worries! There are many other jobs available. Try again.',
                                                 type: NotificationType
                                                     .APPLICATION.name,
                                                 userId: currentUserUid,
-                                                referenceId:
-                                                    proposalsItem.jobId,
-                                                recieverid: proposalsItem
-                                                    .tradespersonId,
+                                                referenceId: proposalsItem.jobId,
+                                                recieverid:
+                                                proposalsItem.tradespersonId,
                                                 extraData: <String, dynamic>{
                                                   'member': <String, String?>{
                                                     'username': '\"\"',
@@ -2382,15 +2396,15 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                             }),
                                             Future(() async {
                                               _model.rejectedNotificationOutput =
-                                                  await SupabaseEdgeFunctionsGroup
-                                                      .sendPushNotificationCall
-                                                      .call(
+                                              await SupabaseEdgeFunctionsGroup
+                                                  .sendPushNotificationCall
+                                                  .call(
                                                 deviceToken: proposalsItem
                                                     .users.deviceToken,
                                                 title:
-                                                    'Proposal Rejected. Keep Applying!',
+                                                'Proposal Rejected. Keep Applying!',
                                                 body:
-                                                    'No worries! There are many other jobs available. Try again.',
+                                                'No worries! There are many other jobs available. Try again.',
                                                 dataJson: {},
                                               );
                                             }),
@@ -2398,9 +2412,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                               _provider
                                                   .updateProposalsListAtIndex(
                                                 proposalsIndex,
-                                                (e) => e
-                                                  ..status =
-                                                      Status.REJECTED.name,
+                                                    (e) => e
+                                                  ..status = Status.REJECTED.name,
                                               );
                                               _provider.notify();
                                             }),
@@ -2426,6 +2439,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                   model: _model.jobDetailsLoaderModel,
                   updateCallback: () => _provider.notify(),
                   child: const JobDetailsLoaderWidget(),
+                  // this is job_detail page.
                 );
               }
             },

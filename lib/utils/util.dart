@@ -526,8 +526,6 @@ extension StatefulWidgetExtensions on State<StatefulWidget> {
   }
 }
 
-// For iOS 16 and below, set the status bar color to match the app's theme.
-// https://github.com/flutter/flutter/issues/41067
 Brightness? _lastBrightness;
 void fixStatusBarOniOS16AndBelow(BuildContext context) {
   if (!isiOS) {
