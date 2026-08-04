@@ -71,6 +71,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
 
   final animationsMap = <String, AnimationInfo>{};
 
+  // --- Review flow state ---
+  // Tracks, for THIS session only, whether the current user has already
+  // been through the review flow for this job — so the button doesn't sit
+  // there inviting a second submission after they've used it once. This is
+  // intentionally NOT backed by a database read: there is no "has this job
+  // been reviewed" query available yet, so we don't guess at one. If you
+  // want this to persist across app restarts, it needs a real query against
+  // the reviews table/API — ask me once that's confirmed and I'll wire it in.
+  bool _reviewFlowUsedThisSession = false;
+
   @override
   void initState() {
     super.initState();
@@ -99,7 +109,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 'conversation_id',
                 widget!.conversationId!,
                 'insert',
-                () async {
+                    () async {
                   _provider.update(() => _model.apiRequestCompleter = null);
                   await _model.waitForApiRequestCompleted();
                 },
@@ -107,24 +117,24 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             }),
             Future(() async {
               _model.getJobDetail =
-                  await SupabaseTablesGroup.getJobDetailsCall.call(
+              await SupabaseTablesGroup.getJobDetailsCall.call(
                 jobId: widget!.jobid,
               );
 
               if ((_model.getJobDetail?.succeeded ?? true)) {
                 _provider.jobData = ((_model.getJobDetail?.jsonBody ?? '')
-                        .toList()
-                        .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-                        .toList() as Iterable<JobDataStruct?>)
+                    .toList()
+                    .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                    .toList() as Iterable<JobDataStruct?>)
                     .withoutNulls
                     ?.firstOrNull;
                 _provider.isAssigned = ((_model.getJobDetail?.jsonBody ?? '')
-                            .toList()
-                            .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-                            .toList() as Iterable<JobDataStruct?>)
-                        .withoutNulls
-                        ?.firstOrNull
-                        ?.assignedTradespersonId ==
+                    .toList()
+                    .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                    .toList() as Iterable<JobDataStruct?>)
+                    .withoutNulls
+                    ?.firstOrNull
+                    ?.assignedTradespersonId ==
                     widget!.member?.id;
                 _provider.notify();
               }
@@ -136,15 +146,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
         Future(() async {
           if (AppState().userProfileCache.userRole == 2) {
             _model.paymentStatusRes =
-                await SupabaseTablesGroup.getProposalPaymentCall.call(
+            await SupabaseTablesGroup.getProposalPaymentCall.call(
               jobId: widget!.jobid,
               tradepersonId: currentUserUid,
             );
 
             if ((_model.paymentStatusRes?.succeeded ?? true)) {
               if (SupabaseTablesGroup.getProposalPaymentCall.paymentStatus(
-                    (_model.paymentStatusRes?.jsonBody ?? ''),
-                  ) ==
+                (_model.paymentStatusRes?.jsonBody ?? ''),
+              ) ==
                   PaymentStatus.paid.name) {
                 _provider.isProposalPaid = true;
                 _provider.notify();
@@ -191,7 +201,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                   r'''$.stripe_payment_intent_id''',
                 ).toString(),
                 'update',
-                () async {
+                    () async {
                   _provider.notify();
                 },
               );
@@ -367,15 +377,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                             children: [
                                               FaIcon(
                                                 FontAwesomeIcons.tools,
@@ -386,40 +396,40 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               Expanded(
                                                 child: RichText(
                                                   textScaler:
-                                                      MediaQuery.of(context)
-                                                          .textScaler,
+                                                  MediaQuery.of(context)
+                                                      .textScaler,
                                                   text: TextSpan(
                                                     children: [
                                                       TextSpan(
                                                         text: 'Discussing:',
                                                         style:
-                                                            AppTheme.of(context)
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                          font: GoogleFonts
+                                                              .manrope(
+                                                            fontWeight: AppTheme.of(
+                                                                context)
                                                                 .bodyMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
+                                                                .fontWeight,
+                                                            fontStyle: AppTheme.of(
+                                                                context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                          ),
+                                                          fontSize:
+                                                          12.0,
+                                                          letterSpacing:
+                                                          0.0,
+                                                          fontWeight: AppTheme.of(
+                                                              context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                          fontStyle: AppTheme.of(
+                                                              context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                        ),
                                                       ),
                                                       TextSpan(
                                                         text: valueOrDefault<
@@ -429,67 +439,67 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           '....',
                                                         ),
                                                         style:
-                                                            AppTheme.of(context)
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                          font: GoogleFonts
+                                                              .manrope(
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle: AppTheme.of(
+                                                                context)
                                                                 .bodyMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
+                                                                .fontStyle,
+                                                          ),
+                                                          fontSize:
+                                                          12.0,
+                                                          letterSpacing:
+                                                          0.0,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                          fontStyle: AppTheme.of(
+                                                              context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                        ),
                                                       )
                                                     ],
                                                     style: AppTheme.of(context)
                                                         .bodyMedium
                                                         .override(
-                                                          font: GoogleFonts
-                                                              .manrope(
-                                                            fontWeight:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                      font: GoogleFonts
+                                                          .manrope(
+                                                        fontWeight:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                        fontStyle:
+                                                        AppTheme.of(
+                                                            context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                      fontStyle:
+                                                      AppTheme.of(
+                                                          context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ].divide(const SizedBox(
                                                 width:
-                                                    AppConstants.childSpacing)),
+                                                AppConstants.childSpacing)),
                                           ),
                                         ),
                                         Text(
@@ -497,34 +507,34 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           style: AppTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                font: GoogleFonts.manrope(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontStyle:
-                                                      AppTheme.of(context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                                color: AppTheme.of(context)
-                                                    .secondary,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                              ),
+                                            font: GoogleFonts.manrope(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                            ),
+                                            color: AppTheme.of(context)
+                                                .secondary,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
                                         ),
                                       ]
                                           .divide(const SizedBox(
-                                              width: AppConstants.childSpacing))
+                                          width: AppConstants.childSpacing))
                                           .around(const SizedBox(
-                                              width:
-                                                  AppConstants.childSpacing)),
+                                          width:
+                                          AppConstants.childSpacing)),
                                     ),
                                     if ((AppState().userProfileCache.userRole ==
-                                            1) &&
+                                        1) &&
                                         (_provider.jobData != null) &&
                                         ((_provider.jobData?.status ==
-                                                Status.ACTIVE) ||
+                                            Status.ACTIVE) ||
                                             (_provider.jobData?.status ==
                                                 Status.IN_PROGRESS)))
                                       Container(
@@ -534,146 +544,146 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             if (_provider.jobData?.status ==
                                                 Status.IN_PROGRESS) {
                                               _model.jobCompletedRes =
-                                                  await SupabaseTablesGroup
-                                                      .updateJobStatusCall
-                                                      .call(
+                                              await SupabaseTablesGroup
+                                                  .updateJobStatusCall
+                                                  .call(
                                                 params:
-                                                    'id=eq.${widget!.jobid}',
+                                                'id=eq.${widget!.jobid}',
                                                 payloadJson: <String, String?>{
                                                   'status':
-                                                      Status.COMPLETED.name,
+                                                  Status.COMPLETED.name,
                                                 },
                                               );
 
                                               if ((_model.jobCompletedRes
-                                                      ?.succeeded ??
+                                                  ?.succeeded ??
                                                   true)) {
                                                 await action_blocks
                                                     .insertNotifications(
                                                   context,
                                                   title: 'Job Completed',
                                                   message:
-                                                      'The Customer has marked your job as completed. Please review the work and confirm completion.',
+                                                  'The Customer has marked your job as completed. Please review the work and confirm completion.',
                                                   type: NotificationType
                                                       .APPLICATION.name,
                                                   userId: currentUserUid,
                                                   referenceId: widget!.jobid,
                                                   recieverid:
-                                                      widget!.member?.id,
+                                                  widget!.member?.id,
                                                   extraData: <String, dynamic>{
                                                     'member': <String, dynamic>{
                                                       'username':
-                                                          widget!.username,
+                                                      widget!.username,
                                                       'avatarurl':
-                                                          widget!.avatarUrl,
+                                                      widget!.avatarUrl,
                                                       'jobid': widget!.jobid,
                                                       'member_id':
-                                                          widget!.member?.id,
+                                                      widget!.member?.id,
                                                       'member_name':
-                                                          widget!.member?.name,
+                                                      widget!.member?.name,
                                                       'member_avatar': widget!
                                                           .member?.avatarUrl,
                                                     },
                                                   },
                                                 );
                                                 _model.completedJobNotificationRes =
-                                                    await SupabaseEdgeFunctionsGroup
-                                                        .sendPushNotificationCall
-                                                        .call(
+                                                await SupabaseEdgeFunctionsGroup
+                                                    .sendPushNotificationCall
+                                                    .call(
                                                   deviceToken: widget!
                                                       .member?.deviceToken,
                                                   title: 'Job Completed',
                                                   body:
-                                                      'The Customer has marked your job as completed. Please review the work and confirm completion.',
+                                                  'The Customer has marked your job as completed. Please review the work and confirm completion.',
                                                   dataJson: {},
                                                 );
 
                                                 _provider.jobData = ((_model
-                                                                    .jobCompletedRes
-                                                                    ?.jsonBody ??
-                                                                '')
-                                                            .toList()
-                                                            .map<JobDataStruct?>(
-                                                                JobDataStruct
-                                                                    .maybeFromMap)
-                                                            .toList()
-                                                        as Iterable<
-                                                            JobDataStruct?>)
+                                                    .jobCompletedRes
+                                                    ?.jsonBody ??
+                                                    '')
+                                                    .toList()
+                                                    .map<JobDataStruct?>(
+                                                    JobDataStruct
+                                                        .maybeFromMap)
+                                                    .toList()
+                                                as Iterable<
+                                                    JobDataStruct?>)
                                                     .withoutNulls
                                                     ?.firstOrNull;
                                                 _provider.notify();
                                               }
                                             } else if (_provider
-                                                    .jobData?.status ==
+                                                .jobData?.status ==
                                                 Status.ACTIVE) {
                                               _model.jobAssignedRes =
-                                                  await SupabaseTablesGroup
-                                                      .updateJobStatusCall
-                                                      .call(
+                                              await SupabaseTablesGroup
+                                                  .updateJobStatusCall
+                                                  .call(
                                                 params:
-                                                    'id=eq.${widget!.jobid}',
+                                                'id=eq.${widget!.jobid}',
                                                 payloadJson: <String, String?>{
                                                   'assigned_tradesperson_id':
-                                                      widget!.member?.id,
+                                                  widget!.member?.id,
                                                   'status':
-                                                      Status.IN_PROGRESS.name,
+                                                  Status.IN_PROGRESS.name,
                                                 },
                                               );
 
                                               if ((_model.jobAssignedRes
-                                                      ?.succeeded ??
+                                                  ?.succeeded ??
                                                   true)) {
                                                 await action_blocks
                                                     .insertNotifications(
                                                   context,
                                                   title: 'Job Assigned',
                                                   message:
-                                                      'Congratulations! A customer has assigned this job to you. Review the details and get started.',
+                                                  'Congratulations! A customer has assigned this job to you. Review the details and get started.',
                                                   type: NotificationType
                                                       .APPLICATION.name,
                                                   userId: currentUserUid,
                                                   referenceId: widget!.jobid,
                                                   recieverid:
-                                                      widget!.member?.id,
+                                                  widget!.member?.id,
                                                   extraData: <String, dynamic>{
                                                     'member': <String, dynamic>{
                                                       'username':
-                                                          widget!.username,
+                                                      widget!.username,
                                                       'avatarurl':
-                                                          widget!.avatarUrl,
+                                                      widget!.avatarUrl,
                                                       'jobid': widget!.jobid,
                                                       'member_id':
-                                                          widget!.member?.id,
+                                                      widget!.member?.id,
                                                       'member_name':
-                                                          widget!.member?.name,
+                                                      widget!.member?.name,
                                                       'member_avatar': widget!
                                                           .member?.avatarUrl,
                                                     },
                                                   },
                                                 );
                                                 _model.assignedNotificationRes =
-                                                    await SupabaseEdgeFunctionsGroup
-                                                        .sendPushNotificationCall
-                                                        .call(
+                                                await SupabaseEdgeFunctionsGroup
+                                                    .sendPushNotificationCall
+                                                    .call(
                                                   deviceToken: widget!
                                                       .member?.deviceToken,
                                                   title: 'Job Assigned',
                                                   body:
-                                                      'Congratulations! A customer has assigned this job to you. Review the details and get started.',
+                                                  'Congratulations! A customer has assigned this job to you. Review the details and get started.',
                                                   dataJson: {},
                                                 );
 
                                                 _provider.jobData = ((_model
-                                                                    .jobAssignedRes
-                                                                    ?.jsonBody ??
-                                                                '')
-                                                            .toList()
-                                                            .map<JobDataStruct?>(
-                                                                JobDataStruct
-                                                                    .maybeFromMap)
-                                                            .toList()
-                                                        as Iterable<
-                                                            JobDataStruct?>)
+                                                    .jobAssignedRes
+                                                    ?.jsonBody ??
+                                                    '')
+                                                    .toList()
+                                                    .map<JobDataStruct?>(
+                                                    JobDataStruct
+                                                        .maybeFromMap)
+                                                    .toList()
+                                                as Iterable<
+                                                    JobDataStruct?>)
                                                     .withoutNulls
                                                     ?.firstOrNull;
                                                 _provider.isAssigned = true;
@@ -684,7 +694,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             _provider.notify();
                                           },
                                           text: _provider.jobData?.status ==
-                                                  Status.IN_PROGRESS
+                                              Status.IN_PROGRESS
                                               ? 'Complete job'
                                               : 'Assign to job',
                                           options: AppButtonOptions(
@@ -693,37 +703,37 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             padding: const EdgeInsetsDirectional
                                                 .fromSTEB(16.0, 0.0, 16.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
+                                            const EdgeInsetsDirectional
+                                                .fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
                                             color: _provider.jobData?.status ==
-                                                    Status.IN_PROGRESS
+                                                Status.IN_PROGRESS
                                                 ? AppTheme.of(context).success
                                                 : AppTheme.of(context).primary,
                                             textStyle: AppTheme.of(context)
                                                 .titleSmall
                                                 .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .titleSmall
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .titleSmall
-                                                            .fontStyle,
-                                                  ),
-                                                  color: Colors.white,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      AppTheme.of(context)
-                                                          .titleSmall
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      AppTheme.of(context)
-                                                          .titleSmall
-                                                          .fontStyle,
-                                                ),
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                                fontStyle:
+                                                AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                              ),
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                              AppTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                              fontStyle:
+                                              AppTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                            ),
                                             elevation: 0.0,
                                             borderRadius: BorderRadius.circular(
                                                 AppTheme.of(context)
@@ -733,7 +743,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           ),
                                         ),
                                       ).animateOnPageLoad(animationsMap[
-                                          'containerOnPageLoadAnimation2']!),
+                                      'containerOnPageLoadAnimation2']!),
                                   ].divide(const SizedBox(
                                       height: AppConstants.childSpacing)),
                                 ),
@@ -756,11 +766,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                           if (!_provider.loading) {
                             return Visibility(
                               visible:
-                                  (AppState().userProfileCache.userRole == 1) ||
-                                      ((AppState().userProfileCache.userRole ==
-                                              2) &&
-                                          (_provider.isProposalPaid == true)) ||
-                                      (AppState().paidJobId == widget!.jobid),
+                              (AppState().userProfileCache.userRole == 1) ||
+                                  ((AppState().userProfileCache.userRole ==
+                                      2) &&
+                                      (_provider.isProposalPaid == true)) ||
+                                  (AppState().paidJobId == widget!.jobid),
                               child: Padding(
                                 padding: EdgeInsets.all(valueOrDefault<double>(
                                   AppConstants.parentPagePadding,
@@ -768,13 +778,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                 )),
                                 child: FutureBuilder<ApiCallResponse>(
                                   future: (_model.apiRequestCompleter ??=
-                                          Completer<ApiCallResponse>()
-                                            ..complete(SupabaseTablesGroup
-                                                .getMessagesCall
-                                                .call(
-                                              conversationId:
-                                                  widget!.conversationId,
-                                            )))
+                                  Completer<ApiCallResponse>()
+                                    ..complete(SupabaseTablesGroup
+                                        .getMessagesCall
+                                        .call(
+                                      conversationId:
+                                      widget!.conversationId,
+                                    )))
                                       .future,
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -791,22 +801,22 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                       );
                                     }
                                     final listViewGetMessagesResponse =
-                                        snapshot.data!;
+                                    snapshot.data!;
 
                                     return Builder(
                                       builder: (context) {
                                         final messages =
                                             (listViewGetMessagesResponse
-                                                            .jsonBody
-                                                            .toList()
-                                                            .map<MessagesStruct?>(
-                                                                MessagesStruct
-                                                                    .maybeFromMap)
-                                                            .toList()
-                                                        as Iterable<
-                                                            MessagesStruct?>)
-                                                    .withoutNulls
-                                                    ?.toList() ??
+                                                .jsonBody
+                                                .toList()
+                                                .map<MessagesStruct?>(
+                                                MessagesStruct
+                                                    .maybeFromMap)
+                                                .toList()
+                                            as Iterable<
+                                                MessagesStruct?>)
+                                                .withoutNulls
+                                                ?.toList() ??
                                                 [];
                                         if (messages.isEmpty) {
                                           return EmptyListComponentWidget(
@@ -825,7 +835,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             ),
                                             title: 'No messages yet',
                                             description:
-                                                'Start a conversation to see your messages here',
+                                            'Start a conversation to see your messages here',
                                           );
                                         }
 
@@ -836,12 +846,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             0,
                                             valueOrDefault<double>(
                                               _model.uploadedLocalFile_locallyUploadedImage !=
-                                                          null &&
-                                                      (_model
-                                                              .uploadedLocalFile_locallyUploadedImage
-                                                              .bytes
-                                                              ?.isNotEmpty ??
-                                                          false)
+                                                  null &&
+                                                  (_model
+                                                      .uploadedLocalFile_locallyUploadedImage
+                                                      .bytes
+                                                      ?.isNotEmpty ??
+                                                      false)
                                                   ? 150.0
                                                   : 70.0,
                                               80.0,
@@ -853,94 +863,94 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           scrollDirection: Axis.vertical,
                                           itemCount: messages.length,
                                           separatorBuilder: (_, __) =>
-                                              const SizedBox(
-                                                  height: AppConstants
-                                                      .childPadding),
+                                          const SizedBox(
+                                              height: AppConstants
+                                                  .childPadding),
                                           itemBuilder:
                                               (context, messagesIndex) {
                                             final messagesItem =
-                                                messages[messagesIndex];
+                                            messages[messagesIndex];
                                             return Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 if (AppState()
-                                                        .userProfileCache
-                                                        .userKey !=
+                                                    .userProfileCache
+                                                    .userKey !=
                                                     messagesItem.senderId)
                                                   Column(
                                                     mainAxisSize:
-                                                        MainAxisSize.max,
+                                                    MainAxisSize.max,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    CrossAxisAlignment
+                                                        .start,
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            const AlignmentDirectional(
-                                                                -1.0, 0.0),
+                                                        const AlignmentDirectional(
+                                                            -1.0, 0.0),
                                                         child: Material(
                                                           color: Colors
                                                               .transparent,
                                                           elevation: 0.0,
                                                           shape:
-                                                              RoundedRectangleBorder(
+                                                          RoundedRectangleBorder(
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .only(
+                                                            BorderRadius
+                                                                .only(
                                                               topRight: Radius.circular(
                                                                   AppTheme.of(
-                                                                          context)
+                                                                      context)
                                                                       .designToken
                                                                       .radius
                                                                       .lg),
                                                               bottomLeft: Radius
                                                                   .circular(AppTheme.of(
-                                                                          context)
-                                                                      .designToken
-                                                                      .radius
-                                                                      .lg),
+                                                                  context)
+                                                                  .designToken
+                                                                  .radius
+                                                                  .lg),
                                                               bottomRight: Radius
                                                                   .circular(AppTheme.of(
-                                                                          context)
-                                                                      .designToken
-                                                                      .radius
-                                                                      .lg),
+                                                                  context)
+                                                                  .designToken
+                                                                  .radius
+                                                                  .lg),
                                                             ),
                                                           ),
                                                           child: Container(
                                                             constraints:
-                                                                const BoxConstraints(
+                                                            const BoxConstraints(
                                                               maxWidth: 221.0,
                                                             ),
                                                             decoration:
-                                                                BoxDecoration(
+                                                            BoxDecoration(
                                                               color: AppTheme.of(
-                                                                      context)
+                                                                  context)
                                                                   .alternate,
                                                               borderRadius:
-                                                                  BorderRadius
-                                                                      .only(
+                                                              BorderRadius
+                                                                  .only(
                                                                 topRight: Radius.circular(
                                                                     AppTheme.of(
-                                                                            context)
+                                                                        context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomLeft: Radius.circular(
                                                                     AppTheme.of(
-                                                                            context)
+                                                                        context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomRight: Radius.circular(
                                                                     AppTheme.of(
-                                                                            context)
+                                                                        context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                               ),
                                                               border:
-                                                                  Border.all(
+                                                              Border.all(
                                                                 color: Colors
                                                                     .transparent,
                                                                 width: 0.0,
@@ -950,34 +960,34 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               padding: EdgeInsets.all(
                                                                   valueOrDefault<
                                                                       double>(
-                                                                AppConstants
-                                                                    .childPadding,
-                                                                0.0,
-                                                              )),
+                                                                    AppConstants
+                                                                        .childPadding,
+                                                                    0.0,
+                                                                  )),
                                                               child: Column(
                                                                 mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
+                                                                MainAxisSize
+                                                                    .max,
                                                                 crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                                 children: [
                                                                   if (messagesItem
-                                                                          .messageType ==
+                                                                      .messageType ==
                                                                       'image')
                                                                     InkWell(
                                                                       splashColor:
-                                                                          Colors
-                                                                              .transparent,
+                                                                      Colors
+                                                                          .transparent,
                                                                       focusColor:
-                                                                          Colors
-                                                                              .transparent,
+                                                                      Colors
+                                                                          .transparent,
                                                                       hoverColor:
-                                                                          Colors
-                                                                              .transparent,
+                                                                      Colors
+                                                                          .transparent,
                                                                       highlightColor:
-                                                                          Colors
-                                                                              .transparent,
+                                                                      Colors
+                                                                          .transparent,
                                                                       onTap:
                                                                           () async {
                                                                         await Navigator
@@ -985,9 +995,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                           context,
                                                                           PageTransition(
                                                                             type:
-                                                                                PageTransitionType.fade,
+                                                                            PageTransitionType.fade,
                                                                             child:
-                                                                                AppExpandedImageView(
+                                                                            AppExpandedImageView(
                                                                               image: Image.network(
                                                                                 valueOrDefault<String>(
                                                                                   messagesItem.imageUrl,
@@ -1006,7 +1016,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         );
                                                                       },
                                                                       child:
-                                                                          Hero(
+                                                                      Hero(
                                                                         tag: valueOrDefault<
                                                                             String>(
                                                                           messagesItem
@@ -1015,28 +1025,28 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                               '$messagesIndex',
                                                                         ),
                                                                         transitionOnUserGestures:
-                                                                            true,
+                                                                        true,
                                                                         child:
-                                                                            ClipRRect(
+                                                                        ClipRRect(
                                                                           borderRadius:
-                                                                              BorderRadius.only(
+                                                                          BorderRadius.only(
                                                                             topRight:
-                                                                                Radius.circular(AppTheme.of(context).designToken.radius.md),
+                                                                            Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                             bottomLeft:
-                                                                                Radius.circular(AppTheme.of(context).designToken.radius.md),
+                                                                            Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                             bottomRight:
-                                                                                Radius.circular(AppTheme.of(context).designToken.radius.md),
+                                                                            Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                           ),
                                                                           child:
-                                                                              Image.network(
+                                                                          Image.network(
                                                                             valueOrDefault<String>(
                                                                               messagesItem.imageUrl,
                                                                               'https://picsum.photos/seed/380/600',
                                                                             ),
                                                                             height:
-                                                                                200.0,
+                                                                            200.0,
                                                                             fit:
-                                                                                BoxFit.cover,
+                                                                            BoxFit.cover,
                                                                           ),
                                                                         ),
                                                                       ),
@@ -1045,25 +1055,25 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     messagesItem
                                                                         .content,
                                                                     style: AppTheme.of(
-                                                                            context)
+                                                                        context)
                                                                         .bodyLarge
                                                                         .override(
-                                                                          font:
-                                                                              GoogleFonts.manrope(
-                                                                            fontWeight:
-                                                                                AppTheme.of(context).bodyLarge.fontWeight,
-                                                                            fontStyle:
-                                                                                AppTheme.of(context).bodyLarge.fontStyle,
-                                                                          ),
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight: AppTheme.of(context)
-                                                                              .bodyLarge
-                                                                              .fontWeight,
-                                                                          fontStyle: AppTheme.of(context)
-                                                                              .bodyLarge
-                                                                              .fontStyle,
-                                                                        ),
+                                                                      font:
+                                                                      GoogleFonts.manrope(
+                                                                        fontWeight:
+                                                                        AppTheme.of(context).bodyLarge.fontWeight,
+                                                                        fontStyle:
+                                                                        AppTheme.of(context).bodyLarge.fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                      0.0,
+                                                                      fontWeight: AppTheme.of(context)
+                                                                          .bodyLarge
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(context)
+                                                                          .bodyLarge
+                                                                          .fontStyle,
+                                                                    ),
                                                                   ),
                                                                 ],
                                                               ),
@@ -1075,70 +1085,70 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         valueOrDefault<String>(
                                                           functions
                                                               .formatDateTime(
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                            messagesItem
-                                                                .createdAt,
-                                                            'created at ',
-                                                          )),
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                messagesItem
+                                                                    .createdAt,
+                                                                'created at ',
+                                                              )),
                                                           'created at',
                                                         ),
                                                         style:
-                                                            AppTheme.of(context)
+                                                        AppTheme.of(context)
+                                                            .labelSmall
+                                                            .override(
+                                                          font:
+                                                          GoogleFonts
+                                                              .inter(
+                                                            fontWeight: AppTheme.of(
+                                                                context)
                                                                 .labelSmall
-                                                                .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .labelSmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .labelSmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      10.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .labelSmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .labelSmall
-                                                                      .fontStyle,
-                                                                ),
+                                                                .fontWeight,
+                                                            fontStyle: AppTheme.of(
+                                                                context)
+                                                                .labelSmall
+                                                                .fontStyle,
+                                                          ),
+                                                          fontSize:
+                                                          10.0,
+                                                          letterSpacing:
+                                                          0.0,
+                                                          fontWeight: AppTheme.of(
+                                                              context)
+                                                              .labelSmall
+                                                              .fontWeight,
+                                                          fontStyle: AppTheme.of(
+                                                              context)
+                                                              .labelSmall
+                                                              .fontStyle,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                 if (AppState()
-                                                        .userProfileCache
-                                                        .userKey ==
+                                                    .userProfileCache
+                                                    .userKey ==
                                                     messagesItem.senderId)
                                                   Column(
                                                     mainAxisSize:
-                                                        MainAxisSize.max,
+                                                    MainAxisSize.max,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    CrossAxisAlignment
+                                                        .start,
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
-                                                                valueOrDefault<
-                                                                    double>(
-                                                                  currentUserUid ==
-                                                                          messagesItem
-                                                                              .senderId
-                                                                      ? 1.0
-                                                                      : -1.0,
-                                                                  0.0,
-                                                                ),
-                                                                0.0),
+                                                        AlignmentDirectional(
+                                                            valueOrDefault<
+                                                                double>(
+                                                              currentUserUid ==
+                                                                  messagesItem
+                                                                      .senderId
+                                                                  ? 1.0
+                                                                  : -1.0,
+                                                              0.0,
+                                                            ),
+                                                            0.0),
                                                         child: InkWell(
                                                           splashColor: Colors
                                                               .transparent,
@@ -1154,27 +1164,27 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   .routeName,
                                                               queryParameters: {
                                                                 'name':
-                                                                    serializeParam(
+                                                                serializeParam(
                                                                   widget!
                                                                       .username,
                                                                   ParamType
                                                                       .String,
                                                                 ),
                                                                 'profileUrl':
-                                                                    serializeParam(
+                                                                serializeParam(
                                                                   widget!
                                                                       .avatarUrl,
                                                                   ParamType
                                                                       .String,
                                                                 ),
                                                                 'jobid':
-                                                                    serializeParam(
+                                                                serializeParam(
                                                                   widget!.jobid,
                                                                   ParamType
                                                                       .String,
                                                                 ),
                                                                 'tradepersonId':
-                                                                    serializeParam(
+                                                                serializeParam(
                                                                   widget!.member
                                                                       ?.id,
                                                                   ParamType
@@ -1188,25 +1198,25 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 .transparent,
                                                             elevation: 0.0,
                                                             shape:
-                                                                RoundedRectangleBorder(
+                                                            RoundedRectangleBorder(
                                                               borderRadius:
-                                                                  BorderRadius
-                                                                      .only(
+                                                              BorderRadius
+                                                                  .only(
                                                                 topRight: Radius.circular(
                                                                     AppTheme.of(
-                                                                            context)
+                                                                        context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomLeft: Radius.circular(
                                                                     AppTheme.of(
-                                                                            context)
+                                                                        context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
                                                                 bottomRight: Radius.circular(
                                                                     AppTheme.of(
-                                                                            context)
+                                                                        context)
                                                                         .designToken
                                                                         .radius
                                                                         .lg),
@@ -1214,38 +1224,38 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             ),
                                                             child: Container(
                                                               constraints:
-                                                                  const BoxConstraints(
+                                                              const BoxConstraints(
                                                                 maxWidth: 221.0,
                                                               ),
                                                               decoration:
-                                                                  BoxDecoration(
+                                                              BoxDecoration(
                                                                 color: AppTheme.of(
-                                                                        context)
+                                                                    context)
                                                                     .primary,
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .only(
+                                                                BorderRadius
+                                                                    .only(
                                                                   topRight: Radius.circular(
                                                                       AppTheme.of(
-                                                                              context)
+                                                                          context)
                                                                           .designToken
                                                                           .radius
                                                                           .lg),
                                                                   bottomLeft: Radius.circular(
                                                                       AppTheme.of(
-                                                                              context)
+                                                                          context)
                                                                           .designToken
                                                                           .radius
                                                                           .lg),
                                                                   bottomRight: Radius.circular(
                                                                       AppTheme.of(
-                                                                              context)
+                                                                          context)
                                                                           .designToken
                                                                           .radius
                                                                           .lg),
                                                                 ),
                                                                 border:
-                                                                    Border.all(
+                                                                Border.all(
                                                                   color: Colors
                                                                       .transparent,
                                                                   width: 0.0,
@@ -1255,30 +1265,30 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 padding: EdgeInsets.all(
                                                                     valueOrDefault<
                                                                         double>(
-                                                                  AppConstants
-                                                                      .childPadding,
-                                                                  0.0,
-                                                                )),
+                                                                      AppConstants
+                                                                          .childPadding,
+                                                                      0.0,
+                                                                    )),
                                                                 child: Column(
                                                                   mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
+                                                                  MainAxisSize
+                                                                      .max,
                                                                   crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                                   children: [
                                                                     if (messagesItem
-                                                                            .messageType ==
+                                                                        .messageType ==
                                                                         'image')
                                                                       InkWell(
                                                                         splashColor:
-                                                                            Colors.transparent,
+                                                                        Colors.transparent,
                                                                         focusColor:
-                                                                            Colors.transparent,
+                                                                        Colors.transparent,
                                                                         hoverColor:
-                                                                            Colors.transparent,
+                                                                        Colors.transparent,
                                                                         highlightColor:
-                                                                            Colors.transparent,
+                                                                        Colors.transparent,
                                                                         onTap:
                                                                             () async {
                                                                           await Navigator
@@ -1305,7 +1315,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                           );
                                                                         },
                                                                         child:
-                                                                            Hero(
+                                                                        Hero(
                                                                           tag: valueOrDefault<
                                                                               String>(
                                                                             messagesItem.imageUrl,
@@ -1313,17 +1323,17 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                                 '$messagesIndex',
                                                                           ),
                                                                           transitionOnUserGestures:
-                                                                              true,
+                                                                          true,
                                                                           child:
-                                                                              ClipRRect(
+                                                                          ClipRRect(
                                                                             borderRadius:
-                                                                                BorderRadius.only(
+                                                                            BorderRadius.only(
                                                                               topRight: Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                               bottomLeft: Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                               bottomRight: Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                             ),
                                                                             child:
-                                                                                Image.network(
+                                                                            Image.network(
                                                                               valueOrDefault<String>(
                                                                                 messagesItem.imageUrl,
                                                                                 'https://picsum.photos/seed/380/600',
@@ -1338,23 +1348,23 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                       messagesItem
                                                                           .content,
                                                                       style: AppTheme.of(
-                                                                              context)
+                                                                          context)
                                                                           .bodyLarge
                                                                           .override(
-                                                                            font:
-                                                                                GoogleFonts.manrope(
-                                                                              fontWeight: AppTheme.of(context).bodyLarge.fontWeight,
-                                                                              fontStyle: AppTheme.of(context).bodyLarge.fontStyle,
-                                                                            ),
-                                                                            color:
-                                                                                AppTheme.of(context).messageText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                AppTheme.of(context).bodyLarge.fontWeight,
-                                                                            fontStyle:
-                                                                                AppTheme.of(context).bodyLarge.fontStyle,
-                                                                          ),
+                                                                        font:
+                                                                        GoogleFonts.manrope(
+                                                                          fontWeight: AppTheme.of(context).bodyLarge.fontWeight,
+                                                                          fontStyle: AppTheme.of(context).bodyLarge.fontStyle,
+                                                                        ),
+                                                                        color:
+                                                                        AppTheme.of(context).messageText,
+                                                                        letterSpacing:
+                                                                        0.0,
+                                                                        fontWeight:
+                                                                        AppTheme.of(context).bodyLarge.fontWeight,
+                                                                        fontStyle:
+                                                                        AppTheme.of(context).bodyLarge.fontStyle,
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1365,54 +1375,54 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            AlignmentDirectional(
-                                                                valueOrDefault<
-                                                                    double>(
-                                                                  currentUserUid ==
-                                                                          messagesItem
-                                                                              .senderId
-                                                                      ? 1.0
-                                                                      : -1.0,
-                                                                  0.0,
-                                                                ),
-                                                                0.0),
+                                                        AlignmentDirectional(
+                                                            valueOrDefault<
+                                                                double>(
+                                                              currentUserUid ==
+                                                                  messagesItem
+                                                                      .senderId
+                                                                  ? 1.0
+                                                                  : -1.0,
+                                                              0.0,
+                                                            ),
+                                                            0.0),
                                                         child: Text(
                                                           valueOrDefault<
                                                               String>(
                                                             functions
                                                                 .formatDateTime(
-                                                                    messagesItem
-                                                                        .createdAt),
+                                                                messagesItem
+                                                                    .createdAt),
                                                             'created at',
                                                           ),
                                                           style: AppTheme.of(
-                                                                  context)
+                                                              context)
                                                               .labelSmall
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .labelSmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .labelSmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                fontSize: 10.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: AppTheme.of(
-                                                                        context)
-                                                                    .labelSmall
-                                                                    .fontWeight,
-                                                                fontStyle: AppTheme.of(
-                                                                        context)
-                                                                    .labelSmall
-                                                                    .fontStyle,
-                                                              ),
+                                                            font:
+                                                            GoogleFonts
+                                                                .inter(
+                                                              fontWeight: AppTheme.of(
+                                                                  context)
+                                                                  .labelSmall
+                                                                  .fontWeight,
+                                                              fontStyle: AppTheme.of(
+                                                                  context)
+                                                                  .labelSmall
+                                                                  .fontStyle,
+                                                            ),
+                                                            fontSize: 10.0,
+                                                            letterSpacing:
+                                                            0.0,
+                                                            fontWeight: AppTheme.of(
+                                                                context)
+                                                                .labelSmall
+                                                                .fontWeight,
+                                                            fontStyle: AppTheme.of(
+                                                                context)
+                                                                .labelSmall
+                                                                .fontStyle,
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
@@ -1471,7 +1481,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                   Status.COMPLETED) {
                                 return Padding(
                                   padding:
-                                      EdgeInsets.all(valueOrDefault<double>(
+                                  EdgeInsets.all(valueOrDefault<double>(
                                     AppConstants.childPadding,
                                     0.0,
                                   )),
@@ -1479,27 +1489,27 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       if (_model.uploadedLocalFile_locallyUploadedImage !=
-                                              null &&
+                                          null &&
                                           (_model.uploadedLocalFile_locallyUploadedImage
-                                                  .bytes?.isNotEmpty ??
+                                              .bytes?.isNotEmpty ??
                                               false))
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             Stack(
                                               alignment:
-                                                  const AlignmentDirectional(
-                                                      1.0, -1.0),
+                                              const AlignmentDirectional(
+                                                  1.0, -1.0),
                                               children: [
                                                 ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
+                                                  BorderRadius.circular(
+                                                      8.0),
                                                   child: Image.memory(
                                                     _model.uploadedLocalFile_locallyUploadedImage
-                                                            .bytes ??
+                                                        .bytes ??
                                                         Uint8List.fromList([]),
                                                     width: 80.0,
                                                     height: 70.0,
@@ -1508,31 +1518,31 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
-                                                          1.12, -1.07),
+                                                  const AlignmentDirectional(
+                                                      1.12, -1.07),
                                                   child: AppIconButton(
                                                     borderRadius: 8.0,
                                                     buttonSize: 30.0,
                                                     fillColor:
-                                                        const Color(0xFF747685),
+                                                    const Color(0xFF747685),
                                                     icon: Icon(
                                                       Icons.close,
                                                       color:
-                                                          AppTheme.of(context)
-                                                              .info,
+                                                      AppTheme.of(context)
+                                                          .info,
                                                       size: 14.0,
                                                     ),
                                                     onPressed: () async {
                                                       _provider.update(() {
                                                         _model.isDataUploading_locallyUploadedImage =
-                                                            false;
+                                                        false;
                                                         _model.uploadedLocalFile_locallyUploadedImage =
                                                             UploadedFile(
                                                                 bytes: Uint8List
                                                                     .fromList(
-                                                                        []),
+                                                                    []),
                                                                 originalFilename:
-                                                                    '');
+                                                                '');
                                                       });
                                                     },
                                                   ),
@@ -1549,112 +1559,112 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                             buttonSize: 40.0,
                                             fillColor: Colors.transparent,
                                             disabledColor:
-                                                AppTheme.of(context).alternate,
+                                            AppTheme.of(context).alternate,
                                             disabledIconColor:
-                                                AppTheme.of(context).hint,
+                                            AppTheme.of(context).hint,
                                             icon: Icon(
                                               Icons.add_circle_outline_rounded,
                                               color:
-                                                  AppTheme.of(context).primary,
+                                              AppTheme.of(context).primary,
                                               size: 24.0,
                                             ),
                                             onPressed:
-                                                (_model.messageTextFieldTextController
-                                                                .text !=
-                                                            null &&
-                                                        _model.messageTextFieldTextController
-                                                                .text !=
-                                                            '')
-                                                    ? null
-                                                    : () async {
-                                                        if (_provider
-                                                            .isAssigned) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () {
-                                                                  FocusScope.of(
-                                                                          context)
-                                                                      .unfocus();
-                                                                  FocusManager
-                                                                      .instance
-                                                                      .primaryFocus
-                                                                      ?.unfocus();
-                                                                },
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      BottomSheetAttachmentComponentWidget(
-                                                                    onPhotoTapped:
-                                                                        () async {
-                                                                      final selectedMedia =
-                                                                          await selectMediaWithSourceBottomSheet(
-                                                                        context:
-                                                                            context,
-                                                                        allowPhoto:
-                                                                            true,
-                                                                      );
-                                                                      if (selectedMedia !=
-                                                                              null &&
-                                                                          selectedMedia.every((m) => validateFileFormat(
-                                                                              m.storagePath,
-                                                                              context))) {
-                                                                        _provider.update(() =>
-                                                                            _model.isDataUploading_locallyUploadedImage =
-                                                                                true);
-                                                                        var selectedUploadedFiles =
-                                                                            <UploadedFile>[];
-
-                                                                        try {
-                                                                          selectedUploadedFiles = selectedMedia
-                                                                              .map((m) => UploadedFile(
-                                                                                    name: m.storagePath.split('/').last,
-                                                                                    bytes: m.bytes,
-                                                                                    height: m.dimensions?.height,
-                                                                                    width: m.dimensions?.width,
-                                                                                    blurHash: m.blurHash,
-                                                                                    originalFilename: m.originalFilename,
-                                                                                  ))
-                                                                              .toList();
-                                                                        } finally {
-                                                                          _model.isDataUploading_locallyUploadedImage =
-                                                                              false;
-                                                                        }
-                                                                        if (selectedUploadedFiles.length ==
-                                                                            selectedMedia.length) {
-                                                                          _provider
-                                                                              .update(() {
-                                                                            _model.uploadedLocalFile_locallyUploadedImage =
-                                                                                selectedUploadedFiles.first;
-                                                                          });
-                                                                        } else {
-                                                                          _provider
-                                                                              .update(() {});
-                                                                          return;
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              _provider.update(
-                                                                  () {}));
-                                                        } else {
-                                                          context.pushNamed(
-                                                              CompleteBookingDialogWidget
-                                                                  .routeName);
-                                                        }
+                                            (_model.messageTextFieldTextController
+                                                .text !=
+                                                null &&
+                                                _model.messageTextFieldTextController
+                                                    .text !=
+                                                    '')
+                                                ? null
+                                                : () async {
+                                              if (_provider
+                                                  .isAssigned) {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled:
+                                                  true,
+                                                  backgroundColor:
+                                                  Colors
+                                                      .transparent,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        FocusScope.of(
+                                                            context)
+                                                            .unfocus();
+                                                        FocusManager
+                                                            .instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
                                                       },
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                            context),
+                                                        child:
+                                                        BottomSheetAttachmentComponentWidget(
+                                                          onPhotoTapped:
+                                                              () async {
+                                                            final selectedMedia =
+                                                            await selectMediaWithSourceBottomSheet(
+                                                              context:
+                                                              context,
+                                                              allowPhoto:
+                                                              true,
+                                                            );
+                                                            if (selectedMedia !=
+                                                                null &&
+                                                                selectedMedia.every((m) => validateFileFormat(
+                                                                    m.storagePath,
+                                                                    context))) {
+                                                              _provider.update(() =>
+                                                              _model.isDataUploading_locallyUploadedImage =
+                                                              true);
+                                                              var selectedUploadedFiles =
+                                                              <UploadedFile>[];
+
+                                                              try {
+                                                                selectedUploadedFiles = selectedMedia
+                                                                    .map((m) => UploadedFile(
+                                                                  name: m.storagePath.split('/').last,
+                                                                  bytes: m.bytes,
+                                                                  height: m.dimensions?.height,
+                                                                  width: m.dimensions?.width,
+                                                                  blurHash: m.blurHash,
+                                                                  originalFilename: m.originalFilename,
+                                                                ))
+                                                                    .toList();
+                                                              } finally {
+                                                                _model.isDataUploading_locallyUploadedImage =
+                                                                false;
+                                                              }
+                                                              if (selectedUploadedFiles.length ==
+                                                                  selectedMedia.length) {
+                                                                _provider
+                                                                    .update(() {
+                                                                  _model.uploadedLocalFile_locallyUploadedImage =
+                                                                      selectedUploadedFiles.first;
+                                                                });
+                                                              } else {
+                                                                _provider
+                                                                    .update(() {});
+                                                                return;
+                                                              }
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    _provider.update(
+                                                            () {}));
+                                              } else {
+                                                context.pushNamed(
+                                                    CompleteBookingDialogWidget
+                                                        .routeName);
+                                              }
+                                            },
                                           ),
                                           Expanded(
                                             child: TextFormField(
@@ -1670,73 +1680,73 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 labelStyle: AppTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            AppTheme.of(context)
-                                                                .labelMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          AppTheme.of(context)
-                                                              .secondaryText,
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                    AppTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                    fontStyle:
+                                                    AppTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                                  ),
+                                                  color:
+                                                  AppTheme.of(context)
+                                                      .secondaryText,
+                                                  fontSize: 12.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                                  fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                                ),
                                                 hintText: 'Type a message...',
                                                 hintStyle: AppTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          AppTheme.of(context)
-                                                              .hint,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                    FontWeight.normal,
+                                                    fontStyle:
+                                                    AppTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                                  ),
+                                                  color:
+                                                  AppTheme.of(context)
+                                                      .hint,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                  FontWeight.normal,
+                                                  fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                                ),
                                                 enabledBorder:
-                                                    OutlineInputBorder(
+                                                OutlineInputBorder(
                                                   borderSide: const BorderSide(
                                                     color: Color(0x00000000),
                                                     width: 1.0,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
+                                                  BorderRadius.circular(
+                                                      8.0),
                                                 ),
                                                 focusedBorder:
-                                                    OutlineInputBorder(
+                                                OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: AppTheme.of(context)
                                                         .primary,
                                                     width: 1.0,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
+                                                  BorderRadius.circular(
+                                                      8.0),
                                                 ),
                                                 errorBorder: OutlineInputBorder(
                                                   borderSide: BorderSide(
@@ -1745,19 +1755,19 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     width: 1.0,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
+                                                  BorderRadius.circular(
+                                                      8.0),
                                                 ),
                                                 focusedErrorBorder:
-                                                    OutlineInputBorder(
+                                                OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: AppTheme.of(context)
                                                         .error,
                                                     width: 1.0,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
+                                                  BorderRadius.circular(
+                                                      8.0),
                                                 ),
                                                 filled: true,
                                                 fillColor: AppTheme.of(context)
@@ -1766,26 +1776,26 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               style: AppTheme.of(context)
                                                   .bodyMedium
                                                   .override(
-                                                    font: GoogleFonts.manrope(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
+                                                font: GoogleFonts.manrope(
+                                                  fontWeight:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                                  fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                              ),
                                               cursorColor: AppTheme.of(context)
                                                   .primaryText,
                                               enableInteractiveSelection: true,
@@ -1799,7 +1809,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               borderRadius: 8.0,
                                               buttonSize: 48.0,
                                               fillColor:
-                                                  AppTheme.of(context).primary,
+                                              AppTheme.of(context).primary,
                                               icon: Icon(
                                                 Icons.send_rounded,
                                                 color: AppTheme.of(context)
@@ -1809,15 +1819,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               showLoadingIndicator: true,
                                               onPressed: () async {
                                                 if ((AppState()
-                                                            .userProfileCache
-                                                            .userRole ==
-                                                        1) ||
+                                                    .userProfileCache
+                                                    .userRole ==
+                                                    1) ||
                                                     ((AppState()
-                                                                .userProfileCache
-                                                                .userRole ==
-                                                            2) &&
+                                                        .userProfileCache
+                                                        .userRole ==
+                                                        2) &&
                                                         (_provider
-                                                                .isProposalPaid ==
+                                                            .isProposalPaid ==
                                                             true))) {
                                                   if (functions.canSendMessage(
                                                       _model
@@ -1825,55 +1835,55 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           .text,
                                                       _provider.isAssigned)) {
                                                     if (_model.uploadedLocalFile_locallyUploadedImage !=
-                                                            null &&
+                                                        null &&
                                                         (_model
-                                                                .uploadedLocalFile_locallyUploadedImage
-                                                                .bytes
-                                                                ?.isNotEmpty ??
+                                                            .uploadedLocalFile_locallyUploadedImage
+                                                            .bytes
+                                                            ?.isNotEmpty ??
                                                             false)) {
                                                       {
                                                         _provider.update(() =>
-                                                            _model.isDataUploading_uploadedFileImagePath =
-                                                                true);
+                                                        _model.isDataUploading_uploadedFileImagePath =
+                                                        true);
                                                         var selectedUploadedFiles =
-                                                            <UploadedFile>[];
+                                                        <UploadedFile>[];
                                                         var selectedMedia =
-                                                            <SelectedFile>[];
+                                                        <SelectedFile>[];
                                                         var downloadUrls =
-                                                            <String>[];
+                                                        <String>[];
                                                         try {
                                                           selectedUploadedFiles = _model
-                                                                  .uploadedLocalFile_locallyUploadedImage
-                                                                  .bytes!
-                                                                  .isNotEmpty
+                                                              .uploadedLocalFile_locallyUploadedImage
+                                                              .bytes!
+                                                              .isNotEmpty
                                                               ? [
-                                                                  _model
-                                                                      .uploadedLocalFile_locallyUploadedImage
-                                                                ]
+                                                            _model
+                                                                .uploadedLocalFile_locallyUploadedImage
+                                                          ]
                                                               : <UploadedFile>[];
                                                           selectedMedia =
                                                               selectedFilesFromUploadedFiles(
-                                                            selectedUploadedFiles,
-                                                            storageFolderPath:
+                                                                selectedUploadedFiles,
+                                                                storageFolderPath:
                                                                 'user',
-                                                          );
+                                                              );
                                                           downloadUrls =
-                                                              await uploadSupabaseStorageFiles(
+                                                          await uploadSupabaseStorageFiles(
                                                             bucketName:
-                                                                'general',
+                                                            'general',
                                                             selectedFiles:
-                                                                selectedMedia,
+                                                            selectedMedia,
                                                           );
                                                         } finally {
                                                           _model.isDataUploading_uploadedFileImagePath =
-                                                              false;
+                                                          false;
                                                         }
                                                         if (selectedUploadedFiles
-                                                                    .length ==
-                                                                selectedMedia
-                                                                    .length &&
+                                                            .length ==
+                                                            selectedMedia
+                                                                .length &&
                                                             downloadUrls
-                                                                    .length ==
+                                                                .length ==
                                                                 selectedMedia
                                                                     .length) {
                                                           _provider.update(() {
@@ -1891,57 +1901,57 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       }
                                                     }
                                                     if ((_model.uploadedLocalFile_locallyUploadedImage !=
-                                                                null &&
-                                                            (_model
-                                                                    .uploadedLocalFile_locallyUploadedImage
-                                                                    .bytes
-                                                                    ?.isNotEmpty ??
-                                                                false)) ||
+                                                        null &&
+                                                        (_model
+                                                            .uploadedLocalFile_locallyUploadedImage
+                                                            .bytes
+                                                            ?.isNotEmpty ??
+                                                            false)) ||
                                                         (_model.messageTextFieldTextController
-                                                                    .text !=
-                                                                null &&
+                                                            .text !=
+                                                            null &&
                                                             _model.messageTextFieldTextController
-                                                                    .text !=
+                                                                .text !=
                                                                 '')) {
                                                       _model.sendMessage =
-                                                          await SupbaseRpcGroup
-                                                              .sendMessageCall
-                                                              .call(
+                                                      await SupbaseRpcGroup
+                                                          .sendMessageCall
+                                                          .call(
                                                         conversationId: widget!
                                                             .conversationId,
                                                         senderId:
-                                                            currentUserUid,
+                                                        currentUserUid,
                                                         content: _model
                                                             .messageTextFieldTextController
                                                             .text,
                                                         messageType:
-                                                            valueOrDefault<
-                                                                String>(
+                                                        valueOrDefault<
+                                                            String>(
                                                           _model.uploadedLocalFile_locallyUploadedImage !=
-                                                                      null &&
-                                                                  (_model
-                                                                          .uploadedLocalFile_locallyUploadedImage
-                                                                          .bytes
-                                                                          ?.isNotEmpty ??
-                                                                      false)
+                                                              null &&
+                                                              (_model
+                                                                  .uploadedLocalFile_locallyUploadedImage
+                                                                  .bytes
+                                                                  ?.isNotEmpty ??
+                                                                  false)
                                                               ? 'image'
                                                               : 'text',
                                                           'text',
                                                         ),
                                                         imageUrl: _model.uploadedLocalFile_locallyUploadedImage !=
-                                                                    null &&
-                                                                (_model
-                                                                        .uploadedLocalFile_locallyUploadedImage
-                                                                        .bytes
-                                                                        ?.isNotEmpty ??
-                                                                    false)
+                                                            null &&
+                                                            (_model
+                                                                .uploadedLocalFile_locallyUploadedImage
+                                                                .bytes
+                                                                ?.isNotEmpty ??
+                                                                false)
                                                             ? _model
-                                                                .uploadedFileUrl_uploadedFileImagePath
+                                                            .uploadedFileUrl_uploadedFileImagePath
                                                             : '',
                                                       );
 
                                                       if ((_model.sendMessage
-                                                              ?.succeeded ??
+                                                          ?.succeeded ??
                                                           true)) {
                                                         Future(() async {
                                                           final message = _model
@@ -1950,20 +1960,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               .trim();
 
                                                           final notificationBody =
-                                                              message.length >
-                                                                      100
-                                                                  ? '${message.substring(0, 100)}...'
-                                                                  : message;
+                                                          message.length >
+                                                              100
+                                                              ? '${message.substring(0, 100)}...'
+                                                              : message;
                                                           await action_blocks
                                                               .insertNotifications(
                                                             context,
                                                             title:
-                                                                'New Message from ${AppState().userProfileCache.name}',
+                                                            'New Message from ${AppState().userProfileCache.name}',
                                                             message:
-                                                                notificationBody,
+                                                            notificationBody,
                                                             type:
-                                                                NotificationType
-                                                                    .CHAT.name,
+                                                            NotificationType
+                                                                .CHAT.name,
                                                             userId: AppState()
                                                                 .userProfileCache
                                                                 .userKey,
@@ -1976,18 +1986,18 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               'member': <String,
                                                                   dynamic>{
                                                                 'username':
-                                                                    AppState()
-                                                                        .userProfileCache
-                                                                        .name,
+                                                                AppState()
+                                                                    .userProfileCache
+                                                                    .name,
                                                                 'avatarurl': AppState()
                                                                     .userProfileCache
                                                                     .avatarUrl,
                                                                 'jobid': widget!
                                                                     .jobid,
                                                                 'member_id':
-                                                                    AppState()
-                                                                        .userProfileCache
-                                                                        .userKey,
+                                                                AppState()
+                                                                    .userProfileCache
+                                                                    .userKey,
                                                               },
                                                             },
                                                           );
@@ -1999,21 +2009,21 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               .trim();
 
                                                           final notificationBody =
-                                                              message.length >
-                                                                      100
-                                                                  ? '${message.substring(0, 100)}...'
-                                                                  : message;
+                                                          message.length >
+                                                              100
+                                                              ? '${message.substring(0, 100)}...'
+                                                              : message;
                                                           _model.messageNotificationRes =
-                                                              await SupabaseEdgeFunctionsGroup
-                                                                  .sendPushNotificationCall
-                                                                  .call(
+                                                          await SupabaseEdgeFunctionsGroup
+                                                              .sendPushNotificationCall
+                                                              .call(
                                                             deviceToken: widget!
                                                                 .member
                                                                 ?.deviceToken,
                                                             title:
-                                                                'New Message from ${AppState().userProfileCache.name}',
+                                                            'New Message from ${AppState().userProfileCache.name}',
                                                             body:
-                                                                notificationBody,
+                                                            notificationBody,
                                                             dataJson: {},
                                                           );
                                                         });
@@ -2031,13 +2041,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             _provider
                                                                 .update(() {
                                                               _model.isDataUploading_locallyUploadedImage =
-                                                                  false;
+                                                              false;
                                                               _model.uploadedLocalFile_locallyUploadedImage = UploadedFile(
                                                                   bytes: Uint8List
                                                                       .fromList(
-                                                                          []),
+                                                                      []),
                                                                   originalFilename:
-                                                                      '');
+                                                                  '');
                                                             });
                                                           }),
                                                         ]);
@@ -2050,20 +2060,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         return Dialog(
                                                           elevation: 0,
                                                           insetPadding:
-                                                              EdgeInsets.zero,
+                                                          EdgeInsets.zero,
                                                           backgroundColor:
-                                                              Colors
-                                                                  .transparent,
+                                                          Colors
+                                                              .transparent,
                                                           alignment: const AlignmentDirectional(
-                                                                  0.0, 0.0)
+                                                              0.0, 0.0)
                                                               .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
+                                                              Directionality.of(
+                                                                  context)),
                                                           child:
-                                                              GestureDetector(
+                                                          GestureDetector(
                                                             onTap: () {
                                                               FocusScope.of(
-                                                                      dialogContext)
+                                                                  dialogContext)
                                                                   .unfocus();
                                                               FocusManager
                                                                   .instance
@@ -2071,7 +2081,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   ?.unfocus();
                                                             },
                                                             child:
-                                                                const CountinueBookingWidget(),
+                                                            const CountinueBookingWidget(),
                                                           ),
                                                         );
                                                       },
@@ -2084,19 +2094,19 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       return Dialog(
                                                         elevation: 0,
                                                         insetPadding:
-                                                            EdgeInsets.zero,
+                                                        EdgeInsets.zero,
                                                         backgroundColor:
-                                                            Colors.transparent,
+                                                        Colors.transparent,
                                                         alignment:
-                                                            const AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0)
+                                                            .resolve(
+                                                            Directionality.of(
+                                                                context)),
                                                         child: GestureDetector(
                                                           onTap: () {
                                                             FocusScope.of(
-                                                                    dialogContext)
+                                                                dialogContext)
                                                                 .unfocus();
                                                             FocusManager
                                                                 .instance
@@ -2104,9 +2114,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                 ?.unfocus();
                                                           },
                                                           child:
-                                                              UnlockChatDialogueBoxWidget(
+                                                          UnlockChatDialogueBoxWidget(
                                                             jobid:
-                                                                widget!.jobid!,
+                                                            widget!.jobid!,
                                                           ),
                                                         ),
                                                       );
@@ -2131,7 +2141,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                   decoration: const BoxDecoration(),
                                   child: Padding(
                                     padding:
-                                        EdgeInsets.all(valueOrDefault<double>(
+                                    EdgeInsets.all(valueOrDefault<double>(
                                       AppConstants.childPadding,
                                       0.0,
                                     )),
@@ -2141,241 +2151,241 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.check_circle,
                                               color:
-                                                  AppTheme.of(context).success,
+                                              AppTheme.of(context).success,
                                               size: 24.0,
                                             ),
                                             Align(
                                               alignment:
-                                                  const AlignmentDirectional(
-                                                      0.0, 0.0),
+                                              const AlignmentDirectional(
+                                                  0.0, 0.0),
                                               child: Text(
                                                 'This job has been completed',
                                                 style: AppTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      font: GoogleFonts.manrope(
-                                                        fontWeight:
-                                                            AppTheme.of(context)
-                                                                .titleSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(context)
-                                                                .titleSmall
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          AppTheme.of(context)
-                                                              .success,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .titleSmall
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .titleSmall
-                                                              .fontStyle,
-                                                    ),
+                                                  font: GoogleFonts.manrope(
+                                                    fontWeight:
+                                                    AppTheme.of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                    fontStyle:
+                                                    AppTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                                  ),
+                                                  color:
+                                                  AppTheme.of(context)
+                                                      .success,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                  AppTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                                  fontStyle:
+                                                  AppTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                                ),
                                               ),
                                             ),
                                           ].divide(const SizedBox(
                                               width:
-                                                  AppConstants.childSpacing)),
+                                              AppConstants.childSpacing)),
                                         ),
                                         if ((AppState()
-                                                    .userProfileCache
-                                                    .userRole ==
-                                                1) &&
+                                            .userProfileCache
+                                            .userRole ==
+                                            1) &&
                                             !_model.paymentCompleted)
                                           AppButton(
                                             onPressed: _model
-                                                    .isProcessingPayment
+                                                .isProcessingPayment
                                                 ? () async {}
                                                 : () async {
-                                                    print(
-                                                        "make payment tapped");
-                                                    _model.isProcessingPayment =
-                                                        true;
+                                              print(
+                                                  "make payment tapped");
+                                              _model.isProcessingPayment =
+                                              true;
 
-                                                    print(
-                                                        " _model.isProcessingPayment ${_model.isProcessingPayment}");
-                                                    _provider.notify();
+                                              print(
+                                                  " _model.isProcessingPayment ${_model.isProcessingPayment}");
+                                              _provider.notify();
 
-                                                    final acceptedApplications =
-                                                        await ApplicationsTable()
-                                                            .querySingleRow(
-                                                      queryFn: (q) => q
-                                                          .eqOrNull('job_id',
-                                                              widget!.jobid)
-                                                          .eqOrNull(
-                                                              'status',
-                                                              Status.ACCEPTED
-                                                                  .name),
+                                              final acceptedApplications =
+                                              await ApplicationsTable()
+                                                  .querySingleRow(
+                                                queryFn: (q) => q
+                                                    .eqOrNull('job_id',
+                                                    widget!.jobid)
+                                                    .eqOrNull(
+                                                    'status',
+                                                    Status.ACCEPTED
+                                                        .name),
+                                              );
+                                              print(
+                                                  "accepted applications are ${acceptedApplications}");
+                                              final quoteAmount =
+                                                  acceptedApplications
+                                                      .firstOrNull
+                                                      ?.quoteAmount;
+                                              print(
+                                                  "quoteAmount is ${quoteAmount}");
+                                              if (quoteAmount == null) {
+                                                _model.isProcessingPayment =
+                                                false;
+                                                _provider.notify();
+                                                await actions.showToast(
+                                                  context,
+                                                  'Unable to find the accepted quote for this job.',
+                                                  2,
+                                                );
+                                                return;
+                                              }
+
+                                              final stripeCustomerId =
+                                              await currentUserStripeCustomerId;
+                                              print(
+                                                  "stripeCustomerId is ${stripeCustomerId} and job id is ${widget.jobid} and current jwt is ${currentJwtToken}\n customer email is ${currentUserEmail}\n current user id is ${currentUserUid}\n tp id is ${widget!.member?.id}");
+                                              _model.createPaymentIntentRes =
+                                              await CreatePaymentIntentCall
+                                                  .call(
+                                                jobId: widget!.jobid,
+                                                token: currentJwtToken,
+                                                stripeCustomerId:
+                                                stripeCustomerId,
+                                                customerEmail:
+                                                currentUserEmail,
+                                                userId: currentUserUid,
+                                                tradepersonId:
+                                                widget!.member?.id,
+                                                amount:
+                                                (quoteAmount * 100)
+                                                    .round(),
+                                              );
+
+                                              final success =
+                                              CreatePaymentIntentCall
+                                                  .success(_model
+                                                  .createPaymentIntentRes
+                                                  ?.jsonBody);
+
+                                              if (success == true) {
+                                                final clientSecret =
+                                                CreatePaymentIntentCall
+                                                    .clientSecret(_model
+                                                    .createPaymentIntentRes
+                                                    ?.jsonBody);
+                                                final returnedCustomerId =
+                                                CreatePaymentIntentCall
+                                                    .customerId(_model
+                                                    .createPaymentIntentRes
+                                                    ?.jsonBody);
+                                                final ephemeralKey =
+                                                CreatePaymentIntentCall
+                                                    .ephemeralKey(_model
+                                                    .createPaymentIntentRes
+                                                    ?.jsonBody);
+                                                final paymentIntentId =
+                                                CreatePaymentIntentCall
+                                                    .paymentIntentId(
+                                                    _model
+                                                        .createPaymentIntentRes
+                                                        ?.jsonBody);
+
+                                                if (clientSecret !=
+                                                    null &&
+                                                    returnedCustomerId !=
+                                                        null &&
+                                                    ephemeralKey !=
+                                                        null) {
+                                                  final paymentSuccess =
+                                                  await actions
+                                                      .makePayment(
+                                                    clientSecret:
+                                                    clientSecret,
+                                                    customerId:
+                                                    returnedCustomerId,
+                                                    ephemeralKey:
+                                                    ephemeralKey,
+                                                  );
+
+                                                  if (paymentSuccess) {
+                                                    _model.paymentCompleted =
+                                                    true;
+                                                    await actions
+                                                        .showToast(
+                                                      context,
+                                                      'Payment successful',
+                                                      2,
                                                     );
-                                                    print(
-                                                        "accepted applications are ${acceptedApplications}");
-                                                    final quoteAmount =
-                                                        acceptedApplications
-                                                            .firstOrNull
-                                                            ?.quoteAmount;
-                                                    print(
-                                                        "quoteAmount is ${quoteAmount}");
-                                                    if (quoteAmount == null) {
-                                                      _model.isProcessingPayment =
-                                                          false;
-                                                      _provider.notify();
-                                                      await actions.showToast(
-                                                        context,
-                                                        'Unable to find the accepted quote for this job.',
-                                                        2,
+
+                                                    if (paymentIntentId !=
+                                                        null) {
+                                                      _model.releaseFundsRes =
+                                                      await ReleaseFundsCall
+                                                          .call(
+                                                        paymentIntentId:
+                                                        paymentIntentId,
+                                                        token:
+                                                        currentJwtToken,
                                                       );
-                                                      return;
-                                                    }
 
-                                                    final stripeCustomerId =
-                                                        await currentUserStripeCustomerId;
-                                                    print(
-                                                        "stripeCustomerId is ${stripeCustomerId} and job id is ${widget.jobid} and current jwt is ${currentJwtToken}\n customer email is ${currentUserEmail}\n current user id is ${currentUserUid}\n tp id is ${widget!.member?.id}");
-                                                    _model.createPaymentIntentRes =
-                                                        await CreatePaymentIntentCall
-                                                            .call(
-                                                      jobId: widget!.jobid,
-                                                      token: currentJwtToken,
-                                                      stripeCustomerId:
-                                                          stripeCustomerId,
-                                                      customerEmail:
-                                                          currentUserEmail,
-                                                      userId: currentUserUid,
-                                                      tradepersonId:
-                                                          widget!.member?.id,
-                                                      amount:
-                                                          (quoteAmount * 100)
-                                                              .round(),
-                                                    );
+                                                      final releaseFundsSuccess =
+                                                      ReleaseFundsCall
+                                                          .success(_model
+                                                          .releaseFundsRes
+                                                          ?.jsonBody);
 
-                                                    final success =
-                                                        CreatePaymentIntentCall
-                                                            .success(_model
-                                                                .createPaymentIntentRes
-                                                                ?.jsonBody);
-
-                                                    if (success == true) {
-                                                      final clientSecret =
-                                                          CreatePaymentIntentCall
-                                                              .clientSecret(_model
-                                                                  .createPaymentIntentRes
-                                                                  ?.jsonBody);
-                                                      final returnedCustomerId =
-                                                          CreatePaymentIntentCall
-                                                              .customerId(_model
-                                                                  .createPaymentIntentRes
-                                                                  ?.jsonBody);
-                                                      final ephemeralKey =
-                                                          CreatePaymentIntentCall
-                                                              .ephemeralKey(_model
-                                                                  .createPaymentIntentRes
-                                                                  ?.jsonBody);
-                                                      final paymentIntentId =
-                                                          CreatePaymentIntentCall
-                                                              .paymentIntentId(
-                                                                  _model
-                                                                      .createPaymentIntentRes
-                                                                      ?.jsonBody);
-
-                                                      if (clientSecret !=
-                                                              null &&
-                                                          returnedCustomerId !=
-                                                              null &&
-                                                          ephemeralKey !=
-                                                              null) {
-                                                        final paymentSuccess =
-                                                            await actions
-                                                                .makePayment(
-                                                          clientSecret:
-                                                              clientSecret,
-                                                          customerId:
-                                                              returnedCustomerId,
-                                                          ephemeralKey:
-                                                              ephemeralKey,
-                                                        );
-
-                                                        if (paymentSuccess) {
-                                                          _model.paymentCompleted =
-                                                              true;
-                                                          await actions
-                                                              .showToast(
-                                                            context,
-                                                            'Payment successful',
-                                                            2,
-                                                          );
-
-                                                          if (paymentIntentId !=
-                                                              null) {
-                                                            _model.releaseFundsRes =
-                                                                await ReleaseFundsCall
-                                                                    .call(
-                                                              paymentIntentId:
-                                                                  paymentIntentId,
-                                                              token:
-                                                                  currentJwtToken,
-                                                            );
-
-                                                            final releaseFundsSuccess =
-                                                                ReleaseFundsCall
-                                                                    .success(_model
-                                                                        .releaseFundsRes
-                                                                        ?.jsonBody);
-
-                                                            if (releaseFundsSuccess !=
-                                                                true) {
-                                                              final releaseFundsError =
-                                                                  ReleaseFundsCall.error(
-                                                                          _model
-                                                                              .releaseFundsRes
-                                                                              ?.jsonBody) ??
-                                                                      'Please contact support.';
-                                                              print(
-                                                                  'Release funds failed: $releaseFundsError');
-                                                              await actions
-                                                                  .showToast(
-                                                                context,
-                                                                'Payment received, but releasing funds to the tradesperson failed: $releaseFundsError',
-                                                                3,
-                                                              );
-                                                            }
-                                                          }
-                                                        } else {
-                                                          await actions
-                                                              .showToast(
-                                                            context,
-                                                            'Payment failed',
-                                                            2,
-                                                          );
-                                                        }
-                                                      } else {
-                                                        await actions.showToast(
+                                                      if (releaseFundsSuccess !=
+                                                          true) {
+                                                        final releaseFundsError =
+                                                            ReleaseFundsCall.error(
+                                                                _model
+                                                                    .releaseFundsRes
+                                                                    ?.jsonBody) ??
+                                                                'Please contact support.';
+                                                        print(
+                                                            'Release funds failed: $releaseFundsError');
+                                                        await actions
+                                                            .showToast(
                                                           context,
-                                                          'Unable to start payment. Please try again.',
-                                                          2,
+                                                          'Payment received, but releasing funds to the tradesperson failed: $releaseFundsError',
+                                                          3,
                                                         );
                                                       }
-                                                    } else {
-                                                      await actions.showToast(
-                                                        context,
-                                                        'Unable to start payment. Please try again.',
-                                                        2,
-                                                      );
                                                     }
+                                                  } else {
+                                                    await actions
+                                                        .showToast(
+                                                      context,
+                                                      'Payment failed',
+                                                      2,
+                                                    );
+                                                  }
+                                                } else {
+                                                  await actions.showToast(
+                                                    context,
+                                                    'Unable to start payment. Please try again.',
+                                                    2,
+                                                  );
+                                                }
+                                              } else {
+                                                await actions.showToast(
+                                                  context,
+                                                  'Unable to start payment. Please try again.',
+                                                  2,
+                                                );
+                                              }
 
-                                                    _model.isProcessingPayment =
-                                                        false;
-                                                    _provider.notify();
-                                                  },
+                                              _model.isProcessingPayment =
+                                              false;
+                                              _provider.notify();
+                                            },
                                             text: _model.isProcessingPayment
                                                 ? 'Processing...'
                                                 : 'Make Payment',
@@ -2383,44 +2393,166 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               width: 200.0,
                                               height: 44.0,
                                               padding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      16.0, 0.0, 16.0, 0.0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
                                               iconPadding:
-                                                  const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                      0.0, 0.0, 0.0, 0.0),
+                                              const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
                                               color:
-                                                  AppTheme.of(context).primary,
+                                              AppTheme.of(context).primary,
                                               textStyle: AppTheme.of(context)
                                                   .titleSmall
                                                   .override(
-                                                    font: GoogleFonts.manrope(
+                                                font: GoogleFonts.manrope(
+                                                  fontWeight:
+                                                  AppTheme.of(context)
+                                                      .titleSmall
+                                                      .fontWeight,
+                                                  fontStyle:
+                                                  AppTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
+                                                ),
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                                fontStyle:
+                                                AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                              ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                              BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        if (!_reviewFlowUsedThisSession &&
+                                            ((AppState()
+                                                .userProfileCache
+                                                .userRole ==
+                                                1 &&
+                                                _model.paymentCompleted) ||
+                                                AppState()
+                                                    .userProfileCache
+                                                    .userRole ==
+                                                    2))
+                                          Builder(
+                                            builder: (context) {
+                                              final isCustomer =
+                                                  AppState()
+                                                      .userProfileCache
+                                                      .userRole ==
+                                                      1;
+                                              return AppButton(
+                                                onPressed: () async {
+                                                  // ReviewWidget resolves the
+                                                  // REVIEWER from the logged-in
+                                                  // user itself
+                                                  // (AppState().userProfileCache.userKey)
+                                                  // and reviews whoever is
+                                                  // passed in as `tradepersonId`
+                                                  // here. Since `widget.member`
+                                                  // is always "the other person
+                                                  // in this chat" regardless of
+                                                  // which role is viewing, this
+                                                  // exact same call correctly
+                                                  // covers BOTH directions:
+                                                  // customer → tradesperson and
+                                                  // tradesperson → customer.
+                                                  await context.pushNamed(
+                                                    ReviewWidget.routeName,
+                                                    queryParameters: {
+                                                      'name': serializeParam(
+                                                        widget!.username,
+                                                        ParamType.String,
+                                                      ),
+                                                      'profileUrl':
+                                                      serializeParam(
+                                                        widget!.avatarUrl,
+                                                        ParamType.String,
+                                                      ),
+                                                      'jobid': serializeParam(
+                                                        widget!.jobid,
+                                                        ParamType.String,
+                                                      ),
+                                                      'tradepersonId':
+                                                      serializeParam(
+                                                        widget!.member?.id,
+                                                        ParamType.String,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                  // Session-only: hides the
+                                                  // button after one use so it
+                                                  // doesn't invite a repeat
+                                                  // submission. Resets if the
+                                                  // chat is reopened later —
+                                                  // see the note on
+                                                  // _reviewFlowUsedThisSession
+                                                  // above for why.
+                                                  if (mounted) {
+                                                    setState(() =>
+                                                    _reviewFlowUsedThisSession =
+                                                    true);
+                                                  }
+                                                },
+                                                text: isCustomer
+                                                    ? 'Leave a Review'
+                                                    : 'Review Customer',
+                                                options: AppButtonOptions(
+                                                  width: 200.0,
+                                                  height: 44.0,
+                                                  padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(16.0, 0.0,
+                                                      16.0, 0.0),
+                                                  iconPadding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(0.0, 0.0,
+                                                      0.0, 0.0),
+                                                  color: AppTheme.of(context)
+                                                      .secondary,
+                                                  textStyle: AppTheme.of(
+                                                      context)
+                                                      .titleSmall
+                                                      .override(
+                                                    font: GoogleFonts
+                                                        .manrope(
                                                       fontWeight:
-                                                          AppTheme.of(context)
-                                                              .titleSmall
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .titleSmall
-                                                              .fontStyle,
+                                                      AppTheme.of(
+                                                          context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                      fontStyle: AppTheme
+                                                          .of(context)
+                                                          .titleSmall
+                                                          .fontStyle,
                                                     ),
                                                     color: Colors.white,
                                                     fontSize: 14.0,
                                                     letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .titleSmall
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .titleSmall
-                                                            .fontStyle,
+                                                    fontWeight: AppTheme
+                                                        .of(context)
+                                                        .titleSmall
+                                                        .fontWeight,
+                                                    fontStyle: AppTheme
+                                                        .of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
                                                   ),
-                                              elevation: 0.0,
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
+                                                  elevation: 0.0,
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      8.0),
+                                                ),
+                                              );
+                                            },
                                           ),
                                       ].divide(const SizedBox(
                                           height: AppConstants.childSpacing)),
