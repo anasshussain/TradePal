@@ -1383,32 +1383,26 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                 child: AppButton(
                                                   onPressed: () async {
                                                     _model.formResult = true;
-                                                    if (_model.formKey
-                                                                .currentState ==
-                                                            null ||
-                                                        !_model.formKey
-                                                            .currentState!
-                                                            .validate()) {
-                                                      _provider.update(() =>
-                                                          _model.formResult =
-                                                              false);
+                                                    if (_model.formKey.currentState == null || !_model.formKey.currentState!.validate()) {
+                                                      _provider.update(() => _model.formResult = false);
+                                                      return;
+                                                    }
+                                                    if (_model.choiceChipsValue == null ||
+                                                        _model.choiceChipsValue!.isEmpty) {
+                                                      await actions.showToast(
+                                                        context,
+                                                        'Please select an estimated timeline',
+                                                        2,
+                                                      );
                                                       return;
                                                     }
                                                     if (_model.formResult!) {
-                                                      _model.submitProposalAPi =
-                                                          await SupabaseTablesGroup
-                                                              .submitProposalCall
-                                                              .call(
+                                                      _model.submitProposalAPi = await SupabaseTablesGroup.submitProposalCall.call(
                                                         jobId: widget!.jobId,
-                                                        tradespersonId:
-                                                            currentUserUid,
-                                                        message: _model
-                                                            .descriptionTextController
-                                                            .text,
+                                                        tradespersonId: currentUserUid,
+                                                        message: _model.descriptionTextController.text,
                                                         quoteAmount:
-                                                            int.tryParse(_model
-                                                                .quoteTextFieldTextController
-                                                                .text),
+                                                            int.tryParse(_model.quoteTextFieldTextController.text),
                                                         duration: _model
                                                             .choiceChipsValue,
                                                         status:
