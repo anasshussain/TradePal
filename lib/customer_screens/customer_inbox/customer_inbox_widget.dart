@@ -1,6 +1,5 @@
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../widgets/page_header.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -144,21 +143,21 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        // appBar: AppBar(
-        //   backgroundColor: AppTheme.of(context).primaryBackground,
-        //   automaticallyImplyLeading: false,
-        //   title: wrapWithModel(
-        //     model: _model.appbarComponentModel,
-        //     updateCallback: () => _provider.notify(),
-        //     child: AppbarComponentWidget(
-        //       title: 'Inbox',
-        //       showAction: false,
-        //       action: () async {},
-        //     ),
-        //   ),
-        //   actions: const [],
-        //   centerTitle: false,
-        // ),
+        appBar: AppBar(
+          backgroundColor: AppTheme.of(context).primaryBackground,
+          automaticallyImplyLeading: false,
+          title: wrapWithModel(
+            model: _model.appbarComponentModel,
+            updateCallback: () => _provider.notify(),
+            child: AppbarComponentWidget(
+              title: 'Inbox',
+              showAction: false,
+              action: () async {},
+            ),
+          ),
+          actions: const [],
+          centerTitle: false,
+        ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -168,15 +167,21 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                   AppConstants.parentPagePadding,
                   0.0,
                 )),
+                // Yahan se SingleChildScrollView hata diya hai — ab header
+                // aur search bar fixed rahenge, sirf neeche wali list
+                // (Expanded ke andar) scroll hogi.
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     wrapWithModel(
                       model: _model.pageHeaderSectiomModel,
                       updateCallback: () => _provider.notify(),
-                      child: const PageHeaderWidget(
+                      child: const PageHeaderSectiomWidget(
+                        tag: '',
                         title: 'Inbox',
-                        subtitle: 'Manage your professional communications and\nproject updates.',
+                        subtitle:
+                        'Manage your professional communications and project updates.',
+                        itemText: '',
                       ),
                     ),
                     SizedBox(

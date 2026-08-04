@@ -1,12 +1,23 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/repositories/api_requests/api_calls.dart';
+import '/utils/enums/enums.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
 import '/widgets/components/jobs_list/jobs_list_widget.dart';
 import '/widgets/components/stats/stats_widget.dart';
 import '/widgets/components/text_button/text_button_widget.dart';
+import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
+import '/widgets/app_button.dart';
+import 'dart:ui';
+import '/utils/custom_functions.dart' as functions;
 import '/core/routes/index.dart';
 import '/customer_screens/customer_dashboard/customer_dashboard_widget.dart' show CustomerDashboardWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CustomerDashboardModel extends AppModel<CustomerDashboardWidget> {
   ///  State fields for stateful widgets in this page.

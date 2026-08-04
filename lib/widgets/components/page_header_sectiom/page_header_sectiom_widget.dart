@@ -43,11 +43,14 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PageHeaderSectiomModel());
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
+
   @override
   void dispose() {
     _model.maybeDispose();
+
     super.dispose();
   }
 
