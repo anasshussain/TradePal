@@ -21,7 +21,6 @@ import 'package:provider/provider.dart';
 import '/providers/tp_inbox_provider.dart';
 import '/viewmodels/tp_inbox_model.dart';
 export '/viewmodels/tp_inbox_model.dart';
-import '../../widgets/page_header.dart';
 
 class TpInboxWidget extends StatefulWidget {
   const TpInboxWidget({super.key});
@@ -149,21 +148,21 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        // appBar: AppBar(
-        //   backgroundColor: AppTheme.of(context).primaryBackground,
-        //   automaticallyImplyLeading: false,
-        //   title: wrapWithModel(
-        //     model: _model.appbarComponentModel,
-        //     updateCallback: () => _provider.notify(),
-        //     child: AppbarComponentWidget(
-        //       title: 'Inbox',
-        //       showAction: false,
-        //       action: () async {},
-        //     ),
-        //   ),
-        //   actions: const [],
-        //   centerTitle: false,
-        // ),
+        appBar: AppBar(
+          backgroundColor: AppTheme.of(context).primaryBackground,
+          automaticallyImplyLeading: false,
+          title: wrapWithModel(
+            model: _model.appbarComponentModel,
+            updateCallback: () => _provider.notify(),
+            child: AppbarComponentWidget(
+              title: 'Inbox',
+              showAction: false,
+              action: () async {},
+            ),
+          ),
+          actions: const [],
+          centerTitle: false,
+        ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -174,29 +173,38 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                   0.0,
                 )),
                 child: FutureBuilder<ApiCallResponse>(
+                  // Already-bana hua cached future use ho raha hai (jo
+                  // pehle build() mein connect hi nahi hua tha) — isi
+                  // wajah se pehle har dafa loader dobara chalta tha.
                   future: _conversationsFuture,
                   initialData: _cachedConversations,
                   builder: (context, snapshot) {
+                    // Sirf tab poora page skeleton dikhao jab bilkul koi
+                    // purana data na ho (app session mein is page ka
+                    // pehli dafa load).
                     final isLoading = _cachedConversations == null &&
                         snapshot.connectionState == ConnectionState.waiting;
                     final conversationsResponse = snapshot.data;
+
                     return Skeletonizer(
                       enabled: isLoading,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // ===== FIXED HEADER (does not scroll) =====
                           wrapWithModel(
                             model: _model.pageHeaderSectiomModel,
                             updateCallback: () => _provider.notify(),
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 12),
-                              child: const PageHeaderWidget(
-                                title: 'Inbox',
-                                subtitle: 'Your jobs, activity, and platform insights\nat glance.',
-                              ),
+                            child: const PageHeaderSectiomWidget(
+                              tag: '',
+                              title: 'Inbox',
+                              subtitle:
+                              'Manage your professional communications and\nproject updates.',
+                              itemText: '',
                             ),
                           ),
+                          // ===== FIXED SEARCH BAR (does not scroll) =====
                           Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -342,6 +350,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                               _provider.notify();
                                             }
                                           }
+
                                           _provider.notify();
                                         },
                                         child: Icon(
