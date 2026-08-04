@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:my_trade_pal/auth/supabase_auth/auth_util.dart';
 import 'package:my_trade_pal/repositories/api_requests/api_calls.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -323,23 +324,17 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                                       elevation: 0.0,
                                       borderRadius: BorderRadius.circular(
                                           AppTheme.of(context)
-                                              .titleSmall
-                                              .fontStyle,
-                                        ),
-                                        elevation: 0.0,
-                                        borderRadius: BorderRadius.circular(
-                                            AppTheme.of(context)
-                                                .designToken
-                                                .radius
-                                                .lg),
-                                      ),
+                                              .designToken
+                                              .radius
+                                              .lg),
                                     ),
-                                  ].divide(const SizedBox(
-                                      height: AppConstants.childSpacing)),
-                                ),
+                                  ),
+                                ].divide(const SizedBox(
+                                    height: AppConstants.childSpacing)),
                               ),
                             ),
                           ),
+                        ),
                         wrapWithModel(
                           model: _model.jobsListModel,
                           updateCallback: () => _provider.update(() {}),
@@ -354,7 +349,6 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                     ),
                   ),
                 ),
-              ),
               Align(
                 alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(

@@ -44,6 +44,14 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
   final TraderProfileProvider _provider = TraderProfileProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String _resolveAvatarUrl() {
+    final cached = AppState().userProfileCache.avatarUrl;
+    if (cached.trim().isNotEmpty) {
+      return cached;
+    }
+    return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8&usqp=CAU';
+  }
+
   // var stripeRow;
   // bool payoutsEnabled = false;
   // bool chargesEnabled = false;
@@ -693,6 +701,352 @@ class _TraderProfileWidgetState extends State<TraderProfileWidget> {
                                                         .fontStyle,
                                               ),
                                         ),
+                                        style: AppTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                              ].divide(const SizedBox(
+                                  height: AppConstants.childSpacing)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      /// COMMENT DO NOT REMOVE "MAAZ".
+                      // Material(
+                      //   color: Colors.transparent,
+                      //   elevation: 0.0,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(
+                      //         AppTheme.of(context)
+                      //             .designToken
+                      //             .radius
+                      //             .lg),
+                      //   ),
+                      //   child: Container(
+                      //     width: double.infinity,
+                      //     decoration: BoxDecoration(
+                      //       color: AppTheme.of(context)
+                      //           .secondaryBackground,
+                      //       borderRadius: BorderRadius.circular(
+                      //           AppTheme.of(context)
+                      //               .designToken
+                      //               .radius
+                      //               .lg),
+                      //       border: Border.all(
+                      //         color: AppTheme.of(context).alternate,
+                      //       ),
+                      //     ),
+                      //     child: Padding(
+                      //       padding: EdgeInsets.all(valueOrDefault<double>(
+                      //         AppConstants.childPadding,
+                      //         0.0,
+                      //       )),
+                      //       child: Column(
+                      //         mainAxisSize: MainAxisSize.max,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             'Personal Details',
+                      //             style: AppTheme.of(context)
+                      //                 .titleMedium
+                      //                 .override(
+                      //                   font: GoogleFonts.manrope(
+                      //                     fontWeight: FontWeight.bold,
+                      //                     fontStyle:
+                      //                         AppTheme.of(context)
+                      //                             .titleMedium
+                      //                             .fontStyle,
+                      //                   ),
+                      //                   letterSpacing: 0.0,
+                      //                   fontWeight: FontWeight.bold,
+                      //                   fontStyle: AppTheme.of(context)
+                      //                       .titleMedium
+                      //                       .fontStyle,
+                      //                 ),
+                      //           ),
+                      //           Column(
+                      //             mainAxisSize: MainAxisSize.max,
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               Text(
+                      //                 'FULL NAME',
+                      //                 style: AppTheme.of(context)
+                      //                     .labelSmall
+                      //                     .override(
+                      //                       font: GoogleFonts.inter(
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.bold,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .labelSmall
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //               Text(
+                      //                 valueOrDefault<String>(
+                      //                   AppState().userProfileCache.name,
+                      //                   'name',
+                      //                 ),
+                      //                 style: AppTheme.of(context)
+                      //                     .bodyLarge
+                      //                     .override(
+                      //                       font: GoogleFonts.manrope(
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                       letterSpacing: 0.0,
+                      //                       fontWeight: FontWeight.w500,
+                      //                       fontStyle:
+                      //                           AppTheme.of(context)
+                      //                               .bodyLarge
+                      //                               .fontStyle,
+                      //                     ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //           if (AppState().userProfileCache.profession !=
+                      //                   null &&
+                      //               AppState().userProfileCache.profession !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'REGISTRATION NUMBER',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .registrationNumber,
+                      //                     'reg no',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.serviceArea !=
+                      //                   null &&
+                      //               AppState().userProfileCache.serviceArea !=
+                      //                   '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'SERVICE AREA',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState()
+                      //                         .userProfileCache
+                      //                         .serviceArea,
+                      //                     'service area',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           if (AppState().userProfileCache.phone !=
+                      //                   null &&
+                      //               AppState().userProfileCache.phone != '')
+                      //             Column(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'PHONE',
+                      //                   style: AppTheme.of(context)
+                      //                       .labelSmall
+                      //                       .override(
+                      //                         font: GoogleFonts.inter(
+                      //                           fontWeight: FontWeight.bold,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .labelSmall
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.bold,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .labelSmall
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //                 Text(
+                      //                   valueOrDefault<String>(
+                      //                     AppState().userProfileCache.phone,
+                      //                     'Phone',
+                      //                   ),
+                      //                   style: AppTheme.of(context)
+                      //                       .bodyLarge
+                      //                       .override(
+                      //                         font: GoogleFonts.manrope(
+                      //                           fontWeight: FontWeight.w500,
+                      //                           fontStyle:
+                      //                               AppTheme.of(context)
+                      //                                   .bodyLarge
+                      //                                   .fontStyle,
+                      //                         ),
+                      //                         letterSpacing: 0.0,
+                      //                         fontWeight: FontWeight.w500,
+                      //                         fontStyle:
+                      //                             AppTheme.of(context)
+                      //                                 .bodyLarge
+                      //                                 .fontStyle,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //         ].divide(const SizedBox(
+                      //             height: AppConstants.childSpacing)),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                        desktop: false,
+                      ))
+                        Material(
+                          color: Colors.transparent,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                AppTheme.of(context).designToken.radius.lg),
+                          ),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context).primary,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context).designToken.radius.lg),
+                              border: Border.all(
+                                color: AppTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(valueOrDefault<double>(
+                                AppConstants.childPadding,
+                                0.0,
+                              )),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        AppTheme.of(context)
+                                            .designToken
+                                            .spacing
+                                            .lg,
+                                        0.0,
+                                        0.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/card.svg',
+                                        width: 22.0,
+                                        height: 22.0,
+                                        fit: BoxFit.contain,
                                       ),
                                       Opacity(
                                         opacity: 0.8,
