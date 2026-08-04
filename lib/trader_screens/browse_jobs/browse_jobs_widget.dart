@@ -126,7 +126,6 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                   AppConstants.parentPagePadding,
                   0.0,
                 )),
-<<<<<<< HEAD
                 child: RefreshIndicator(
                   color: AppTheme.of(context).primary,
                   onRefresh: _refreshJobsList,
@@ -144,7 +143,6 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                               title: 'Available Jobs',
                               subtitle:
                               'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
-=======
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -162,7 +160,6 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                             numberOfItems: valueOrDefault<int>(
                               AppState().jobCache.jobs.length,
                               0,
->>>>>>> 15414005fd51fa2c235837b1524d4116773cc1d3
                             ),
                           ),
                         ),
