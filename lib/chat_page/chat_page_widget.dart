@@ -810,11 +810,18 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 [];
                                         if (messages.isEmpty) {
                                           return EmptyListComponentWidget(
-                                            icon: Icon(
-                                              Icons.chat,
-                                              color:
-                                                  AppTheme.of(context).accent4,
-                                              size: 40.0,
+                                            icon: Container(
+                                              width: 80.0,
+                                              height: 80.0,
+                                              decoration: BoxDecoration(
+                                                color: AppTheme.of(context).primary.withOpacity(0.1),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Icon(
+                                                Icons.forum_outlined,
+                                                color: AppTheme.of(context).primary,
+                                                size: 40.0,
+                                              ),
                                             ),
                                             title: 'No messages yet',
                                             description:
