@@ -2533,7 +2533,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           .of(context)
                                                           .titleSmall
                                                           .fontStyle,
-                                                    ),
+                                                    ),//
                                                     color: Colors.white,
                                                     fontSize: 14.0,
                                                     letterSpacing: 0.0,
