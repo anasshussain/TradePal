@@ -1,17 +1,15 @@
 import 'package:skeletonizer/skeletonizer.dart';
-
+import '../../widgets/page_header.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
 import '/models/structs/index.dart';
-import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/empty_list_component/empty_list_component_widget.dart';
 import '/widgets/components/submitted_job_list_item/submitted_job_list_item_widget.dart';
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/tp_my_jobs_provider.dart';
@@ -78,8 +76,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
     onLoaded(response);
     return response;
   }
-
-  // ------- Per-tab refresh handlers (only refetch that tab's list) -------
   Future<void> _refreshRequested() async {
     final future = _fetchSubmittedJobs(Status.ACTIVE.name, (r) {
       _cachedRequested = r;
@@ -137,22 +133,22 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.update(() {}),
-            child: AppbarComponentWidget(
-              title: 'My jobs',
-              showAction: false,
-              action: () async {},
-            ),
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 0.0,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.update(() {}),
+        //     child: AppbarComponentWidget(
+        //       title: 'My jobs',
+        //       showAction: false,
+        //       action: () async {},
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: true,
+        //   elevation: 0.0,
+        // ),
         body: SafeArea(
           top: true,
           child: Builder(
@@ -176,7 +172,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                   final isPageLoading = activeCached == null &&
                       activeSnapshot.connectionState ==
                           ConnectionState.waiting;
-
                   return Skeletonizer(
                     enabled: isPageLoading,
                     child: _buildTabsStack(context),
@@ -197,7 +192,18 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             children: [
-              // ===== FIXED TAB BAR (does not scroll) =====
+              Padding(
+                padding: EdgeInsets.all(
+                  valueOrDefault<double>(
+                    AppConstants.parentPagePadding,
+                    0.0,
+                  ),
+                ),
+                child: const PageHeaderWidget(
+                  title: 'My Jobs',
+                  subtitle: 'Track your requested, in-progress, and completed jobs all in one place.',
+                ),
+              ),
               Align(
                 alignment: const Alignment(0.0, 0),
                 child: TabBar(
@@ -246,14 +252,10 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                   },
                 ),
               ),
-              // ===== SCROLLABLE TAB CONTENT (starts below the tab bar) =====
-              // Each tab now has its own RefreshIndicator so pull-to-refresh
-              // only reloads that tab's list, not the whole page.
               Expanded(
                 child: TabBarView(
                   controller: _model.tabBarController,
                   children: [
-                    // ------------------- REQUESTED TAB -------------------
                     Padding(
                       padding: EdgeInsets.all(valueOrDefault<double>(
                         AppConstants.parentPagePadding,
@@ -270,7 +272,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         ),
                       ),
                     ),
-                    // ------------------- IN-PROGRESS TAB -------------------
                     Padding(
                       padding: EdgeInsets.all(valueOrDefault<double>(
                         AppConstants.parentPagePadding,
@@ -287,7 +288,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         ),
                       ),
                     ),
-                    // ------------------- COMPLETED TAB -------------------
                     Padding(
                       padding: EdgeInsets.all(valueOrDefault<double>(
                         AppConstants.parentPagePadding,
@@ -351,8 +351,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           );
         }
         if (!hasAnyData) {
-          // Wrapped in a scrollable so RefreshIndicator can still be
-          // pulled even when there's no list to show yet.
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: EmptyListComponentWidget(
@@ -383,8 +381,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             [];
 
         if (jobs.isEmpty) {
-          // Wrapped in a scrollable so RefreshIndicator can still be
-          // pulled even when the list is empty.
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: EmptyListComponentWidget(

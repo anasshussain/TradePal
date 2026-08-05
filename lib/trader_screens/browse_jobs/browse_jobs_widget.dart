@@ -1,6 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:my_trade_pal/auth/supabase_auth/auth_util.dart';
 import 'package:my_trade_pal/repositories/api_requests/api_calls.dart';
+import 'package:my_trade_pal/widgets/page_header.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '/utils/enums/enums.dart';
@@ -36,9 +37,6 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
   final BrowseJobsProvider _provider = BrowseJobsProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // Bumped on pull-to-refresh so only JobsListWidget remounts and
-  // refetches its own data — header, filters, and button are untouched.
   int _jobsListRefreshKey = 0;
 
   @override
@@ -53,12 +51,11 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
     });
   }
 
-  // Refreshes only the jobs list — nothing else on the page reloads.
-  Future<void> _refreshJobsList() async {
-    setState(() {
-      _jobsListRefreshKey++;
-    });
-  }
+  // Future<void> _refreshJobsList() async {
+  //   setState(() {
+  //     _jobsListRefreshKey++;
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -89,33 +86,33 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.update(() {}),
-            child: AppbarComponentWidget(
-              title: 'Home',
-              showAction: true,
-              actionIcon: SvgPicture.asset(
-                'assets/images/bell.svg',
-                width: 21.5,
-                height: 21.5,
-                colorFilter: const ColorFilter.mode(
-                  Color(0xFF1B7FA3),
-                  BlendMode.srcIn,
-                ),
-              ),
-              action: () async {
-                context.pushNamed(NotificationPageWidget.routeName);
-              },
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 0.0,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.update(() {}),
+        //     child: AppbarComponentWidget(
+        //       title: 'Home',
+        //       showAction: true,
+        //       actionIcon: SvgPicture.asset(
+        //         'assets/images/bell.svg',
+        //         width: 21.5,
+        //         height: 21.5,
+        //         colorFilter: const ColorFilter.mode(
+        //           Color(0xFF1B7FA3),
+        //           BlendMode.srcIn,
+        //         ),
+        //       ),
+        //       action: () async {
+        //         context.pushNamed(NotificationPageWidget.routeName);
+        //       },
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        //   elevation: 0.0,
+        // ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -134,18 +131,14 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                         child: wrapWithModel(
                           model: _model.pageHeaderSectiomModel,
                           updateCallback: () => _provider.update(() {}),
-                          child: PageHeaderSectiomWidget(
+                          child: const PageHeaderWidget(
                             tag: 'MARKETPLACE',
                             title: 'Available Jobs',
                             subtitle:
-                                'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
-                            numberOfItems: valueOrDefault<int>(
-                              AppState().jobCache.jobs.length,
-                              0,
+                            'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
                             ),
                           ),
                         ),
-                      ),
                       if (responsiveVisibility(
                         context: context,
                         phone: false,

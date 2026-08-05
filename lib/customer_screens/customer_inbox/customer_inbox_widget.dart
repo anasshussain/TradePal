@@ -1,3 +1,4 @@
+import 'package:my_trade_pal/widgets/page_header.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '/auth/supabase_auth/auth_util.dart';
@@ -38,14 +39,8 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   final CustomerInboxProvider _provider = CustomerInboxProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // Static cache: poori app session ke liye zinda rehta hai (widget dispose
-  // hone ke baad bhi). Isse navigation ya realtime update par bhi
-  // full-page reload/skeleton flash nahi hota — sirf pehli dafa dikhega.
   static List<ConversationStruct>? _cachedConversations;
 
-  // Background mein data fetch karke cache update karta hai, koi loading
-  // spinner ya skeleton dobara trigger nahi karta (silent refresh).
   Future<void> _fetchConversations() async {
     final response = await SupabaseTablesGroup.getConversationsCall.call(
       userId: currentUserUid,
@@ -74,9 +69,6 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CustomerInboxModel());
-
-    // Pehli dafa (cache khaali) ho ya baad mein (silent refresh ke liye),
-    // dono suraton mein fetch chalao — bas UI sirf pehli dafa skeleton dikhayega.
     _fetchConversations();
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -94,8 +86,6 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
         AppState().userProfileCache.userKey,
         'update',
             () async {
-          // Realtime update par sirf silently naya data le aao,
-          // poori list/skeleton dobara mat dikhao.
           await _fetchConversations();
         },
       );
@@ -143,21 +133,21 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.notify(),
-            child: AppbarComponentWidget(
-              title: 'Inbox',
-              showAction: false,
-              action: () async {},
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.notify(),
+        //     child: AppbarComponentWidget(
+        //       title: 'Inbox',
+        //       showAction: false,
+        //       action: () async {},
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        // ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -167,21 +157,15 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                   AppConstants.parentPagePadding,
                   0.0,
                 )),
-                // Yahan se SingleChildScrollView hata diya hai — ab header
-                // aur search bar fixed rahenge, sirf neeche wali list
-                // (Expanded ke andar) scroll hogi.
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     wrapWithModel(
                       model: _model.pageHeaderSectiomModel,
                       updateCallback: () => _provider.notify(),
-                      child: const PageHeaderSectiomWidget(
-                        tag: '',
+                      child: const PageHeaderWidget(
                         title: 'Inbox',
-                        subtitle:
-                        'Manage your professional communications and project updates.',
-                        itemText: '',
+                        subtitle: 'Manage your professional communications and\nproject updates.',
                       ),
                     ),
                     SizedBox(
@@ -353,24 +337,16 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                             .asValidator(context),
                       ),
                     ),
-                    // Sirf yeh hissa ab expand/scroll hoga — search bar aur
-                    // header upar fixed rahenge.
                     Expanded(
                       child: Builder(
                         builder: (context) {
-                          // Sirf pehli dafa (jab cache bilkul khaali ho)
-                          // loading dikhao — baad mein hamesha cached data
-                          // turant show hoga, background refresh silent hoga.
                           final isLoading = _cachedConversations == null;
                           return RefreshIndicator(
-                            // Sirf list refresh hogi, pura page nahi.
                             onRefresh: _fetchConversations,
                             child: Skeletonizer(
                               enabled: isLoading,
                               child: Builder(
                                 builder: (context) {
-                                  // Loading ke dauran dummy placeholder list dikhao
-                                  // taake Skeletonizer ko shimmer karne ke liye structure mile
                                   if (isLoading) {
                                     return ListView.separated(
                                       physics:
@@ -384,8 +360,6 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                                           height:
                                           AppConstants.childSpacing),
                                       itemBuilder: (context, index) {
-                                        // Bone-shaped placeholder (avatar + 2 lines)
-                                        // taake Skeletonizer isay shimmer kar sake
                                         return Row(
                                           crossAxisAlignment:
                                           CrossAxisAlignment.center,
