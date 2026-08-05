@@ -1,15 +1,13 @@
 import 'package:my_trade_pal/widgets/components/empty_list_component/empty_list_component_widget.dart';
+import 'package:my_trade_pal/widgets/page_header.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
-import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/inbox_item/inbox_item_widget.dart';
-import '/widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/utils/custom_code/actions/index.dart' as actions;
 import 'dart:async';
@@ -37,14 +35,6 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
   final TpInboxProvider _provider = TpInboxProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // ---------------------------------------------------------------------
-  // CACHE: `static` hone ki wajah se ye poori app session ke liye zinda
-  // rehta hai, widget dispose hone ke baad bhi. Isse page par dobara aane
-  // par full-page skeleton sirf pehli dafa (poore app session mein)
-  // dikhega — baad mein hamesha silently background mein refresh hoga,
-  // koi loader/blank flash nahi dikhega.
-  // ---------------------------------------------------------------------
   static ApiCallResponse? _cachedConversations;
 
   late Future<ApiCallResponse> _conversationsFuture;
@@ -72,9 +62,6 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
         AppState().userProfileCache.userKey,
         'update',
             () async {
-          // Realtime update aane par silently background mein refetch
-          // karo — list turant khaali ho ke wapas nahi bharegi, purana
-          // data tab tak screen par rehta hai jab tak naya na aa jaye.
           final response =
           await SupabaseTablesGroup.getConversationsCall.call(
             userId: currentUserUid,
@@ -101,9 +88,6 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
     _cachedConversations = response;
     return response;
   }
-
-  // Pull-to-refresh handler — sirf conversations list ko refetch karta
-  // hai, header aur search bar ko touch nahi karta.
   Future<void> _refreshConversations() async {
     final future = _fetchConversations();
     setState(() {
@@ -148,21 +132,21 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.notify(),
-            child: AppbarComponentWidget(
-              title: 'Inbox',
-              showAction: false,
-              action: () async {},
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.notify(),
+        //     child: AppbarComponentWidget(
+        //       title: 'Inbox',
+        //       showAction: false,
+        //       action: () async {},
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        // ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -173,175 +157,59 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                   0.0,
                 )),
                 child: FutureBuilder<ApiCallResponse>(
-                  // Already-bana hua cached future use ho raha hai (jo
-                  // pehle build() mein connect hi nahi hua tha) — isi
-                  // wajah se pehle har dafa loader dobara chalta tha.
                   future: _conversationsFuture,
                   initialData: _cachedConversations,
                   builder: (context, snapshot) {
-                    // Sirf tab poora page skeleton dikhao jab bilkul koi
-                    // purana data na ho (app session mein is page ka
-                    // pehli dafa load).
                     final isLoading = _cachedConversations == null &&
                         snapshot.connectionState == ConnectionState.waiting;
                     final conversationsResponse = snapshot.data;
-
                     return Skeletonizer(
                       enabled: isLoading,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // ===== FIXED HEADER (does not scroll) =====
                           wrapWithModel(
                             model: _model.pageHeaderSectiomModel,
                             updateCallback: () => _provider.notify(),
-                            child: const PageHeaderSectiomWidget(
+                            child: const PageHeaderWidget(
                               tag: '',
                               title: 'Inbox',
                               subtitle:
-                              'Manage your professional communications and\nproject updates.',
-                              itemText: '',
+                              'Your jobs, activity, and platform insights\nat glance.',
                             ),
                           ),
-                          // ===== FIXED SEARCH BAR (does not scroll) =====
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                decoration: const BoxDecoration(),
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  child: TextFormField(
-                                    controller: _model.searchTextController,
-                                    focusNode: _model.searchFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.searchTextController',
-                                      const Duration(milliseconds: 300),
-                                          () async {
-                                        _model.searchJobApiRespone =
-                                        await SupbaseRpcGroup
-                                            .searchConversationsCall
-                                            .call(
-                                          userId: currentUserUid,
-                                          searchText:
-                                          _model.searchTextController.text,
-                                        );
-
-                                        if ((_model
-                                            .searchJobApiRespone?.succeeded ??
-                                            true)) {
-                                          if (_model.searchTextController.text !=
-                                              null &&
-                                              _model.searchTextController.text !=
-                                                  '') {
-                                            _provider.showSearchList = true;
-                                            _provider.notify();
-                                          } else {
-                                            _provider.showSearchList = false;
-                                            _provider.notify();
-                                          }
-                                        }
-
-                                        _provider.notify();
-                                      },
-                                    ),
-                                    autofocus: false,
-                                    enabled: true,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      isDense: false,
-                                      labelStyle: AppTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
-                                        ),
-                                        color:
-                                        AppTheme.of(context).secondaryText,
-                                        fontSize: 12.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: AppTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      hintText: 'Search conversations',
-                                      hintStyle:
-                                      AppTheme.of(context).labelMedium.override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
-                                        ),
-                                        color: AppTheme.of(context).hint,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: AppTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1.0,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: AppTheme.of(context).primary,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: AppTheme.of(context).alternate,
-                                      suffixIcon: _model
-                                          .searchTextController!.text.isNotEmpty
-                                          ? InkWell(
-                                        onTap: () async {
-                                          _model.searchTextController
-                                              ?.clear();
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: TextFormField(
+                                      controller: _model.searchTextController,
+                                      focusNode: _model.searchFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.searchTextController',
+                                        const Duration(milliseconds: 300),
+                                            () async {
                                           _model.searchJobApiRespone =
                                           await SupbaseRpcGroup
                                               .searchConversationsCall
                                               .call(
                                             userId: currentUserUid,
-                                            searchText: _model
-                                                .searchTextController.text,
+                                            searchText:
+                                            _model.searchTextController.text,
                                           );
 
-                                          if ((_model.searchJobApiRespone
-                                              ?.succeeded ??
+                                          if ((_model
+                                              .searchJobApiRespone?.succeeded ??
                                               true)) {
-                                            if (_model.searchTextController
-                                                .text !=
+                                            if (_model.searchTextController.text !=
                                                 null &&
-                                                _model.searchTextController
-                                                    .text !=
+                                                _model.searchTextController.text !=
                                                     '') {
                                               _provider.showSearchList = true;
                                               _provider.notify();
@@ -353,17 +221,133 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
 
                                           _provider.notify();
                                         },
-                                        child: Icon(
-                                          Icons.clear,
+                                      ),
+                                      autofocus: false,
+                                      enabled: true,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: false,
+                                        labelStyle: AppTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
                                           color:
-                                          AppTheme.of(context).tertiary,
-                                          size: 26.0,
+                                          AppTheme.of(context).secondaryText,
+                                          fontSize: 12.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .labelMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
                                         ),
-                                      )
-                                          : null,
-                                    ),
-                                    style: AppTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.manrope(
+                                        hintText: 'Search conversations',
+                                        hintStyle:
+                                        AppTheme.of(context).labelMedium.override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
+                                          color: AppTheme.of(context).hint,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle: AppTheme.of(context)
+                                              .labelMedium
+                                              .fontStyle,
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: AppTheme.of(context).primary,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: AppTheme.of(context).error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: AppTheme.of(context).error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: AppTheme.of(context).alternate,
+                                        suffixIcon: _model
+                                            .searchTextController!.text.isNotEmpty
+                                            ? InkWell(
+                                          onTap: () async {
+                                            _model.searchTextController
+                                                ?.clear();
+                                            _model.searchJobApiRespone =
+                                            await SupbaseRpcGroup
+                                                .searchConversationsCall
+                                                .call(
+                                              userId: currentUserUid,
+                                              searchText: _model
+                                                  .searchTextController.text,
+                                            );
+
+                                            if ((_model.searchJobApiRespone
+                                                ?.succeeded ??
+                                                true)) {
+                                              if (_model.searchTextController
+                                                  .text !=
+                                                  null &&
+                                                  _model.searchTextController
+                                                      .text !=
+                                                      '') {
+                                                _provider.showSearchList = true;
+                                                _provider.notify();
+                                              } else {
+                                                _provider.showSearchList = false;
+                                                _provider.notify();
+                                              }
+                                            }
+
+                                            _provider.notify();
+                                          },
+                                          child: Icon(
+                                            Icons.clear,
+                                            color:
+                                            AppTheme.of(context).tertiary,
+                                            size: 26.0,
+                                          ),
+                                        )
+                                            : null,
+                                      ),
+                                      style: AppTheme.of(context).bodyMedium.override(
+                                        font: GoogleFonts.manrope(
+                                          fontWeight: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
                                         fontWeight: AppTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -371,37 +355,23 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
+                                      cursorColor: AppTheme.of(context).primaryText,
+                                      enableInteractiveSelection: true,
+                                      validator: _model.searchTextControllerValidator
+                                          .asValidator(context),
                                     ),
-                                    cursorColor: AppTheme.of(context).primaryText,
-                                    enableInteractiveSelection: true,
-                                    validator: _model.searchTextControllerValidator
-                                        .asValidator(context),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                          SizedBox(height: AppConstants.spacing),
-                          // ===== SCROLLABLE SECTION STARTS HERE =====
-                          // Conversations list scrolls below the search
-                          // bar, with its own RefreshIndicator so pull-
-                          // to-refresh only reloads the list.
+                         const SizedBox(height: AppConstants.spacing),
                           Expanded(
                             child: RefreshIndicator(
                               color: AppTheme.of(context).primary,
                               onRefresh: _refreshConversations,
                               child: Builder(
                                 builder: (context) {
-                                  // Data abhi tak nahi aaya (pehli dafa
-                                  // load ho raha hai) — outer Skeletonizer
-                                  // isko bone-shaped bana dega.
                                   if (conversationsResponse == null) {
                                     return _buildInboxSkeletonList();
                                   }
@@ -430,7 +400,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                       ?.toList() ??
                                       [];
                                   if (conversation.isEmpty) {
-                                    return SingleChildScrollView(
+                                    return const SingleChildScrollView(
                                       physics:
                                       const AlwaysScrollableScrollPhysics(),
                                       child: EmptyListComponentWidget(
@@ -507,7 +477,7 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
       itemCount: 6,
       separatorBuilder: (_, __) =>
       const SizedBox(height: AppConstants.spacing),
-      itemBuilder: (context, index) => Row(
+      itemBuilder: (context, index) => const Row(
         children: [
           const CircleAvatar(radius: 24),
           const SizedBox(width: 12),
