@@ -1,5 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../widgets/page_header.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
@@ -99,33 +100,33 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.update(() {}),
-            child: AppbarComponentWidget(
-              title: 'Home',
-              showAction: true,
-              actionIcon: SvgPicture.asset(
-                'assets/images/bell.svg',
-                width: 21.5,
-                height: 21.5,
-                colorFilter: const ColorFilter.mode(
-                  Color(0xFF1B7FA3),
-                  BlendMode.srcIn,
-                ),
-              ),
-              action: () async {
-                context.pushNamed(NotificationPageWidget.routeName);
-              },
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 0.0,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.update(() {}),
+        //     child: AppbarComponentWidget(
+        //       title: 'Home',
+        //       showAction: true,
+        //       actionIcon: SvgPicture.asset(
+        //         'assets/images/bell.svg',
+        //         width: 21.5,
+        //         height: 21.5,
+        //         colorFilter: const ColorFilter.mode(
+        //           Color(0xFF1B7FA3),
+        //           BlendMode.srcIn,
+        //         ),
+        //       ),
+        //       action: () async {
+        //         context.pushNamed(NotificationPageWidget.routeName);
+        //       },
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        //   elevation: 0.0,
+        // ),
         body: SafeArea(
           // top: true,
           child: Stack(
@@ -230,42 +231,97 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                   .lg),
                                         ),
                                       ),
+                                      // child: Column(
+                                      //   mainAxisSize: MainAxisSize.max,
+                                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                                      //   children: [
+                                      //     Text(
+                                      //       'DASHBOARD',
+                                      //       style: AppTheme.of(context)
+                                      //           .bodyLarge
+                                      //           .override(
+                                      //         font: GoogleFonts.manrope(
+                                      //           fontWeight:
+                                      //           AppTheme.of(context)
+                                      //               .bodyLarge
+                                      //               .fontWeight,
+                                      //           fontStyle:
+                                      //           AppTheme.of(context)
+                                      //               .bodyLarge
+                                      //               .fontStyle,
+                                      //         ),
+                                      //         color: AppTheme.of(context)
+                                      //             .primary,
+                                      //         letterSpacing: 1.6,
+                                      //         fontWeight:
+                                      //         AppTheme.of(context)
+                                      //             .bodyLarge
+                                      //             .fontWeight,
+                                      //         fontStyle:
+                                      //         AppTheme.of(context)
+                                      //             .bodyLarge
+                                      //             .fontStyle,
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ),
-                                    Material(
-                                      color: Colors.transparent,
-                                      elevation: 0.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                              AppTheme.of(context)
-                                                  .designToken
-                                                  .radius
-                                                  .lg),
-                                          bottomRight: Radius.circular(
-                                              AppTheme.of(context)
-                                                  .designToken
-                                                  .radius
-                                                  .lg),
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 8.0,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                AppTheme.of(context).primary,
+                                                AppTheme.of(context).secondary
+                                              ],
+                                              stops: const [0.0, 1.0],
+                                              begin: const AlignmentDirectional(-1.0, 0.14),
+                                              end: const AlignmentDirectional(1.0, -0.14),
+                                            ),
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(
+                                                  AppTheme.of(context)
+                                                      .designToken
+                                                      .radius
+                                                      .lg),
+                                              topRight: Radius.circular(
+                                                  AppTheme.of(context)
+                                                      .designToken
+                                                      .radius
+                                                      .lg),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      child: Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.of(context)
-                                              .secondaryBackground,
-                                          boxShadow: [
-                                            AppTheme.of(context)
-                                                .designToken
-                                                .shadow
-                                                .sm
-                                          ],
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(
-                                                AppTheme.of(context)
-                                                    .designToken
-                                                    .radius
-                                                    .lg),
-                                            bottomRight: Radius.circular(
+                                        Material(
+                                          color: Colors.transparent,
+                                          elevation: 0.0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                  AppTheme.of(context)
+                                                      .designToken
+                                                      .radius
+                                                      .lg),
+                                              bottomRight: Radius.circular(
+                                                  AppTheme.of(context)
+                                                      .designToken
+                                                      .radius
+                                                      .lg),
+                                            ),
+                                          ),
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: AppTheme.of(context)
+                                                  .secondaryBackground,
+                                              boxShadow: [
                                                 AppTheme.of(context)
                                                     .designToken
                                                     .radius
@@ -400,27 +456,100 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                                 .radius
                                                                 .lg),
                                                   ),
-                                                ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(2.0),
+                                                    child: AppButton(
+                                                      onPressed: () async {
+                                                        context.pushNamed(
+                                                            AddJobWidget.routeName);
+                                                      },
+                                                      text: 'Post a Job',
+                                                      icon: const Icon(
+                                                        Icons.arrow_forward,
+                                                        size: 30.0,
+                                                      ),
+                                                      options: AppButtonOptions(
+                                                        width: double.infinity,
+                                                        height: 60.0,
+                                                        padding: const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            16.0, 0.0, 16.0, 0.0),
+                                                        iconAlignment:
+                                                        IconAlignment.end,
+                                                        iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                        color:
+                                                        AppTheme.of(context)
+                                                            .primary,
+                                                        textStyle:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .override(
+                                                          font:
+                                                          GoogleFonts.inter(
+                                                            fontWeight:
+                                                            AppTheme.of(
+                                                                context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                            fontStyle:
+                                                            AppTheme.of(
+                                                                context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                          ),
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                          AppTheme.of(
+                                                              context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                          fontStyle:
+                                                          AppTheme.of(
+                                                              context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                        ),
+                                                        elevation: 0.0,
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            AppTheme.of(
+                                                                context)
+                                                                .designToken
+                                                                .radius
+                                                                .lg),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ].divide(const SizedBox(
+                                                    height:
+                                                    AppConstants.childSpacing)),
                                               ),
                                             ].divide(const SizedBox(
                                                 height:
                                                     AppConstants.childSpacing)),
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                              wrapWithModel(
-                                model: _model.statsModel1,
-                                updateCallback: () => _provider.update(() {}),
-                                child: StatsWidget(
-                                  iconBackgroundColor: const Color(0x4E2C4EB8),
-                                  icon: Icon(
-                                    Icons.work_outline,
-                                    color: AppTheme.of(context).primary,
-                                    size: 30.0,
+                                  ),
+                                  wrapWithModel(
+                                    model: _model.statsModel1,
+                                    updateCallback: () => _provider.update(() {}),
+                                    child: StatsWidget(
+                                      iconBackgroundColor: const Color(0x4E2C4EB8),
+                                      icon: Icon(
+                                        Icons.work_outline,
+                                        color: AppTheme.of(context).primary,
+                                        size: 30.0,
+                                      ),
+                                      value: AppState().jobCache.jobs.length,
+                                      title: 'Active Jobs',
+                                      valueColor: AppTheme.of(context).primary,
+                                    ),
                                   ),
                                   value: AppState().jobCache.jobs.length,
                                   title: 'Active Jobs',
@@ -485,14 +614,9 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                       },
                                     ),
                                   ),
-                                ],
-                              ),
-                              wrapWithModel(
-                                model: _model.jobsListModel,
-                                updateCallback: () => _provider.update(() {}),
-                                child: const JobsListWidget(
-                                  jobViewType: JobsViewType.DASHBOARD,
-                                ),
+                                ]
+                                    .divide(const SizedBox(height: AppConstants.spacing))
+                                    .addToEnd(const SizedBox(height: 100.0)),
                               ),
                             ]
                                 .divide(const SizedBox(

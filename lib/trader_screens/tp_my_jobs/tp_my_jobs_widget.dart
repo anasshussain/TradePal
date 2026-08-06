@@ -1,5 +1,5 @@
 import 'package:skeletonizer/skeletonizer.dart';
-
+import '../../widgets/page_header.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
@@ -11,7 +11,6 @@ import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/tp_my_jobs_provider.dart';
@@ -78,8 +77,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
     onLoaded(response);
     return response;
   }
-
-  // ------- Per-tab refresh handlers (only refetch that tab's list) -------
   Future<void> _refreshRequested() async {
     final future = _fetchSubmittedJobs(Status.ACTIVE.name, (r) {
       _cachedRequested = r;
@@ -226,7 +223,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                 child: TabBarView(
                   controller: _model.tabBarController,
                   children: [
-                    // ------------------- REQUESTED TAB -------------------
                     Padding(
                       padding: EdgeInsets.all(valueOrDefault<double>(
                         AppConstants.parentPagePadding,
@@ -246,7 +242,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         ),
                       ),
                     ),
-                    // ------------------- IN-PROGRESS TAB -------------------
                     Padding(
                       padding: EdgeInsets.all(valueOrDefault<double>(
                         AppConstants.parentPagePadding,
@@ -266,7 +261,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         ),
                       ),
                     ),
-                    // ------------------- COMPLETED TAB -------------------
                     Padding(
                       padding: EdgeInsets.all(valueOrDefault<double>(
                         AppConstants.parentPagePadding,
@@ -335,8 +329,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           );
         }
         if (!hasAnyData) {
-          // Wrapped in a scrollable so RefreshIndicator can still be
-          // pulled even when there's no list to show yet.
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: EmptyListComponentWidget(
@@ -368,8 +360,6 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             [];
 
         if (jobs.isEmpty) {
-          // Wrapped in a scrollable so RefreshIndicator can still be
-          // pulled even when the list is empty.
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: EmptyListComponentWidget(

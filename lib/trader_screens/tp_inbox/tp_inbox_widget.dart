@@ -1,4 +1,5 @@
 import 'package:my_trade_pal/widgets/components/empty_list_component/empty_list_component_widget.dart';
+import 'package:my_trade_pal/widgets/page_header.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
@@ -8,7 +9,6 @@ import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/widgets/page_header.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/widgets/app_button.dart';
 import 'dart:ui';
 import '/utils/custom_code/actions/index.dart' as actions;
 import 'dart:async';
@@ -36,14 +36,6 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
   final TpInboxProvider _provider = TpInboxProvider();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  // ---------------------------------------------------------------------
-  // CACHE: `static` hone ki wajah se ye poori app session ke liye zinda
-  // rehta hai, widget dispose hone ke baad bhi. Isse page par dobara aane
-  // par full-page skeleton sirf pehli dafa (poore app session mein)
-  // dikhega — baad mein hamesha silently background mein refresh hoga,
-  // koi loader/blank flash nahi dikhega.
-  // ---------------------------------------------------------------------
   static ApiCallResponse? _cachedConversations;
 
   late Future<ApiCallResponse> _conversationsFuture;
@@ -99,9 +91,6 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
     _cachedConversations = response;
     return response;
   }
-
-  // Pull-to-refresh handler — sirf conversations list ko refetch karta
-  // hai, header aur search bar ko touch nahi karta.
   Future<void> _refreshConversations() async {
     final future = _fetchConversations();
     setState(() {
@@ -156,19 +145,12 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                   0.0,
                 )),
                 child: FutureBuilder<ApiCallResponse>(
-                  // Already-bana hua cached future use ho raha hai (jo
-                  // pehle build() mein connect hi nahi hua tha) — isi
-                  // wajah se pehle har dafa loader dobara chalta tha.
                   future: _conversationsFuture,
                   initialData: _cachedConversations,
                   builder: (context, snapshot) {
-                    // Sirf tab poora page skeleton dikhao jab bilkul koi
-                    // purana data na ho (app session mein is page ka
-                    // pehli dafa load).
                     final isLoading = _cachedConversations == null &&
                         snapshot.connectionState == ConnectionState.waiting;
                     final conversationsResponse = snapshot.data;
-
                     return Skeletonizer(
                       enabled: isLoading,
                       child: Column(
@@ -220,7 +202,6 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                             _provider.showSearchList = false;
                                             _provider.notify();
                                           }
-                                        }
 
                                         _provider.notify();
                                       },
@@ -376,8 +357,8 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                         .asValidator(context),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           const SizedBox(height: AppConstants.spacing),
                           // ===== SCROLLABLE SECTION STARTS HERE =====
@@ -390,9 +371,6 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                               onRefresh: _refreshConversations,
                               child: Builder(
                                 builder: (context) {
-                                  // Data abhi tak nahi aaya (pehli dafa
-                                  // load ho raha hai) — outer Skeletonizer
-                                  // isko bone-shaped bana dega.
                                   if (conversationsResponse == null) {
                                     return _buildInboxSkeletonList();
                                   }
