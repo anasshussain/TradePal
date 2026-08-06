@@ -71,7 +71,7 @@ class _VerifyEmailWidgetState extends State<VerifyEmailWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Align(
             alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(

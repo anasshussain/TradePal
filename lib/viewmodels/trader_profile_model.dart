@@ -1,4 +1,3 @@
-import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/settings_component/settings_component_widget.dart';
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
 import '/utils/util.dart';
@@ -10,8 +9,6 @@ import 'package:flutter/material.dart';
 class TraderProfileModel extends AppModel<TraderProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Model for appbar_component component.
-  late AppbarComponentModel appbarComponentModel;
   // State field(s) for ChoiceChips widget.
   FormFieldController<List<String>>? choiceChipsValueController;
   String? get choiceChipsValue =>
@@ -37,7 +34,6 @@ class TraderProfileModel extends AppModel<TraderProfileWidget> {
 
   @override
   void initState(BuildContext context) {
-    appbarComponentModel = createModel(context, () => AppbarComponentModel());
     settingsComponentModel1 =
         createModel(context, () => SettingsComponentModel());
     settingsComponentModel2 =
@@ -57,7 +53,6 @@ class TraderProfileModel extends AppModel<TraderProfileWidget> {
 
   @override
   void dispose() {
-    appbarComponentModel.dispose();
     settingsComponentModel1.dispose();
     settingsComponentModel2.dispose();
     settingsComponentModel3.dispose();

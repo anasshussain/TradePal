@@ -3,11 +3,10 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
-import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
 import '/widgets/components/empty_list_component/empty_list_component_widget.dart';
 import '/widgets/components/inbox_item/inbox_item_widget.dart';
-import '/widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
+import '/widgets/page_header.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import 'dart:ui';
@@ -143,23 +142,8 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.notify(),
-            child: AppbarComponentWidget(
-              title: 'Inbox',
-              showAction: false,
-              action: () async {},
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
-        ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Stack(
             children: [
               Padding(
@@ -173,16 +157,10 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    wrapWithModel(
-                      model: _model.pageHeaderSectiomModel,
-                      updateCallback: () => _provider.notify(),
-                      child: const PageHeaderSectiomWidget(
-                        tag: '',
-                        title: 'Inbox',
-                        subtitle:
-                        'Manage your professional communications and project updates.',
-                        itemText: '',
-                      ),
+                    const PageHeaderWidget(
+                      title: 'Inbox',
+                      subtitle:
+                          'Manage your professional communications and project updates.',
                     ),
                     SizedBox(
                       width: double.infinity,

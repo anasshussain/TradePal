@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:my_trade_pal/auth/supabase_auth/helper.dart';
 
 import '/auth/supabase_auth/auth_util.dart';
@@ -71,11 +72,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
 
   final animationsMap = <String, AnimationInfo>{};
 
+  Future<void>? _markAsReadFuture;
+
   @override
   void initState() {
     super.initState();
     debugPrint('DEBUG jobid: ${widget.jobid}');
     _model = createModel(context, () => ChatPageModel());
+    _provider.restorePaymentCompleted(widget!.jobid);
+    _markAsReadFuture = _markConversationAsRead();
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -128,6 +133,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                     widget!.member?.id;
                 _provider.notify();
               }
+
+              final acceptedApplication =
+                  await ApplicationsTable().querySingleRow(
+                queryFn: (q) => q
+                    .eqOrNull('job_id', widget!.jobid)
+                    .eqOrNull('status', Status.ACCEPTED.name),
+              );
+              _provider.acceptedQuoteAmount =
+                  acceptedApplication.firstOrNull?.quoteAmount;
+              _provider.notify();
             }),
           ]);
           _provider.loading = false;
@@ -167,6 +182,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                             },
                             child: UnlockChatDialogueBoxWidget(
                               jobid: widget!.jobid!,
+                              onPaymentSuccess: () async {
+                                _provider.isProposalPaid = true;
+                                _provider.notify();
+                              },
                             ),
                           ),
                         );
@@ -192,6 +211,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                 ).toString(),
                 'update',
                 () async {
+                  _provider.isProposalPaid = true;
                   _provider.notify();
                 },
               );
@@ -261,6 +281,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
     WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
   }
 
+  Future<void> _markConversationAsRead() async {
+    _model.markConversationRes =
+        await SupbaseRpcGroup.markConversationReadCall.call(
+      conversationId: widget!.conversationId,
+      authtoken: currentJwtToken,
+    );
+
+    if ((_model.markConversationRes?.succeeded ?? true)) {
+      await actions.updateTotalCount(
+        _model.markConversationRes?.jsonBody,
+      );
+    }
+  }
+
   @override
   void dispose() {
     // On page dispose action.
@@ -283,10 +317,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
   Widget build(BuildContext context) {
     context.watch<AppState>();
 
-    return ChangeNotifierProvider<ChatPageProvider>.value(
-      value: _provider,
-      child: Consumer<ChatPageProvider>(
-        builder: (context, _, __) => _buildContent(context),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        await _markAsReadFuture;
+        if (context.mounted) {
+          Navigator.of(context).pop(result);
+        }
+      },
+      child: ChangeNotifierProvider<ChatPageProvider>.value(
+        value: _provider,
+        child: Consumer<ChatPageProvider>(
+          builder: (context, _, __) => _buildContent(context),
+        ),
       ),
     );
   }
@@ -322,7 +366,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             elevation: 0.0,
           ),
           body: SafeArea(
-            top: true,
+            // top: true,
             child: Stack(
               children: [
                 Column(
@@ -525,8 +569,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                         (_provider.jobData != null) &&
                                         ((_provider.jobData?.status ==
                                                 Status.ACTIVE) ||
-                                            (_provider.jobData?.status ==
-                                                Status.IN_PROGRESS)))
+                                            ((_provider.jobData?.status ==
+                                                    Status.IN_PROGRESS) &&
+                                                _provider.isAssigned)))
                                       Container(
                                         decoration: const BoxDecoration(),
                                         child: AppButton(
@@ -981,8 +1026,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                                 PageTransitionType.fade,
                                                                             child:
                                                                                 AppExpandedImageView(
-                                                                              image: Image.network(
-                                                                                valueOrDefault<String>(
+                                                                              image: CachedNetworkImage(
+                                                                                imageUrl: valueOrDefault<String>(
                                                                                   messagesItem.imageUrl,
                                                                                   'https://picsum.photos/seed/380/600',
                                                                                 ),
@@ -1021,8 +1066,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                                 Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                           ),
                                                                           child:
-                                                                              Image.network(
-                                                                            valueOrDefault<String>(
+                                                                              CachedNetworkImage(
+                                                                            imageUrl: valueOrDefault<String>(
                                                                               messagesItem.imageUrl,
                                                                               'https://picsum.photos/seed/380/600',
                                                                             ),
@@ -1280,8 +1325,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                             PageTransition(
                                                                               type: PageTransitionType.fade,
                                                                               child: AppExpandedImageView(
-                                                                                image: Image.network(
-                                                                                  valueOrDefault<String>(
+                                                                                image: CachedNetworkImage(
+                                                                                  imageUrl: valueOrDefault<String>(
                                                                                     messagesItem.imageUrl,
                                                                                     'https://picsum.photos/seed/380/600',
                                                                                   ),
@@ -1316,8 +1361,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                               bottomRight: Radius.circular(AppTheme.of(context).designToken.radius.md),
                                                                             ),
                                                                             child:
-                                                                                Image.network(
-                                                                              valueOrDefault<String>(
+                                                                                CachedNetworkImage(
+                                                                              imageUrl: valueOrDefault<String>(
                                                                                 messagesItem.imageUrl,
                                                                                 'https://picsum.photos/seed/380/600',
                                                                               ),
@@ -2100,6 +2145,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               UnlockChatDialogueBoxWidget(
                                                             jobid:
                                                                 widget!.jobid!,
+                                                            onPaymentSuccess:
+                                                                () async {
+                                                              _provider
+                                                                      .isProposalPaid =
+                                                                  true;
+                                                              _provider
+                                                                  .notify();
+                                                            },
                                                           ),
                                                         ),
                                                       );
@@ -2184,7 +2237,48 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     .userProfileCache
                                                     .userRole ==
                                                 1) &&
-                                            !_model.paymentCompleted)
+                                            _provider.isAssigned)
+                                          if (_provider.acceptedQuoteAmount !=
+                                              null)
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                      0.0, 0.0, 0.0, 4.0),
+                                              child: Text(
+                                                _provider.isPaymentCompleted
+                                                    ? 'You paid £${_provider.acceptedQuoteAmount!.toStringAsFixed(2)}'
+                                                    : 'Amount due: £${_provider.acceptedQuoteAmount!.toStringAsFixed(2)}',
+                                                style: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.manrope(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .primaryText,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                            ),
+                                        if ((AppState()
+                                                    .userProfileCache
+                                                    .userRole ==
+                                                1) &&
+                                            _provider.isAssigned &&
+                                            !_provider.isPaymentCompleted)
                                           AppButton(
                                             onPressed: _model
                                                     .isProcessingPayment
@@ -2275,10 +2369,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   ?.jsonBody);
                                                       final paymentIntentId =
                                                           CreatePaymentIntentCall
-                                                              .paymentIntentId(
-                                                                  _model
-                                                                      .createPaymentIntentRes
-                                                                      ?.jsonBody);
+                                                              .paymentIntentId(_model
+                                                                  .createPaymentIntentRes
+                                                                  ?.jsonBody);
 
                                                       if (clientSecret !=
                                                               null &&
@@ -2298,8 +2391,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         );
 
                                                         if (paymentSuccess) {
-                                                          _model.paymentCompleted =
-                                                              true;
+                                                          _provider
+                                                              .markPaymentCompleted(
+                                                                  widget!
+                                                                      .jobid);
                                                           await actions
                                                               .showToast(
                                                             context,
@@ -2327,10 +2422,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                             if (releaseFundsSuccess !=
                                                                 true) {
                                                               final releaseFundsError =
-                                                                  ReleaseFundsCall.error(
-                                                                          _model
-                                                                              .releaseFundsRes
-                                                                              ?.jsonBody) ??
+                                                                  ReleaseFundsCall.error(_model
+                                                                          .releaseFundsRes
+                                                                          ?.jsonBody) ??
                                                                       'Please contact support.';
                                                               print(
                                                                   'Release funds failed: $releaseFundsError');

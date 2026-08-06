@@ -3,10 +3,9 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
-import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/inbox_item/inbox_item_widget.dart';
-import '/widgets/components/page_header_sectiom/page_header_sectiom_widget.dart';
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
+import '/widgets/page_header.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
@@ -71,12 +70,11 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
         'user_id',
         AppState().userProfileCache.userKey,
         'update',
-            () async {
+        () async {
           // Realtime update aane par silently background mein refetch
           // karo — list turant khaali ho ke wapas nahi bharegi, purana
           // data tab tak screen par rehta hai jab tak naya na aa jaye.
-          final response =
-          await SupabaseTablesGroup.getConversationsCall.call(
+          final response = await SupabaseTablesGroup.getConversationsCall.call(
             userId: currentUserUid,
           );
           _cachedConversations = response;
@@ -148,23 +146,8 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.notify(),
-            child: AppbarComponentWidget(
-              title: 'Inbox',
-              showAction: false,
-              action: () async {},
-            ),
-          ),
-          actions: const [],
-          centerTitle: false,
-        ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Stack(
             children: [
               Padding(
@@ -193,16 +176,10 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // ===== FIXED HEADER (does not scroll) =====
-                          wrapWithModel(
-                            model: _model.pageHeaderSectiomModel,
-                            updateCallback: () => _provider.notify(),
-                            child: const PageHeaderSectiomWidget(
-                              tag: '',
-                              title: 'Inbox',
-                              subtitle:
-                              'Manage your professional communications and\nproject updates.',
-                              itemText: '',
-                            ),
+                          const PageHeaderWidget(
+                            title: 'Inbox',
+                            subtitle:
+                                'Manage your professional communications and project updates.',
                           ),
                           // ===== FIXED SEARCH BAR (does not scroll) =====
                           Column(
@@ -218,22 +195,24 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.searchTextController',
                                       const Duration(milliseconds: 300),
-                                          () async {
+                                      () async {
                                         _model.searchJobApiRespone =
-                                        await SupbaseRpcGroup
-                                            .searchConversationsCall
-                                            .call(
+                                            await SupbaseRpcGroup
+                                                .searchConversationsCall
+                                                .call(
                                           userId: currentUserUid,
                                           searchText:
-                                          _model.searchTextController.text,
+                                              _model.searchTextController.text,
                                         );
 
-                                        if ((_model
-                                            .searchJobApiRespone?.succeeded ??
+                                        if ((_model.searchJobApiRespone
+                                                ?.succeeded ??
                                             true)) {
-                                          if (_model.searchTextController.text !=
-                                              null &&
-                                              _model.searchTextController.text !=
+                                          if (_model.searchTextController
+                                                      .text !=
+                                                  null &&
+                                              _model.searchTextController
+                                                      .text !=
                                                   '') {
                                             _provider.showSearchList = true;
                                             _provider.notify();
@@ -254,141 +233,153 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                       labelStyle: AppTheme.of(context)
                                           .labelMedium
                                           .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
-                                        ),
-                                        color:
-                                        AppTheme.of(context).secondaryText,
-                                        fontSize: 12.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: AppTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
+                                            font: GoogleFonts.inter(
+                                              fontWeight: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                            ),
+                                            color: AppTheme.of(context)
+                                                .secondaryText,
+                                            fontSize: 12.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
                                       hintText: 'Search conversations',
-                                      hintStyle:
-                                      AppTheme.of(context).labelMedium.override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
-                                        ),
-                                        color: AppTheme.of(context).hint,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: AppTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
+                                      hintStyle: AppTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle: AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                            ),
+                                            color: AppTheme.of(context).hint,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle: AppTheme.of(context)
+                                                .labelMedium
+                                                .fontStyle,
+                                          ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 1.0,
                                         ),
-                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: AppTheme.of(context).primary,
                                           width: 1.0,
                                         ),
-                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: AppTheme.of(context).error,
                                           width: 1.0,
                                         ),
-                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: AppTheme.of(context).error,
                                           width: 1.0,
                                         ),
-                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
                                       filled: true,
                                       fillColor: AppTheme.of(context).alternate,
-                                      suffixIcon: _model
-                                          .searchTextController!.text.isNotEmpty
+                                      suffixIcon: _model.searchTextController!
+                                              .text.isNotEmpty
                                           ? InkWell(
-                                        onTap: () async {
-                                          _model.searchTextController
-                                              ?.clear();
-                                          _model.searchJobApiRespone =
-                                          await SupbaseRpcGroup
-                                              .searchConversationsCall
-                                              .call(
-                                            userId: currentUserUid,
-                                            searchText: _model
-                                                .searchTextController.text,
-                                          );
-
-                                          if ((_model.searchJobApiRespone
-                                              ?.succeeded ??
-                                              true)) {
-                                            if (_model.searchTextController
-                                                .text !=
-                                                null &&
+                                              onTap: () async {
                                                 _model.searchTextController
-                                                    .text !=
-                                                    '') {
-                                              _provider.showSearchList = true;
-                                              _provider.notify();
-                                            } else {
-                                              _provider.showSearchList = false;
-                                              _provider.notify();
-                                            }
-                                          }
+                                                    ?.clear();
+                                                _model.searchJobApiRespone =
+                                                    await SupbaseRpcGroup
+                                                        .searchConversationsCall
+                                                        .call(
+                                                  userId: currentUserUid,
+                                                  searchText: _model
+                                                      .searchTextController
+                                                      .text,
+                                                );
 
-                                          _provider.notify();
-                                        },
-                                        child: Icon(
-                                          Icons.clear,
-                                          color:
-                                          AppTheme.of(context).tertiary,
-                                          size: 26.0,
-                                        ),
-                                      )
+                                                if ((_model.searchJobApiRespone
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  if (_model.searchTextController
+                                                              .text !=
+                                                          null &&
+                                                      _model.searchTextController
+                                                              .text !=
+                                                          '') {
+                                                    _provider.showSearchList =
+                                                        true;
+                                                    _provider.notify();
+                                                  } else {
+                                                    _provider.showSearchList =
+                                                        false;
+                                                    _provider.notify();
+                                                  }
+                                                }
+
+                                                _provider.notify();
+                                              },
+                                              child: Icon(
+                                                Icons.clear,
+                                                color: AppTheme.of(context)
+                                                    .tertiary,
+                                                size: 26.0,
+                                              ),
+                                            )
                                           : null,
                                     ),
-                                    style: AppTheme.of(context).bodyMedium.override(
-                                      font: GoogleFonts.manrope(
-                                        fontWeight: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    cursorColor: AppTheme.of(context).primaryText,
+                                    style: AppTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.manrope(
+                                            fontWeight: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .bodyMedium
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
+                                        ),
+                                    cursorColor:
+                                        AppTheme.of(context).primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model.searchTextControllerValidator
+                                    validator: _model
+                                        .searchTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: AppConstants.spacing),
+                          const SizedBox(height: AppConstants.spacing),
                           // ===== SCROLLABLE SECTION STARTS HERE =====
                           // Conversations list scrolls below the search
                           // bar, with its own RefreshIndicator so pull-
@@ -407,39 +398,37 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                   }
 
                                   final conversation = (_provider.showSearchList
-                                      ? ((_model.searchJobApiRespone?.jsonBody ?? '')
-                                      .toList()
-                                      .map<ConversationStruct?>(
-                                      ConversationStruct
-                                          .maybeFromMap)
-                                      .toList()
-                                  as Iterable<
-                                      ConversationStruct?>)
-                                      .withoutNulls
-                                      ?.sortedList(
-                                      keyOf: (e) => e.conversations
-                                          .lastMessageAt,
-                                      desc: true)
-                                      : (conversationsResponse
-                                      .jsonBody
-                                      .toList()
-                                      .map<ConversationStruct?>(ConversationStruct.maybeFromMap)
-                                      .toList() as Iterable<ConversationStruct?>)
-                                      .withoutNulls
-                                      ?.sortedList(keyOf: (e) => e.conversations.lastMessageAt, desc: true))
-                                      ?.toList() ??
+                                              ? ((_model.searchJobApiRespone?.jsonBody ?? '')
+                                                          .toList()
+                                                          .map<ConversationStruct?>(ConversationStruct
+                                                              .maybeFromMap)
+                                                          .toList()
+                                                      as Iterable<
+                                                          ConversationStruct?>)
+                                                  .withoutNulls
+                                                  ?.sortedList(
+                                                      keyOf: (e) => e
+                                                          .conversations
+                                                          .lastMessageAt,
+                                                      desc: true)
+                                              : (conversationsResponse.jsonBody
+                                                      .toList()
+                                                      .map<ConversationStruct?>(ConversationStruct.maybeFromMap)
+                                                      .toList() as Iterable<ConversationStruct?>)
+                                                  .withoutNulls
+                                                  ?.sortedList(keyOf: (e) => e.conversations.lastMessageAt, desc: true))
+                                          ?.toList() ??
                                       [];
                                   if (conversation.isEmpty) {
-                                    return SingleChildScrollView(
-                                      physics:
-                                      const AlwaysScrollableScrollPhysics(),
+                                    return const SingleChildScrollView(
+                                      physics: AlwaysScrollableScrollPhysics(),
                                       child: EmptyListComponentWidget(
                                         icon: Icon(
                                           Icons.search_off,
                                         ),
                                         title: 'No chats found',
                                         description:
-                                        'Try searching with a different name or keyword.',
+                                            'Try searching with a different name or keyword.',
                                       ),
                                     );
                                   }
@@ -451,21 +440,21 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                       80.0,
                                     ),
                                     physics:
-                                    const AlwaysScrollableScrollPhysics(),
+                                        const AlwaysScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     itemCount: conversation.length,
-                                    separatorBuilder: (_, __) =>
-                                        SizedBox(height: AppConstants.childSpacing),
+                                    separatorBuilder: (_, __) => const SizedBox(
+                                        height: AppConstants.childSpacing),
                                     itemBuilder: (context, conversationIndex) {
                                       final conversationItem =
-                                      conversation[conversationIndex];
+                                          conversation[conversationIndex];
                                       return InboxItemWidget(
                                         key: Key(
                                             'Keydpz_${conversationIndex}_of_${conversation.length}'),
-                                        members: conversationItem
-                                            .conversations.conversationParticipants
+                                        members: conversationItem.conversations
+                                            .conversationParticipants
                                             .where((e) =>
-                                        currentUserUid != e.members.id)
+                                                currentUserUid != e.members.id)
                                             .toList()
                                             .firstOrNull!
                                             .members,
@@ -505,16 +494,15 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 80.0),
       physics: const AlwaysScrollableScrollPhysics(),
       itemCount: 6,
-      separatorBuilder: (_, __) =>
-      const SizedBox(height: AppConstants.spacing),
-      itemBuilder: (context, index) => Row(
+      separatorBuilder: (_, __) => const SizedBox(height: AppConstants.spacing),
+      itemBuilder: (context, index) => const Row(
         children: [
-          const CircleAvatar(radius: 24),
-          const SizedBox(width: 12),
+          CircleAvatar(radius: 24),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text('Placeholder name'),
                 SizedBox(height: 6),
                 Text('Placeholder last message preview line here'),

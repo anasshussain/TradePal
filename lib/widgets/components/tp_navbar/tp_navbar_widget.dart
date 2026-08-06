@@ -107,9 +107,8 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                       style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
-                              fontStyle: AppTheme.of(context)
-                                  .labelSmall
-                                  .fontStyle,
+                              fontStyle:
+                                  AppTheme.of(context).labelSmall.fontStyle,
                             ),
                             color: widget!.selectedIndex == 0
                                 ? AppTheme.of(context).primary
@@ -117,9 +116,8 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
-                            fontStyle: AppTheme.of(context)
-                                .labelSmall
-                                .fontStyle,
+                            fontStyle:
+                                AppTheme.of(context).labelSmall.fontStyle,
                           ),
                     ),
                   ],
@@ -165,9 +163,8 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                       style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
-                              fontStyle: AppTheme.of(context)
-                                  .labelSmall
-                                  .fontStyle,
+                              fontStyle:
+                                  AppTheme.of(context).labelSmall.fontStyle,
                             ),
                             color: widget!.selectedIndex == 1
                                 ? AppTheme.of(context).primary
@@ -175,9 +172,8 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
-                            fontStyle: AppTheme.of(context)
-                                .labelSmall
-                                .fontStyle,
+                            fontStyle:
+                                AppTheme.of(context).labelSmall.fontStyle,
                           ),
                     ),
                   ],
@@ -209,6 +205,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                 child: Align(
                   alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Stack(
+                    clipBehavior: Clip.none,
                     children: [
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -224,9 +221,7 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                           ),
                           Text(
                             'Chats',
-                            style: AppTheme.of(context)
-                                .labelSmall
-                                .override(
+                            style: AppTheme.of(context).labelSmall.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w500,
                                     fontStyle: AppTheme.of(context)
@@ -235,50 +230,51 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                                   ),
                                   color: widget!.selectedIndex == 2
                                       ? AppTheme.of(context).primary
-                                      : AppTheme.of(context)
-                                          .secondaryText,
+                                      : AppTheme.of(context).secondaryText,
                                   fontSize: 10.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  fontStyle: AppTheme.of(context)
-                                      .labelSmall
-                                      .fontStyle,
+                                  fontStyle:
+                                      AppTheme.of(context).labelSmall.fontStyle,
                                 ),
                           ),
                         ],
                       ),
                       if (AppState().totalMessagesCount > 0)
-                        Container(
-                          width: 14.0,
-                          height: 14.0,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFFF3B30),
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                AppState().totalMessagesCount.toString(),
-                                '0',
+                        Positioned(
+                          top: -2.0,
+                          right: -8.0,
+                          child: Container(
+                            constraints: const BoxConstraints(
+                              minWidth: 16.0,
+                              minHeight: 16.0,
+                            ),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFF3B30),
+                              borderRadius: BorderRadius.circular(999.0),
+                              border: Border.all(
+                                color: AppTheme.of(context).primaryBackground,
+                                width: 1.5,
                               ),
-                              style: AppTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              AppState().totalMessagesCount > 99
+                                  ? '99+'
+                                  : AppState().totalMessagesCount.toString(),
+                              style: AppTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
+                                      fontWeight: FontWeight.bold,
                                       fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    fontSize: 10.0,
+                                    color: Colors.white,
+                                    fontSize: 9.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
+                                    fontWeight: FontWeight.bold,
                                     fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
@@ -330,9 +326,8 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                       style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
-                              fontStyle: AppTheme.of(context)
-                                  .labelSmall
-                                  .fontStyle,
+                              fontStyle:
+                                  AppTheme.of(context).labelSmall.fontStyle,
                             ),
                             color: widget!.selectedIndex == 3
                                 ? AppTheme.of(context).primary
@@ -340,9 +335,8 @@ class _TpNavbarWidgetState extends State<TpNavbarWidget> {
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
-                            fontStyle: AppTheme.of(context)
-                                .labelSmall
-                                .fontStyle,
+                            fontStyle:
+                                AppTheme.of(context).labelSmall.fontStyle,
                           ),
                     ),
                   ],

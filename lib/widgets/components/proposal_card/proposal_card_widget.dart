@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '/core/utils/image_decode_size.dart';
 import '/repositories/supabase/supabase.dart';
 import '/core/theme/app_theme.dart';
@@ -106,13 +108,14 @@ class _ProposalCardWidgetState extends State<ProposalCardWidget> {
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
-                              child: Image.network(
-                                valueOrDefault<String>(
+                              child: CachedNetworkImage(
+                                imageUrl: valueOrDefault<String>(
                                   columnUsersRow?.avatarUrl,
                                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLQ26lVhEUdYZN5hisBjPQ-5aiWdwxL2bvvrYOdoNkNPpHf_5rhbvfSg&s',
                                 ),
-                                cacheWidth: decodeCacheSize(context, 70.0),
-                                cacheHeight: decodeCacheSize(context, 70.0),
+                                memCacheWidth: decodeCacheSize(context, 70.0),
+                                memCacheHeight:
+                                    decodeCacheSize(context, 70.0),
                                 fit: BoxFit.cover,
                               ),
                             ),

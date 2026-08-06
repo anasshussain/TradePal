@@ -4,6 +4,7 @@ import '/widgets/components/applogo_component/applogo_component_widget.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
+import '/widgets/app_uk_phone_prefix.dart';
 import 'dart:ui';
 import '/utils/action_blocks/actions.dart' as action_blocks;
 import '/utils/custom_code/actions/index.dart' as actions;
@@ -59,7 +60,8 @@ class _SignupWidgetState extends State<SignupWidget> {
     _model.cPasswordTextController ??= TextEditingController();
     _model.cPasswordFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
@@ -92,7 +94,7 @@ class _SignupWidgetState extends State<SignupWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
-          top: true,
+          // top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -145,10 +147,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight: FontWeight.bold,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .headlineLarge
-                                                  .fontStyle,
+                                          fontStyle: AppTheme.of(context)
+                                              .headlineLarge
+                                              .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
@@ -164,17 +165,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       .bodyMedium
                                       .override(
                                         font: GoogleFonts.manrope(
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                          fontWeight: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
                                         ),
-                                        color: AppTheme.of(context)
-                                            .secondaryText,
+                                        color:
+                                            AppTheme.of(context).secondaryText,
                                         letterSpacing: 0.0,
                                         fontWeight: AppTheme.of(context)
                                             .bodyMedium
@@ -204,17 +203,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
                                             ),
                                       ),
                                       TextFormField(
@@ -226,58 +223,48 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           isDense: false,
-                                          labelStyle: AppTheme.of(
-                                                  context)
+                                          labelStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .secondaryText,
+                                                color: AppTheme.of(context)
+                                                    .secondaryText,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
                                           hintText: 'Johnathan Doe',
-                                          hintStyle: AppTheme.of(
-                                                  context)
+                                          hintStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    AppTheme.of(context)
-                                                        .hint,
+                                                    AppTheme.of(context).hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -290,8 +277,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -299,9 +285,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -310,9 +294,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedErrorBorder:
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -320,35 +302,29 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              AppTheme.of(context)
-                                                  .alternate,
+                                              AppTheme.of(context).alternate,
                                         ),
                                         style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                             ),
                                         cursorColor:
-                                            AppTheme.of(context)
-                                                .primaryText,
+                                            AppTheme.of(context).primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
                                             .fulNameTextControllerValidator
@@ -369,17 +345,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
                                             ),
                                       ),
                                       TextFormField(
@@ -391,27 +365,23 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         decoration: InputDecoration(
                                           isDense: false,
                                           hintText: 'john@traderslounge.com',
-                                          hintStyle: AppTheme.of(
-                                                  context)
+                                          hintStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    AppTheme.of(context)
-                                                        .hint,
+                                                    AppTheme.of(context).hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -424,8 +394,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -433,9 +402,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -444,9 +411,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedErrorBorder:
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -454,35 +419,29 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              AppTheme.of(context)
-                                                  .alternate,
+                                              AppTheme.of(context).alternate,
                                         ),
                                         style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                             ),
                                         cursorColor:
-                                            AppTheme.of(context)
-                                                .primaryText,
+                                            AppTheme.of(context).primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
                                             .emailTextControllerValidator
@@ -503,17 +462,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
                                             ),
                                       ),
                                       TextFormField(
@@ -524,28 +481,28 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           isDense: false,
-                                          hintText: '+1 (555) 000-0000',
-                                          hintStyle: AppTheme.of(
-                                                  context)
+                                          hintText: '7911 123456',
+                                          prefixIcon: const AppUkPhonePrefix(),
+                                          prefixIconConstraints:
+                                              const BoxConstraints(
+                                                  minWidth: 0, minHeight: 0),
+                                          hintStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    AppTheme.of(context)
-                                                        .hint,
+                                                    AppTheme.of(context).hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -558,8 +515,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -567,9 +523,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -578,9 +532,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedErrorBorder:
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -588,35 +540,29 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              AppTheme.of(context)
-                                                  .alternate,
+                                              AppTheme.of(context).alternate,
                                         ),
                                         style: AppTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                             ),
                                         cursorColor:
-                                            AppTheme.of(context)
-                                                .primaryText,
+                                            AppTheme.of(context).primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
                                             .phoneTextControllerValidator
@@ -637,17 +583,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
                                             ),
                                       ),
                                       TextFormField(
@@ -660,27 +604,23 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         decoration: InputDecoration(
                                           isDense: false,
                                           hintText: '*************',
-                                          hintStyle: AppTheme.of(
-                                                  context)
+                                          hintStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    AppTheme.of(context)
-                                                        .hint,
+                                                    AppTheme.of(context).hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -693,8 +633,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -702,9 +641,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -713,9 +650,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedErrorBorder:
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -723,8 +658,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              AppTheme.of(context)
-                                                  .alternate,
+                                              AppTheme.of(context).alternate,
                                           suffixIcon: InkWell(
                                             onTap: () async {
                                               safeSetState(() => _model
@@ -746,28 +680,23 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                             ),
                                         cursorColor:
-                                            AppTheme.of(context)
-                                                .primaryText,
+                                            AppTheme.of(context).primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
                                             .passwordTextControllerValidator
@@ -780,17 +709,15 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 1.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
                                             ),
                                       ),
                                       TextFormField(
@@ -804,27 +731,23 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         decoration: InputDecoration(
                                           isDense: false,
                                           hintText: '*************',
-                                          hintStyle: AppTheme.of(
-                                                  context)
+                                          hintStyle: AppTheme.of(context)
                                               .labelMedium
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .labelMedium
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    AppTheme.of(context)
-                                                        .hint,
+                                                    AppTheme.of(context).hint,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .labelMedium
-                                                        .fontStyle,
+                                                fontStyle: AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                               ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -837,8 +760,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -846,9 +768,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -857,9 +777,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           focusedErrorBorder:
                                               OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color:
-                                                  AppTheme.of(context)
-                                                      .error,
+                                              color: AppTheme.of(context).error,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -867,8 +785,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              AppTheme.of(context)
-                                                  .alternate,
+                                              AppTheme.of(context).alternate,
                                           suffixIcon: InkWell(
                                             onTap: () async {
                                               safeSetState(() => _model
@@ -890,28 +807,23 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.inter(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                             ),
                                         cursorColor:
-                                            AppTheme.of(context)
-                                                .primaryText,
+                                            AppTheme.of(context).primaryText,
                                         enableInteractiveSelection: true,
                                         validator: _model
                                             .cPasswordTextControllerValidator
@@ -926,10 +838,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             ),
                             Padding(
                               padding: EdgeInsets.all(
-                                  AppTheme.of(context)
-                                      .designToken
-                                      .spacing
-                                      .md),
+                                  AppTheme.of(context).designToken.spacing.md),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -946,8 +855,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         ),
                                       ),
                                       unselectedWidgetColor:
-                                          AppTheme.of(context)
-                                              .secondaryText,
+                                          AppTheme.of(context).secondaryText,
                                     ),
                                     child: Checkbox(
                                       value: _model.checkboxValue ??= false,
@@ -955,20 +863,17 @@ class _SignupWidgetState extends State<SignupWidget> {
                                         _provider.update(() =>
                                             _model.checkboxValue = newValue!);
                                       },
-                                      side: (AppTheme.of(context)
-                                                  .secondaryText !=
-                                              null)
-                                          ? BorderSide(
-                                              width: 2,
-                                              color:
-                                                  AppTheme.of(context)
+                                      side:
+                                          (AppTheme.of(context).secondaryText !=
+                                                  null)
+                                              ? BorderSide(
+                                                  width: 2,
+                                                  color: AppTheme.of(context)
                                                       .secondaryText!,
-                                            )
-                                          : null,
-                                      activeColor:
-                                          AppTheme.of(context).primary,
-                                      checkColor:
-                                          AppTheme.of(context).info,
+                                                )
+                                              : null,
+                                      activeColor: AppTheme.of(context).primary,
+                                      checkColor: AppTheme.of(context).info,
                                     ),
                                   ),
                                   Flexible(
@@ -981,24 +886,20 @@ class _SignupWidgetState extends State<SignupWidget> {
                                             .bodySmall
                                             .override(
                                               font: GoogleFonts.manrope(
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .bodySmall
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodySmall
+                                                    .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  AppTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -1013,7 +914,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 _model.formResult = true;
                                 if (_model.formKey.currentState == null ||
                                     !_model.formKey.currentState!.validate()) {
-                                  _provider.update(() => _model.formResult = false);
+                                  _provider
+                                      .update(() => _model.formResult = false);
                                   return;
                                 }
                                 if (_model.checkboxValue == true) {
@@ -1055,8 +957,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                     phoneNumber:
                                         _model.phoneTextController.text,
                                     fullName: _model.fulNameTextController.text,
-                                    deviceToken:
-                                        AppState().currentDeviceToken,
+                                    deviceToken: AppState().currentDeviceToken,
                                   );
 
                                   context.goNamedAuth(
@@ -1095,38 +996,36 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 iconAlignment: IconAlignment.end,
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
                                 color: AppTheme.of(context).primary,
-                                textStyle: AppTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: AppTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                      fontWeight: AppTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
-                                    ),
+                                textStyle:
+                                    AppTheme.of(context).titleSmall.override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .titleSmall
+                                                .fontStyle,
+                                          ),
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                          fontWeight: AppTheme.of(context)
+                                              .titleSmall
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .titleSmall
+                                              .fontStyle,
+                                        ),
                                 elevation: 0.0,
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .lg),
+                                    AppTheme.of(context).designToken.radius.lg),
                               ),
                             ),
-                          ].divide(const SizedBox(height: AppConstants.spacing)),
+                          ].divide(
+                              const SizedBox(height: AppConstants.spacing)),
                         ),
                       ),
                     ),
@@ -1159,9 +1058,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                         children: [
                           TextSpan(
                             text: 'Already have an account? ',
-                            style: AppTheme.of(context)
-                                .bodyMedium
-                                .override(
+                            style: AppTheme.of(context).bodyMedium.override(
                                   font: GoogleFonts.manrope(
                                     fontWeight: AppTheme.of(context)
                                         .bodyMedium
@@ -1174,9 +1071,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   fontWeight: AppTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
-                                  fontStyle: AppTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                                  fontStyle:
+                                      AppTheme.of(context).bodyMedium.fontStyle,
                                 ),
                           ),
                           TextSpan(
@@ -1189,20 +1085,16 @@ class _SignupWidgetState extends State<SignupWidget> {
                         ],
                         style: AppTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.manrope(
-                                fontWeight: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
+                                fontWeight:
+                                    AppTheme.of(context).bodyMedium.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).bodyMedium.fontStyle,
                               ),
                               letterSpacing: 0.0,
-                              fontWeight: AppTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: AppTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
+                              fontWeight:
+                                  AppTheme.of(context).bodyMedium.fontWeight,
+                              fontStyle:
+                                  AppTheme.of(context).bodyMedium.fontStyle,
                             ),
                       ),
                     ),

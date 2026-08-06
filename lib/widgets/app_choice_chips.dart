@@ -128,6 +128,7 @@ class _AppChoiceChipsState extends State<AppChoiceChips> {
               overflow: TextOverflow.ellipsis,
             ),
             labelPadding: style.labelPadding,
+            checkmarkColor: style.textStyle?.color,
             avatar: option.iconData != null
                 ? Icon(
                     option.iconData,

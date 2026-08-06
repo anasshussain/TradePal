@@ -16,12 +16,6 @@ import 'package:provider/provider.dart';
 
 /// State management for the reset_password screen (migrated from setState).
 class ResetPasswordProvider extends ChangeNotifier {
-  ///  Local state fields for this page.
-
-
-  String? password;
-
-
   bool _disposed = false;
 
   @override

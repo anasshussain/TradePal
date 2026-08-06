@@ -18,9 +18,11 @@ class UnlockChatDialogueBoxWidget extends StatefulWidget {
   const UnlockChatDialogueBoxWidget({
     super.key,
     required this.jobid,
+    this.onPaymentSuccess,
   });
 
   final String? jobid;
+  final Future<void> Function()? onPaymentSuccess;
 
   @override
   State<UnlockChatDialogueBoxWidget> createState() =>
@@ -244,8 +246,24 @@ class _UnlockChatDialogueBoxWidgetState
                           );
                           debugPrint(
                               "make payment sheet response is ====> ${_model.paymentRes}");
+
+                          if (_model.paymentRes == true) {
+                            await widget!.onPaymentSuccess?.call();
+                            Navigator.pop(context);
+                          } else {
+                            await actions.showToast(
+                              context,
+                              'Payment failed, please try again',
+                              2,
+                            );
+                          }
+                        } else {
+                          await actions.showToast(
+                            context,
+                            'Payment failed, please try again',
+                            2,
+                          );
                         }
-                        Navigator.pop(context);
 
                         safeSetState(() {});
                       },

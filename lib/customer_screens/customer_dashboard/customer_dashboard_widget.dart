@@ -3,6 +3,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
+import '/models/structs/index.dart';
 import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
 import '/widgets/components/jobs_list/jobs_list_widget.dart';
@@ -53,9 +54,20 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
 
   Future<ApiCallResponse> _fetchJobs() async {
     final response = await SupabaseTablesGroup.getJobsListCall.call(
-      params: '&status=eq.ACTIVE',
-      range: currentUserUid,
+      params: '&customer_id=eq.${currentUserUid}',
     );
+    if (response.succeeded) {
+      AppState().jobCache = JobCacheStruct(
+        jobs: ((response.jsonBody ?? '')
+                .toList()
+                .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
+                .toList() as Iterable<JobsListItemStruct?>)
+            .withoutNulls,
+        lastCursor: '',
+        firstCursor: '',
+        hasMore: true,
+      );
+    }
     _hasLoadedJobsOnce = true;
     return response;
   }
@@ -115,7 +127,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
           elevation: 0.0,
         ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Stack(
             children: [
               Padding(
@@ -132,9 +144,11 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                     return RefreshIndicator(
                       color: AppTheme.of(context).primary,
                       onRefresh: () async {
+                        final future = _fetchJobs();
                         setState(() {
-                          _jobsListFuture = _fetchJobs();
+                          _jobsListFuture = future;
                         });
+                        await future;
                       },
                       child: SingleChildScrollView(
                         child: Skeletonizer(
@@ -143,7 +157,8 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment:
+                                    const AlignmentDirectional(-1.0, 0.0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: AppTheme.of(context)
@@ -151,35 +166,32 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'DASHBOARD',
                                         style: AppTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight:
-                                            AppTheme.of(context)
-                                                .bodyLarge
-                                                .fontWeight,
-                                            fontStyle:
-                                            AppTheme.of(context)
-                                                .bodyLarge
-                                                .fontStyle,
-                                          ),
-                                          color: AppTheme.of(context)
-                                              .primary,
-                                          letterSpacing: 1.6,
-                                          fontWeight:
-                                          AppTheme.of(context)
-                                              .bodyLarge
-                                              .fontWeight,
-                                          fontStyle:
-                                          AppTheme.of(context)
-                                              .bodyLarge
-                                              .fontStyle,
-                                        ),
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                              ),
+                                              color:
+                                                  AppTheme.of(context).primary,
+                                              letterSpacing: 1.6,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -200,8 +212,10 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                             AppTheme.of(context).secondary
                                           ],
                                           stops: const [0.0, 1.0],
-                                          begin: const AlignmentDirectional(-1.0, 0.14),
-                                          end: const AlignmentDirectional(1.0, -0.14),
+                                          begin: const AlignmentDirectional(
+                                              -1.0, 0.14),
+                                          end: const AlignmentDirectional(
+                                              1.0, -0.14),
                                         ),
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(
@@ -259,73 +273,70 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                           ),
                                         ),
                                         child: Padding(
-                                          padding:
-                                          EdgeInsets.all(valueOrDefault<double>(
+                                          padding: EdgeInsets.all(
+                                              valueOrDefault<double>(
                                             AppConstants.childPadding,
                                             0.0,
                                           )),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 ' Need something done',
                                                 style: AppTheme.of(context)
                                                     .headlineSmall
                                                     .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight: FontWeight.w800,
-                                                    fontStyle:
-                                                    AppTheme.of(
-                                                        context)
-                                                        .headlineSmall
-                                                        .fontStyle,
-                                                  ),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w800,
-                                                  fontStyle:
-                                                  AppTheme.of(
-                                                      context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                                ),
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.w800,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .headlineSmall
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .headlineSmall
+                                                              .fontStyle,
+                                                    ),
                                               ),
                                               Text(
                                                 'Post your job and get responses from\ntrusted tradespeople.',
                                                 style: AppTheme.of(context)
                                                     .bodyMedium
                                                     .override(
-                                                  font: GoogleFonts.manrope(
-                                                    fontWeight:
-                                                    AppTheme.of(
-                                                        context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                    fontStyle:
-                                                    AppTheme.of(
-                                                        context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                                  ),
-                                                  color: AppTheme.of(
-                                                      context)
-                                                      .secondaryText,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                  AppTheme.of(
-                                                      context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                                  fontStyle:
-                                                  AppTheme.of(
-                                                      context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                                ),
+                                                      font: GoogleFonts.manrope(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .secondaryText,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.all(2.0),
+                                                padding:
+                                                    const EdgeInsets.all(2.0),
                                                 child: AppButton(
                                                   onPressed: () async {
                                                     context.pushNamed(
@@ -339,62 +350,61 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                   options: AppButtonOptions(
                                                     width: double.infinity,
                                                     height: 60.0,
-                                                    padding: const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        16.0, 0.0, 16.0, 0.0),
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                            16.0, 0.0),
                                                     iconAlignment:
-                                                    IconAlignment.end,
+                                                        IconAlignment.end,
                                                     iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                    color:
-                                                    AppTheme.of(context)
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                    color: AppTheme.of(context)
                                                         .primary,
-                                                    textStyle:
-                                                    AppTheme.of(context)
+                                                    textStyle: AppTheme.of(
+                                                            context)
                                                         .titleSmall
                                                         .override(
-                                                      font:
-                                                      GoogleFonts.inter(
-                                                        fontWeight:
-                                                        AppTheme.of(
-                                                            context)
-                                                            .titleSmall
-                                                            .fontWeight,
-                                                        fontStyle:
-                                                        AppTheme.of(
-                                                            context)
-                                                            .titleSmall
-                                                            .fontStyle,
-                                                      ),
-                                                      color: Colors.white,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                      AppTheme.of(
-                                                          context)
-                                                          .titleSmall
-                                                          .fontWeight,
-                                                      fontStyle:
-                                                      AppTheme.of(
-                                                          context)
-                                                          .titleSmall
-                                                          .fontStyle,
-                                                    ),
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
                                                     elevation: 0.0,
                                                     borderRadius:
-                                                    BorderRadius.circular(
-                                                        AppTheme.of(
-                                                            context)
-                                                            .designToken
-                                                            .radius
-                                                            .lg),
+                                                        BorderRadius.circular(
+                                                            AppTheme.of(context)
+                                                                .designToken
+                                                                .radius
+                                                                .lg),
                                                   ),
                                                 ),
                                               ),
                                             ].divide(const SizedBox(
                                                 height:
-                                                AppConstants.childSpacing)),
+                                                    AppConstants.childSpacing)),
                                           ),
                                         ),
                                       ),
@@ -422,7 +432,7 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                 updateCallback: () => _provider.update(() {}),
                                 child: StatsWidget(
                                   iconBackgroundColor:
-                                  AppTheme.of(context).accent2,
+                                      AppTheme.of(context).accent2,
                                   icon: Icon(
                                     Icons.forum_rounded,
                                     color: AppTheme.of(context).secondary,
@@ -431,39 +441,41 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                   value: functions.sumList(AppState()
                                       .jobCache
                                       .jobs
-                                      .map((e) => e.applications.firstOrNull?.count)
+                                      .map((e) =>
+                                          e.applications.firstOrNull?.count)
                                       .withoutNulls
                                       .toList()),
                                   title: 'Responses',
-                                  valueColor:
-                                  AppTheme.of(context).secondary,
+                                  valueColor: AppTheme.of(context).secondary,
                                 ),
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'RECENT ACTIVITY',
                                     style: AppTheme.of(context)
                                         .headlineSmall
                                         .override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: AppTheme.of(context)
-                                            .headlineSmall
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: AppTheme.of(context)
-                                          .headlineSmall
-                                          .fontStyle,
-                                    ),
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle: AppTheme.of(context)
+                                                .headlineSmall
+                                                .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: AppTheme.of(context)
+                                              .headlineSmall
+                                              .fontStyle,
+                                        ),
                                   ),
                                   wrapWithModel(
                                     model: _model.textButtonModel,
-                                    updateCallback: () => _provider.update(() {}),
+                                    updateCallback: () =>
+                                        _provider.update(() {}),
                                     child: TextButtonWidget(
                                       label: 'View All',
                                       color: AppTheme.of(context).primary,
@@ -483,7 +495,8 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: AppConstants.spacing))
+                                .divide(const SizedBox(
+                                    height: AppConstants.spacing))
                                 .addToEnd(const SizedBox(height: 100.0)),
                           ),
                         ),

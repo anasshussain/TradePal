@@ -90,7 +90,7 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
           elevation: 0.0,
         ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Stack(
             children: [
               Padding(
@@ -194,53 +194,53 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
                                       .fontStyle,
                                 ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                          20.0,
-                          0.0,
-                          20.0,
-                          AppTheme.of(context).designToken.spacing.md,
-                        ),
-                        child: AppButton(
-                          onPressed: () async {
-                            context.pushNamed(EditTraderProfileWidget.routeName);
-                          },
-                          text: 'Edit profile',
-                          options: AppButtonOptions(
-                            width: 150,
-                            height: 37.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0,
-                              0.0,
-                              16.0,
-                              0.0,
-                            ),
-                            iconPadding: EdgeInsets.zero,
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.white.withOpacity(0.08)
-                                : Colors.black.withOpacity(0.06),
+                      // Padding(
+                      //   padding: EdgeInsetsDirectional.fromSTEB(
+                      //     20.0,
+                      //     0.0,
+                      //     20.0,
+                      //     AppTheme.of(context).designToken.spacing.md,
+                      //   ),
+                      //   child: AppButton(
+                      //     onPressed: () async {
+                      //       context.pushNamed(EditTraderProfileWidget.routeName);
+                      //     },
+                      //     text: 'Edit profile',
+                      //     options: AppButtonOptions(
+                      //       width: 150,
+                      //       height: 37.0,
+                      //       padding: const EdgeInsetsDirectional.fromSTEB(
+                      //         16.0,
+                      //         0.0,
+                      //         16.0,
+                      //         0.0,
+                      //       ),
+                      //       iconPadding: EdgeInsets.zero,
+                      //       color: Theme.of(context).brightness == Brightness.dark
+                      //           ? Colors.white.withOpacity(0.08)
+                      //           : Colors.black.withOpacity(0.06),
 
-                            textStyle: AppTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                              ),
-                              color: AppTheme.of(context).primaryText,
-                              fontSize: 14,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            elevation: 0,
-                            borderSide: BorderSide(
-                              color: Theme.of(context).brightness == Brightness.dark
-                                  ? Colors.white.withOpacity(0.05)
-                                  : Colors.black.withOpacity(0.04),
-                              width: 1,
-                            ),
+                      //       textStyle: AppTheme.of(context).titleSmall.override(
+                      //         font: GoogleFonts.inter(
+                      //           fontWeight: FontWeight.w400,
+                      //         ),
+                      //         color: AppTheme.of(context).primaryText,
+                      //         fontSize: 14,
+                      //         letterSpacing: 0,
+                      //         fontWeight: FontWeight.w600,
+                      //       ),
+                      //       elevation: 0,
+                      //       borderSide: BorderSide(
+                      //         color: Theme.of(context).brightness == Brightness.dark
+                      //             ? Colors.white.withOpacity(0.05)
+                      //             : Colors.black.withOpacity(0.04),
+                      //         width: 1,
+                      //       ),
 
-                            borderRadius: BorderRadius.circular(8.6),
-                          ),
-                        ),
-                      ),
+                      //       borderRadius: BorderRadius.circular(8.6),
+                      //     ),
+                      //   ),
+                      // ),
                       Align(
                         alignment: const AlignmentDirectional(-1.0, -1.0),
                         child: Padding(

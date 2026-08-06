@@ -68,7 +68,7 @@ class _AppbarComponentWidgetState extends State<AppbarComponentWidget> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (getCurrentRouteStack(context).length > 1)
+                  if (context.canPop())
                     AppIconButton(
                       borderRadius: 8.0,
                       buttonSize: 40.0,

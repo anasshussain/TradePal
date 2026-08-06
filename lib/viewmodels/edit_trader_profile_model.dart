@@ -4,7 +4,8 @@ import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/utils/util.dart';
 import '/core/utils/form_field_controller.dart';
 import '/core/routes/index.dart';
-import '/trader_screens/edit_trader_profile/edit_trader_profile_widget.dart' show EditTraderProfileWidget;
+import '/trader_screens/edit_trader_profile/edit_trader_profile_widget.dart'
+    show EditTraderProfileWidget;
 import 'package:flutter/material.dart';
 
 class EditTraderProfileModel extends AppModel<EditTraderProfileWidget> {
@@ -21,10 +22,24 @@ class EditTraderProfileModel extends AppModel<EditTraderProfileWidget> {
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
+  String? _nameTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Name is required';
+    }
+    return null;
+  }
+
   // State field(s) for regNo widget.
   FocusNode? regNoFocusNode;
   TextEditingController? regNoTextController;
   String? Function(BuildContext, String?)? regNoTextControllerValidator;
+  String? _regNoTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Registration number is required';
+    }
+    return null;
+  }
+
   // State field(s) for email widget.
   FocusNode? emailFocusNode;
   TextEditingController? emailTextController;
@@ -33,14 +48,40 @@ class EditTraderProfileModel extends AppModel<EditTraderProfileWidget> {
   FocusNode? phoneFocusNode;
   TextEditingController? phoneTextController;
   String? Function(BuildContext, String?)? phoneTextControllerValidator;
+  String? _phoneTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Phone is required';
+    }
+    if (!RegExp(kTextValidatorPhoneRegex).hasMatch(val)) {
+      return 'Has to be a valid phone number.';
+    }
+    return null;
+  }
+
   // State field(s) for profession widget.
   FocusNode? professionFocusNode;
   TextEditingController? professionTextController;
   String? Function(BuildContext, String?)? professionTextControllerValidator;
+  String? _professionTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Profession is required';
+    }
+    return null;
+  }
+
   // State field(s) for service_area widget.
   FocusNode? serviceAreaFocusNode;
   TextEditingController? serviceAreaTextController;
   String? Function(BuildContext, String?)? serviceAreaTextControllerValidator;
+  String? _serviceAreaTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Service area is required';
+    }
+    return null;
+  }
+
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
   String? skill;
   // State field(s) for ChoiceChips widget.
@@ -54,11 +95,27 @@ class EditTraderProfileModel extends AppModel<EditTraderProfileWidget> {
   TextEditingController? insuranceCompanyTextController;
   String? Function(BuildContext, String?)?
       insuranceCompanyTextControllerValidator;
+  String? _insuranceCompanyTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Insurance company is required';
+    }
+    return null;
+  }
+
   // State field(s) for insurance_amount widget.
   FocusNode? insuranceAmountFocusNode;
   TextEditingController? insuranceAmountTextController;
   String? Function(BuildContext, String?)?
       insuranceAmountTextControllerValidator;
+  String? _insuranceAmountTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Insurance amount is required';
+    }
+    return null;
+  }
+
   DateTime? datePicked;
   // Model for alerts component.
   late AlertsModel alertsModel;
@@ -69,6 +126,15 @@ class EditTraderProfileModel extends AppModel<EditTraderProfileWidget> {
   void initState(BuildContext context) {
     appbarComponentModel = createModel(context, () => AppbarComponentModel());
     alertsModel = createModel(context, () => AlertsModel());
+    nameTextControllerValidator = _nameTextControllerValidator;
+    regNoTextControllerValidator = _regNoTextControllerValidator;
+    phoneTextControllerValidator = _phoneTextControllerValidator;
+    professionTextControllerValidator = _professionTextControllerValidator;
+    serviceAreaTextControllerValidator = _serviceAreaTextControllerValidator;
+    insuranceCompanyTextControllerValidator =
+        _insuranceCompanyTextControllerValidator;
+    insuranceAmountTextControllerValidator =
+        _insuranceAmountTextControllerValidator;
   }
 
   @override

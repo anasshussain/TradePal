@@ -20,6 +20,8 @@ class ChoosePathComponentWidget extends StatefulWidget {
     Color? btnColor,
     Color? boxColor,
     required this.borderColor,
+    // this.isLoading = false,
+    this.isDisabled = false,
   })  : this.btnColor = btnColor ?? const Color(0xFF00B3B3),
         this.boxColor = boxColor ?? const Color(0xFF1A1C1E);
 
@@ -30,6 +32,14 @@ class ChoosePathComponentWidget extends StatefulWidget {
   final Color btnColor;
   final Color boxColor;
   final Color? borderColor;
+
+  /// Shows an inline spinner in place of the arrow icon while this card's
+  /// action is in flight.
+  // final bool isLoading;
+
+  /// Dims the card while a sibling card is being submitted, signalling that
+  /// it can't be tapped right now.
+  final bool isDisabled;
 
   @override
   State<ChoosePathComponentWidget> createState() =>
@@ -62,7 +72,10 @@ class _ChoosePathComponentWidgetState extends State<ChoosePathComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 200),
+      opacity: widget!.isDisabled ? 0.4 : 1.0,
+      child: Material(
       color: Colors.transparent,
       elevation: 0.0,
       shape: RoundedRectangleBorder(
@@ -221,11 +234,24 @@ class _ChoosePathComponentWidgetState extends State<ChoosePathComponentWidget> {
                                         .fontStyle,
                                   ),
                         ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: widget!.btnColor,
-                          size: 24.0,
-                        ),
+                        // widget!.isLoading
+                        //     ? SizedBox(
+                        //         width: 24.0,
+                        //         height: 24.0,
+                        //         child: CircularProgressIndicator(
+                        //           strokeWidth: 2.0,
+                        //           valueColor: AlwaysStoppedAnimation<Color>(
+                        //             widget!.btnColor,
+                        //           ),
+                        //         ),
+                        //       )
+                        //     : 
+                            
+                            Icon(
+                                Icons.arrow_forward,
+                                color: widget!.btnColor,
+                                size: 24.0,
+                              ),
                       ].divide(const SizedBox(width: AppConstants.childPadding)),
                     ),
                   ].divide(const SizedBox(height: AppConstants.spacing)),
@@ -234,6 +260,7 @@ class _ChoosePathComponentWidgetState extends State<ChoosePathComponentWidget> {
             ),
           ],
         ),
+      ),
       ),
     );
   }

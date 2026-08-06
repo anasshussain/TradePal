@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 class ChatPageProvider extends ChangeNotifier {
   ///  Local state fields for this page.
 
-
   bool loading = true;
 
   JobDataStruct? jobData;
@@ -24,6 +23,20 @@ class ChatPageProvider extends ChangeNotifier {
 
   bool isProposalPaid = true;
 
+  double? acceptedQuoteAmount;
+
+  static final Map<String, bool> _cachedPaymentCompleted = {};
+  bool isPaymentCompleted = false;
+
+  void restorePaymentCompleted(String? jobId) {
+    isPaymentCompleted =
+        jobId != null && (_cachedPaymentCompleted[jobId] ?? false);
+  }
+
+  void markPaymentCompleted(String? jobId) {
+    isPaymentCompleted = true;
+    if (jobId != null) _cachedPaymentCompleted[jobId] = true;
+  }
 
   /// Notify observers without mutating state (replaces empty setState).
   bool _disposed = false;

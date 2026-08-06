@@ -3,7 +3,9 @@ import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import 'dart:ui';
 import '/core/routes/index.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart' as smooth_page_indicator;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,7 +35,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => OnboardingModel());
-    WidgetsBinding.instance.addPostFrameCallback((_) => _provider.update(() {}));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _provider.update(() {}));
   }
 
   @override
@@ -63,7 +66,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
               AppConstants.parentPagePadding,
@@ -90,30 +93,24 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         ),
                         Text(
                           'My Trade Pal',
-                          style:
-                              AppTheme.of(context).titleMedium.override(
-                                    font: GoogleFonts.manrope(
-                                      fontWeight: AppTheme.of(context)
-                                          .titleMedium
-                                          .fontWeight,
-                                      fontStyle: AppTheme.of(context)
-                                          .titleMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: AppTheme.of(context)
-                                        .titleMedium
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
-                                  ),
+                          style: AppTheme.of(context).titleMedium.override(
+                                font: GoogleFonts.manrope(
+                                  fontWeight: AppTheme.of(context)
+                                      .titleMedium
+                                      .fontWeight,
+                                  fontStyle: AppTheme.of(context)
+                                      .titleMedium
+                                      .fontStyle,
+                                ),
+                                letterSpacing: 0.0,
+                                fontWeight:
+                                    AppTheme.of(context).titleMedium.fontWeight,
+                                fontStyle:
+                                    AppTheme.of(context).titleMedium.fontStyle,
+                              ),
                         ),
                       ].divide(SizedBox(
-                          width: AppTheme.of(context)
-                              .designToken
-                              .spacing
-                              .sm)),
+                          width: AppTheme.of(context).designToken.spacing.sm)),
                     ),
                     if (_model.pageViewCurrentIndex < 2)
                       InkWell(
@@ -134,9 +131,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             'Skip',
-                            style: AppTheme.of(context)
-                                .labelLarge
-                                .override(
+                            style: AppTheme.of(context).labelLarge.override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w500,
                                     fontStyle: AppTheme.of(context)
@@ -146,9 +141,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.grey.shade700,
-                                  fontStyle: AppTheme.of(context)
-                                      .labelLarge
-                                      .fontStyle,
+                                  fontStyle:
+                                      AppTheme.of(context).labelLarge.fontStyle,
                                 ),
                           ),
                         ),
@@ -171,23 +165,19 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                               elevation: 0.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context)
-                                        .designToken
-                                        .radius
-                                        .lg),
+                                    AppTheme.of(context).designToken.radius.lg),
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: AppTheme.of(context)
-                                      .secondaryBackground,
+                                  color:
+                                      AppTheme.of(context).secondaryBackground,
                                   borderRadius: BorderRadius.circular(
                                       AppTheme.of(context)
                                           .designToken
                                           .radius
                                           .lg),
                                   border: Border.all(
-                                    color:
-                                        AppTheme.of(context).alternate,
+                                    color: AppTheme.of(context).alternate,
                                   ),
                                 ),
                                 child: Padding(
@@ -203,7 +193,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                           child: Stack(
                                             children: [
                                               ClipRRect(
-                                                borderRadius: const BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   topLeft: Radius.circular(8.0),
                                                   topRight:
                                                       Radius.circular(8.0),
@@ -216,14 +207,14 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.8, -0.8),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.8, -0.8),
                                                 child: Container(
                                                   width: 150.0,
                                                   height: 40.0,
                                                   decoration: BoxDecoration(
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .secondaryBackground,
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -251,16 +242,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         'VETTED EXPERT',
                                                         style:
                                                             GoogleFonts.roboto(
-                                                          color: AppTheme
-                                                                  .of(context)
+                                                          color: AppTheme.of(
+                                                                  context)
                                                               .primaryText,
                                                           fontSize: 12.0,
                                                         ),
                                                       ),
                                                     ].divide(SizedBox(
                                                         width:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .designToken
                                                                 .spacing
                                                                 .sm)),
@@ -280,14 +270,14 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    -1.0, -1.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        -1.0, -1.0),
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0,
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .designToken
                                                               .spacing
                                                               .md,
@@ -295,45 +285,42 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           0.0),
                                                   child: Text(
                                                     'Find Verified\nProfessionals',
-                                                    style: AppTheme.of(
-                                                            context)
-                                                        .headlineMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .manrope(
-                                                            fontWeight:
-                                                                AppTheme.of(
+                                                    style:
+                                                        AppTheme.of(context)
+                                                            .headlineMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .manrope(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
                                                                     .headlineMedium
                                                                     .fontWeight,
-                                                            fontStyle:
-                                                                AppTheme.of(
+                                                                fontStyle: AppTheme.of(
                                                                         context)
                                                                     .headlineMedium
                                                                     .fontStyle,
-                                                          ),
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
+                                                              ),
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight: AppTheme
+                                                                      .of(context)
                                                                   .headlineMedium
                                                                   .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
+                                                              fontStyle: AppTheme
+                                                                      .of(context)
                                                                   .headlineMedium
                                                                   .fontStyle,
-                                                        ),
+                                                            ),
                                                   ),
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    -1.0, -1.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        -1.0, -1.0),
                                                 child: Text(
                                                   'Every professional is carefully verified\n before joining \n so you can hire with confidence.',
-                                                  style: AppTheme.of(
-                                                          context)
+                                                  style: AppTheme.of(context)
                                                       .bodyLarge
                                                       .override(
                                                         font:
@@ -351,13 +338,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .bodyLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .bodyLarge
                                                                 .fontStyle,
                                                       ),
@@ -367,14 +352,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0,
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .designToken
                                                             .spacing
                                                             .md,
                                                         0.0,
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .designToken
                                                             .spacing
                                                             .md),
@@ -464,32 +447,31 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   -1.0, -1.0),
                                                           child: Text(
                                                             'Smart Matching ',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .titleSmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .titleSmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .titleSmall
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .titleSmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                         Align(
@@ -498,64 +480,60 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   -1.0, -1.0),
                                                           child: Text(
                                                             'We quickly match you with\n the right professional for\n your job.',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ].divide(SizedBox(
-                                                          height:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .designToken
-                                                                  .spacing
-                                                                  .xs)),
+                                                          height: AppTheme.of(
+                                                                  context)
+                                                              .designToken
+                                                              .spacing
+                                                              .xs)),
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .designToken
                                                               .spacing
                                                               .md)),
                                                 ),
                                               ),
                                             ].divide(SizedBox(
-                                                height:
-                                                    AppTheme.of(context)
-                                                        .designToken
-                                                        .spacing
-                                                        .md)),
+                                                height: AppTheme.of(context)
+                                                    .designToken
+                                                    .spacing
+                                                    .md)),
                                           ),
                                         ),
                                         Container(
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                            color: AppTheme.of(context)
-                                                .alternate,
+                                            color:
+                                                AppTheme.of(context).alternate,
                                             borderRadius: BorderRadius.circular(
                                                 AppTheme.of(context)
                                                     .designToken
@@ -577,8 +555,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           -1.0, -1.0),
                                                   child: Text(
                                                     'Why Choose Us',
-                                                    style: AppTheme.of(
-                                                            context)
+                                                    style: AppTheme.of(context)
                                                         .labelSmall
                                                         .override(
                                                           font:
@@ -615,8 +592,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: AppTheme
-                                                                .of(context)
+                                                        color: AppTheme.of(
+                                                                context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -631,40 +608,39 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
-                                                          padding: EdgeInsets.all(
-                                                              AppTheme.of(
+                                                          padding: EdgeInsets
+                                                              .all(AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Hire Confidently',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
@@ -672,8 +648,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: AppTheme
-                                                                .of(context)
+                                                        color: AppTheme.of(
+                                                                context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -688,48 +664,46 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
-                                                          padding: EdgeInsets.all(
-                                                              AppTheme.of(
+                                                          padding: EdgeInsets
+                                                              .all(AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Trusted Professionals',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .designToken
                                                               .spacing
                                                               .md)),
@@ -741,8 +715,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: AppTheme
-                                                                .of(context)
+                                                        color: AppTheme.of(
+                                                                context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -757,40 +731,39 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
-                                                          padding: EdgeInsets.all(
-                                                              AppTheme.of(
+                                                          padding: EdgeInsets
+                                                              .all(AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Quality Service',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
@@ -798,8 +771,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: AppTheme
-                                                                .of(context)
+                                                        color: AppTheme.of(
+                                                                context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -814,48 +787,46 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
-                                                          padding: EdgeInsets.all(
-                                                              AppTheme.of(
+                                                          padding: EdgeInsets
+                                                              .all(AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Skilled Experts',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .designToken
                                                               .spacing
                                                               .md)),
@@ -867,8 +838,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: AppTheme
-                                                                .of(context)
+                                                        color: AppTheme.of(
+                                                                context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -883,40 +854,39 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
-                                                          padding: EdgeInsets.all(
-                                                              AppTheme.of(
+                                                          padding: EdgeInsets
+                                                              .all(AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Verified & Trusted',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
@@ -924,8 +894,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     Container(
                                                       height: 30.0,
                                                       decoration: BoxDecoration(
-                                                        color: AppTheme
-                                                                .of(context)
+                                                        color: AppTheme.of(
+                                                                context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -940,55 +910,52 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                             const AlignmentDirectional(
                                                                 0.0, 0.0),
                                                         child: Padding(
-                                                          padding: EdgeInsets.all(
-                                                              AppTheme.of(
+                                                          padding: EdgeInsets
+                                                              .all(AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
                                                                   .sm),
                                                           child: Text(
                                                             'Trusted Local Services',
-                                                            style: AppTheme
-                                                                    .of(context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .manrope(
-                                                                    fontWeight: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontWeight,
-                                                                    fontStyle: AppTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: AppTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
+                                                            style:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .manrope(
+                                                                        fontWeight: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontWeight,
+                                                                        fontStyle: AppTheme.of(context)
+                                                                            .bodySmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontWeight,
+                                                                      fontStyle: AppTheme.of(
+                                                                              context)
+                                                                          .bodySmall
+                                                                          .fontStyle,
+                                                                    ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                   ].divide(SizedBox(
                                                       width:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .designToken
                                                               .spacing
                                                               .md)),
                                                 ),
                                               ].divide(SizedBox(
-                                                  height: AppTheme.of(
-                                                          context)
+                                                  height: AppTheme.of(context)
                                                       .designToken
                                                       .spacing
                                                       .md)),
@@ -1012,52 +979,43 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         .headlineLarge
                                         .override(
                                           font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .headlineLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .headlineLarge
-                                                    .fontStyle,
+                                            fontWeight: AppTheme.of(context)
+                                                .headlineLarge
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .headlineLarge
+                                                .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .headlineLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .headlineLarge
-                                                  .fontStyle,
+                                          fontWeight: AppTheme.of(context)
+                                              .headlineLarge
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .headlineLarge
+                                              .fontStyle,
                                         ),
                                   ),
                                   Text(
                                     'Stay organized with a simple dashboard. Track bids and monitor your projects in real time.',
                                     textAlign: TextAlign.center,
-                                    style: AppTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
+                                    style:
+                                        AppTheme.of(context).bodyLarge.override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
+                                                fontStyle: AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
+                                              fontStyle: AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontStyle,
-                                        ),
+                                            ),
                                   ),
                                   Material(
                                     color: Colors.transparent,
@@ -1080,8 +1038,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 .radius
                                                 .lg),
                                         border: Border.all(
-                                          color: AppTheme.of(context)
-                                              .alternate,
+                                          color: AppTheme.of(context).alternate,
                                         ),
                                       ),
                                       child: Padding(
@@ -1101,8 +1058,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               children: [
                                                 Text(
                                                   'My Trade pal',
-                                                  style: AppTheme.of(
-                                                          context)
+                                                  style: AppTheme.of(context)
                                                       .labelLarge
                                                       .override(
                                                         font: GoogleFonts.inter(
@@ -1118,18 +1074,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .primary,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .labelLarge
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .labelLarge
                                                                 .fontStyle,
                                                       ),
@@ -1152,8 +1105,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                               BoxDecoration(
                                                             color: const Color(
                                                                 0xFF4169E1),
-                                                            borderRadius: BorderRadius.circular(
-                                                                AppTheme.of(
+                                                            borderRadius: BorderRadius
+                                                                .circular(AppTheme.of(
                                                                         context)
                                                                     .designToken
                                                                     .radius
@@ -1167,8 +1120,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                                 0.0, 0.0),
                                                         child: Text(
                                                           'IN PROGRESS',
-                                                          style: AppTheme
-                                                                  .of(context)
+                                                          style: AppTheme.of(
+                                                                  context)
                                                               .bodySmall
                                                               .override(
                                                                 font: GoogleFonts
@@ -1202,35 +1155,31 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               ],
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
-                                                  -1.0, -1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      -1.0, -1.0),
                                               child: Text(
                                                 'Kitchen\nRenovation',
-                                                style: AppTheme.of(
-                                                        context)
+                                                style: AppTheme.of(context)
                                                     .titleMedium
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .titleMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .titleMedium
                                                                 .fontStyle,
                                                       ),
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .titleMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .titleMedium
                                                               .fontStyle,
                                                     ),
@@ -1240,13 +1189,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               width: double.infinity,
                                               height: 84.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .alternate,
+                                                color: AppTheme.of(context)
+                                                    .alternate,
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .designToken
                                                             .radius
                                                             .md),
@@ -1262,8 +1209,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     height: 42.0,
                                                     decoration: BoxDecoration(
                                                       color:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .accent1,
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -1299,8 +1245,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         'Active Bids',
                                                         style:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .titleSmall
                                                                 .override(
                                                                   font: GoogleFonts
@@ -1329,8 +1274,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         '3 qualified contractors\nresponding',
                                                         style:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
@@ -1360,8 +1304,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   Icon(
                                                     Icons.arrow_forward_ios,
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .primaryText,
                                                     size: 24.0,
                                                   ),
@@ -1372,13 +1315,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               width: double.infinity,
                                               height: 84.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    AppTheme.of(context)
-                                                        .alternate,
+                                                color: AppTheme.of(context)
+                                                    .alternate,
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .designToken
                                                             .radius
                                                             .md),
@@ -1394,8 +1335,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                     height: 42.0,
                                                     decoration: BoxDecoration(
                                                       color:
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .accent1,
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -1431,8 +1371,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         'Project\nMilestones',
                                                         style:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .titleSmall
                                                                 .override(
                                                                   font: GoogleFonts
@@ -1461,8 +1400,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       Text(
                                                         'Foundation & Framing\ncomplete',
                                                         style:
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .bodySmall
                                                                 .override(
                                                                   font: GoogleFonts
@@ -1492,8 +1430,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   Icon(
                                                     Icons.arrow_forward_ios,
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .primaryText,
                                                     size: 24.0,
                                                   ),
@@ -1504,8 +1441,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0,
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .designToken
                                                           .spacing
                                                           .lg,
@@ -1535,8 +1471,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   ),
                                                   Text(
                                                     '\"Everything was easy to manage,\nso I could focus on building my home.\"',
-                                                    style: AppTheme.of(
-                                                            context)
+                                                    style: AppTheme.of(context)
                                                         .bodySmall
                                                         .override(
                                                           font: GoogleFonts
@@ -1566,24 +1501,23 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                         ),
                                                   ),
                                                 ].divide(SizedBox(
-                                                    width: AppTheme.of(
-                                                            context)
+                                                    width: AppTheme.of(context)
                                                         .designToken
                                                         .spacing
                                                         .md)),
                                               ),
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
-                                                  -1.0, -1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      -1.0, -1.0),
                                               child: Material(
                                                 color: Colors.transparent,
                                                 elevation: 0.0,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          AppTheme.of(
-                                                                  context)
+                                                          AppTheme.of(context)
                                                               .designToken
                                                               .radius
                                                               .md),
@@ -1591,13 +1525,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 child: Container(
                                                   width: double.infinity,
                                                   decoration: BoxDecoration(
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .alternate,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .designToken
                                                                 .radius
                                                                 .md),
@@ -1605,8 +1537,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                   child: Padding(
                                                     padding: EdgeInsets.all(
                                                         valueOrDefault<double>(
-                                                      AppConstants
-                                                          .childSpacing,
+                                                      AppConstants.childSpacing,
                                                       0.0,
                                                     )),
                                                     child: Column(
@@ -1635,8 +1566,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding: EdgeInsets.all(
-                                                              AppTheme.of(
+                                                          padding: EdgeInsets
+                                                              .all(AppTheme.of(
                                                                       context)
                                                                   .designToken
                                                                   .spacing
@@ -1774,23 +1705,21 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           ),
                                                         ),
                                                       ].divide(SizedBox(
-                                                          height:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .designToken
-                                                                  .spacing
-                                                                  .sm)),
+                                                          height: AppTheme.of(
+                                                                  context)
+                                                              .designToken
+                                                              .spacing
+                                                              .sm)),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ].divide(SizedBox(
-                                              height:
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .spacing
-                                                      .md)),
+                                              height: AppTheme.of(context)
+                                                  .designToken
+                                                  .spacing
+                                                  .md)),
                                         ),
                                       ),
                                     ),
@@ -1809,17 +1738,17 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Stack(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    alignment:
+                                        const AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       Opacity(
                                         opacity: 0.6,
                                         child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                          alignment: const AlignmentDirectional(
+                                              0.0, 0.0),
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 3.0, 0.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 3.0, 0.0, 0.0),
                                             child: Container(
                                               width: 64.0,
                                               height: 54.0,
@@ -1828,15 +1757,16 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(12.0),
                                               ),
-                                              alignment: const AlignmentDirectional(
-                                                  0.0, 0.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
                                             ),
                                           ),
                                         ),
                                       ),
                                       Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                        alignment: const AlignmentDirectional(
+                                            0.0, 0.0),
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
@@ -1845,7 +1775,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             width: 24.0,
                                             height: 30.0,
                                             fit: BoxFit.cover,
-                                            alignment: const Alignment(0.0, 0.0),
+                                            alignment:
+                                                const Alignment(0.0, 0.0),
                                           ),
                                         ),
                                       ),
@@ -1858,52 +1789,43 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         .headlineLarge
                                         .override(
                                           font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
-                                                    .headlineLarge
-                                                    .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
-                                                    .headlineLarge
-                                                    .fontStyle,
+                                            fontWeight: AppTheme.of(context)
+                                                .headlineLarge
+                                                .fontWeight,
+                                            fontStyle: AppTheme.of(context)
+                                                .headlineLarge
+                                                .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
-                                                  .headlineLarge
-                                                  .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
-                                                  .headlineLarge
-                                                  .fontStyle,
+                                          fontWeight: AppTheme.of(context)
+                                              .headlineLarge
+                                              .fontWeight,
+                                          fontStyle: AppTheme.of(context)
+                                              .headlineLarge
+                                              .fontStyle,
                                         ),
                                   ),
                                   Text(
                                     'Every payment is protected with\nadvanced security, \nkeeping your information safe.',
                                     textAlign: TextAlign.center,
-                                    style: AppTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight:
-                                                AppTheme.of(context)
+                                    style:
+                                        AppTheme.of(context).bodyLarge.override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontWeight,
-                                            fontStyle:
-                                                AppTheme.of(context)
+                                                fontStyle: AppTheme.of(context)
                                                     .bodyLarge
                                                     .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              AppTheme.of(context)
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontWeight,
-                                          fontStyle:
-                                              AppTheme.of(context)
+                                              fontStyle: AppTheme.of(context)
                                                   .bodyLarge
                                                   .fontStyle,
-                                        ),
+                                            ),
                                   ),
                                   Material(
                                     color: Colors.transparent,
@@ -1925,8 +1847,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 .radius
                                                 .lg),
                                         border: Border.all(
-                                          color: AppTheme.of(context)
-                                              .alternate,
+                                          color: AppTheme.of(context).alternate,
                                         ),
                                       ),
                                       child: Padding(
@@ -1941,8 +1862,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Align(
-                                              alignment: const AlignmentDirectional(
-                                                  -1.0, -1.0),
+                                              alignment:
+                                                  const AlignmentDirectional(
+                                                      -1.0, -1.0),
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
@@ -1957,68 +1879,56 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                             Text(
                                               'Safe Holding',
                                               textAlign: TextAlign.center,
-                                              style:
-                                                  AppTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.manrope(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontStyle,
-                                                      ),
+                                              style: AppTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
                                             ),
                                             Text(
                                               'Payments stay secure and are released only after milestone approval,\nensuring safe and transparent transactions for everyone.',
                                               textAlign: TextAlign.start,
-                                              style:
-                                                  AppTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.manrope(
-                                                          fontWeight:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyLarge
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .bodyLarge
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .bodyLarge
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            AppTheme.of(
-                                                                    context)
-                                                                .bodyLarge
-                                                                .fontStyle,
-                                                      ),
+                                              style: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .override(
+                                                    font: GoogleFonts.manrope(
+                                                      fontWeight:
+                                                          AppTheme.of(context)
+                                                              .bodyLarge
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
+                                                              .bodyLarge
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        AppTheme.of(context)
+                                                            .bodyLarge
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyLarge
+                                                            .fontStyle,
+                                                  ),
                                             ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -2028,21 +1938,18 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               children: [
                                                 Container(
                                                   decoration: BoxDecoration(
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .alternate,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .designToken
                                                                 .radius
                                                                 .lg),
                                                   ),
                                                   child: Padding(
                                                     padding: EdgeInsets.all(
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .designToken
                                                             .radius
                                                             .sm),
@@ -2055,8 +1962,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       children: [
                                                         Icon(
                                                           Icons.check,
-                                                          color: AppTheme
-                                                                  .of(context)
+                                                          color: AppTheme.of(
+                                                                  context)
                                                               .primaryText,
                                                           size: 14.0,
                                                         ),
@@ -2064,8 +1971,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           'ENCRYPTED',
                                                           textAlign:
                                                               TextAlign.start,
-                                                          style: AppTheme
-                                                                  .of(context)
+                                                          style: AppTheme.of(
+                                                                  context)
                                                               .titleSmall
                                                               .override(
                                                                 font: GoogleFonts
@@ -2092,8 +1999,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                               ),
                                                         ),
                                                       ].divide(SizedBox(
-                                                          width: AppTheme
-                                                                  .of(context)
+                                                          width: AppTheme.of(
+                                                                  context)
                                                               .designToken
                                                               .spacing
                                                               .xs)),
@@ -2102,21 +2009,18 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 ),
                                                 Container(
                                                   decoration: BoxDecoration(
-                                                    color: AppTheme.of(
-                                                            context)
+                                                    color: AppTheme.of(context)
                                                         .alternate,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            AppTheme.of(
-                                                                    context)
+                                                            AppTheme.of(context)
                                                                 .designToken
                                                                 .radius
                                                                 .lg),
                                                   ),
                                                   child: Padding(
                                                     padding: EdgeInsets.all(
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .designToken
                                                             .radius
                                                             .sm),
@@ -2129,8 +2033,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                       children: [
                                                         Icon(
                                                           Icons.check,
-                                                          color: AppTheme
-                                                                  .of(context)
+                                                          color: AppTheme.of(
+                                                                  context)
                                                               .primaryText,
                                                           size: 14.0,
                                                         ),
@@ -2138,8 +2042,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                           'Milestone-based',
                                                           textAlign:
                                                               TextAlign.start,
-                                                          style: AppTheme
-                                                                  .of(context)
+                                                          style: AppTheme.of(
+                                                                  context)
                                                               .titleSmall
                                                               .override(
                                                                 font: GoogleFonts
@@ -2166,8 +2070,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                               ),
                                                         ),
                                                       ].divide(SizedBox(
-                                                          width: AppTheme
-                                                                  .of(context)
+                                                          width: AppTheme.of(
+                                                                  context)
                                                               .designToken
                                                               .spacing
                                                               .xs)),
@@ -2177,11 +2081,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               ],
                                             ),
                                           ].divide(SizedBox(
-                                              height:
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .spacing
-                                                      .md)),
+                                              height: AppTheme.of(context)
+                                                  .designToken
+                                                  .spacing
+                                                  .md)),
                                         ),
                                       ),
                                     ),
@@ -2189,8 +2092,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context)
-                                          .alternate,
+                                      color: AppTheme.of(context).alternate,
                                       borderRadius: BorderRadius.circular(
                                           AppTheme.of(context)
                                               .designToken
@@ -2208,12 +2110,14 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         children: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(
+                                                    0.0, 0.0),
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                'https://picsum.photos/seed/980/600',
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    'https://picsum.photos/seed/980/600',
                                                 width: 96.0,
                                                 height: 96.0,
                                                 fit: BoxFit.cover,
@@ -2228,20 +2132,17 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 Icon(
                                               Icons.star_rounded,
                                               color:
-                                                  AppTheme.of(context)
-                                                      .primary,
+                                                  AppTheme.of(context).primary,
                                             ),
                                             direction: Axis.horizontal,
                                             initialRating:
                                                 _model.ratingBarValue ??= 4.0,
                                             unratedColor:
-                                                AppTheme.of(context)
-                                                    .accent1,
+                                                AppTheme.of(context).accent1,
                                             itemCount: 5,
                                             itemSize: 20.0,
                                             glowColor:
-                                                AppTheme.of(context)
-                                                    .primary,
+                                                AppTheme.of(context).primary,
                                           ),
                                           Text(
                                             '\"The payment system is\ntransparent and secure. I felt\nconfident hiring through the\napp.\"',
@@ -2250,25 +2151,21 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .titleMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .titleMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleMedium
                                                           .fontStyle,
                                                 ),
@@ -2280,28 +2177,23 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .titleMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .titleMedium
                                                             .fontStyle,
                                                   ),
-                                                  color: AppTheme.of(
-                                                          context)
+                                                  color: AppTheme.of(context)
                                                       .accent1,
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleMedium
                                                           .fontStyle,
                                                 ),
@@ -2327,8 +2219,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                       width: double.infinity,
                                       height: 84.0,
                                       decoration: BoxDecoration(
-                                        color: AppTheme.of(context)
-                                            .alternate,
+                                        color: AppTheme.of(context).alternate,
                                         borderRadius: BorderRadius.circular(
                                             AppTheme.of(context)
                                                 .designToken
@@ -2342,8 +2233,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                         children: [
                                           Icon(
                                             Icons.security,
-                                            color: AppTheme.of(context)
-                                                .accent1,
+                                            color: AppTheme.of(context).accent1,
                                             size: 22.0,
                                           ),
                                           Text(
@@ -2353,42 +2243,36 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .titleSmall
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(
-                                                                context)
+                                                        AppTheme.of(context)
                                                             .titleSmall
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
                                           ),
                                         ]
                                             .divide(SizedBox(
-                                                width:
-                                                    AppTheme.of(context)
-                                                        .designToken
-                                                        .spacing
-                                                        .lg))
+                                                width: AppTheme.of(context)
+                                                    .designToken
+                                                    .spacing
+                                                    .lg))
                                             .around(SizedBox(
-                                                width:
-                                                    AppTheme.of(context)
-                                                        .designToken
-                                                        .spacing
-                                                        .lg)),
+                                                width: AppTheme.of(context)
+                                                    .designToken
+                                                    .spacing
+                                                    .lg)),
                                       ),
                                     ),
                                   ),
@@ -2396,8 +2280,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                     width: double.infinity,
                                     height: 84.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context)
-                                          .alternate,
+                                      color: AppTheme.of(context).alternate,
                                       borderRadius: BorderRadius.circular(
                                           AppTheme.of(context)
                                               .designToken
@@ -2411,8 +2294,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                       children: [
                                         Icon(
                                           Icons.support_agent_outlined,
-                                          color: AppTheme.of(context)
-                                              .accent1,
+                                          color: AppTheme.of(context).accent1,
                                           size: 22.0,
                                         ),
                                         Text(
@@ -2422,40 +2304,34 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(
-                                                              context)
+                                                      AppTheme.of(context)
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 0.0,
-                                                fontWeight:
-                                                    AppTheme.of(context)
-                                                        .titleSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    AppTheme.of(context)
-                                                        .titleSmall
-                                                        .fontStyle,
+                                                fontWeight: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
                                               ),
                                         ),
                                       ]
                                           .divide(SizedBox(
-                                              width:
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .spacing
-                                                      .lg))
+                                              width: AppTheme.of(context)
+                                                  .designToken
+                                                  .spacing
+                                                  .lg))
                                           .around(SizedBox(
-                                              width:
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .spacing
-                                                      .lg)),
+                                              width: AppTheme.of(context)
+                                                  .designToken
+                                                  .spacing
+                                                  .lg)),
                                     ),
                                   ),
                                 ]
@@ -2493,8 +2369,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 dotWidth: 8.0,
                                 dotHeight: 8.0,
                                 dotColor: AppTheme.of(context).accent1,
-                                activeDotColor:
-                                    AppTheme.of(context).primary,
+                                activeDotColor: AppTheme.of(context).primary,
                                 paintStyle: PaintingStyle.stroke,
                               ),
                             ),
@@ -2534,15 +2409,14 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         ),
                       Container(
                         decoration: BoxDecoration(
-                          color:
-                              AppTheme.of(context).secondaryBackground,
+                          color: AppTheme.of(context).secondaryBackground,
                         ),
                       ),
                       AppIconButton(
                         borderRadius: 8.0,
                         buttonSize: 56.0,
                         fillColor: AppTheme.of(context).primary,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_forward,
                           color: Colors.white,
                           size: 24.0,

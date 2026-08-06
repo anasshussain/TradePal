@@ -117,7 +117,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
           elevation: 0.0,
         ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Stack(
             children: [
               Padding(
@@ -143,6 +143,7 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
                               AppState().jobCache.jobs.length,
                               0,
                             ),
+                            itemText: 'Jobs',
                           ),
                         ),
                       ),

@@ -4,7 +4,7 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
 import '/models/structs/index.dart';
-import '/widgets/components/appbar_component/appbar_component_widget.dart';
+import '/widgets/page_header.dart';
 import '/widgets/components/empty_list_component/empty_list_component_widget.dart';
 import '/widgets/components/submitted_job_list_item/submitted_job_list_item_widget.dart';
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
@@ -137,54 +137,12 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          title: wrapWithModel(
-            model: _model.appbarComponentModel,
-            updateCallback: () => _provider.update(() {}),
-            child: AppbarComponentWidget(
-              title: 'My jobs',
-              showAction: false,
-              action: () async {},
-            ),
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 0.0,
-        ),
         body: SafeArea(
-          top: true,
-          child: Builder(
-            builder: (context) {
-              final activeIndex = _model.tabBarController!.index;
-              final activeFuture = [
-                _requestedJobsFuture,
-                _inProgressJobsFuture,
-                _completedJobsFuture,
-              ][activeIndex];
-              final activeCached = [
-                _cachedRequested,
-                _cachedInProgress,
-                _cachedCompleted,
-              ][activeIndex];
-
-              return FutureBuilder<ApiCallResponse>(
-                future: activeFuture,
-                initialData: activeCached,
-                builder: (context, activeSnapshot) {
-                  final isPageLoading = activeCached == null &&
-                      activeSnapshot.connectionState ==
-                          ConnectionState.waiting;
-
-                  return Skeletonizer(
-                    enabled: isPageLoading,
-                    child: _buildTabsStack(context),
-                  );
-                },
-              );
-            },
-          ),
+          // top: true,
+          // Each tab shows its own skeleton while its data is loading (see
+          // _buildJobsTab) — the header, tab bar, and bottom nav are always
+          // fully rendered, real chrome, so they shouldn't shimmer too.
+          child: _buildTabsStack(context),
         ),
       ),
     );
@@ -197,6 +155,19 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             children: [
+              Padding(
+                padding: EdgeInsets.all(
+                  valueOrDefault<double>(
+                    AppConstants.parentPagePadding,
+                    0.0,
+                  ),
+                ),
+                child: const PageHeaderWidget(
+                  title: 'My Jobs',
+                  subtitle:
+                      'Track your requested, in-progress, and completed jobs all in one place.',
+                ),
+              ),
               // ===== FIXED TAB BAR (does not scroll) =====
               Align(
                 alignment: const Alignment(0.0, 0),
@@ -241,10 +212,12 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                     Tab(text: 'Completed'),
                   ],
                   controller: _model.tabBarController,
-                  onTap: (i) async {
-                    [() async {}, () async {}, () async {}][i]();
-                  },
                 ),
+              ),
+              Divider(
+                height: 1.0,
+                thickness: 1.0,
+                color: AppTheme.of(context).alternate,
               ),
               // ===== SCROLLABLE TAB CONTENT (starts below the tab bar) =====
               // Each tab now has its own RefreshIndicator so pull-to-refresh
@@ -265,7 +238,10 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         child: _buildJobsTab(
                           future: _requestedJobsFuture,
                           cached: _cachedRequested,
-                          title: 'REQUESTED',
+                          emptyIcon: Icons.pending_actions_outlined,
+                          emptyTitle: 'No requested jobs yet',
+                          emptyDescription:
+                              'Browse available jobs and submit a proposal to see it here.',
                           keyPrefix: 'Keyngq',
                         ),
                       ),
@@ -282,7 +258,10 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         child: _buildJobsTab(
                           future: _inProgressJobsFuture,
                           cached: _cachedInProgress,
-                          title: 'IN PROGRESS',
+                          emptyIcon: Icons.build_outlined,
+                          emptyTitle: 'No jobs in progress',
+                          emptyDescription:
+                              'Once a client accepts your proposal, the job will move here.',
                           keyPrefix: 'Keysee',
                         ),
                       ),
@@ -299,7 +278,10 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         child: _buildJobsTab(
                           future: _completedJobsFuture,
                           cached: _cachedCompleted,
-                          title: 'COMPLETED',
+                          emptyIcon: Icons.task_alt,
+                          emptyTitle: 'No completed jobs yet',
+                          emptyDescription:
+                              'Jobs you\'ve finished will be saved here for your records.',
                           keyPrefix: 'Key707',
                         ),
                       ),
@@ -334,7 +316,9 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
   Widget _buildJobsTab({
     required Future<ApiCallResponse> future,
     required ApiCallResponse? cached,
-    required String title,
+    required IconData emptyIcon,
+    required String emptyTitle,
+    required String emptyDescription,
     required String keyPrefix,
   }) {
     return FutureBuilder<ApiCallResponse>(
@@ -358,11 +342,12 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             child: EmptyListComponentWidget(
               icon: Icon(
                 Icons.error_outline,
-                color: AppTheme.of(context).tertiary,
-                size: 40.0,
+                color: AppTheme.of(context).error,
+                size: 32.0,
               ),
-              title: title,
-              description: 'Jobs load nahi ho sake, dobara try karein',
+              title: 'Couldn\'t load jobs',
+              description:
+                  'Something went wrong. Pull down to try again.',
             ),
           );
         }
@@ -389,12 +374,12 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             physics: const AlwaysScrollableScrollPhysics(),
             child: EmptyListComponentWidget(
               icon: Icon(
-                Icons.work_history_sharp,
+                emptyIcon,
                 color: AppTheme.of(context).tertiary,
-                size: 40.0,
+                size: 32.0,
               ),
-              title: title,
-              description: 'JOBS NOT FOUND',
+              title: emptyTitle,
+              description: emptyDescription,
             ),
           );
         }

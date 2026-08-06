@@ -10,6 +10,9 @@ class JobDetailsProvider extends ChangeNotifier {
   static final Map<String, bool?> _cachedIsPaymentPaid = {};
   static final Map<String, UserStruct?> _cachedUser = {};
   static final Map<String, String?> _cachedSubmittedProposalStatus = {};
+  static final Map<String, String?> _cachedSubmittedProposalMessage = {};
+  static final Map<String, int?> _cachedSubmittedProposalQuoteAmount = {};
+  static final Map<String, String?> _cachedSubmittedProposalDuration = {};
 
   bool loading = true;
 
@@ -20,6 +23,9 @@ class JobDetailsProvider extends ChangeNotifier {
 
   bool? isProposalSubmitted;
   String? submittedProposalStatus;
+  String? submittedProposalMessage;
+  int? submittedProposalQuoteAmount;
+  String? submittedProposalDuration;
 
   List<ProposalListStruct> proposalsList = [];
 
@@ -35,7 +41,7 @@ class JobDetailsProvider extends ChangeNotifier {
       proposalsList.insert(index, item);
 
   void updateProposalsListAtIndex(
-      int index, Function(ProposalListStruct) updateFn) =>
+          int index, Function(ProposalListStruct) updateFn) =>
       proposalsList[index] = updateFn(proposalsList[index]);
 
   bool? isPaymentPaid;
@@ -73,6 +79,9 @@ class JobDetailsProvider extends ChangeNotifier {
     isPaymentPaid = _cachedIsPaymentPaid[jobId];
     user = _cachedUser[jobId];
     submittedProposalStatus = _cachedSubmittedProposalStatus[jobId];
+    submittedProposalMessage = _cachedSubmittedProposalMessage[jobId];
+    submittedProposalQuoteAmount = _cachedSubmittedProposalQuoteAmount[jobId];
+    submittedProposalDuration = _cachedSubmittedProposalDuration[jobId];
     loading = false;
   }
 
@@ -84,6 +93,9 @@ class JobDetailsProvider extends ChangeNotifier {
     _cachedIsPaymentPaid[jobId] = isPaymentPaid;
     _cachedUser[jobId] = user;
     _cachedSubmittedProposalStatus[jobId] = submittedProposalStatus;
+    _cachedSubmittedProposalMessage[jobId] = submittedProposalMessage;
+    _cachedSubmittedProposalQuoteAmount[jobId] = submittedProposalQuoteAmount;
+    _cachedSubmittedProposalDuration[jobId] = submittedProposalDuration;
     markLoaded(jobId);
   }
 

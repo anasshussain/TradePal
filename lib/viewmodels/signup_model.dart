@@ -43,6 +43,10 @@ class SignupModel extends AppModel<SignupWidget> {
       return 'Email is required';
     }
 
+    if (!RegExp(kTextValidatorEmailRegex).hasMatch(val)) {
+      return 'Has to be a valid email address.';
+    }
+
     return null;
   }
 
@@ -53,6 +57,10 @@ class SignupModel extends AppModel<SignupWidget> {
   String? _phoneTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Phone is required';
+    }
+
+    if (!RegExp(kTextValidatorPhoneRegex).hasMatch(val)) {
+      return 'Has to be a valid phone number.';
     }
 
     return null;
@@ -68,6 +76,10 @@ class SignupModel extends AppModel<SignupWidget> {
       return 'Password is required';
     }
 
+    if (!RegExp(kTextValidatorPasswordRegex).hasMatch(val)) {
+      return 'Password must be at least 8 characters and include a letter and a number.';
+    }
+
     return null;
   }
 
@@ -79,6 +91,14 @@ class SignupModel extends AppModel<SignupWidget> {
   String? _cPasswordTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Confirm Password is required';
+    }
+
+    if (!RegExp(kTextValidatorPasswordRegex).hasMatch(val)) {
+      return 'Password must be at least 8 characters and include a letter and a number.';
+    }
+
+    if (val != passwordTextController?.text) {
+      return 'Passwords do not match.';
     }
 
     return null;
