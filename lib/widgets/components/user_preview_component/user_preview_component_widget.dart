@@ -113,7 +113,7 @@ class _UserPreviewComponentWidgetState extends State<UserPreviewComponentWidget>
               width: 30.0,
               height: 30.0,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.0),
+                borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
                   color: AppTheme.of(context).primary,
                   width: 2.0,
