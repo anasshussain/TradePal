@@ -15,6 +15,8 @@ class ChatPageModel extends AppModel<ChatPageWidget> {
   ApiCallResponse? getJobDetail;
   // Stores action output result for [Backend Call - API (get proposal payment)] action in chat_page widget.
   ApiCallResponse? paymentStatusRes;
+  // Stores action output result for [Backend Call - Supabase RPC (mark conversation read)] action in chat_page widget.
+  ApiCallResponse? markConversationRes;
   // Model for appbar_component component.
   late AppbarComponentModel appbarComponentModel;
   // Stores action output result for [Backend Call - API (update job  status)] action in Button widget.

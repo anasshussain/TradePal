@@ -124,7 +124,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemCount: notification.length,
+                    itemCount: itemCount,
                     itemBuilder: (context, notificationIndex) {
                       final notificationItem = notification[notificationIndex];
                       return InkWell(

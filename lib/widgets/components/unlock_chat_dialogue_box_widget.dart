@@ -18,9 +18,11 @@ class UnlockChatDialogueBoxWidget extends StatefulWidget {
   const UnlockChatDialogueBoxWidget({
     super.key,
     required this.jobid,
+    this.onPaymentSuccess,
   });
 
   final String? jobid;
+  final VoidCallback? onPaymentSuccess;
 
   @override
   State<UnlockChatDialogueBoxWidget> createState() =>
@@ -226,7 +228,9 @@ class _UnlockChatDialogueBoxWidgetState
                               (_model.paymentIntentResponse?.jsonBody ?? ''),
                             )!,
                             'update',
-                            () async {},
+                            () async {
+                              widget!.onPaymentSuccess?.call();
+                            },
                           );
 
                           _model.paymentRes = await actions.makePayment(
