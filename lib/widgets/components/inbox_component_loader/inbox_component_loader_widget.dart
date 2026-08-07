@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-
 import '/core/utils/image_decode_size.dart';
 import '/widgets/components/text_loader/text_loader_widget.dart';
 import '/core/utils/animations.dart';
@@ -101,13 +99,12 @@ class _InboxComponentLoaderWidgetState extends State<InboxComponentLoaderWidget>
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      'https://images-ext-1.discordapp.net/external/AO96cLsz1bw1R0zy6qWuphMKgA7a3OkU2M3-zUSxcXM/%3Fq%3Dtbn%3AANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8%26usqp%3DCAU/https/encrypted-tbn0.gstatic.com/images?format=webp&width=562&height=360',
+                child: Image.network(
+                  'https://images-ext-1.discordapp.net/external/AO96cLsz1bw1R0zy6qWuphMKgA7a3OkU2M3-zUSxcXM/%3Fq%3Dtbn%3AANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8%26usqp%3DCAU/https/encrypted-tbn0.gstatic.com/images?format=webp&width=562&height=360',
                   width: 56.0,
                   height: 56.0,
-                  memCacheWidth: decodeCacheSize(context, 56.0),
-                  memCacheHeight: decodeCacheSize(context, 56.0),
+                  cacheWidth: decodeCacheSize(context, 56.0),
+                  cacheHeight: decodeCacheSize(context, 56.0),
                   fit: BoxFit.cover,
                 ),
               ).animateOnPageLoad(animationsMap['imageOnPageLoadAnimation']!),

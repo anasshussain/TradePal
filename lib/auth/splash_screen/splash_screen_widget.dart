@@ -80,23 +80,6 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
                   0;
             }
           }),
-          Future(() async {
-            final notificationsResult =
-                await SupabaseTablesGroup.getNotificationsCall.call(
-              userId: currentUserUid,
-            );
-            if (notificationsResult.succeeded) {
-              final fetchedNotifications = ((notificationsResult.jsonBody ?? '')
-                      .toList()
-                      .map<NotificationsStruct?>(NotificationsStruct.maybeFromMap)
-                      .toList() as Iterable<NotificationsStruct?>)
-                  .withoutNulls
-                  .toList()
-                  .cast<NotificationsStruct>();
-              AppState().unreadNotificationsCount =
-                  fetchedNotifications.where((n) => !n.isRead).length;
-            }
-          }),
         ]);
       } else {
         context.goNamed(
@@ -145,7 +128,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Stack(
             children: [
               Align(

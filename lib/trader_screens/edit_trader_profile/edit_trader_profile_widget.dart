@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -11,7 +9,6 @@ import '/widgets/app_choice_chips.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import '/widgets/app_button.dart';
-import '/widgets/app_uk_phone_prefix.dart';
 import '/core/utils/form_field_controller.dart';
 import '/core/utils/upload_data.dart';
 import 'dart:ui';
@@ -54,7 +51,6 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
       _provider.notify();
     }
   }
-
   @override
   void initState() {
     super.initState();
@@ -116,7 +112,6 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
     _provider.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     context.watch<AppState>();
@@ -129,6 +124,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
+
     String _resolveAvatarUrl() {
       final uploaded = _model.uploadedFileUrl_uploadImg;
       if (uploaded != null && uploaded.trim().isNotEmpty) {
@@ -142,16 +138,15 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
     }
 
     final bool _canSave = _hasChanges && !_model.isDataUploading_uploadImg;
-    debugPrint(
-        'DEBUG avatarUrl cached = "${AppState().userProfileCache.avatarUrl}"');
-    debugPrint(
-        'DEBUG uploadedFileUrl_uploadImg = "${_model.uploadedFileUrl_uploadImg}"');
+    debugPrint('DEBUG avatarUrl cached = "${AppState().userProfileCache.avatarUrl}"');
+    debugPrint('DEBUG uploadedFileUrl_uploadImg = "${_model.uploadedFileUrl_uploadImg}"');
+
 
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
-      }, //
+      },//
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
@@ -173,7 +168,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
           elevation: 0.0,
         ),
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Stack(
             children: [
               Padding(
@@ -190,47 +185,63 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context).designToken.radius.lg),
+                              AppTheme.of(context)
+                                  .designToken
+                                  .radius
+                                  .lg),
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppTheme.of(context).secondaryBackground,
+                            color: AppTheme.of(context)
+                                .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context).designToken.radius.lg),
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .lg),
                             border: Border.all(
                               color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(
-                                AppTheme.of(context).designToken.spacing.lg),
+                            padding: EdgeInsets.all(AppTheme.of(context)
+                                .designToken
+                                .spacing
+                                .lg),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Stack(
-                                  alignment:
-                                      const AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   children: [
                                     Material(
                                       color: Colors.transparent,
-                                      elevation: 4.0,
-                                      shadowColor:
-                                          Colors.black.withOpacity(0.25),
-                                      shape: const CircleBorder(),
+                                      elevation: 0.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            AppTheme.of(context)
+                                                .designToken
+                                                .radius
+                                                .sm),
+                                      ),
                                       child: Container(
                                         width: 128.0,
                                         height: 128.0,
                                         decoration: BoxDecoration(
                                           color: AppTheme.of(context)
                                               .secondaryBackground,
-                                          shape: BoxShape.circle,
+                                          borderRadius: BorderRadius.circular(
+                                              AppTheme.of(context)
+                                                  .designToken
+                                                  .radius
+                                                  .sm),
                                           border: Border.all(
                                             color: Colors.white,
                                             width: 2.0,
                                           ),
                                         ),
-                                        alignment: const AlignmentDirectional(
-                                            0.0, 0.0),
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Container(
                                           width: 100.0,
                                           height: 100.0,
@@ -238,58 +249,39 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
-                                          child:
-                                              _model.uploadedLocalFile_uploadImg
-                                                          ?.bytes !=
-                                                      null
-                                                  ? Image.memory(
-                                                      _model
-                                                          .uploadedLocalFile_uploadImg!
-                                                          .bytes!,
-                                                      fit: BoxFit.cover,
-                                                      errorBuilder: (context,
-                                                              error,
-                                                              stackTrace) =>
-                                                          Icon(
-                                                        Icons.person,
-                                                        size: 50.0,
-                                                        color:
-                                                            AppTheme.of(context)
-                                                                .secondaryText,
-                                                      ),
-                                                    )
-                                                  : CachedNetworkImage(
-                                                      key: ValueKey(
-                                                          _resolveAvatarUrl()),
-                                                      imageUrl:
-                                                          _resolveAvatarUrl(),
-                                                      fit: BoxFit.cover,
-                                                      placeholder:
-                                                          (context, url) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 24.0,
-                                                            height: 24.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              strokeWidth: 2.0,
-                                                              color: AppTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          Icon(
-                                                        Icons.person,
-                                                        size: 50.0,
-                                                        color:
-                                                            AppTheme.of(context)
-                                                                .secondaryText,
-                                                      ),
-                                                    ),
+                                          child: _model.uploadedLocalFile_uploadImg?.bytes != null
+                                              ? Image.memory(
+                                            _model.uploadedLocalFile_uploadImg!.bytes!,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) => Icon(
+                                              Icons.person,
+                                              size: 50.0,
+                                              color: AppTheme.of(context).secondaryText,
+                                            ),
+                                          )
+                                              : Image.network(
+                                            _resolveAvatarUrl(),
+                                            key: ValueKey(_resolveAvatarUrl()),
+                                            fit: BoxFit.cover,
+                                            loadingBuilder: (context, child, loadingProgress) {
+                                              if (loadingProgress == null) return child;
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 24.0,
+                                                  height: 24.0,
+                                                  child: CircularProgressIndicator(
+                                                    strokeWidth: 2.0,
+                                                    color: AppTheme.of(context).primary,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            errorBuilder: (context, error, stackTrace) => Icon(
+                                              Icons.person,
+                                              size: 50.0,
+                                              color: AppTheme.of(context).secondaryText,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -297,47 +289,33 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       alignment:
                                           const AlignmentDirectional(0.34, 0.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 97.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 97.0, 0.0, 0.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            final selectedMedia =
-                                                await selectMedia(
+                                            final selectedMedia = await selectMedia(
                                               storageFolderPath: 'user',
-                                              mediaSource:
-                                                  MediaSource.photoGallery,
+                                              mediaSource: MediaSource.photoGallery,
                                               multiImage: false,
                                             );
                                             if (selectedMedia != null &&
-                                                selectedMedia.every((m) =>
-                                                    validateFileFormat(
-                                                        m.storagePath,
-                                                        context))) {
+                                                selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
+
                                               final localFile = UploadedFile(
-                                                name: selectedMedia
-                                                    .first.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes:
-                                                    selectedMedia.first.bytes,
-                                                height: selectedMedia
-                                                    .first.dimensions?.height,
-                                                width: selectedMedia
-                                                    .first.dimensions?.width,
-                                                blurHash: selectedMedia
-                                                    .first.blurHash,
-                                                originalFilename: selectedMedia
-                                                    .first.originalFilename,
+                                                name: selectedMedia.first.storagePath.split('/').last,
+                                                bytes: selectedMedia.first.bytes,
+                                                height: selectedMedia.first.dimensions?.height,
+                                                width: selectedMedia.first.dimensions?.width,
+                                                blurHash: selectedMedia.first.blurHash,
+                                                originalFilename: selectedMedia.first.originalFilename,
                                               );
                                               _provider.update(() {
-                                                _model.uploadedLocalFile_uploadImg =
-                                                    localFile;
-                                                _model.isDataUploading_uploadImg =
-                                                    true;
+                                                _model.uploadedLocalFile_uploadImg = localFile;
+                                                _model.isDataUploading_uploadImg = true;
                                                 _hasChanges = true;
                                               });
                                               uploadSupabaseStorageFiles(
@@ -346,44 +324,42 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ).then((downloadUrls) {
                                                 if (downloadUrls.isNotEmpty) {
                                                   _provider.update(() {
-                                                    _model.uploadedFileUrl_uploadImg =
-                                                        downloadUrls.first;
-                                                    _model.isDataUploading_uploadImg =
-                                                        false;
+                                                    _model.uploadedFileUrl_uploadImg = downloadUrls.first;
+                                                    _model.isDataUploading_uploadImg = false;
                                                   });
                                                 } else {
-                                                  _provider.update(() => _model
-                                                          .isDataUploading_uploadImg =
-                                                      false);
+                                                  _provider.update(() => _model.isDataUploading_uploadImg = false);
                                                 }
                                               });
                                             }
                                           },
                                           child: Material(
                                             color: Colors.transparent,
-                                            elevation: 3.0,
-                                            shadowColor:
-                                                Colors.black.withOpacity(0.3),
-                                            shape: const CircleBorder(),
+                                            elevation: 0.0,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(0.0),
+                                            ),
                                             child: Container(
                                               width: 32.0,
                                               height: 32.0,
                                               decoration: BoxDecoration(
-                                                color: AppTheme.of(context)
-                                                    .primary,
-                                                shape: BoxShape.circle,
+                                                color:
+                                                    AppTheme.of(context)
+                                                        .primary,
+                                                borderRadius:
+                                                    BorderRadius.circular(0.0),
                                                 border: Border.all(
                                                   color: Colors.white,
                                                   width: 2.0,
                                                 ),
                                               ),
-                                              alignment:
-                                                  const AlignmentDirectional(
-                                                      0.0, 0.0),
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
                                               child: const Icon(
                                                 Icons.edit,
                                                 color: Colors.white,
-                                                size: 18.0,
+                                                size: 22.0,
                                               ),
                                             ),
                                           ),
@@ -401,12 +377,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       .headlineSmall
                                       .override(
                                         font: GoogleFonts.manrope(
-                                          fontWeight: AppTheme.of(context)
-                                              .headlineSmall
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .headlineSmall
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
                                         ),
                                         letterSpacing: 0.0,
                                         fontWeight: AppTheme.of(context)
@@ -433,17 +411,20 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
-                                              color: AppTheme.of(context)
-                                                  .primaryText,
+                                              color:
+                                                  AppTheme.of(context)
+                                                      .primaryText,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                       const TextSpan(
@@ -465,17 +446,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
-                                          color:
-                                              AppTheme.of(context).primaryText,
+                                          color: AppTheme.of(context)
+                                              .primaryText,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -500,7 +483,10 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context).designToken.radius.md),
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .md),
                           ),
                           child: Container(
                             width: double.infinity,
@@ -508,14 +494,20 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                             decoration: BoxDecoration(
                               color: AppTheme.of(context).secondary,
                               borderRadius: BorderRadius.circular(
-                                  AppTheme.of(context).designToken.radius.md),
+                                  AppTheme.of(context)
+                                      .designToken
+                                      .radius
+                                      .md),
                               border: Border.all(
                                 color: AppTheme.of(context).alternate,
                               ),
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(
-                                  AppTheme.of(context).designToken.spacing.md),
+                                  AppTheme.of(context)
+                                      .designToken
+                                      .spacing
+                                      .md),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,21 +526,25 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
-                                                fontWeight: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                               color: Colors.white,
                                               letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ].divide(SizedBox(
@@ -563,21 +559,25 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         .bodyMedium
                                         .override(
                                           font: GoogleFonts.manrope(
-                                            fontWeight: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                           color: Colors.white,
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ].divide(SizedBox(
@@ -606,14 +606,17 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                             ),
                             Text(
                               'PERSONAL DETAILS',
-                              style: AppTheme.of(context).bodyMedium.override(
+                              style: AppTheme.of(context)
+                                  .bodyMedium
+                                  .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.w600,
                                       fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: AppTheme.of(context).primaryText,
+                                    color: AppTheme.of(context)
+                                        .primaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: AppTheme.of(context)
@@ -622,8 +625,10 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                             ),
                           ].divide(SizedBox(
-                              width:
-                                  AppTheme.of(context).designToken.spacing.md)),
+                              width: AppTheme.of(context)
+                                  .designToken
+                                  .spacing
+                                  .md)),
                         ),
                       ),
                       SizedBox(
@@ -638,28 +643,36 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context).designToken.radius.lg),
+                              AppTheme.of(context)
+                                  .designToken
+                                  .radius
+                                  .lg),
                         ),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: AppTheme.of(context).secondaryBackground,
+                            color: AppTheme.of(context)
+                                .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context).designToken.radius.lg),
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .lg),
                             border: Border.all(
                               color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(
-                                AppTheme.of(context).designToken.spacing.xl),
+                            padding: EdgeInsets.all(AppTheme.of(context)
+                                .designToken
+                                .spacing
+                                .xl),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
                                     'Full Name',
                                     style: AppTheme.of(context)
@@ -667,17 +680,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
-                                          color:
-                                              AppTheme.of(context).primaryText,
+                                          color: AppTheme.of(context)
+                                              .primaryText,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -691,15 +706,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
@@ -717,52 +733,67 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
-                                              labelStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .primaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
-                                              hintStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .hint,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              labelStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                              hintStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
                                                   color: Color(0x00000000),
@@ -781,7 +812,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -791,7 +823,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -804,26 +837,31 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor: AppTheme.of(context)
-                                                .primaryText,
+                                            cursorColor:
+                                                AppTheme.of(context)
+                                                    .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .nameTextControllerValidator
@@ -839,8 +877,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -857,17 +894,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -882,15 +921,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
@@ -908,52 +948,67 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
-                                              labelStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .primaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
-                                              hintStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .hint,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              labelStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                              hintStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
                                                   color: Color(0x00000000),
@@ -972,7 +1027,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -982,7 +1038,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -995,26 +1052,31 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor: AppTheme.of(context)
-                                                .primaryText,
+                                            cursorColor:
+                                                AppTheme.of(context)
+                                                    .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .regNoTextControllerValidator
@@ -1030,8 +1092,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1048,17 +1109,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -1073,15 +1136,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
@@ -1100,52 +1164,67 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
-                                              labelStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .primaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
-                                              hintStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .hint,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              labelStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                              hintStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
                                                   color: Color(0x00000000),
@@ -1164,7 +1243,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -1174,7 +1254,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -1187,26 +1268,31 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor: AppTheme.of(context)
-                                                .primaryText,
+                                            cursorColor:
+                                                AppTheme.of(context)
+                                                    .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .emailTextControllerValidator
@@ -1218,8 +1304,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1236,17 +1321,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -1261,15 +1348,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
@@ -1287,58 +1375,67 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
-                                              prefixIcon:
-                                                  const AppUkPhonePrefix(),
-                                              prefixIconConstraints:
-                                                  const BoxConstraints(
-                                                      minWidth: 0,
-                                                      minHeight: 0),
-                                              labelStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .primaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
-                                              hintStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .hint,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              labelStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                              hintStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
                                                   color: Color(0x00000000),
@@ -1357,7 +1454,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -1367,7 +1465,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -1380,26 +1479,31 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor: AppTheme.of(context)
-                                                .primaryText,
+                                            cursorColor:
+                                                AppTheme.of(context)
+                                                    .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .phoneTextControllerValidator
@@ -1411,8 +1515,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1429,17 +1532,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -1454,15 +1559,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
@@ -1481,52 +1587,67 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
-                                              labelStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .primaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
-                                              hintStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .hint,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              labelStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                              hintStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
                                                   color: Color(0x00000000),
@@ -1545,7 +1666,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -1555,7 +1677,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -1568,26 +1691,31 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor: AppTheme.of(context)
-                                                .primaryText,
+                                            cursorColor:
+                                                AppTheme.of(context)
+                                                    .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .professionTextControllerValidator
@@ -1599,8 +1727,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -1617,17 +1744,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -1642,10 +1771,12 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Padding(
@@ -1659,14 +1790,14 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         children: [
                                           Icon(
                                             Icons.location_on_outlined,
-                                            color: AppTheme.of(context).primary,
+                                            color: AppTheme.of(context)
+                                                .primary,
                                             size: 20.0,
                                           ),
                                           Expanded(
                                             child: Align(
-                                              alignment:
-                                                  const AlignmentDirectional(
-                                                      0.0, 0.0),
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
                                               child: SizedBox(
                                                 width: double.infinity,
                                                 child: TextFormField(
@@ -1679,8 +1810,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
-                                                    labelStyle: AppTheme.of(
-                                                            context)
+                                                    labelStyle: AppTheme
+                                                            .of(context)
                                                         .labelMedium
                                                         .override(
                                                           font:
@@ -1696,8 +1827,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                     .labelMedium
                                                                     .fontStyle,
                                                           ),
-                                                          color: AppTheme.of(
-                                                                  context)
+                                                          color: AppTheme
+                                                                  .of(context)
                                                               .primaryText,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -1711,37 +1842,38 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
-                                                    hintStyle: AppTheme.of(
-                                                            context)
-                                                        .labelMedium
-                                                        .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontStyle:
-                                                                AppTheme.of(
+                                                    hintStyle:
+                                                        AppTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .manrope(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
-                                                                    .labelMedium
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
                                                                     .fontStyle,
-                                                          ),
-                                                          color: AppTheme.of(
-                                                                  context)
-                                                              .hint,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              AppTheme.of(
-                                                                      context)
-                                                                  .labelMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                              ),
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  AppTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  AppTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
                                                     enabledBorder:
                                                         OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -1752,8 +1884,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                     ),
                                                     focusedBorder:
                                                         OutlineInputBorder(
-                                                      borderSide:
-                                                          const BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Color(0x00000000),
                                                         width: 1.0,
@@ -1766,7 +1897,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                         OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .error,
                                                         width: 1.0,
                                                       ),
@@ -1778,7 +1910,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                         OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .error,
                                                         width: 1.0,
                                                       ),
@@ -1787,7 +1920,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                               8.0),
                                                     ),
                                                   ),
-                                                  style: AppTheme.of(context)
+                                                  style: AppTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
@@ -1805,16 +1939,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                         ),
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                                   cursorColor:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .primaryText,
                                                   enableInteractiveSelection:
                                                       true,
@@ -1878,11 +2015,13 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       .override(
                                         font: GoogleFonts.manrope(
                                           fontWeight: FontWeight.w600,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
-                                        color: AppTheme.of(context).primaryText,
+                                        color: AppTheme.of(context)
+                                            .primaryText,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: AppTheme.of(context)
@@ -1903,7 +2042,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  final skill = await showDialog<String>(
+                                  await showDialog(
                                     context: context,
                                     builder: (dialogContext) {
                                       return Dialog(
@@ -1925,24 +2064,13 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         ),
                                       );
                                     },
-                                  );
+                                  ).then((value) =>
+                                      _provider.update(() => _model.skill = value));
 
-                                  // The dialog resolves with null if the user
-                                  // closes it (including tapping the
-                                  // barrier) without picking a skill.
-                                  final trimmedSkill = skill?.trim() ?? '';
-                                  if (trimmedSkill.isEmpty) return;
-                                  final alreadyAdded = _provider.selectedSkills
-                                      .any((s) =>
-                                          s.toLowerCase() ==
-                                          trimmedSkill.toLowerCase());
-                                  if (alreadyAdded) return;
+                                  _provider.addToSelectedSkills(_model.skill!);
+                                  _provider.notify();
 
-                                  _provider.update(() {
-                                    _model.skill = trimmedSkill;
-                                    _provider.addToSelectedSkills(trimmedSkill);
-                                    _hasChanges = true;
-                                  });
+                                  _provider.notify();
                                 },
                                 child: Container(
                                   width: 110.0,
@@ -1955,7 +2083,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     children: [
                                       Icon(
                                         Icons.add,
-                                        color: AppTheme.of(context).primary,
+                                        color: AppTheme.of(context)
+                                            .primary,
                                         size: 22.0,
                                       ),
                                       Text(
@@ -1965,17 +2094,20 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             .override(
                                               font: GoogleFonts.manrope(
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                               color:
-                                                  AppTheme.of(context).primary,
+                                                  AppTheme.of(context)
+                                                      .primary,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ].divide(SizedBox(
@@ -1988,8 +2120,10 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                               ),
                             ),
                           ].divide(SizedBox(
-                              width:
-                                  AppTheme.of(context).designToken.spacing.md)),
+                              width: AppTheme.of(context)
+                                  .designToken
+                                  .spacing
+                                  .md)),
                         ),
                       ),
                       Material(
@@ -1997,14 +2131,21 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context).designToken.radius.sm),
+                              AppTheme.of(context)
+                                  .designToken
+                                  .radius
+                                  .sm),
                         ),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: AppTheme.of(context).secondaryBackground,
+                            color: AppTheme.of(context)
+                                .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context).designToken.radius.sm),
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .sm),
                             border: Border.all(
                               color: AppTheme.of(context).alternate,
                             ),
@@ -2016,8 +2157,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                             onChanged: (val) => _provider.update(() =>
                                 _model.choiceChipsValue = val?.firstOrNull),
                             selectedChipStyle: ChipStyle(
-                              backgroundColor:
-                                  AppTheme.of(context).secondaryBackground,
+                              backgroundColor: AppTheme.of(context)
+                                  .secondaryBackground,
                               textStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -2029,7 +2170,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: AppTheme.of(context).secondaryText,
+                                    color: AppTheme.of(context)
+                                        .secondaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: AppTheme.of(context)
                                         .bodyMedium
@@ -2044,8 +2186,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             unselectedChipStyle: ChipStyle(
-                              backgroundColor:
-                                  AppTheme.of(context).secondaryBackground,
+                              backgroundColor: AppTheme.of(context)
+                                  .secondaryBackground,
                               textStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -2057,7 +2199,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: AppTheme.of(context).secondaryText,
+                                    color: AppTheme.of(context)
+                                        .secondaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: AppTheme.of(context)
                                         .bodyMedium
@@ -2100,14 +2243,17 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                             ),
                             Text(
                               'INSURANCE DETAILS',
-                              style: AppTheme.of(context).bodyMedium.override(
+                              style: AppTheme.of(context)
+                                  .bodyMedium
+                                  .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: FontWeight.w600,
                                       fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: AppTheme.of(context).primaryText,
+                                    color: AppTheme.of(context)
+                                        .primaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: AppTheme.of(context)
@@ -2116,8 +2262,10 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                             ),
                           ].divide(SizedBox(
-                              width:
-                                  AppTheme.of(context).designToken.spacing.md)),
+                              width: AppTheme.of(context)
+                                  .designToken
+                                  .spacing
+                                  .md)),
                         ),
                       ),
                       SizedBox(
@@ -2132,28 +2280,36 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context).designToken.radius.lg),
+                              AppTheme.of(context)
+                                  .designToken
+                                  .radius
+                                  .lg),
                         ),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: AppTheme.of(context).secondaryBackground,
+                            color: AppTheme.of(context)
+                                .secondaryBackground,
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context).designToken.radius.lg),
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .lg),
                             border: Border.all(
                               color: AppTheme.of(context).alternate,
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(
-                                AppTheme.of(context).designToken.spacing.xl),
+                            padding: EdgeInsets.all(AppTheme.of(context)
+                                .designToken
+                                .spacing
+                                .xl),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
                                     'PROVIDER NAME',
                                     style: AppTheme.of(context)
@@ -2161,17 +2317,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                         .override(
                                           font: GoogleFonts.manrope(
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
-                                          color:
-                                              AppTheme.of(context).primaryText,
+                                          color: AppTheme.of(context)
+                                              .primaryText,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                 ),
@@ -2185,15 +2343,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
@@ -2212,53 +2371,68 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
-                                              labelStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .primaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              labelStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                               hintText: 'e.g. Aviva Insurance',
-                                              hintStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .hint,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              hintStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
                                                   color: Color(0x00000000),
@@ -2277,7 +2451,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -2287,7 +2462,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -2300,26 +2476,31 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor: AppTheme.of(context)
-                                                .primaryText,
+                                            cursorColor:
+                                                AppTheme.of(context)
+                                                    .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .insuranceCompanyTextControllerValidator
@@ -2335,8 +2516,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -2353,17 +2533,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -2378,15 +2560,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                     width: double.infinity,
                                     height: 54.0,
                                     decoration: BoxDecoration(
-                                      color: AppTheme.of(context).accent4,
+                                      color:
+                                          AppTheme.of(context).accent4,
                                       borderRadius: BorderRadius.circular(0.0),
                                       border: Border.all(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                     child: Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsets.all(
                                             AppTheme.of(context)
@@ -2405,53 +2588,68 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
-                                              labelStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .primaryText,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              labelStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
                                               hintText: 'e.g. £50,000',
-                                              hintStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    font: GoogleFonts.inter(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          AppTheme.of(context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    color: AppTheme.of(context)
-                                                        .hint,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontStyle:
-                                                        AppTheme.of(context)
-                                                            .labelMedium
-                                                            .fontStyle,
-                                                  ),
+                                              hintStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.manrope(
+                                                          fontWeight:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
                                                   color: Color(0x00000000),
@@ -2470,7 +2668,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -2480,7 +2679,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: AppTheme.of(context)
+                                                  color: AppTheme.of(
+                                                          context)
                                                       .error,
                                                   width: 1.0,
                                                 ),
@@ -2493,26 +2693,31 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                 .override(
                                                   font: GoogleFonts.manrope(
                                                     fontWeight:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontWeight,
                                                     fontStyle:
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .bodyMedium
                                                             .fontStyle,
                                                   ),
                                                   letterSpacing: 0.0,
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                            cursorColor: AppTheme.of(context)
-                                                .primaryText,
+                                            cursorColor:
+                                                AppTheme.of(context)
+                                                    .primaryText,
                                             enableInteractiveSelection: true,
                                             validator: _model
                                                 .insuranceAmountTextControllerValidator
@@ -2528,8 +2733,7 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(-1.0, -1.0),
+                                  alignment: const AlignmentDirectional(-1.0, -1.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0,
@@ -2546,17 +2750,19 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                           .override(
                                             font: GoogleFonts.manrope(
                                               fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -2567,52 +2773,55 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    final now = DateTime.now();
                                     final _datePickedDate =
                                         await showDatePicker(
                                       context: context,
-                                      // initialDate: getCurrentTimestamp,
-                                      // firstDate: DateTime(1900),
-                                      initialDate: now,
-                                      firstDate: DateTime(now.year, now.month,
-                                          now.day), // Today only
+                                      initialDate: getCurrentTimestamp,
+                                      firstDate: DateTime(1900),
                                       lastDate: DateTime(2050),
                                       builder: (context, child) {
                                         return wrapInMaterialDatePickerTheme(
                                           context,
                                           child!,
                                           headerBackgroundColor:
-                                              AppTheme.of(context).primary,
+                                              AppTheme.of(context)
+                                                  .primary,
                                           headerForegroundColor:
                                               AppTheme.of(context).info,
-                                          headerTextStyle: AppTheme.of(context)
+                                          headerTextStyle: AppTheme.of(
+                                                  context)
                                               .headlineLarge
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .headlineLarge
                                                           .fontStyle,
                                                 ),
                                                 fontSize: 32.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
-                                                fontStyle: AppTheme.of(context)
-                                                    .headlineLarge
-                                                    .fontStyle,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .headlineLarge
+                                                        .fontStyle,
                                               ),
                                           pickerBackgroundColor:
                                               AppTheme.of(context)
                                                   .secondaryBackground,
                                           pickerForegroundColor:
-                                              AppTheme.of(context).primaryText,
+                                              AppTheme.of(context)
+                                                  .primaryText,
                                           selectedDateTimeBackgroundColor:
-                                              AppTheme.of(context).primary,
+                                              AppTheme.of(context)
+                                                  .primary,
                                           selectedDateTimeForegroundColor:
                                               AppTheme.of(context).info,
                                           actionButtonForegroundColor:
-                                              AppTheme.of(context).primaryText,
+                                              AppTheme.of(context)
+                                                  .primaryText,
                                           iconSize: 24.0,
                                         );
                                       },
@@ -2643,11 +2852,13 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                       width: double.infinity,
                                       height: 54.0,
                                       decoration: BoxDecoration(
-                                        color: AppTheme.of(context).accent4,
+                                        color: AppTheme.of(context)
+                                            .accent4,
                                         borderRadius:
                                             BorderRadius.circular(0.0),
                                         border: Border.all(
-                                          color: AppTheme.of(context).alternate,
+                                          color: AppTheme.of(context)
+                                              .alternate,
                                         ),
                                       ),
                                       child: Padding(
@@ -2664,13 +2875,13 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Align(
-                                              alignment:
-                                                  const AlignmentDirectional(
-                                                      0.0, 0.0),
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        AppTheme.of(context)
+                                                        AppTheme.of(
+                                                                context)
                                                             .designToken
                                                             .spacing
                                                             .lg,
@@ -2689,7 +2900,8 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                       : AppState()
                                                           .userProfileCache
                                                           .insuranceExpiry,
-                                                  style: AppTheme.of(context)
+                                                  style: AppTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         font:
@@ -2703,13 +2915,15 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                                                   .fontStyle,
                                                         ),
                                                         color:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .primaryText,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontStyle:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
@@ -2719,14 +2933,16 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                                             Icon(
                                               Icons.calendar_month,
                                               color:
-                                                  AppTheme.of(context).primary,
+                                                  AppTheme.of(context)
+                                                      .primary,
                                               size: 20.0,
                                             ),
                                           ].divide(SizedBox(
-                                              width: AppTheme.of(context)
-                                                  .designToken
-                                                  .spacing
-                                                  .sm)),
+                                              width:
+                                                  AppTheme.of(context)
+                                                      .designToken
+                                                      .spacing
+                                                      .sm)),
                                         ),
                                       ),
                                     ),
@@ -2758,126 +2974,109 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                         onPressed: !_canSave
                             ? null
                             : () async {
-                                _model.updateUserResult =
-                                    await SupabaseTablesGroup.updateUserCall
-                                        .call(
-                                  profileImage: _model
-                                                  .uploadedFileUrl_uploadImg !=
-                                              null &&
-                                          _model.uploadedFileUrl_uploadImg != ''
-                                      ? _model.uploadedFileUrl_uploadImg
-                                      : AppState().userProfileCache.avatarUrl,
-                                  userId: currentUserUid,
-                                  name: _model.nameTextController.text,
-                                  regNo: _model.regNoTextController.text,
-                                  serviceArea:
-                                      _model.serviceAreaTextController.text,
-                                  phone: _model.phoneTextController.text,
-                                  profession:
-                                      _model.professionTextController.text,
-                                  insuranceCompany: _model
-                                      .insuranceCompanyTextController.text,
-                                  insuranceAmount:
-                                      _model.insuranceAmountTextController.text,
-                                  insuranceExpiry: _model.datePicked != null
-                                      ? valueOrDefault<String>(
-                                          dateTimeFormat(
-                                              "yMMMd", _model.datePicked),
-                                          'DD/MM/YYYY',
-                                        )
-                                      : AppState()
-                                          .userProfileCache
-                                          .insuranceExpiry,
-                                  skillsList:
-                                      _provider.selectedSkills.isNotEmpty
-                                          ? _provider.selectedSkills
-                                          : AppState().userProfileCache.skills,
+                          _model.updateUserResult =
+                              await SupabaseTablesGroup.updateUserCall.call(
+                            profileImage:
+                                _model.uploadedFileUrl_uploadImg != null &&
+                                        _model.uploadedFileUrl_uploadImg != ''
+                                    ? _model.uploadedFileUrl_uploadImg
+                                    : AppState().userProfileCache.avatarUrl,
+                            userId: currentUserUid,
+                            name: _model.nameTextController.text,
+                            regNo: _model.regNoTextController.text,
+                            serviceArea: _model.serviceAreaTextController.text,
+                            phone: _model.phoneTextController.text,
+                            profession: _model.professionTextController.text,
+                            insuranceCompany:
+                                _model.insuranceCompanyTextController.text,
+                            insuranceAmount:
+                                _model.insuranceAmountTextController.text,
+                            insuranceExpiry: _model.datePicked != null
+                                ? valueOrDefault<String>(
+                                    dateTimeFormat("yMMMd", _model.datePicked),
+                                    'DD/MM/YYYY',
+                                  )
+                                : AppState().userProfileCache.insuranceExpiry,
+                            skillsList: _provider.selectedSkills.isNotEmpty
+                                ? _provider.selectedSkills
+                                : AppState().userProfileCache.skills,
+                          );
+
+                          if ((_model.updateUserResult?.succeeded ?? true)) {
+                            await Future.wait([
+                              Future(() async {
+                                AppState().updateUserProfileCacheStruct(
+                                  (e) => e
+                                    ..avatarUrl = _model
+                                                    .uploadedFileUrl_uploadImg !=
+                                                null &&
+                                            _model.uploadedFileUrl_uploadImg !=
+                                                ''
+                                        ? _model.uploadedFileUrl_uploadImg
+                                        : AppState()
+                                            .userProfileCache
+                                            .avatarUrl
+                                    ..registrationNumber =
+                                        _model.regNoTextController.text
+                                    ..serviceArea =
+                                        _model.serviceAreaTextController.text
+                                    ..name = _model.nameTextController.text
+                                    ..phone = _model.phoneTextController.text
+                                    ..profession =
+                                        _model.professionTextController.text
+                                    ..insuranceCompany = _model
+                                        .insuranceCompanyTextController.text
+                                    ..insuranceExpiry =
+                                        _model.datePicked != null
+                                            ? valueOrDefault<String>(
+                                                dateTimeFormat(
+                                                    "yMMMd", _model.datePicked),
+                                                'DD/MM/YYYY',
+                                              )
+                                            : AppState()
+                                                .userProfileCache
+                                                .insuranceExpiry
+                                    ..insuranceAmount = _model
+                                        .insuranceAmountTextController.text
+                                    ..skills = _provider.selectedSkills.isNotEmpty
+                                        ? _provider.selectedSkills
+                                        : AppState()
+                                            .userProfileCache
+                                            .skills
+                                            .toList(),
                                 );
+                                AppState().update(() {});
+                              }),
+                              Future(() async {
+                                await actions.showToast(
+                                  context,
+                                  'updated successfully',
+                                  2,
+                                );
+                              }),
+                              Future(() async {
+                                context.goNamed(
+                                  TraderProfileWidget.routeName,
+                                  extra: <String, dynamic>{
+                                    '__transition_info__': const TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 0),
+                                    ),
+                                  },
+                                );
+                              }),
+                            ]);
+                          } else {
+                            await actions.showToast(
+                              context,
+                              'update failed',
+                              2,
+                            );
+                          }
 
-                                if ((_model.updateUserResult?.succeeded ??
-                                    true)) {
-                                  await Future.wait([
-                                    Future(() async {
-                                      AppState().updateUserProfileCacheStruct(
-                                        (e) => e
-                                          ..avatarUrl =
-                                              _model.uploadedFileUrl_uploadImg !=
-                                                          null &&
-                                                      _model.uploadedFileUrl_uploadImg !=
-                                                          ''
-                                                  ? _model
-                                                      .uploadedFileUrl_uploadImg
-                                                  : AppState()
-                                                      .userProfileCache
-                                                      .avatarUrl
-                                          ..registrationNumber =
-                                              _model.regNoTextController.text
-                                          ..serviceArea = _model
-                                              .serviceAreaTextController.text
-                                          ..name =
-                                              _model.nameTextController.text
-                                          ..phone =
-                                              _model.phoneTextController.text
-                                          ..profession = _model
-                                              .professionTextController.text
-                                          ..insuranceCompany = _model
-                                              .insuranceCompanyTextController
-                                              .text
-                                          ..insuranceExpiry =
-                                              _model.datePicked != null
-                                                  ? valueOrDefault<String>(
-                                                      dateTimeFormat("yMMMd",
-                                                          _model.datePicked),
-                                                      'DD/MM/YYYY',
-                                                    )
-                                                  : AppState()
-                                                      .userProfileCache
-                                                      .insuranceExpiry
-                                          ..insuranceAmount = _model
-                                              .insuranceAmountTextController
-                                              .text
-                                          ..skills = _provider
-                                                  .selectedSkills.isNotEmpty
-                                              ? _provider.selectedSkills
-                                              : AppState()
-                                                  .userProfileCache
-                                                  .skills
-                                                  .toList(),
-                                      );
-                                      AppState().update(() {});
-                                    }),
-                                    Future(() async {
-                                      await actions.showToast(
-                                        context,
-                                        'updated successfully',
-                                        2,
-                                      );
-                                    }),
-                                    Future(() async {
-                                      context.goNamed(
-                                        TraderProfileWidget.routeName,
-                                        extra: <String, dynamic>{
-                                          '__transition_info__':
-                                              const TransitionInfo(
-                                            hasTransition: true,
-                                            transitionType:
-                                                PageTransitionType.fade,
-                                            duration: Duration(milliseconds: 0),
-                                          ),
-                                        },
-                                      );
-                                    }),
-                                  ]);
-                                } else {
-                                  await actions.showToast(
-                                    context,
-                                    'update failed',
-                                    2,
-                                  );
-                                }
-
-                                _provider.notify();
-                              },
+                          _provider.notify();
+                        },
                         text: 'Save',
                         options: AppButtonOptions(
                           width: 300.0,
@@ -2889,29 +3088,35 @@ class _EditTraderProfileWidgetState extends State<EditTraderProfileWidget> {
                           color: _canSave
                               ? AppTheme.of(context).primary
                               : AppTheme.of(context).alternate,
-                          textStyle: AppTheme.of(context).titleSmall.override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: AppTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle:
-                                      AppTheme.of(context).titleSmall.fontStyle,
-                                ),
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                                fontWeight:
-                                    AppTheme.of(context).titleSmall.fontWeight,
-                                fontStyle:
-                                    AppTheme.of(context).titleSmall.fontStyle,
-                              ),
+                          textStyle:
+                              AppTheme.of(context).titleSmall.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: AppTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: AppTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    fontWeight: AppTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(
-                              AppTheme.of(context).designToken.radius.lg),
+                              AppTheme.of(context)
+                                  .designToken
+                                  .radius
+                                  .lg),
                         ),
                       ),
                     ]
-                        .divide(
-                            const SizedBox(height: AppConstants.childSpacing))
+                        .divide(const SizedBox(height: AppConstants.childSpacing))
                         .addToEnd(const SizedBox(height: 50.0)),
                   ),
                 ),

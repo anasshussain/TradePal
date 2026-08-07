@@ -29,7 +29,7 @@ class LogoutConfirmationDialog extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'LOGOUT',
+                    'Confirm',
                     style: AppTheme.of(context).titleMedium.override(
                       font: GoogleFonts.inter(
                         fontWeight: FontWeight.w700,

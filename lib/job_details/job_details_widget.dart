@@ -63,7 +63,126 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
       _provider.restoreFromCache(widget!.jobId);
     }
 
-    SchedulerBinding.instance.addPostFrameCallback((_) => _refreshJobData());
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (!alreadyLoaded) {
+        _provider.notify();
+
+        _model.getJobDetails = await SupabaseTablesGroup.getJobDetailsCall.call(
+          jobId: widget!.jobId,
+        );
+
+        if ((_model.getJobDetails?.succeeded ?? true)) {
+          _provider.fetchedJob = ((_model.getJobDetails?.jsonBody ?? '')
+                  .toList()
+                  .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                  .toList() as Iterable<JobDataStruct?>)
+              .withoutNulls
+              ?.firstOrNull;
+          _provider.notify();
+
+          if (_provider.fetchedJob?.customerId == currentUserUid) {
+            _model.getApplicationList =
+                await SupabaseTablesGroup.getSubmittedProposalsCall.call(
+              params:
+                  'select=*,jobs!inner(*),users(device_token,total_reviews,average_rating)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
+            );
+
+            if ((_model.getApplicationList?.succeeded ?? true)) {
+              _provider.loading = false;
+              _provider.proposalsList = ((_model.getApplicationList?.jsonBody ??
+                          '')
+                      .toList()
+                      .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
+                      .toList() as Iterable<ProposalListStruct?>)
+                  .withoutNulls
+                  .toList()
+                  .cast<ProposalListStruct>();
+              _provider.saveToCache(widget!.jobId); // ADDED
+              _provider.notify();
+            }
+          } else {
+            _model.getSubmittedJobData =
+                await SupabaseTablesGroup.getSubmittedProposalsCall.call(
+              params:
+                  'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
+            );
+
+            if (((_model.getSubmittedJobData?.jsonBody ?? '')
+                    .toList()
+                    .map<SubmittedProposalStruct?>(
+                        SubmittedProposalStruct.maybeFromMap)
+                    .toList() as Iterable<SubmittedProposalStruct?>)
+                .withoutNulls
+                .isNotEmpty) {
+              _model.paymentStatus =
+                  await SupabaseTablesGroup.getProposalPaymentCall.call(
+                jobId: widget!.jobId,
+                tradepersonId: currentUserUid,
+              );
+
+              if ((_model.paymentStatus?.succeeded ?? true)) {
+                if (SupabaseTablesGroup.getProposalPaymentCall.paymentStatus(
+                      (_model.paymentStatus?.jsonBody ?? ''),
+                    ) ==
+                    PaymentStatus.paid.name) {
+                  await Future.wait([
+                    Future(() async {
+                      _provider.isPaymentPaid = true;
+                    }),
+                    Future(() async {
+                      _model.getUser = await SupabaseTablesGroup.getUserCall.call(
+                        userId: ((_model.getJobDetails?.jsonBody ?? '')
+                                .toList()
+                                .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
+                                .toList() as Iterable<JobDataStruct?>)
+                            .withoutNulls
+                            ?.firstOrNull
+                            ?.customerId,
+                      );
+
+                      if ((_model.getUser?.succeeded ?? true)) {
+                        _provider.user = ((_model.getUser?.jsonBody ?? '')
+                                .toList()
+                                .map<UserStruct?>(UserStruct.maybeFromMap)
+                                .toList() as Iterable<UserStruct?>)
+                            .withoutNulls
+                            ?.firstOrNull;
+                        _provider.notify();
+                      }
+                    }),
+                  ]);
+                } else {
+                  _provider.isPaymentPaid = false;
+                }
+              }
+              _provider.submittedProposalStatus = ((_model.getSubmittedJobData?.jsonBody ?? '')
+                  .toList()
+                  .map<SubmittedProposalStruct?>(SubmittedProposalStruct.maybeFromMap)
+                  .toList() as Iterable<SubmittedProposalStruct?>)
+                  .withoutNulls
+                  ?.firstOrNull
+                  ?.status;
+              _provider.isProposalSubmitted = true;
+              _provider.loading = false;
+              _provider.saveToCache(widget!.jobId); // ADDED
+              _provider.notify();
+            } else {
+              _provider.isProposalSubmitted = false;
+              _provider.loading = false;
+              _provider.saveToCache(widget!.jobId); // ADDED
+              _provider.notify();
+            }
+          }
+        } else {
+          await actions.showToast(
+            context,
+            'Failed to load details',
+            2,
+          );
+        }
+      }
+      _provider.saveToCache(widget!.jobId);
+    });
 
     _model.quoteTextFieldTextController ??= TextEditingController();
     _model.quoteTextFieldFocusNode ??= FocusNode();
@@ -71,154 +190,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
     _model.descriptionTextController ??= TextEditingController();
     _model.descriptionFocusNode ??= FocusNode();
 
-    if (alreadyLoaded && (_provider.isProposalSubmitted ?? false)) {
-      _populateSubmittedProposalFields();
-    }
-
     WidgetsBinding.instance.addPostFrameCallback((_) => _provider.notify());
-  }
-
-  Future<void> _refreshJobData() async {
-    {
-      _provider.notify();
-
-      _model.getJobDetails = await SupabaseTablesGroup.getJobDetailsCall.call(
-        jobId: widget!.jobId,
-      );
-
-      if ((_model.getJobDetails?.succeeded ?? true)) {
-        _provider.fetchedJob = ((_model.getJobDetails?.jsonBody ?? '')
-                .toList()
-                .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-                .toList() as Iterable<JobDataStruct?>)
-            .withoutNulls
-            ?.firstOrNull;
-        _provider.notify();
-
-        if (_provider.fetchedJob?.customerId == currentUserUid) {
-          _model.getApplicationList =
-              await SupabaseTablesGroup.getSubmittedProposalsCall.call(
-            params:
-                'select=*,jobs!inner(*),users(device_token,total_reviews,average_rating)&job_id=eq.${widget!.jobId}&jobs.customer_id=eq.${currentUserUid}',
-          );
-
-          if ((_model.getApplicationList?.succeeded ?? true)) {
-            _provider.loading = false;
-            _provider.proposalsList = ((_model.getApplicationList?.jsonBody ??
-                        '')
-                    .toList()
-                    .map<ProposalListStruct?>(ProposalListStruct.maybeFromMap)
-                    .toList() as Iterable<ProposalListStruct?>)
-                .withoutNulls
-                .toList()
-                .cast<ProposalListStruct>();
-            _provider.saveToCache(widget!.jobId); // ADDED
-            _provider.notify();
-          }
-        } else {
-          _model.getSubmittedJobData =
-              await SupabaseTablesGroup.getSubmittedProposalsCall.call(
-            params:
-                'tradesperson_id=eq.${currentUserUid}&job_id=eq.${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.id}',
-          );
-
-          if (((_model.getSubmittedJobData?.jsonBody ?? '')
-                  .toList()
-                  .map<SubmittedProposalStruct?>(
-                      SubmittedProposalStruct.maybeFromMap)
-                  .toList() as Iterable<SubmittedProposalStruct?>)
-              .withoutNulls
-              .isNotEmpty) {
-            _model.paymentStatus =
-                await SupabaseTablesGroup.getProposalPaymentCall.call(
-              jobId: widget!.jobId,
-              tradepersonId: currentUserUid,
-            );
-
-            if ((_model.paymentStatus?.succeeded ?? true)) {
-              if (SupabaseTablesGroup.getProposalPaymentCall.paymentStatus(
-                    (_model.paymentStatus?.jsonBody ?? ''),
-                  ) ==
-                  PaymentStatus.paid.name) {
-                await Future.wait([
-                  Future(() async {
-                    _provider.isPaymentPaid = true;
-                  }),
-                  Future(() async {
-                    _model.getUser = await SupabaseTablesGroup.getUserCall.call(
-                      userId: ((_model.getJobDetails?.jsonBody ?? '')
-                              .toList()
-                              .map<JobDataStruct?>(JobDataStruct.maybeFromMap)
-                              .toList() as Iterable<JobDataStruct?>)
-                          .withoutNulls
-                          ?.firstOrNull
-                          ?.customerId,
-                    );
-
-                    if ((_model.getUser?.succeeded ?? true)) {
-                      _provider.user = ((_model.getUser?.jsonBody ?? '')
-                              .toList()
-                              .map<UserStruct?>(UserStruct.maybeFromMap)
-                              .toList() as Iterable<UserStruct?>)
-                          .withoutNulls
-                          ?.firstOrNull;
-                      _provider.notify();
-                    }
-                  }),
-                ]);
-              } else {
-                _provider.isPaymentPaid = false;
-              }
-            }
-            final submittedProposal =
-                ((_model.getSubmittedJobData?.jsonBody ?? '')
-                        .toList()
-                        .map<SubmittedProposalStruct?>(
-                            SubmittedProposalStruct.maybeFromMap)
-                        .toList() as Iterable<SubmittedProposalStruct?>)
-                    .withoutNulls
-                    ?.firstOrNull;
-            _provider.submittedProposalStatus = submittedProposal?.status;
-            _provider.submittedProposalMessage = submittedProposal?.message;
-            _provider.submittedProposalQuoteAmount =
-                submittedProposal?.quoteAmount;
-            _provider.submittedProposalDuration = submittedProposal?.duration;
-            _provider.isProposalSubmitted = true;
-            _provider.loading = false;
-            _populateSubmittedProposalFields();
-            _provider.saveToCache(widget!.jobId); // ADDED
-            _provider.notify();
-          } else {
-            _provider.isProposalSubmitted = false;
-            _provider.loading = false;
-            _provider.saveToCache(widget!.jobId); // ADDED
-            _provider.notify();
-          }
-        }
-      } else {
-        await actions.showToast(
-          context,
-          'Failed to load details',
-          2,
-        );
-      }
-    }
-    _provider.saveToCache(widget!.jobId);
-  }
-
-  void _populateSubmittedProposalFields() {
-    _model.quoteTextFieldTextController.text =
-        _provider.submittedProposalQuoteAmount != null
-            ? _provider.submittedProposalQuoteAmount.toString()
-            : '';
-    _model.descriptionTextController.text =
-        _provider.submittedProposalMessage ?? '';
-    _model.choiceChipsValueController ??= FormFieldController<List<String>>(
-      _provider.submittedProposalDuration != null
-          ? [_provider.submittedProposalDuration!]
-          : [],
-    );
-    _model.choiceChipsValue = _provider.submittedProposalDuration;
   }
 
   @override
@@ -258,7 +230,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: AppTheme.of(context).primaryBackground,
+          backgroundColor: Colors.white60,
           automaticallyImplyLeading: false,
           title: wrapWithModel(
             model: _model.appbarComponentModel,
@@ -270,11 +242,11 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                       (_provider.fetchedJob?.status == Status.ACTIVE),
               actionIcon: Icon(
                 Icons.edit_rounded,
-                color: AppTheme.of(context).primaryBackground,
+                color: AppTheme.of(context).secondaryText,
                 size: 26.0,
               ),
               action: () async {
-                await context.pushNamed(
+                context.pushNamed(
                   AddJobWidget.routeName,
                   queryParameters: {
                     'jobData': serializeParam(
@@ -293,7 +265,6 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                     ),
                   },
                 );
-                await _refreshJobData();
               },
             ),
           ),
@@ -302,7 +273,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
           elevation: 1.0,
         ),
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Builder(
             builder: (context) {
               if (!_provider.loading!) {
@@ -874,17 +845,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                       ),
                                                 ),
                                                 TextFormField(
-                                                  keyboardType:
-                                                      TextInputType.number,
                                                   controller: _model
                                                       .quoteTextFieldTextController,
                                                   focusNode: _model
                                                       .quoteTextFieldFocusNode,
                                                   autofocus: false,
                                                   enabled: true,
-                                                  readOnly: _provider
-                                                          .isProposalSubmitted ??
-                                                      false,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
@@ -925,21 +891,22 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           font:
                                                               GoogleFonts.inter(
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .normal,
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
                                                             fontStyle:
                                                                 AppTheme.of(
                                                                         context)
                                                                     .labelMedium
                                                                     .fontStyle,
                                                           ),
-                                                          color: AppTheme.of(
-                                                                  context)
-                                                              .hint,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .normal,
+                                                              AppTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
                                                           fontStyle:
                                                               AppTheme.of(
                                                                       context)
@@ -998,24 +965,13 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                     fillColor:
                                                         AppTheme.of(context)
                                                             .alternate,
-                                                    prefixIcon: Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              12, 0, 4, 0),
-                                                      child: Icon(
-                                                        Icons
-                                                            .currency_pound_outlined,
-                                                        color:
-                                                            AppTheme.of(context)
-                                                                .secondaryText,
-                                                        size: 20.0,
-                                                      ),
+                                                    prefixIcon: Icon(
+                                                      Icons
+                                                          .currency_pound_outlined,
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .secondaryText,
                                                     ),
-                                                    prefixIconConstraints:
-                                                        const BoxConstraints(
-                                                            minWidth: 0,
-                                                            minHeight: 0),
                                                   ),
                                                   style: AppTheme.of(context)
                                                       .bodyMedium
@@ -1091,168 +1047,113 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                 .fontStyle,
                                                       ),
                                                 ),
-                                                FormField<String>(
-                                                  initialValue:
-                                                      _model.choiceChipsValue,
-                                                  validator: _model
-                                                      .choiceChipsValueControllerValidator
-                                                      .asValidator(context),
-                                                  builder:
-                                                      (choiceChipsFieldState) {
-                                                    return Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        IgnorePointer(
-                                                          ignoring: _provider
-                                                                  .isProposalSubmitted ??
-                                                              false,
-                                                          child: AppChoiceChips(
-                                                            options: const [
-                                                              ChipData(
-                                                                  '0-3 days'),
-                                                              ChipData(
-                                                                  '3-5 days'),
-                                                              ChipData(
-                                                                  '1 Week'),
-                                                              ChipData(
-                                                                  '2-3 Weeks')
-                                                            ],
-                                                            onChanged: (val) =>
-                                                                safeSetState(
-                                                                    () {
-                                                              _model.choiceChipsValue =
-                                                                  val?.firstOrNull;
-                                                              choiceChipsFieldState
-                                                                  .didChange(val
-                                                                      ?.firstOrNull);
-                                                            }),
-                                                            selectedChipStyle:
-                                                                ChipStyle(
-                                                              backgroundColor:
-                                                                  AppTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                              textStyle:
-                                                                  AppTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        font: GoogleFonts
-                                                                            .manrope(
-                                                                          fontWeight: AppTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontWeight,
-                                                                          fontStyle: AppTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontStyle,
-                                                                        ),
-                                                                        color: AppTheme.of(context)
-                                                                            .info,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight: AppTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontWeight,
-                                                                        fontStyle: AppTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
-                                                                      ),
-                                                              iconColor:
-                                                                  AppTheme.of(
-                                                                          context)
-                                                                      .info,
-                                                              iconSize: 16.0,
-                                                              elevation: 0.0,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                            ),
-                                                            unselectedChipStyle:
-                                                                ChipStyle(
-                                                              backgroundColor:
-                                                                  AppTheme.of(
-                                                                          context)
-                                                                      .accent1,
-                                                              textStyle:
-                                                                  AppTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        font: GoogleFonts
-                                                                            .manrope(
-                                                                          fontWeight: AppTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontWeight,
-                                                                          fontStyle: AppTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontStyle,
-                                                                        ),
-                                                                        color: AppTheme.of(context)
-                                                                            .secondaryText,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight: AppTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontWeight,
-                                                                        fontStyle: AppTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
-                                                                      ),
-                                                              iconColor: Colors
-                                                                  .transparent,
-                                                              iconSize: 16.0,
-                                                              elevation: 0.0,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                            ),
-                                                            chipSpacing: 8.0,
-                                                            rowSpacing: 8.0,
-                                                            multiselect: false,
-                                                            alignment:
-                                                                WrapAlignment
-                                                                    .start,
-                                                            controller: _model
-                                                                    .choiceChipsValueController ??=
-                                                                FormFieldController<
-                                                                    List<
-                                                                        String>>(
-                                                              [],
-                                                            ),
-                                                            wrapped: true,
-                                                          ),
-                                                        ),
-                                                        if (choiceChipsFieldState
-                                                            .hasError)
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                    12,
-                                                                    4,
-                                                                    0,
-                                                                    0),
-                                                            child: Text(
-                                                              choiceChipsFieldState
-                                                                      .errorText ??
-                                                                  '',
-                                                              style: TextStyle(
-                                                                color: AppTheme.of(
+                                                AppChoiceChips(
+                                                  options: const [
+                                                    ChipData('0-3 days'),
+                                                    ChipData('3-5 days'),
+                                                    ChipData('1 Week'),
+                                                    ChipData('2-3 Weeks')
+                                                  ],
+                                                  onChanged: (val) =>
+                                                      safeSetState(() => _model
+                                                              .choiceChipsValue =
+                                                          val?.firstOrNull),
+                                                  selectedChipStyle: ChipStyle(
+                                                    backgroundColor:
+                                                        AppTheme.of(context)
+                                                            .primary,
+                                                    textStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .manrope(
+                                                                fontWeight: AppTheme.of(
                                                                         context)
-                                                                    .error,
-                                                                fontSize: 12.0,
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
                                                               ),
+                                                              color: AppTheme.of(
+                                                                      context)
+                                                                  .info,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                              fontStyle: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                             ),
-                                                          ),
-                                                      ],
-                                                    );
-                                                  },
+                                                    iconColor:
+                                                        AppTheme.of(context)
+                                                            .info,
+                                                    iconSize: 16.0,
+                                                    elevation: 0.0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  unselectedChipStyle:
+                                                      ChipStyle(
+                                                    backgroundColor:
+                                                        AppTheme.of(context)
+                                                            .accent1,
+                                                    textStyle:
+                                                        AppTheme.of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .manrope(
+                                                                fontWeight: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: AppTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                              color: AppTheme.of(
+                                                                      context)
+                                                                  .secondaryText,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                              fontStyle: AppTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                            ),
+                                                    iconColor:
+                                                        Colors.transparent,
+                                                    iconSize: 16.0,
+                                                    elevation: 0.0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  chipSpacing: 8.0,
+                                                  rowSpacing: 8.0,
+                                                  multiselect: false,
+                                                  alignment:
+                                                      WrapAlignment.start,
+                                                  controller: _model
+                                                          .choiceChipsValueController ??=
+                                                      FormFieldController<
+                                                          List<String>>(
+                                                    [],
+                                                  ),
+                                                  wrapped: true,
                                                 ),
                                               ].divide(SizedBox(
                                                   height: AppTheme.of(context)
@@ -1308,9 +1209,6 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         .descriptionFocusNode,
                                                     autofocus: false,
                                                     enabled: true,
-                                                    readOnly: _provider
-                                                            .isProposalSubmitted ??
-                                                        false,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
                                                       isDense: false,
@@ -1521,103 +1419,96 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                               .submitProposalAPi
                                                               ?.succeeded ??
                                                           true)) {
-                                                        _provider
-                                                                .isProposalSubmitted =
-                                                            true;
-                                                        _provider
-                                                                .submittedProposalStatus =
-                                                            Status.PENDING.name;
-                                                        _provider
-                                                                .submittedProposalMessage =
-                                                            _model
-                                                                .descriptionTextController
-                                                                .text;
-                                                        _provider
-                                                                .submittedProposalQuoteAmount =
-                                                            int.tryParse(_model
-                                                                .quoteTextFieldTextController
-                                                                .text);
-                                                        _provider
-                                                                .submittedProposalDuration =
-                                                            _model
-                                                                .choiceChipsValue;
-                                                        _provider.saveToCache(
-                                                            widget!.jobId);
-                                                        try {
-                                                          await Future.wait([
-                                                            Future(() async {
-                                                              await action_blocks
-                                                                  .insertNotifications(
-                                                                context,
-                                                                title:
-                                                                    'New Proposal Recieved',
-                                                                message:
-                                                                    '${valueOrDefault<String>(
-                                                                  AppState()
-                                                                      .userProfileCache
+                                                        await Future.wait([
+                                                          Future(() async {
+                                                            await action_blocks
+                                                                .insertNotifications(
+                                                              context,
+                                                              title:
+                                                                  'New Proposal Recieved',
+                                                              message:
+                                                                  '${valueOrDefault<String>(
+                                                                AppState()
+                                                                    .userProfileCache
+                                                                    .name,
+                                                                'You',
+                                                              )} has sent a job proposal',
+                                                              type:
+                                                                  NotificationType
+                                                                      .PROPOSAL
                                                                       .name,
-                                                                  'You',
-                                                                )} has sent a job proposal',
-                                                                type:
-                                                                    NotificationType
-                                                                        .PROPOSAL
-                                                                        .name,
-                                                                userId:
-                                                                    currentUserUid,
-                                                                referenceId:
-                                                                    _provider
-                                                                        .fetchedJob
-                                                                        ?.id,
-                                                                recieverid: _provider
-                                                                    .fetchedJob
-                                                                    ?.customerId,
-                                                                extraData: <String,
-                                                                    dynamic>{
-                                                                  'member':
-                                                                      <String,
-                                                                          String>{
-                                                                    'username':
-                                                                        '\"\"',
-                                                                    'avatarurl':
-                                                                        '\"\"',
-                                                                    'jobid':
-                                                                        '\"\"',
-                                                                    'member_id':
-                                                                        '\"\"',
-                                                                    'member_name':
-                                                                        '\"\"',
-                                                                    'member_avatar':
-                                                                        '\"\"',
-                                                                  },
+                                                              userId:
+                                                                  currentUserUid,
+                                                              referenceId: ((_model
+                                                                              .getJobDetails
+                                                                              ?.jsonBody ??
+                                                                          '')
+                                                                      .toList()
+                                                                      .map<JobDataStruct?>(
+                                                                          JobDataStruct
+                                                                              .maybeFromMap)
+                                                                      .toList() as Iterable<JobDataStruct?>)
+                                                                  .withoutNulls
+                                                                  ?.firstOrNull
+                                                                  ?.id,
+                                                              recieverid: ((_model
+                                                                              .getJobDetails
+                                                                              ?.jsonBody ??
+                                                                          '')
+                                                                      .toList()
+                                                                      .map<JobDataStruct?>(
+                                                                          JobDataStruct
+                                                                              .maybeFromMap)
+                                                                      .toList() as Iterable<JobDataStruct?>)
+                                                                  .withoutNulls
+                                                                  ?.firstOrNull
+                                                                  ?.customerId,
+                                                              extraData: <String,
+                                                                  dynamic>{
+                                                                'member':
+                                                                    <String,
+                                                                        String>{
+                                                                  'username':
+                                                                      '\"\"',
+                                                                  'avatarurl':
+                                                                      '\"\"',
+                                                                  'jobid':
+                                                                      '\"\"',
+                                                                  'member_id':
+                                                                      '\"\"',
+                                                                  'member_name':
+                                                                      '\"\"',
+                                                                  'member_avatar':
+                                                                      '\"\"',
                                                                 },
-                                                              );
-                                                            }),
-                                                            Future(() async {
-                                                              _model.assignedNotificationOutput =
-                                                                  await SupabaseEdgeFunctionsGroup
-                                                                      .sendPushNotificationCall
-                                                                      .call(
-                                                                deviceToken: _provider
-                                                                    .fetchedJob
-                                                                    ?.customer
-                                                                    ?.deviceToken,
-                                                                title:
-                                                                    'New Proposal Received',
-                                                                body:
-                                                                    '${AppState().userProfileCache.name} has sent a job proposal',
-                                                                dataJson: {},
-                                                              );
-                                                            }),
-                                                            Future(() async {
-                                                              await actions
-                                                                  .showToast(
-                                                                context,
-                                                                'Proposal Submitted',
-                                                                2,
-                                                              );
-                                                            }),
-                                                          ]);
-                                                        } catch (_) {}
+                                                              },
+                                                            );
+                                                          }),
+                                                          Future(() async {
+                                                            _model.assignedNotificationOutput =
+                                                                await SupabaseEdgeFunctionsGroup
+                                                                    .sendPushNotificationCall
+                                                                    .call(
+                                                              deviceToken: _provider
+                                                                  .fetchedJob
+                                                                  ?.customer
+                                                                  ?.deviceToken,
+                                                              title:
+                                                                  'New Proposal Received',
+                                                              body:
+                                                                  '${AppState().userProfileCache.name} has sent a job proposal',
+                                                              dataJson: {},
+                                                            );
+                                                          }),
+                                                          Future(() async {
+                                                            await actions
+                                                                .showToast(
+                                                              context,
+                                                              'Proposal Submitted',
+                                                              2,
+                                                            );
+                                                          }),
+                                                        ]);
                                                         context.safePop();
                                                       } else {
                                                         await actions.showToast(
@@ -1696,8 +1587,17 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                         2) &&
                                                     ((_provider.isProposalSubmitted ==
                                                             true) &&
-                                                        (_provider
-                                                                .submittedProposalStatus ==
+                                                        (((_model.getSubmittedJobData?.jsonBody ??
+                                                                            '')
+                                                                        .toList()
+                                                                        .map<SubmittedProposalStruct?>(SubmittedProposalStruct
+                                                                            .maybeFromMap)
+                                                                        .toList()
+                                                                    as Iterable<
+                                                                        SubmittedProposalStruct?>)
+                                                                .withoutNulls
+                                                                ?.firstOrNull
+                                                                ?.status ==
                                                             Status.ACCEPTED
                                                                 .name)) &&
                                                     (widget!.jobView !=
@@ -1717,8 +1617,18 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             .getConversationBetweenUsersCall
                                                             .call(
                                                       userA: currentUserUid,
-                                                      userB: _provider
-                                                          .fetchedJob
+                                                      userB: ((_model.getJobDetails
+                                                                          ?.jsonBody ??
+                                                                      '')
+                                                                  .toList()
+                                                                  .map<JobDataStruct?>(
+                                                                      JobDataStruct
+                                                                          .maybeFromMap)
+                                                                  .toList()
+                                                              as Iterable<
+                                                                  JobDataStruct?>)
+                                                          .withoutNulls
+                                                          ?.firstOrNull
                                                           ?.customerId,
                                                       jobId: widget!.jobId,
                                                     );
@@ -1812,7 +1722,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             title:
                                                                 'Conversation Started by Trade Person',
                                                             message:
-                                                                'Conversation started on this job: ${_provider.fetchedJob?.title}',
+                                                                'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
                                                             type:
                                                                 NotificationType
                                                                     .APPLICATION
@@ -1854,7 +1764,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                             title:
                                                                 'Conversation Started by Trade Person',
                                                             body:
-                                                                'Conversation started on this job: ${_provider.fetchedJob?.title}',
+                                                                'Conversation started on this job: ${((_model.getJobDetails?.jsonBody ?? '').toList().map<JobDataStruct?>(JobDataStruct.maybeFromMap).toList() as Iterable<JobDataStruct?>).withoutNulls?.firstOrNull?.title}',
                                                             dataJson: {},
                                                           );
                                                         }),
@@ -1925,12 +1835,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            if ((_provider
-                                                        .isProposalSubmitted ??
-                                                    true) &&
-                                                (_provider
-                                                        .submittedProposalStatus !=
-                                                    Status.ACCEPTED.name))
+                                            if (_provider.isProposalSubmitted ??
+                                                true)
                                               Align(
                                                 alignment:
                                                     const AlignmentDirectional(
@@ -1944,22 +1850,12 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                               'Button pressed ...');
                                                         },
                                                   text: valueOrDefault<String>(
-                                                    () {
-                                                      if ((_provider
-                                                                  .isProposalSubmitted ==
-                                                              true) &&
-                                                          (_provider
-                                                                  .submittedProposalStatus ==
-                                                              Status.ACCEPTED
-                                                                  .name)) {
+                                                        () {
+                                                      if ((_provider.isProposalSubmitted == true) &&
+                                                          (_provider.submittedProposalStatus == Status.ACCEPTED.name)) {
                                                         return 'Accepted';
-                                                      } else if ((_provider
-                                                                  .isProposalSubmitted ==
-                                                              true) &&
-                                                          (_provider
-                                                                  .submittedProposalStatus ==
-                                                              Status.REJECTED
-                                                                  .name)) {
+                                                      } else if ((_provider.isProposalSubmitted == true) &&
+                                                          (_provider.submittedProposalStatus == Status.REJECTED.name)) {
                                                         return 'Rejected';
                                                       } else {
                                                         return 'Already Proposed';
@@ -2029,12 +1925,8 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            if ((_provider
-                                                        .isProposalSubmitted ==
-                                                    true) &&
-                                                (_provider
-                                                        .submittedProposalStatus ==
-                                                    Status.ACCEPTED.name))
+                                            if ((_provider.isProposalSubmitted == true) &&
+                                                (_provider.submittedProposalStatus == Status.ACCEPTED.name))
                                               Align(
                                                 alignment:
                                                     const AlignmentDirectional(
@@ -2097,13 +1989,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                     ''),
                                                               )!,
                                                               'update',
-                                                              () async {
-                                                                _provider
-                                                                        .isPaymentPaid =
-                                                                    true;
-                                                                _provider
-                                                                    .notify();
-                                                              },
+                                                              () async {},
                                                             );
                                                             _model.paymentRes =
                                                                 await actions
@@ -2129,27 +2015,6 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                                     .jsonBody,
                                                               )!,
                                                             );
-                                                            if (_model
-                                                                    .paymentRes ==
-                                                                true) {
-                                                              _provider
-                                                                      .isPaymentPaid =
-                                                                  true;
-                                                            } else {
-                                                              await actions
-                                                                  .showToast(
-                                                                context,
-                                                                'Payment failed, please try again',
-                                                                2,
-                                                              );
-                                                            }
-                                                          } else {
-                                                            await actions
-                                                                .showToast(
-                                                              context,
-                                                              'Payment failed, please try again',
-                                                              2,
-                                                            );
                                                           }
 
                                                           _provider.notify();
@@ -2159,7 +2024,7 @@ class _JobDetailsWidgetState extends State<JobDetailsWidget> {
                                                           (AppState()
                                                                   .paidJobId ==
                                                               widget!.jobId)
-                                                      ? 'Lead Purchased'
+                                                      ? 'Payment Paid'
                                                       : 'Pay now',
                                                   options: AppButtonOptions(
                                                     width: 300.0,

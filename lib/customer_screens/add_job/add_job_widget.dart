@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '/auth/supabase_auth/auth_util.dart';
@@ -60,17 +59,18 @@ class _AddJobWidgetState extends State<AddJobWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddJobModel());
-    _provider.loading = false;
-    if (widget!.jobData != null) {
-      _provider.existingImages = List<String>.from(widget!.jobData!.images);
+    if (widget!.jobData != null && !_provider.hasLoadedOnce) {
+      _provider.loading = true;
+    } else {
+      _provider.loading = false;
     }
 
     _model.jobTitleTextController ??=
         TextEditingController(text: widget!.jobData?.title);
     _model.jobTitleFocusNode ??= FocusNode();
 
-    _model.budgetTextController ??= TextEditingController(
-        text: widget!.jobData?.budgetMin?.round().toString());
+    _model.budgetTextController ??=
+        TextEditingController(text: widget!.jobData?.budgetMin?.toString());
     _model.budgetFocusNode ??= FocusNode();
 
     _model.descriptionTextController ??=
@@ -126,7 +126,7 @@ class _AddJobWidgetState extends State<AddJobWidget> {
           elevation: 0.0,
         ),
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Builder(
             builder: (context) {
               if (!_provider.loading) {
@@ -146,7 +146,9 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                           children: [
                             Text(
                               'Reach the best local tradespeople. Detail your requirements and set your budget to get started.',
-                              style: AppTheme.of(context).bodyLarge.override(
+                              style: AppTheme.of(context)
+                                  .bodyLarge
+                                  .override(
                                     font: GoogleFonts.manrope(
                                       fontWeight: AppTheme.of(context)
                                           .bodyLarge
@@ -183,27 +185,29 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .labelMedium
                                         .override(
                                           font: GoogleFonts.inter(
-                                            fontWeight: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                   TextFormField(
                                     controller: _model.jobTitleTextController,
                                     focusNode: _model.jobTitleFocusNode,
-                                    onChanged: (_) => _provider.update(() =>
-                                        _provider.hasUnsavedChanges = true),
                                     autofocus: false,
                                     enabled: true,
                                     obscureText: false,
@@ -213,23 +217,27 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           .labelMedium
                                           .override(
                                             font: GoogleFonts.inter(
-                                              fontWeight: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .secondaryText,
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                       hintText: 'e.g., Kitchen Pipe Repair',
                                       hintStyle: AppTheme.of(context)
@@ -237,16 +245,19 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.normal,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
-                                            color: AppTheme.of(context).hint,
+                                            color: AppTheme.of(context)
+                                                .hint,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
@@ -258,7 +269,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).primary,
+                                          color: AppTheme.of(context)
+                                              .primary,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -266,7 +278,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
+                                          color: AppTheme.of(context)
+                                              .error,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -274,36 +287,42 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
+                                          color: AppTheme.of(context)
+                                              .error,
                                           width: 1.0,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
                                       filled: true,
-                                      fillColor: AppTheme.of(context).alternate,
+                                      fillColor: AppTheme.of(context)
+                                          .alternate,
                                     ),
                                     style: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           font: GoogleFonts.manrope(
-                                            fontWeight: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
-                                    cursorColor:
-                                        AppTheme.of(context).primaryText,
+                                    cursorColor: AppTheme.of(context)
+                                        .primaryText,
                                     enableInteractiveSelection: true,
                                     validator: _model
                                         .jobTitleTextControllerValidator
@@ -327,20 +346,24 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             .labelMedium
                                             .override(
                                               font: GoogleFonts.inter(
-                                                fontWeight: AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
                                               ),
                                               letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ],
@@ -353,85 +376,98 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           widget!.jobData?.category,
                                     ),
                                     options: AppState().availableServices,
-                                    onChanged: (val) => _provider.update(() {
-                                      _model.categoryValue = val;
-                                      _provider.hasUnsavedChanges = true;
-                                    }),
+                                    onChanged: (val) => _provider.update(
+                                        () => _model.categoryValue = val),
                                     width: double.infinity,
                                     maxHeight: 400.0,
-                                    searchHintTextStyle: AppTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
-                                        ),
-                                    searchTextStyle: AppTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
-                                        ),
+                                    searchHintTextStyle:
+                                        AppTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                    searchTextStyle:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                     textStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           font: GoogleFonts.manrope(
-                                            fontWeight: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                     hintText: 'Select job category',
                                     searchHintText: 'Plumbing..',
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
-                                      color: AppTheme.of(context).secondaryText,
+                                      color: AppTheme.of(context)
+                                          .secondaryText,
                                       size: 24.0,
                                     ),
-                                    fillColor:
-                                        AppTheme.of(context).primaryBackground,
+                                    fillColor: AppTheme.of(context)
+                                        .primaryBackground,
                                     elevation: 2.0,
-                                    borderColor: AppTheme.of(context).border,
+                                    borderColor:
+                                        AppTheme.of(context).border,
                                     borderWidth: 0.0,
                                     borderRadius: AppConstants.radius2,
-                                    margin:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 12.0, 0.0),
+                                    margin: const EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 0.0, 12.0, 0.0),
                                     hidesUnderline: true,
                                     isOverButton: false,
                                     isSearchable: true,
@@ -450,30 +486,31 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .labelMedium
                                         .override(
                                           font: GoogleFonts.inter(
-                                            fontWeight: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                   TextFormField(
                                     controller: _model.budgetTextController,
                                     focusNode: _model.budgetFocusNode,
-                                    onChanged: (_) => _provider.update(() =>
-                                        _provider.hasUnsavedChanges = true),
                                     autofocus: false,
                                     enabled: true,
-                                    keyboardType: TextInputType.number,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       isDense: false,
@@ -481,40 +518,51 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           .labelMedium
                                           .override(
                                             font: GoogleFonts.inter(
-                                              fontWeight: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .secondaryText,
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                       hintText: '500',
                                       hintStyle: AppTheme.of(context)
-                                          .labelMedium
+                                          .labelLarge
                                           .override(
                                             font: GoogleFonts.inter(
-                                              fontWeight: FontWeight.normal,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
                                             ),
-                                            color: AppTheme.of(context).hint,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
                                           ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
@@ -526,7 +574,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).primary,
+                                          color: AppTheme.of(context)
+                                              .primary,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -534,7 +583,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
+                                          color: AppTheme.of(context)
+                                              .error,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -542,26 +592,27 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
+                                          color: AppTheme.of(context)
+                                              .error,
                                           width: 1.0,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
                                       filled: true,
-                                      fillColor: AppTheme.of(context).alternate,
+                                      fillColor: AppTheme.of(context)
+                                          .alternate,
                                       prefixIcon: Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 0.0, 0.0),
                                         child: FaIcon(
                                           FontAwesomeIcons.dollarSign,
-                                          color:
-                                              AppTheme.of(context).primaryText,
+                                          color: AppTheme.of(context)
+                                              .primaryText,
                                           size: 14.0,
                                         ),
                                       ),
-                                      prefixIconConstraints:
-                                          const BoxConstraints(
+                                      prefixIconConstraints: const BoxConstraints(
                                         minWidth: 0,
                                         minHeight: 0,
                                       ),
@@ -569,24 +620,28 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     style: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.manrope(
-                                            fontWeight: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
-                                        ),
-                                    cursorColor:
-                                        AppTheme.of(context).primaryText,
+                                      font: GoogleFonts.manrope(
+                                        fontWeight:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle:
+                                        AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle:
+                                      AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    cursorColor: AppTheme.of(context)
+                                        .primaryText,
                                     enableInteractiveSelection: true,
                                     validator: _model
                                         .budgetTextControllerValidator
@@ -605,28 +660,30 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .labelSmall
                                         .override(
                                           font: GoogleFonts.inter(
-                                            fontWeight: AppTheme.of(context)
-                                                .labelSmall
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelSmall
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .labelSmall
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelSmall
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontStyle,
                                         ),
                                   ),
                                   TextFormField(
                                     controller:
                                         _model.descriptionTextController,
                                     focusNode: _model.descriptionFocusNode,
-                                    onChanged: (_) => _provider.update(() =>
-                                        _provider.hasUnsavedChanges = true),
                                     autofocus: false,
                                     enabled: true,
                                     obscureText: false,
@@ -636,23 +693,27 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           .labelMedium
                                           .override(
                                             font: GoogleFonts.inter(
-                                              fontWeight: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
                                             color: AppTheme.of(context)
                                                 .secondaryText,
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                       hintText:
                                           'Describe the scope of work, materials \nneeded, and any specific deadlines...',
@@ -661,16 +722,19 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           .override(
                                             font: GoogleFonts.inter(
                                               fontWeight: FontWeight.normal,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
-                                            color: AppTheme.of(context).hint,
+                                            color: AppTheme.of(context)
+                                                .hint,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
@@ -682,7 +746,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).primary,
+                                          color: AppTheme.of(context)
+                                              .primary,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -690,7 +755,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
+                                          color: AppTheme.of(context)
+                                              .error,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -698,38 +764,44 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: AppTheme.of(context).error,
+                                          color: AppTheme.of(context)
+                                              .error,
                                           width: 1.0,
                                         ),
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
                                       filled: true,
-                                      fillColor: AppTheme.of(context).alternate,
+                                      fillColor: AppTheme.of(context)
+                                          .alternate,
                                     ),
                                     style: AppTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           font: GoogleFonts.manrope(
-                                            fontWeight: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodyMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .bodyMedium
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                     maxLines: null,
                                     minLines: 4,
-                                    cursorColor:
-                                        AppTheme.of(context).primaryText,
+                                    cursorColor: AppTheme.of(context)
+                                        .primaryText,
                                     enableInteractiveSelection: true,
                                     validator: _model
                                         .descriptionTextControllerValidator
@@ -748,20 +820,24 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .labelMedium
                                         .override(
                                           font: GoogleFonts.inter(
-                                            fontWeight: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelMedium
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelMedium
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
                                         ),
                                   ),
                                   Row(
@@ -789,34 +865,36 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             '9',
                                             '10'
                                           ],
-                                          onChanged: (val) =>
-                                              _provider.update(() {
-                                            _model.quotesDropDownValue = val;
-                                            _provider.hasUnsavedChanges = true;
-                                          }),
+                                          onChanged: (val) => _provider.update(() =>
+                                              _model.quotesDropDownValue = val),
                                           width: double.infinity,
                                           height: 50.0,
                                           maxHeight: 400.0,
-                                          textStyle: AppTheme.of(context)
+                                          textStyle: AppTheme.of(
+                                                  context)
                                               .bodyMedium
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 0.0,
-                                                fontWeight: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                           hintText: 'No of quotes',
                                           icon: Icon(
@@ -825,15 +903,18 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                                 .secondaryText,
                                             size: 24.0,
                                           ),
-                                          fillColor: AppTheme.of(context)
-                                              .secondaryBackground,
+                                          fillColor:
+                                              AppTheme.of(context)
+                                                  .secondaryBackground,
                                           elevation: 2.0,
                                           borderColor:
-                                              AppTheme.of(context).border,
+                                              AppTheme.of(context)
+                                                  .border,
                                           borderWidth: 0.0,
                                           borderRadius: AppConstants.radius2,
-                                          margin: const EdgeInsetsDirectional
-                                              .fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                          margin:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 12.0, 0.0),
                                           hidesUnderline: true,
                                           isOverButton: false,
                                           isSearchable: false,
@@ -841,8 +922,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         ),
                                       ),
                                       Align(
-                                        alignment: const AlignmentDirectional(
-                                            0.0, 0.0),
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           '(Maximum 10 quotes)',
                                           style: AppTheme.of(context)
@@ -850,23 +931,28 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                               .override(
                                                 font: GoogleFonts.inter(
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .labelSmall
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .labelSmall
                                                           .fontStyle,
                                                 ),
                                                 color:
-                                                    AppTheme.of(context).info,
+                                                    AppTheme.of(context)
+                                                        .info,
                                                 letterSpacing: 0.0,
-                                                fontWeight: AppTheme.of(context)
-                                                    .labelSmall
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .labelSmall
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .labelSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .labelSmall
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -884,10 +970,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                 webGoogleMapsApiKey:
                                     'AIzaSyB3KAslS8Z5mPjB-KgmwZWAZJ4n8f5gDOY',
                                 onSelect: (place) async {
-                                  _provider.update(() {
-                                    _model.placePickerValue = place;
-                                    _provider.hasUnsavedChanges = true;
-                                  });
+                                  _provider.update(
+                                      () => _model.placePickerValue = place);
                                 },
                                 defaultText: 'Select Location',
                                 icon: Icon(
@@ -898,27 +982,31 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                 buttonOptions: AppButtonOptions(
                                   width: double.infinity,
                                   height: 50.0,
-                                  color:
-                                      AppTheme.of(context).secondaryBackground,
-                                  textStyle:
-                                      AppTheme.of(context).titleSmall.override(
-                                            font: GoogleFonts.manrope(
-                                              fontWeight: AppTheme.of(context)
+                                  color: AppTheme.of(context)
+                                      .secondaryBackground,
+                                  textStyle: AppTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        font: GoogleFonts.manrope(
+                                          fontWeight:
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontWeight,
-                                              fontStyle: AppTheme.of(context)
+                                          fontStyle:
+                                              AppTheme.of(context)
                                                   .titleSmall
                                                   .fontStyle,
-                                            ),
-                                            color: AppTheme.of(context).hint,
-                                            letterSpacing: 0.0,
-                                            fontWeight: AppTheme.of(context)
-                                                .titleSmall
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .titleSmall
-                                                .fontStyle,
-                                          ),
+                                        ),
+                                        color:
+                                            AppTheme.of(context).hint,
+                                        letterSpacing: 0.0,
+                                        fontWeight: AppTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: AppTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
                                   elevation: 0.0,
                                   borderSide: BorderSide(
                                     color: AppTheme.of(context).border,
@@ -940,26 +1028,31 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           .labelSmall
                                           .override(
                                             font: GoogleFonts.inter(
-                                              fontWeight: AppTheme.of(context)
-                                                  .labelSmall
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelSmall
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .labelSmall
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelSmall
+                                                      .fontStyle,
                                             ),
                                             letterSpacing: 0.0,
-                                            fontWeight: AppTheme.of(context)
-                                                .labelSmall
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelSmall
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontStyle,
                                           ),
                                     ),
                                     Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: AppTheme.of(context).alternate,
+                                        color: AppTheme.of(context)
+                                            .alternate,
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(
@@ -979,21 +1072,25 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                               .override(
                                                 font: GoogleFonts.manrope(
                                                   fontWeight:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
-                                                      AppTheme.of(context)
+                                                      AppTheme.of(
+                                                              context)
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 0.0,
-                                                fontWeight: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -1011,22 +1108,26 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                         .labelSmall
                                         .override(
                                           font: GoogleFonts.inter(
-                                            fontWeight: AppTheme.of(context)
-                                                .labelSmall
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .labelSmall
-                                                .fontStyle,
+                                            fontWeight:
+                                                AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                AppTheme.of(context)
+                                                    .labelSmall
+                                                    .fontStyle,
                                           ),
-                                          color:
-                                              AppTheme.of(context).primaryText,
+                                          color: AppTheme.of(context)
+                                              .primaryText,
                                           letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .labelSmall
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .labelSmall
-                                              .fontStyle,
+                                          fontWeight:
+                                              AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              AppTheme.of(context)
+                                                  .labelSmall
+                                                  .fontStyle,
                                           lineHeight: 1.3,
                                         ),
                                   ),
@@ -1089,7 +1190,6 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             .uploadedLocalFiles_attachedImageLocal
                                             .toList()
                                             .cast<UploadedFile>();
-                                        _provider.hasUnsavedChanges = true;
                                         _provider.notify();
                                       }
                                     },
@@ -1103,11 +1203,13 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       child: Container(
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: AppTheme.of(context).accent1,
+                                          color: AppTheme.of(context)
+                                              .accent1,
                                           borderRadius:
                                               BorderRadius.circular(6.0),
                                           border: Border.all(
-                                            color: AppTheme.of(context).primary,
+                                            color: AppTheme.of(context)
+                                                .primary,
                                             width: 1.0,
                                           ),
                                         ),
@@ -1124,36 +1226,43 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             children: [
                                               Icon(
                                                 Icons.add_a_photo_rounded,
-                                                color: AppTheme.of(context)
-                                                    .primary,
+                                                color:
+                                                    AppTheme.of(context)
+                                                        .primary,
                                                 size: 30.0,
                                               ),
                                               Text(
                                                 'Click to add images for reference',
-                                                style: AppTheme.of(context)
+                                                style: AppTheme.of(
+                                                        context)
                                                     .bodyMedium
                                                     .override(
                                                       font: GoogleFonts.manrope(
                                                         fontWeight:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .fontWeight,
                                                         fontStyle:
-                                                            AppTheme.of(context)
+                                                            AppTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .fontStyle,
                                                       ),
                                                       color:
-                                                          AppTheme.of(context)
+                                                          AppTheme.of(
+                                                                  context)
                                                               .primary,
                                                       fontSize: 18.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
-                                                          AppTheme.of(context)
+                                                          AppTheme.of(
+                                                                  context)
                                                               .bodyMedium
                                                               .fontWeight,
                                                       fontStyle:
-                                                          AppTheme.of(context)
+                                                          AppTheme.of(
+                                                                  context)
                                                               .bodyMedium
                                                               .fontStyle,
                                                     ),
@@ -1168,10 +1277,10 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     height: AppConstants.childSpacing)),
                               ),
                             ]
-                                .divide(const SizedBox(
-                                    height: AppConstants.spacing))
-                                .around(const SizedBox(
-                                    height: AppConstants.spacing)),
+                                .divide(
+                                    const SizedBox(height: AppConstants.spacing))
+                                .around(
+                                    const SizedBox(height: AppConstants.spacing)),
                           ),
                         ),
                         Builder(
@@ -1190,178 +1299,103 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                               children:
                                   List.generate(images.length, (imagesIndex) {
                                 final imagesItem = images[imagesIndex];
-                                return Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Material(
-                                      color: Colors.transparent,
-                                      elevation: 2.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(6.0),
+                                return Material(
+                                  color: Colors.transparent,
+                                  elevation: 2.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                  ),
+                                  child: Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: AppTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(6.0),
+                                      border: Border.all(
+                                        color: Colors.transparent,
+                                        width: 0.0,
                                       ),
-                                      child: Container(
-                                        width: 100.0,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(6.0),
-                                          border: Border.all(
-                                            color: Colors.transparent,
-                                            width: 0.0,
-                                          ),
-                                        ),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType.fade,
-                                                child: AppExpandedImageView(
-                                                  image: Image.memory(
-                                                    imagesItem.bytes ??
-                                                        Uint8List.fromList([]),
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                  allowRotation: false,
-                                                  tag: 'imageTag1',
-                                                  useHeroAnimation: true,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: Hero(
-                                            tag: 'imageTag1',
-                                            transitionOnUserGestures: true,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(6.0),
-                                              child: Image.memory(
+                                    ),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: AppExpandedImageView(
+                                              image: Image.memory(
                                                 imagesItem.bytes ??
                                                     Uint8List.fromList([]),
-                                                width: 200.0,
-                                                height: 200.0,
-                                                fit: BoxFit.cover,
+                                                fit: BoxFit.contain,
                                               ),
+                                              allowRotation: false,
+                                              tag: 'imageTag1',
+                                              useHeroAnimation: true,
                                             ),
+                                          ),
+                                        );
+                                      },
+                                      child: Hero(
+                                        tag: 'imageTag1',
+                                        transitionOnUserGestures: true,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(6.0),
+                                          child: Image.memory(
+                                            imagesItem.bytes ??
+                                                Uint8List.fromList([]),
+                                            width: 200.0,
+                                            height: 200.0,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Positioned(
-                                      top: -6.0,
-                                      right: -6.0,
-                                      child: InkWell(
-                                        onTap: () {
-                                          _provider.update(() {
-                                            _provider
-                                                .removeAtIndexFromSelectedImages(
-                                                    imagesIndex);
-                                            _provider.hasUnsavedChanges = true;
-                                          });
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(2.0),
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black.withOpacity(0.6),
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              color: AppTheme.of(context)
-                                                  .primaryBackground,
-                                              width: 1.5,
-                                            ),
-                                          ),
-                                          child: const Icon(
-                                            Icons.close,
-                                            color: Colors.white,
-                                            size: 14.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 );
                               }),
                             );
                           },
                         ),
                         if (widget!.jobData != null)
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0,
-                              AppTheme.of(context).designToken.spacing.sm,
-                              0.0,
-                              AppTheme.of(context).designToken.spacing.sm,
-                            ),
-                            child: Container(
-                              width: double.infinity,
-                              padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    AppTheme.of(context).designToken.spacing.md,
-                                vertical:
-                                    AppTheme.of(context).designToken.spacing.sm,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppTheme.of(context)
-                                    .warning
-                                    .withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Icons.info_outline_rounded,
-                                    color: AppTheme.of(context).warning,
-                                    size: 18.0,
-                                  ),
-                                  SizedBox(
-                                      width: AppTheme.of(context)
-                                          .designToken
-                                          .spacing
-                                          .sm),
-                                  Expanded(
-                                    child: Text(
-                                      'Please note that after adding new images old images will be removed.',
-                                      style: AppTheme.of(context)
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Text(
+                              'Please note that after adding new images old images will be removed.',
+                              textAlign: TextAlign.center,
+                              style: AppTheme.of(context)
+                                  .bodySmall
+                                  .override(
+                                    font: GoogleFonts.manrope(
+                                      fontWeight: AppTheme.of(context)
                                           .bodySmall
-                                          .override(
-                                            font: GoogleFonts.manrope(
-                                              fontWeight: AppTheme.of(context)
-                                                  .bodySmall
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodySmall
-                                                  .fontStyle,
-                                            ),
-                                            color: AppTheme.of(context)
-                                                .secondaryText,
-                                            letterSpacing: 0.0,
-                                            lineHeight: 1.4,
-                                            fontWeight: AppTheme.of(context)
-                                                .bodySmall
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .bodySmall
-                                                .fontStyle,
-                                          ),
+                                          .fontWeight,
+                                      fontStyle: AppTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
                                     ),
+                                    color: AppTheme.of(context)
+                                        .secondaryText,
+                                    letterSpacing: 0.0,
+                                    fontWeight: AppTheme.of(context)
+                                        .bodySmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .bodySmall
+                                        .fontStyle,
                                   ),
-                                ],
-                              ),
                             ),
                           ),
                         Padding(
-                          padding: EdgeInsets.all(
-                              AppTheme.of(context).designToken.spacing.sm),
+                          padding: EdgeInsets.all(AppTheme.of(context)
+                              .designToken
+                              .spacing
+                              .sm),
                           child: Builder(
                             builder: (context) {
                               final existedImages =
@@ -1380,100 +1414,66 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                 itemBuilder: (context, existedImagesIndex) {
                                   final existedImagesItem =
                                       existedImages[existedImagesIndex];
-                                  return Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child: AppExpandedImageView(
-                                                image: CachedNetworkImage(
-                                                  imageUrl: existedImagesItem,
-                                                  fit: BoxFit.contain,
-                                                ),
-                                                allowRotation: false,
-                                                tag: existedImagesItem,
-                                                useHeroAnimation: true,
-                                              ),
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: AppExpandedImageView(
+                                            image: Image.network(
+                                              existedImagesItem,
+                                              fit: BoxFit.contain,
                                             ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: existedImagesItem,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: CachedNetworkImage(
-                                              imageUrl: existedImagesItem,
-                                              width: 100.0,
-                                              height: 100.0,
-                                              fit: BoxFit.cover,
-                                            ),
+                                            allowRotation: false,
+                                            tag: existedImagesItem,
+                                            useHeroAnimation: true,
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                        top: 4.0,
-                                        right: 4.0,
-                                        child: InkWell(
-                                          onTap: () {
-                                            _provider.update(() {
-                                              _provider
-                                                  .removeAtIndexFromExistingImages(
-                                                      existedImagesIndex);
-                                              _provider.hasUnsavedChanges =
-                                                  true;
-                                            });
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(2.0),
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  Colors.black.withOpacity(0.6),
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color: AppTheme.of(context)
-                                                    .primaryBackground,
-                                                width: 1.5,
-                                              ),
-                                            ),
-                                            child: const Icon(
-                                              Icons.close,
-                                              color: Colors.white,
-                                              size: 14.0,
-                                            ),
-                                          ),
+                                      );
+                                    },
+                                    child: Hero(
+                                      tag: existedImagesItem,
+                                      transitionOnUserGestures: true,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          existedImagesItem,
+                                          width: 100.0,
+                                          height: 100.0,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   );
                                 },
                               );
                             },
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0,
-                            AppTheme.of(context).designToken.spacing.md,
-                            0.0,
-                            AppTheme.of(context).designToken.spacing.sm,
-                          ),
-                          child: Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
-                            child: Text(
-                              'BY POSTING, YOU AGREE TO OUR TERMS OF\nSERVICE',
-                              textAlign: TextAlign.center,
-                              style: AppTheme.of(context).bodySmall.override(
-                                    font: GoogleFonts.manrope(
+                        Align(
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Text(
+                            'BY POSTING, YOU AGREE TO OUR TERMS OF\nSERVICE',
+                            textAlign: TextAlign.center,
+                            style:
+                                AppTheme.of(context).bodySmall.override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: AppTheme.of(context)
+                                            .bodySmall
+                                            .fontWeight,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodySmall
+                                            .fontStyle,
+                                      ),
+                                      color: AppTheme.of(context)
+                                          .secondaryText,
+                                      letterSpacing: 0.0,
                                       fontWeight: AppTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
@@ -1481,17 +1481,6 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                           .bodySmall
                                           .fontStyle,
                                     ),
-                                    color: AppTheme.of(context).secondaryText,
-                                    letterSpacing: 0.0,
-                                    lineHeight: 1.4,
-                                    fontWeight: AppTheme.of(context)
-                                        .bodySmall
-                                        .fontWeight,
-                                    fontStyle: AppTheme.of(context)
-                                        .bodySmall
-                                        .fontStyle,
-                                  ),
-                            ),
                           ),
                         ),
                         if (responsiveVisibility(
@@ -1513,25 +1502,26 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: AppTheme.of(context).primary,
-                              textStyle:
-                                  AppTheme.of(context).titleSmall.override(
-                                        font: GoogleFonts.manrope(
-                                          fontWeight: AppTheme.of(context)
-                                              .titleSmall
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .titleSmall
-                                              .fontStyle,
-                                        ),
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
-                                        fontWeight: AppTheme.of(context)
-                                            .titleSmall
-                                            .fontWeight,
-                                        fontStyle: AppTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
+                              textStyle: AppTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.manrope(
+                                      fontWeight: AppTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: AppTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    fontWeight: AppTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
@@ -1542,287 +1532,254 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                           Align(
                             alignment: const AlignmentDirectional(0.0, 0.0),
                             child: AppButton(
-                              onPressed: (widget!.jobData != null &&
-                                      !_provider.hasUnsavedChanges)
-                                  ? null
-                                  : () async {
-                                      _model.formValidation = true;
-                                      if (_model.formKey.currentState == null ||
-                                          !_model.formKey.currentState!
-                                              .validate()) {
-                                        _provider.update(() =>
-                                            _model.formValidation = false);
-                                        return;
-                                      }
-                                      if (_model.categoryValue == null) {
-                                        await actions.showToast(
-                                          context,
-                                          'Job Category is required',
-                                          2,
+                              onPressed: () async {
+                                _model.formValidation = true;
+                                if (_model.formKey.currentState == null ||
+                                    !_model.formKey.currentState!.validate()) {
+                                  _provider.update(
+                                      () => _model.formValidation = false);
+                                  return;
+                                }
+                                if (_model.categoryValue == null) {
+                                  await actions.showToast(
+                                    context,
+                                    'Job Category is required',
+                                    2,
+                                  );
+                                  _model.formValidation = false;
+                                  _provider.notify();
+                                  return;
+                                }
+                                if (_model.quotesDropDownValue == null) {
+                                  await actions.showToast(
+                                    context,
+                                    'Please add total quotes',
+                                    2,
+                                  );
+                                  _model.formValidation = false;
+                                  _provider.notify();
+                                  return;
+                                }
+                                if (_model.uploadedLocalFiles_attachedImageLocal
+                                    .any((file) =>
+                                        file == null ||
+                                        (file.bytes?.isEmpty ?? true))) {
+                                  await actions.showToast(
+                                    context,
+                                    'Please upload work images',
+                                    2,
+                                  );
+                                  _model.formValidation = false;
+                                  _provider.notify();
+                                  return;
+                                }
+                                if (_model.formValidation!) {
+                                  if (_provider.selectedImages.isNotEmpty) {
+                                    {
+                                      _provider.update(() => _model
+                                              .isDataUploading_uploadedImagesUrl =
+                                          true);
+                                      var selectedUploadedFiles =
+                                          <UploadedFile>[];
+                                      var selectedMedia = <SelectedFile>[];
+                                      var downloadUrls = <String>[];
+                                      try {
+                                        selectedUploadedFiles =
+                                            _provider.selectedImages;
+                                        selectedMedia =
+                                            selectedFilesFromUploadedFiles(
+                                          selectedUploadedFiles,
+                                          storageFolderPath: 'user',
+                                          isMultiData: true,
                                         );
-                                        _model.formValidation = false;
+                                        downloadUrls =
+                                            await uploadSupabaseStorageFiles(
+                                          bucketName: 'general',
+                                          selectedFiles: selectedMedia,
+                                        );
+                                      } finally {
+                                        _model.isDataUploading_uploadedImagesUrl =
+                                            false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                              selectedMedia.length &&
+                                          downloadUrls.length ==
+                                              selectedMedia.length) {
+                                        _provider.update(() {
+                                          _model.uploadedLocalFiles_uploadedImagesUrl =
+                                              selectedUploadedFiles;
+                                          _model.uploadedFileUrls_uploadedImagesUrl =
+                                              downloadUrls;
+                                        });
+                                      } else {
                                         _provider.notify();
                                         return;
                                       }
-                                      if (_model.quotesDropDownValue == null) {
-                                        await actions.showToast(
-                                          context,
-                                          'Please add total quotes',
-                                          2,
-                                        );
-                                        _model.formValidation = false;
-                                        _provider.notify();
-                                        return;
-                                      }
-                                      if (_model
-                                          .uploadedLocalFiles_attachedImageLocal
-                                          .any((file) =>
-                                              file == null ||
-                                              (file.bytes?.isEmpty ?? true))) {
-                                        await actions.showToast(
-                                          context,
-                                          'Please upload work images',
-                                          2,
-                                        );
-                                        _model.formValidation = false;
-                                        _provider.notify();
-                                        return;
-                                      }
-                                      if (_model.formValidation!) {
-                                        if (_provider
-                                            .selectedImages.isNotEmpty) {
-                                          {
-                                            _provider.update(() => _model
-                                                    .isDataUploading_uploadedImagesUrl =
-                                                true);
-                                            var selectedUploadedFiles =
-                                                <UploadedFile>[];
-                                            var selectedMedia =
-                                                <SelectedFile>[];
-                                            var downloadUrls = <String>[];
-                                            try {
-                                              selectedUploadedFiles =
-                                                  _provider.selectedImages;
-                                              selectedMedia =
-                                                  selectedFilesFromUploadedFiles(
-                                                selectedUploadedFiles,
-                                                storageFolderPath: 'user',
-                                                isMultiData: true,
-                                              );
-                                              downloadUrls =
-                                                  await uploadSupabaseStorageFiles(
-                                                bucketName: 'general',
-                                                selectedFiles: selectedMedia,
-                                              );
-                                            } finally {
-                                              _model.isDataUploading_uploadedImagesUrl =
-                                                  false;
-                                            }
-                                            if (selectedUploadedFiles.length ==
-                                                    selectedMedia.length &&
-                                                downloadUrls.length ==
-                                                    selectedMedia.length) {
-                                              _provider.update(() {
-                                                _model.uploadedLocalFiles_uploadedImagesUrl =
-                                                    selectedUploadedFiles;
-                                                _model.uploadedFileUrls_uploadedImagesUrl =
-                                                    downloadUrls;
-                                              });
-                                            } else {
-                                              _provider.notify();
-                                              return;
-                                            }
-                                          }
+                                    }
 
-                                          for (int loop1Index = 0;
-                                              loop1Index <
-                                                  _model
-                                                      .uploadedFileUrls_uploadedImagesUrl
-                                                      .length;
-                                              loop1Index++) {
-                                            final currentLoop1Item = _model
-                                                    .uploadedFileUrls_uploadedImagesUrl[
-                                                loop1Index];
-                                            _provider.addToTotalImages(
-                                                currentLoop1Item);
-                                          }
-                                        }
-                                        if (widget!.jobData == null) {
-                                          if (_provider
-                                              .totalImages.isNotEmpty) {
-                                            _model.addPostResult =
-                                                await SupbaseRpcGroup.addJobCall
-                                                    .call(
-                                              title: _model
-                                                  .jobTitleTextController.text,
-                                              lat: functions.getLatLng(
-                                                  0,
-                                                  _model
-                                                      .placePickerValue.latLng),
-                                              lng: functions.getLatLng(
-                                                  1,
-                                                  _model
-                                                      .placePickerValue.latLng),
-                                              city:
-                                                  _model.placePickerValue.city,
-                                              zipCode: _model
-                                                  .placePickerValue.zipCode,
-                                              state:
-                                                  _model.placePickerValue.state,
-                                              country: _model
-                                                  .placePickerValue.country,
-                                              userid: currentUserUid,
-                                              description: _model
-                                                  .descriptionTextController
-                                                  .text,
-                                              budget: int.tryParse(_model
-                                                  .budgetTextController.text),
-                                              category: _model.categoryValue,
-                                              totalQuotes: int.parse((_model
-                                                  .quotesDropDownValue!)),
-                                              imagesList: _provider.totalImages,
-                                              name:
-                                                  _model.placePickerValue.name,
-                                              address: _model
-                                                  .placePickerValue.address,
+                                    for (int loop1Index = 0;
+                                        loop1Index <
+                                            _model
+                                                .uploadedFileUrls_uploadedImagesUrl
+                                                .length;
+                                        loop1Index++) {
+                                      final currentLoop1Item = _model
+                                              .uploadedFileUrls_uploadedImagesUrl[
+                                          loop1Index];
+                                      _provider.addToTotalImages(currentLoop1Item);
+                                    }
+                                  }
+                                  if (widget!.jobData == null) {
+                                    if (_provider.totalImages.isNotEmpty) {
+                                      _model.addPostResult =
+                                          await SupbaseRpcGroup.addJobCall.call(
+                                        title:
+                                            _model.jobTitleTextController.text,
+                                        lat: functions.getLatLng(
+                                            0, _model.placePickerValue.latLng),
+                                        lng: functions.getLatLng(
+                                            1, _model.placePickerValue.latLng),
+                                        city: _model.placePickerValue.city,
+                                        zipCode:
+                                            _model.placePickerValue.zipCode,
+                                        state: _model.placePickerValue.state,
+                                        country:
+                                            _model.placePickerValue.country,
+                                        userid: currentUserUid,
+                                        description: _model
+                                            .descriptionTextController.text,
+                                        budget: int.tryParse(
+                                            _model.budgetTextController.text),
+                                        category: _model.categoryValue,
+                                        totalQuotes: int.parse(
+                                            (_model.quotesDropDownValue!)),
+                                        imagesList: _provider.totalImages,
+                                        name: _model.placePickerValue.name,
+                                        address:
+                                            _model.placePickerValue.address,
+                                      );
+
+                                      if ((_model.addPostResult?.succeeded ??
+                                          true)) {
+                                        await Future.wait([
+                                          Future(() async {
+                                            AppState().updateJobCacheStruct(
+                                              (e) => e
+                                                ..updateJobs(
+                                                  (e) =>
+                                                      e.add(JobsListItemStruct(
+                                                    id: (_model.addPostResult
+                                                                ?.jsonBody ??
+                                                            '')
+                                                        .toString(),
+                                                    customerId: currentUserUid,
+                                                    title: _model
+                                                        .jobTitleTextController
+                                                        .text,
+                                                    description: _model
+                                                        .descriptionTextController
+                                                        .text,
+                                                    budgetMin: double.tryParse(
+                                                        _model
+                                                            .budgetTextController
+                                                            .text),
+                                                    category:
+                                                        _model.categoryValue,
+                                                    images: _provider.totalImages,
+                                                    createdAt:
+                                                        getCurrentTimestamp
+                                                            .toString(),
+                                                  )),
+                                                ),
                                             );
-
-                                            if ((_model
-                                                    .addPostResult?.succeeded ??
-                                                true)) {
-                                              await Future.wait([
-                                                Future(() async {
-                                                  AppState()
-                                                      .updateJobCacheStruct(
-                                                    (e) => e
-                                                      ..updateJobs(
-                                                        (e) => e.add(
-                                                            JobsListItemStruct(
-                                                          id: (_model.addPostResult
-                                                                      ?.jsonBody ??
-                                                                  '')
-                                                              .toString(),
-                                                          customerId:
-                                                              currentUserUid,
-                                                          title: _model
-                                                              .jobTitleTextController
-                                                              .text,
-                                                          description: _model
-                                                              .descriptionTextController
-                                                              .text,
-                                                          budgetMin: double
-                                                              .tryParse(_model
-                                                                  .budgetTextController
-                                                                  .text),
-                                                          category: _model
-                                                              .categoryValue,
-                                                          images: _provider
-                                                              .totalImages,
-                                                          createdAt:
-                                                              getCurrentTimestamp
-                                                                  .toString(),
-                                                        )),
-                                                      ),
-                                                  );
-                                                  AppState().update(() {});
-                                                }),
-                                                Future(() async {
-                                                  await actions.showToast(
-                                                    context,
-                                                    'Job Posted',
-                                                    2,
-                                                  );
-                                                }),
-                                                Future(() async {
-                                                  context.safePop();
-                                                }),
-                                              ]);
-                                            } else {
-                                              await actions.showToast(
-                                                context,
-                                                'Failed to post job',
-                                                2,
-                                              );
-                                            }
-                                          } else {
+                                            AppState().update(() {});
+                                          }),
+                                          Future(() async {
                                             await actions.showToast(
                                               context,
-                                              'Please upload work images',
+                                              'Job Posted',
                                               2,
                                             );
-                                          }
-                                        } else {
-                                          _model.updateJob =
-                                              await SupbaseRpcGroup
-                                                  .updateJobRpcCall
-                                                  .call(
-                                            jobId: widget!.jobData?.id,
-                                            userId: currentUserUid,
-                                            title: _model
-                                                .jobTitleTextController.text,
-                                            description: _model
-                                                .descriptionTextController.text,
-                                            budget: int.tryParse(_model
-                                                .budgetTextController.text),
-                                            category: _model.categoryValue,
-                                            totalQuotes:
-                                                _model.quotesDropDownValue,
-                                            imagesList:
-                                                _provider.totalImages.isNotEmpty
-                                                    ? _provider.totalImages
-                                                    : _provider.existingImages,
-                                            address:
-                                                _model.placePickerValue.address,
-                                            name: _model.placePickerValue.name,
-                                            country:
-                                                _model.placePickerValue.country,
-                                            state:
-                                                _model.placePickerValue.state,
-                                            zipCode:
-                                                _model.placePickerValue.zipCode,
-                                            city: _model.placePickerValue.city,
-                                            lat: functions.getLatLng(0,
-                                                _model.placePickerValue.latLng),
-                                            lng: functions.getLatLng(1,
-                                                _model.placePickerValue.latLng),
+                                          }),
+                                          Future(() async {
+                                            context.safePop();
+                                          }),
+                                        ]);
+                                      } else {
+                                        await actions.showToast(
+                                          context,
+                                          'Failed to post job',
+                                          2,
+                                        );
+                                      }
+                                    } else {
+                                      await actions.showToast(
+                                        context,
+                                        'Please upload work images',
+                                        2,
+                                      );
+                                    }
+                                  } else {
+                                    _model.updateJob = await SupbaseRpcGroup
+                                        .updateJobRpcCall
+                                        .call(
+                                      jobId: widget!.jobData?.id,
+                                      userId: currentUserUid,
+                                      title: _model.jobTitleTextController.text,
+                                      description:
+                                          _model.descriptionTextController.text,
+                                      budget: int.tryParse(
+                                          _model.budgetTextController.text),
+                                      category: _model.categoryValue,
+                                      totalQuotes: _model.quotesDropDownValue,
+                                      imagesList: _provider.totalImages.isNotEmpty
+                                          ? _provider.totalImages
+                                          : _provider.existingImages,
+                                      address: _model.placePickerValue.address,
+                                      name: _model.placePickerValue.name,
+                                      country: _model.placePickerValue.country,
+                                      state: _model.placePickerValue.state,
+                                      zipCode: _model.placePickerValue.zipCode,
+                                      city: _model.placePickerValue.city,
+                                      lat: functions.getLatLng(
+                                          0, _model.placePickerValue.latLng),
+                                      lng: functions.getLatLng(
+                                          1, _model.placePickerValue.latLng),
+                                    );
+
+                                    if ((_model.updateJob?.succeeded ?? true)) {
+                                      await Future.wait([
+                                        Future(() async {
+                                          await actions.showToast(
+                                            context,
+                                            'Job updated',
+                                            2,
                                           );
+                                        }),
+                                        Future(() async {
+                                          context.safePop();
+                                        }),
+                                        Future(() async {
+                                          await action_blocks.createJobActivity(
+                                            context,
+                                            jobid: widget!.jobData?.id,
+                                            userid: currentUserUid,
+                                            type: JobActivities.JOB_UPDATED,
+                                          );
+                                        }),
+                                      ]);
+                                    } else {
+                                      await actions.showToast(
+                                        context,
+                                        'Failed to update job',
+                                        2,
+                                      );
+                                    }
+                                  }
+                                }
 
-                                          if ((_model.updateJob?.succeeded ??
-                                              true)) {
-                                            await Future.wait([
-                                              Future(() async {
-                                                await actions.showToast(
-                                                  context,
-                                                  'Job updated',
-                                                  2,
-                                                );
-                                              }),
-                                              Future(() async {
-                                                context.safePop();
-                                              }),
-                                              Future(() async {
-                                                await action_blocks
-                                                    .createJobActivity(
-                                                  context,
-                                                  jobid: widget!.jobData?.id,
-                                                  userid: currentUserUid,
-                                                  type:
-                                                      JobActivities.JOB_UPDATED,
-                                                );
-                                              }),
-                                            ]);
-                                          } else {
-                                            await actions.showToast(
-                                              context,
-                                              'Failed to update job',
-                                              2,
-                                            );
-                                          }
-                                        }
-                                      }
-
-                                      _provider.notify();
-                                    },
+                                _provider.notify();
+                              },
                               text: widget!.jobData != null
                                   ? 'Update Job'
                                   : 'Post Job',
@@ -1836,35 +1793,35 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 iconAlignment: IconAlignment.end,
-                                iconPadding:
-                                    const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
                                 color: AppTheme.of(context).primary,
-                                disabledColor: AppTheme.of(context).alternate,
-                                disabledTextColor:
-                                    AppTheme.of(context).secondaryText,
-                                textStyle:
-                                    AppTheme.of(context).titleSmall.override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight: AppTheme.of(context)
-                                                .titleSmall
-                                                .fontWeight,
-                                            fontStyle: AppTheme.of(context)
-                                                .titleSmall
-                                                .fontStyle,
-                                          ),
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                          fontWeight: AppTheme.of(context)
-                                              .titleSmall
-                                              .fontWeight,
-                                          fontStyle: AppTheme.of(context)
-                                              .titleSmall
-                                              .fontStyle,
-                                        ),
+                                textStyle: AppTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: AppTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: AppTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                      color: Colors.white,
+                                      letterSpacing: 0.0,
+                                      fontWeight: AppTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: AppTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
                                 elevation: 0.0,
                                 borderRadius: BorderRadius.circular(
-                                    AppTheme.of(context).designToken.radius.lg),
+                                    AppTheme.of(context)
+                                        .designToken
+                                        .radius
+                                        .lg),
                               ),
                             ),
                           ),
@@ -1873,17 +1830,26 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                                AppTheme.of(context).designToken.radius.md),
+                                AppTheme.of(context)
+                                    .designToken
+                                    .radius
+                                    .md),
                           ),
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: AppTheme.of(context).accent2,
                               boxShadow: [
-                                AppTheme.of(context).designToken.shadow.sm
+                                AppTheme.of(context)
+                                    .designToken
+                                    .shadow
+                                    .sm
                               ],
                               borderRadius: BorderRadius.circular(
-                                  AppTheme.of(context).designToken.radius.md),
+                                  AppTheme.of(context)
+                                      .designToken
+                                      .radius
+                                      .md),
                               border: Border.all(
                                 color: AppTheme.of(context).alternate,
                               ),
@@ -1903,10 +1869,12 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                       AppIconButton(
                                         borderRadius: 8.0,
                                         buttonSize: 42.0,
-                                        fillColor: AppTheme.of(context).success,
+                                        fillColor: AppTheme.of(context)
+                                            .success,
                                         icon: Icon(
                                           Icons.tips_and_updates_outlined,
-                                          color: AppTheme.of(context).info,
+                                          color:
+                                              AppTheme.of(context).info,
                                           size: 24.0,
                                         ),
                                         onPressed: () {
@@ -1920,17 +1888,20 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             .override(
                                               font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.bold,
-                                                fontStyle: AppTheme.of(context)
-                                                    .labelLarge
-                                                    .fontStyle,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .labelLarge
+                                                        .fontStyle,
                                               ),
-                                              color: AppTheme.of(context)
-                                                  .primaryText,
+                                              color:
+                                                  AppTheme.of(context)
+                                                      .primaryText,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
-                                              fontStyle: AppTheme.of(context)
-                                                  .labelLarge
-                                                  .fontStyle,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ].divide(const SizedBox(
@@ -1943,7 +1914,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     children: [
                                       Icon(
                                         Icons.check_circle_outlined,
-                                        color: AppTheme.of(context).success,
+                                        color: AppTheme.of(context)
+                                            .success,
                                         size: 18.0,
                                       ),
                                       Text(
@@ -1952,22 +1924,27 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
-                                                fontWeight: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
-                                              color: AppTheme.of(context)
-                                                  .primaryText,
+                                              color:
+                                                  AppTheme.of(context)
+                                                      .primaryText,
                                               letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ].divide(const SizedBox(
@@ -1980,7 +1957,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     children: [
                                       Icon(
                                         Icons.check_circle_outlined,
-                                        color: AppTheme.of(context).success,
+                                        color: AppTheme.of(context)
+                                            .success,
                                         size: 18.0,
                                       ),
                                       Text(
@@ -1989,22 +1967,27 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
-                                                fontWeight: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
-                                              color: AppTheme.of(context)
-                                                  .primaryText,
+                                              color:
+                                                  AppTheme.of(context)
+                                                      .primaryText,
                                               letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ].divide(const SizedBox(
@@ -2017,7 +2000,8 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                     children: [
                                       Icon(
                                         Icons.check_circle_outlined,
-                                        color: AppTheme.of(context).success,
+                                        color: AppTheme.of(context)
+                                            .success,
                                         size: 18.0,
                                       ),
                                       Text(
@@ -2026,22 +2010,27 @@ class _AddJobWidgetState extends State<AddJobWidget> {
                                             .bodyMedium
                                             .override(
                                               font: GoogleFonts.manrope(
-                                                fontWeight: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
-                                                fontStyle: AppTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
+                                                fontWeight:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    AppTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
-                                              color: AppTheme.of(context)
-                                                  .primaryText,
+                                              color:
+                                                  AppTheme.of(context)
+                                                      .primaryText,
                                               letterSpacing: 0.0,
-                                              fontWeight: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                              fontStyle: AppTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                              fontWeight:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  AppTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ].divide(const SizedBox(

@@ -5,7 +5,6 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
 import '/models/structs/index.dart';
-import '/widgets/page_header.dart';
 import '/widgets/components/empty_list_component/empty_list_component_widget.dart';
 import '/widgets/components/submitted_job_list_item/submitted_job_list_item_widget.dart';
 import '/widgets/components/tp_navbar/tp_navbar_widget.dart';
@@ -142,15 +141,62 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
           },
         );
       },
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: AppTheme.of(context).primaryBackground,
-        body: SafeArea(
-          // top: true,
-          // Each tab shows its own skeleton while its data is loading (see
-          // _buildJobsTab) — the header, tab bar, and bottom nav are always
-          // fully rendered, real chrome, so they shouldn't shimmer too.
-          child: _buildTabsStack(context),
+    child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: AppTheme.of(context).primaryBackground,
+          // appBar: AppBar(
+          //   backgroundColor: AppTheme.of(context).primaryBackground,
+          //   automaticallyImplyLeading: false,
+          //   title: wrapWithModel(
+          //     model: _model.appbarComponentModel,
+          //     updateCallback: () => _provider.update(() {}),
+          //     child: AppbarComponentWidget(
+          //       title: 'My jobs',
+          //       showAction: false,
+          //       action: () async {},
+          //     ),
+          //   ),
+          //   actions: const [],
+          //   centerTitle: true,
+          //   elevation: 0.0,
+          // ),
+          body: SafeArea(
+            top: true,
+            child: Builder(
+              builder: (context) {
+                final activeIndex = _model.tabBarController!.index;
+                final activeFuture = [
+                  _requestedJobsFuture,
+                  _inProgressJobsFuture,
+                  _completedJobsFuture,
+                ][activeIndex];
+                final activeCached = [
+                  _cachedRequested,
+                  _cachedInProgress,
+                  _cachedCompleted,
+                ][activeIndex];
+
+                return FutureBuilder<ApiCallResponse>(
+                  future: activeFuture,
+                  initialData: activeCached,
+                  builder: (context, activeSnapshot) {
+                    final isPageLoading = activeCached == null &&
+                        activeSnapshot.connectionState ==
+                            ConnectionState.waiting;
+                    return Skeletonizer(
+                      enabled: isPageLoading,
+                      child: _buildTabsStack(context),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
@@ -172,11 +218,9 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                 ),
                 child: const PageHeaderWidget(
                   title: 'My Jobs',
-                  subtitle:
-                      'Track your requested, in-progress, and completed jobs all in one place.',
+                  subtitle: 'Track your requested, in-progress, and completed jobs all in one place.',
                 ),
               ),
-              // ===== FIXED TAB BAR (does not scroll) =====
               Align(
                 alignment: const Alignment(0.0, 0),
                 child: TabBar(
@@ -220,16 +264,11 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                     Tab(text: 'Completed'),
                   ],
                   controller: _model.tabBarController,
+                  onTap: (i) async {
+                    [() async {}, () async {}, () async {}][i]();
+                  },
                 ),
               ),
-              Divider(
-                height: 1.0,
-                thickness: 1.0,
-                color: AppTheme.of(context).alternate,
-              ),
-              // ===== SCROLLABLE TAB CONTENT (starts below the tab bar) =====
-              // Each tab now has its own RefreshIndicator so pull-to-refresh
-              // only reloads that tab's list, not the whole page.
               Expanded(
                 child: TabBarView(
                   controller: _model.tabBarController,
@@ -245,10 +284,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         child: _buildJobsTab(
                           future: _requestedJobsFuture,
                           cached: _cachedRequested,
-                          emptyIcon: Icons.pending_actions_outlined,
-                          emptyTitle: 'No requested jobs yet',
-                          emptyDescription:
-                              'Browse available jobs and submit a proposal to see it here.',
+                          title: 'REQUESTED',
                           keyPrefix: 'Keyngq',
                         ),
                       ),
@@ -264,10 +300,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         child: _buildJobsTab(
                           future: _inProgressJobsFuture,
                           cached: _cachedInProgress,
-                          emptyIcon: Icons.build_outlined,
-                          emptyTitle: 'No jobs in progress',
-                          emptyDescription:
-                              'Once a client accepts your proposal, the job will move here.',
+                          title: 'IN PROGRESS',
                           keyPrefix: 'Keysee',
                         ),
                       ),
@@ -283,10 +316,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
                         child: _buildJobsTab(
                           future: _completedJobsFuture,
                           cached: _cachedCompleted,
-                          emptyIcon: Icons.task_alt,
-                          emptyTitle: 'No completed jobs yet',
-                          emptyDescription:
-                              'Jobs you\'ve finished will be saved here for your records.',
+                          title: 'COMPLETED',
                           keyPrefix: 'Key707',
                         ),
                       ),
@@ -321,9 +351,7 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
   Widget _buildJobsTab({
     required Future<ApiCallResponse> future,
     required ApiCallResponse? cached,
-    required IconData emptyIcon,
-    required String emptyTitle,
-    required String emptyDescription,
+    required String title,
     required String keyPrefix,
   }) {
     return FutureBuilder<ApiCallResponse>(
@@ -345,12 +373,11 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             child: EmptyListComponentWidget(
               icon: Icon(
                 Icons.error_outline,
-                color: AppTheme.of(context).error,
-                size: 32.0,
+                color: AppTheme.of(context).tertiary,
+                size: 40.0,
               ),
-              title: 'Couldn\'t load jobs',
-              description:
-                  'Something went wrong. Pull down to try again.',
+              title: title,
+              description: 'Jobs load nahi ho sake, dobara try karein',
             ),
           );
         }
@@ -375,12 +402,12 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
             physics: const AlwaysScrollableScrollPhysics(),
             child: EmptyListComponentWidget(
               icon: Icon(
-                emptyIcon,
+                Icons.work_history_sharp,
                 color: AppTheme.of(context).tertiary,
-                size: 32.0,
+                size: 40.0,
               ),
-              title: emptyTitle,
-              description: emptyDescription,
+              title: title,
+              description: 'JOBS NOT FOUND',
             ),
           );
         }

@@ -254,12 +254,6 @@ class AppState extends ChangeNotifier {
     _totalMessagesCount = value;
   }
 
-  int _unreadNotificationsCount = 0;
-  int get unreadNotificationsCount => _unreadNotificationsCount;
-  set unreadNotificationsCount(int value) {
-    _unreadNotificationsCount = value;
-  }
-
   String _currentDeviceToken = '';
   String get currentDeviceToken => _currentDeviceToken;
   set currentDeviceToken(String value) {

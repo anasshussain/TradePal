@@ -84,8 +84,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
           final stripeAccount = stripeAccounts.firstWhereOrNull(
                 (a) => a.payoutsEnabled && a.chargesEnabled,
               ) ??
-              stripeAccounts
-                  .firstWhereOrNull((a) => a.stripeAccountId.isNotEmpty) ??
+              stripeAccounts.firstWhereOrNull((a) => a.stripeAccountId.isNotEmpty) ??
               stripeAccounts.firstOrNull;
 
           final stripeAccountId = stripeAccount?.stripeAccountId;
@@ -179,6 +178,8 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
                           color: Colors.grey.shade400,
                         ),
                         const SizedBox(height: 20),
+                      
+                      
                         const Text(
                           'No Cards Found',
                           style: TextStyle(
@@ -276,7 +277,7 @@ class _BankCardsWidgetState extends State<BankCardsWidget> {
 
               safeSetState(() {});
             },
-            child: const Icon(
+            child: Icon(
               Icons.add,
               color: Color(0xffffffff),
             ),

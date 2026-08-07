@@ -98,6 +98,14 @@ class NotificationService {
       ),
       onDidReceiveNotificationResponse: _onNotificationTap,
     );
+
+    // await _local.initialize(
+    //   const fln.InitializationSettings(
+    //     android: android,
+    //     iOS: ios,
+    //   ),
+    //   onDidReceiveNotificationResponse: _onNotificationTap,
+    // );
   }
 
   // =========================
@@ -127,11 +135,6 @@ class NotificationService {
 
     _log(message, data);
 
-    if (data.title.isNotEmpty || data.body.isNotEmpty) {
-      AppState().unreadNotificationsCount += 1;
-      AppState().update(() {});
-    }
-
     _showLocalNotification(data);
   }
 
@@ -145,14 +148,31 @@ class NotificationService {
     // 🔹 Background tap
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       print("🔥 TAP (BACKGROUND)");
+      // _handleIncomingNavigation(message);
     });
 
     // 🔹 Terminated tap (THIS IS YOUR MISSING PIECE)
     final initialMessage = await _messaging.getInitialMessage();
     if (initialMessage != null) {
       print("🔥 TAP (TERMINATED)");
+      // _handleIncomingNavigation(initialMessage);
     }
   }
+
+  // void _handleIncomingNavigation(RemoteMessage message) {
+  //   final rideId = message.data['ride_id']?.toString();
+  //   final deepLink = message.data['link']?.toString();
+
+  //   print("Incoming rideId: $rideId");
+
+  //   if (rideId != null && rideId.isNotEmpty) {
+  //    // AppState().requestRideId = rideId;
+  //   }
+
+  //   if (deepLink != null && deepLink.isNotEmpty) {
+  //     _handleDeepLink(deepLink);
+  //   }
+  // }
 
   // =========================
   // LOCAL NOTIFICATION DISPLAY

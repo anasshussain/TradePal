@@ -1360,7 +1360,7 @@ class GetConversationsCall {
     return ApiManager.instance.makeApiCall(
       callName: 'get conversations',
       apiUrl:
-          '${baseUrl}/conversation_participants?user_id=eq.${userId}&select=conversation_id,unread_count, conversations(id,job_id,last_message,last_message_at,conversation_participants(members:users(id,name,avatar_url,device_token)))',
+          '${baseUrl}/conversation_participants?user_id=eq.${userId}&select=conversation_id, conversations(id,job_id,last_message,last_message_at,conversation_participants(members:users(id,name,avatar_url,device_token)))',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${token}',
@@ -1933,6 +1933,8 @@ class CreatePaymentFeeCall {
 }
 
 class CreatePaymentIntentCall {
+
+ 
   static Future<ApiCallResponse> call({
     String? jobId = '',
     String? token = '',
@@ -1942,7 +1944,7 @@ class CreatePaymentIntentCall {
     String? tradepersonId = '',
     int? amount = 0,
   }) async {
-    debugPrint("payment intent execution started ");
+     debugPrint("payment intent execution started ");
     final apiRequestBody = '''
 {
   "stripe_customer_id": "${escapeStringForJson(stripeCustomerId)}",

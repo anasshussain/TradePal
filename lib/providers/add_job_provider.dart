@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 /// State management for the add_job screen (migrated from setState).
 class AddJobProvider extends ChangeNotifier {
+  static bool _hasLoadedOnce = false;
+
   List<UploadedFile> selectedImages = [];
   void addToSelectedImages(UploadedFile item) => selectedImages.add(item);
   void removeFromSelectedImages(UploadedFile item) =>
@@ -24,7 +26,6 @@ class AddJobProvider extends ChangeNotifier {
   }
 
   bool loading = false;
-  bool hasUnsavedChanges = false;
 
   LocationStruct? location;
   void updateLocationStruct(Function(LocationStruct) updateFn) {
@@ -59,6 +60,9 @@ class AddJobProvider extends ChangeNotifier {
   void updateTestStateAtIndex(int index, Function(dynamic) updateFn) =>
       testState[index] = updateFn(testState[index]);
 
+
+  bool get hasLoadedOnce => hasLoadedOnce;
+  void markLoadedOnce() => _hasLoadedOnce = true;
   void setLoading(bool value) {
     loading = value;
     notify();

@@ -55,15 +55,6 @@ class JobDetailsModel extends AppModel<JobDetailsWidget> {
       choiceChipsValueController?.value?.firstOrNull;
   set choiceChipsValue(String? val) =>
       choiceChipsValueController?.value = val != null ? [val] : [];
-  String? Function(BuildContext, String?)? choiceChipsValueControllerValidator;
-  String? _choiceChipsValueControllerValidator(
-      BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Please select an estimated timeline';
-    }
-
-    return null;
-  }
   // State field(s) for description widget.
   FocusNode? descriptionFocusNode;
   TextEditingController? descriptionTextController;
@@ -111,7 +102,6 @@ class JobDetailsModel extends AppModel<JobDetailsWidget> {
         createModel(context, () => JobLocationComponentModel());
     quoteTextFieldTextControllerValidator =
         _quoteTextFieldTextControllerValidator;
-    choiceChipsValueControllerValidator = _choiceChipsValueControllerValidator;
     descriptionTextControllerValidator = _descriptionTextControllerValidator;
     jobDetailsLoaderModel = createModel(context, () => JobDetailsLoaderModel());
   }

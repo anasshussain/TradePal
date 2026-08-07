@@ -52,7 +52,7 @@ class _AccountInactiveWidgetState extends State<AccountInactiveWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
               AppConstants.parentPagePadding,

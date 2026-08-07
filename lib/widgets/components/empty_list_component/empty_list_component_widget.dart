@@ -54,64 +54,50 @@ class _EmptyListComponentWidgetState extends State<EmptyListComponentWidget> {
   Widget build(BuildContext context) {
     return Align(
       alignment: const AlignmentDirectional(0.0, 0.0),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 72.0,
-              height: 72.0,
-              decoration: BoxDecoration(
-                color: AppTheme.of(context).alternate,
-                shape: BoxShape.circle,
-              ),
-              child: Center(child: widget!.icon!),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          widget!.icon!,
+          Text(
+            valueOrDefault<String>(
+              widget!.title,
+              'No items found',
             ),
-            Text(
-              valueOrDefault<String>(
-                widget!.title,
-                'No items found',
-              ),
-              textAlign: TextAlign.center,
-              style: AppTheme.of(context).bodyMedium.override(
-                    font: GoogleFonts.manrope(
-                      fontWeight: FontWeight.w500,
-                      fontStyle:
-                          AppTheme.of(context).bodyMedium.fontStyle,
-                    ),
-                    color: AppTheme.of(context).primaryText,
-                    fontSize: 16.0,
-                    letterSpacing: 0.0,
+            style: AppTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.manrope(
                     fontWeight: FontWeight.w500,
-                    fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
+                    fontStyle:
+                        AppTheme.of(context).bodyMedium.fontStyle,
                   ),
+                  color: AppTheme.of(context).primaryText,
+                  fontSize: 16.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+          Text(
+            valueOrDefault<String>(
+              widget!.description,
+              'The items you are looking for might not exist',
             ),
-            Text(
-              valueOrDefault<String>(
-                widget!.description,
-                'The items you are looking for might not exist',
-              ),
-              textAlign: TextAlign.center,
-              style: AppTheme.of(context).bodyMedium.override(
-                    font: GoogleFonts.manrope(
-                      fontWeight:
-                          AppTheme.of(context).bodyMedium.fontWeight,
-                      fontStyle:
-                          AppTheme.of(context).bodyMedium.fontStyle,
-                    ),
-                    color: AppTheme.of(context).secondaryText,
-                    fontSize: 14.0,
-                    letterSpacing: 0.0,
+            style: AppTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.manrope(
                     fontWeight:
                         AppTheme.of(context).bodyMedium.fontWeight,
-                    fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
+                    fontStyle:
+                        AppTheme.of(context).bodyMedium.fontStyle,
                   ),
-            ),
-          ].divide(const SizedBox(height: AppConstants.childSpacing)),
-        ),
+                  color: AppTheme.of(context).secondaryText,
+                  fontSize: 14.0,
+                  letterSpacing: 0.0,
+                  fontWeight:
+                      AppTheme.of(context).bodyMedium.fontWeight,
+                  fontStyle: AppTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+        ].divide(const SizedBox(height: AppConstants.childSpacing)),
       ),
     );
   }

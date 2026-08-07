@@ -15,8 +15,6 @@ class ChatPageModel extends AppModel<ChatPageWidget> {
   ApiCallResponse? getJobDetail;
   // Stores action output result for [Backend Call - API (get proposal payment)] action in chat_page widget.
   ApiCallResponse? paymentStatusRes;
-  // Stores action output result for [Backend Call - API (mark conversation read)] action in chat_page widget.
-  ApiCallResponse? markConversationRes;
   // Model for appbar_component component.
   late AppbarComponentModel appbarComponentModel;
   // Stores action output result for [Backend Call - API (update job  status)] action in Button widget.
@@ -51,6 +49,7 @@ class ChatPageModel extends AppModel<ChatPageWidget> {
   // Stores action output result for [Backend Call - API (create payment intent)] action in Make Payment button.
   ApiCallResponse? createPaymentIntentRes;
   bool isProcessingPayment = false;
+  bool paymentCompleted = false;
 
   // Stores action output result for [Backend Call - API (release funds)] action in Make Payment button.
   ApiCallResponse? releaseFundsRes;

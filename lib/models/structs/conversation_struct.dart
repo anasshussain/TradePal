@@ -13,11 +13,9 @@ class ConversationStruct extends AppFirebaseStruct {
   ConversationStruct({
     String? conversationId,
     ConversationsStruct? conversations,
-    int? unreadCount,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _conversationId = conversationId,
         _conversations = conversations,
-        _unreadCount = unreadCount,
         super(firestoreUtilData);
 
   // "conversation_id" field.
@@ -39,22 +37,12 @@ class ConversationStruct extends AppFirebaseStruct {
 
   bool hasConversations() => _conversations != null;
 
-  // "unread_count" field.
-  int? _unreadCount;
-  int get unreadCount => _unreadCount ?? 0;
-  set unreadCount(int? val) => _unreadCount = val;
-
-  void incrementUnreadCount(int amount) => unreadCount = unreadCount + amount;
-
-  bool hasUnreadCount() => _unreadCount != null;
-
   static ConversationStruct fromMap(Map<String, dynamic> data) =>
       ConversationStruct(
         conversationId: data['conversation_id'] as String?,
         conversations: data['conversations'] is ConversationsStruct
             ? data['conversations']
             : ConversationsStruct.maybeFromMap(data['conversations']),
-        unreadCount: castToType<int>(data['unread_count']),
       );
 
   static ConversationStruct? maybeFromMap(dynamic data) => data is Map
@@ -64,7 +52,6 @@ class ConversationStruct extends AppFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'conversation_id': _conversationId,
         'conversations': _conversations?.toMap(),
-        'unread_count': _unreadCount,
       }.withoutNulls;
 
   @override
@@ -76,10 +63,6 @@ class ConversationStruct extends AppFirebaseStruct {
         'conversations': serializeParam(
           _conversations,
           ParamType.DataStruct,
-        ),
-        'unread_count': serializeParam(
-          _unreadCount,
-          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -96,11 +79,6 @@ class ConversationStruct extends AppFirebaseStruct {
           false,
           structBuilder: ConversationsStruct.fromSerializableMap,
         ),
-        unreadCount: deserializeParam(
-          data['unread_count'],
-          ParamType.int,
-          false,
-        ),
       );
 
   @override
@@ -110,19 +88,17 @@ class ConversationStruct extends AppFirebaseStruct {
   bool operator ==(Object other) {
     return other is ConversationStruct &&
         conversationId == other.conversationId &&
-        conversations == other.conversations &&
-        unreadCount == other.unreadCount;
+        conversations == other.conversations;
   }
 
   @override
   int get hashCode =>
-      const ListEquality().hash([conversationId, conversations, unreadCount]);
+      const ListEquality().hash([conversationId, conversations]);
 }
 
 ConversationStruct createConversationStruct({
   String? conversationId,
   ConversationsStruct? conversations,
-  int? unreadCount,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -132,7 +108,6 @@ ConversationStruct createConversationStruct({
       conversationId: conversationId,
       conversations:
           conversations ?? (clearUnsetFields ? ConversationsStruct() : null),
-      unreadCount: unreadCount,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
