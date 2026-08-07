@@ -93,7 +93,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
           elevation: 0.0,
         ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Align(
             alignment: const AlignmentDirectional(0.0, -1.0),
             child: Padding(

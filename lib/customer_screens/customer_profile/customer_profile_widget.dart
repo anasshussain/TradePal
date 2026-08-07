@@ -64,81 +64,130 @@ class _CustomerProfileWidgetState extends State<CustomerProfileWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return PopScope(
-        canPop: false,
-        onPopInvokedWithResult: ((didPop, result) async {
-          if(didPop) return;
-          context.goNamed(
-            CustomerDashboardWidget.routeName,
-            extra: <String, dynamic>{
-              '__transition_info__': const TransitionInfo(
-                hasTransition: true,
-                transitionType: PageTransitionType.fade,
-                duration: Duration(milliseconds: 0),
-              ),
-            },
-          );
-        }),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          child: Scaffold(
-            key: scaffoldKey,
-            backgroundColor: AppTheme.of(context).primaryBackground,
-            // appBar: AppBar(
-            //   backgroundColor: AppTheme.of(context).primaryBackground,
-            //   automaticallyImplyLeading: false,
-            //   title: wrapWithModel(
-            //     model: _model.appbarComponentModel,
-            //     updateCallback: () => _provider.update(() {}),
-            //     child: AppbarComponentWidget(
-            //       title: 'Profile',
-            //       showAction: false,
-            //       actionIcon: null,
-            //       action: () async {},
-            //     ),
-            //   ),
-            //   actions: const [],
-            //   centerTitle: false,
-            //   elevation: 0.0,
-            // ),
-            body: SafeArea(
-              top: true,
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(valueOrDefault<double>(
-                      AppConstants.parentPagePadding,
-                      0.0,
-                    )),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const PageHeaderWidget(
-                            title: 'Profile',
-                            subtitle: 'Manage your personal information, account preferences, and app settings.',
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Stack(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                  children: [
-                                    Material(
-                                      color: Colors.transparent,
-                                      elevation: 0.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            AppTheme.of(context)
-                                                .designToken
-                                                .radius
-                                                .md),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: AppTheme.of(context).primaryBackground,
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.update(() {}),
+        //     child: AppbarComponentWidget(
+        //       title: 'Profile',
+        //       showAction: false,
+        //       actionIcon: null,
+        //       action: () async {},
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        //   elevation: 0.0,
+        // ),
+        body: SafeArea(
+          // top: true,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(valueOrDefault<double>(
+                  AppConstants.parentPagePadding,
+                  0.0,
+                )),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const PageHeaderWidget(
+                        title: 'Profile',
+                        subtitle: 'Manage your personal information, account preferences,\n and app settings.',
+                      ),
+                      // Padding(
+                      //   padding: EdgeInsetsDirectional.fromSTEB(
+                      //     20.0,
+                      //     0.0,
+                      //     20.0,
+                      //     AppTheme.of(context).designToken.spacing.md,
+                      //   ),
+                      //   child: AppButton(
+                      //     onPressed: () async {
+                      //       context.pushNamed(EditTraderProfileWidget.routeName);
+                      //     },
+                      //     text: 'Edit profile',
+                      //     options: AppButtonOptions(
+                      //       width: 150,
+                      //       height: 37.0,
+                      //       padding: const EdgeInsetsDirectional.fromSTEB(
+                      //         16.0,
+                      //         0.0,
+                      //         16.0,
+                      //         0.0,
+                      //       ),
+                      //       iconPadding: EdgeInsets.zero,
+                      //       color: Theme.of(context).brightness == Brightness.dark
+                      //           ? Colors.white.withOpacity(0.08)
+                      //           : Colors.black.withOpacity(0.06),
+
+                      //       textStyle: AppTheme.of(context).titleSmall.override(
+                      //         font: GoogleFonts.inter(
+                      //           fontWeight: FontWeight.w400,
+                      //         ),
+                      //         color: AppTheme.of(context).primaryText,
+                      //         fontSize: 14,
+                      //         letterSpacing: 0,
+                      //         fontWeight: FontWeight.w600,
+                      //       ),
+                      //       elevation: 0,
+                      //       borderSide: BorderSide(
+                      //         color: Theme.of(context).brightness == Brightness.dark
+                      //             ? Colors.white.withOpacity(0.05)
+                      //             : Colors.black.withOpacity(0.04),
+                      //         width: 1,
+                      //       ),
+
+                      //       borderRadius: BorderRadius.circular(8.6),
+                      //     ),
+                      //   ),
+                      // ),
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0,
+                              AppTheme.of(context)
+                                  .designToken
+                                  .spacing
+                                  .lg,
+                              0.0,
+                              0.0),
+                          child: Text(
+                            'ACCOUNT DETAILS',
+                            style: AppTheme.of(context)
+                                .labelSmall
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontWeight,
+                                    fontStyle: AppTheme.of(context)
+                                        .labelSmall
+                                        .fontStyle,
+                                  ),
+                                  child: Container(
+                                    width: 128.0,
+                                    height: 128.0,
+                                    decoration: BoxDecoration(
+                                      color: AppTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(
+                                        color: AppTheme.of(context).alternate,
+                                        width: 2.0,
                                       ),
                                       child: Container(
                                         width: 128.0,

@@ -84,76 +84,62 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
             ),
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: const AlignmentDirectional(0.32, 0.0),
-                    child: Material(
-                      color: Colors.transparent,
-                      elevation: 0.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(valueOrDefault<double>(
-                          AppConstants.radius1,
-                          0.0,
-                        )),
-                      ),
-                      child: Container(
-                        width: 48.0,
-                        height: 48.0,
-                        decoration: BoxDecoration(
-                          color: AppTheme.of(context).secondary,
-                          borderRadius:
-                              BorderRadius.circular(valueOrDefault<double>(
-                            AppConstants.radius1,
-                            0.0,
-                          )),
-                        ),
-                        child: widget!.icon!,
-                      ),
-                    ),
+              Align(
+                alignment: const AlignmentDirectional(0.32, 0.0),
+                child: Material(
+                  color: Colors.transparent,
+                  elevation: 0.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(valueOrDefault<double>(
+                      AppConstants.radius1,
+                      0.0,
+                    )),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget!.title,
-                        style: AppTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.manrope(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: AppTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              letterSpacing: 0.0,
+                  child: Container(
+                    width: 48.0,
+                    height: 48.0,
+                    decoration: BoxDecoration(
+                      color: AppTheme.of(context).secondary,
+                      borderRadius:
+                          BorderRadius.circular(valueOrDefault<double>(
+                        AppConstants.radius1,
+                        0.0,
+                      )),
+                    ),
+                    child: widget!.icon!,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget!.title,
+                      style: AppTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.manrope(
                               fontWeight: FontWeight.w600,
                               fontStyle: AppTheme.of(context)
                                   .bodyMedium
                                   .fontStyle,
                             ),
-                      ),
-                      Text(
-                        widget!.description,
-                        style: AppTheme.of(context).labelSmall.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: AppTheme.of(context)
-                                    .labelSmall
-                                    .fontWeight,
-                                fontStyle: AppTheme.of(context)
-                                    .labelSmall
-                                    .fontStyle,
-                              ),
-                              fontSize: 10.0,
-                              letterSpacing: 0.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: AppTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                    ),
+                    Text(
+                      widget!.description,
+                      style: AppTheme.of(context).labelSmall.override(
+                            font: GoogleFonts.inter(
                               fontWeight: AppTheme.of(context)
                                   .labelSmall
                                   .fontWeight,
@@ -161,16 +147,21 @@ class _SettingsComponentWidgetState extends State<SettingsComponentWidget> {
                                   .labelSmall
                                   .fontStyle,
                             ),
-                      ),
-                    ].divide(SizedBox(
-                        height: AppTheme.of(context)
-                            .designToken
-                            .spacing
-                            .sm)),
-                  ),
-                ].divide(const SizedBox(width: AppConstants.childSpacing)),
+                            fontSize: 10.0,
+                            letterSpacing: 0.0,
+                            fontWeight: AppTheme.of(context)
+                                .labelSmall
+                                .fontWeight,
+                            fontStyle: AppTheme.of(context)
+                                .labelSmall
+                                .fontStyle,
+                          ),
+                    ),
+                  ].divide(SizedBox(
+                      height: AppTheme.of(context).designToken.spacing.sm)),
+                ),
               ),
-            ],
+            ].divide(const SizedBox(width: AppConstants.childSpacing)),
           ),
         ),
       ),

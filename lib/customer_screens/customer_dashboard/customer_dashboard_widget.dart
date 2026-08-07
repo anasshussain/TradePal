@@ -5,6 +5,8 @@ import '../../widgets/page_header.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
+import '/models/structs/index.dart';
+import '/widgets/components/appbar_component/appbar_component_widget.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
 import '/widgets/components/jobs_list/jobs_list_widget.dart';
 import '/widgets/components/stats/stats_widget.dart';
@@ -53,9 +55,20 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
 
   Future<ApiCallResponse> _fetchJobs() async {
     final response = await SupabaseTablesGroup.getJobsListCall.call(
-      params: '&status=eq.ACTIVE',
-      range: currentUserUid,
+      params: '&customer_id=eq.${currentUserUid}',
     );
+    if (response.succeeded) {
+      AppState().jobCache = JobCacheStruct(
+        jobs: ((response.jsonBody ?? '')
+                .toList()
+                .map<JobsListItemStruct?>(JobsListItemStruct.maybeFromMap)
+                .toList() as Iterable<JobsListItemStruct?>)
+            .withoutNulls,
+        lastCursor: '',
+        firstCursor: '',
+        hasMore: true,
+      );
+    }
     _hasLoadedJobsOnce = true;
     return response;
   }
@@ -79,133 +92,144 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: ((didPop, result) async {
-        if(didPop) return;
-        await showDialog(
-            context: context,
-            builder: (dialogContext) => Dialog(
-              elevation: 0,
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              child: ExitConfirmationDialog(
-                onConfirm: () => SystemNavigator.pop(),
-              ),
-            ));
-      }),
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          // appBar: AppBar(
-          //   backgroundColor: AppTheme.of(context).primaryBackground,
-          //   automaticallyImplyLeading: false,
-          //   title: wrapWithModel(
-          //     model: _model.appbarComponentModel,
-          //     updateCallback: () => _provider.update(() {}),
-          //     child: AppbarComponentWidget(
-          //       title: 'Home',
-          //       showAction: true,
-          //       actionIcon: SvgPicture.asset(
-          //         'assets/images/bell.svg',
-          //         width: 21.5,
-          //         height: 21.5,
-          //         colorFilter: const ColorFilter.mode(
-          //           Color(0xFF1B7FA3),
-          //           BlendMode.srcIn,
-          //         ),
-          //       ),
-          //       action: () async {
-          //         context.pushNamed(NotificationPageWidget.routeName);
-          //       },
-          //     ),
-          //   ),
-          //   actions: const [],
-          //   centerTitle: false,
-          //   elevation: 0.0,
-          // ),
-          body: SafeArea(
-            top: true,
-            child: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(valueOrDefault<double>(
-                    AppConstants.parentPagePadding,
-                    0.0,
-                  )),
-                  child: FutureBuilder<ApiCallResponse>(
-                    future: _jobsListFuture,
-                    builder: (context, snapshot) {
-                      final isLoading = !_hasLoadedJobsOnce &&
-                          snapshot.connectionState == ConnectionState.waiting;
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: AppTheme.of(context).primaryBackground,
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.update(() {}),
+        //     child: AppbarComponentWidget(
+        //       title: 'Home',
+        //       showAction: true,
+        //       actionIcon: SvgPicture.asset(
+        //         'assets/images/bell.svg',
+        //         width: 21.5,
+        //         height: 21.5,
+        //         colorFilter: const ColorFilter.mode(
+        //           Color(0xFF1B7FA3),
+        //           BlendMode.srcIn,
+        //         ),
+        //       ),
+        //       action: () async {
+        //         context.pushNamed(NotificationPageWidget.routeName);
+        //       },
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        //   elevation: 0.0,
+        // ),
+        body: SafeArea(
+          // top: true,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(valueOrDefault<double>(
+                  AppConstants.parentPagePadding,
+                  0.0,
+                )),
+                child: FutureBuilder<ApiCallResponse>(
+                  future: _jobsListFuture,
+                  builder: (context, snapshot) {
+                    final isLoading = !_hasLoadedJobsOnce &&
+                        snapshot.connectionState == ConnectionState.waiting;
 
-                      return RefreshIndicator(
-                        color: AppTheme.of(context).primary,
-                        onRefresh: () async {
-                          setState(() {
-                            _jobsListFuture = _fetchJobs();
-                          });
-                        },
-                        child: SingleChildScrollView(
+                    return RefreshIndicator(
+                      color: AppTheme.of(context).primary,
+                      onRefresh: () async {
+                        final future = _fetchJobs();
+                        setState(() {
+                          _jobsListFuture = future;
+                        });
+                        await future;
+                      },
+                      child: SingleChildScrollView(
+                        child: Skeletonizer(
+                          enabled: isLoading,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
                             children: [
-                              const PageHeaderWidget(
-                                title: 'Home',
-                                subtitle: 'Your jobs, activity, and platform insights\nat glance.',
+                              Align(
+                                alignment:
+                                    const AlignmentDirectional(-1.0, 0.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: AppTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'DASHBOARD',
+                                        style: AppTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              font: GoogleFonts.manrope(
+                                                fontWeight: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontWeight,
+                                                fontStyle: AppTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                              ),
+                                              color:
+                                                  AppTheme.of(context).primary,
+                                              letterSpacing: 1.6,
+                                              fontWeight: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontWeight,
+                                              fontStyle: AppTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              Skeletonizer(
-                                enabled: isLoading,
+                              Container(
+                                decoration: const BoxDecoration(),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Align(
-                                      alignment: const AlignmentDirectional(-1.0, 0.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.of(context)
-                                              .secondaryBackground,
+                                    Container(
+                                      width: double.infinity,
+                                      height: 8.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            AppTheme.of(context).primary,
+                                            AppTheme.of(context).secondary
+                                          ],
+                                          stops: const [0.0, 1.0],
+                                          begin: const AlignmentDirectional(
+                                              -1.0, 0.14),
+                                          end: const AlignmentDirectional(
+                                              1.0, -0.14),
                                         ),
-                                        // child: Column(
-                                        //   mainAxisSize: MainAxisSize.max,
-                                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                                        //   children: [
-                                        //     Text(
-                                        //       'DASHBOARD',
-                                        //       style: AppTheme.of(context)
-                                        //           .bodyLarge
-                                        //           .override(
-                                        //         font: GoogleFonts.manrope(
-                                        //           fontWeight:
-                                        //           AppTheme.of(context)
-                                        //               .bodyLarge
-                                        //               .fontWeight,
-                                        //           fontStyle:
-                                        //           AppTheme.of(context)
-                                        //               .bodyLarge
-                                        //               .fontStyle,
-                                        //         ),
-                                        //         color: AppTheme.of(context)
-                                        //             .primary,
-                                        //         letterSpacing: 1.6,
-                                        //         fontWeight:
-                                        //         AppTheme.of(context)
-                                        //             .bodyLarge
-                                        //             .fontWeight,
-                                        //         fontStyle:
-                                        //         AppTheme.of(context)
-                                        //             .bodyLarge
-                                        //             .fontStyle,
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(
+                                              AppTheme.of(context)
+                                                  .designToken
+                                                  .radius
+                                                  .lg),
+                                          topRight: Radius.circular(
+                                              AppTheme.of(context)
+                                                  .designToken
+                                                  .radius
+                                                  .lg),
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -217,182 +241,176 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                             width: double.infinity,
                                             height: 8.0,
                                             decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  AppTheme.of(context).primary,
-                                                  AppTheme.of(context).secondary
-                                                ],
-                                                stops: const [0.0, 1.0],
-                                                begin: const AlignmentDirectional(-1.0, 0.14),
-                                                end: const AlignmentDirectional(1.0, -0.14),
-                                              ),
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(
-                                                    AppTheme.of(context)
-                                                        .designToken
-                                                        .radius
-                                                        .lg),
-                                                topRight: Radius.circular(
-                                                    AppTheme.of(context)
-                                                        .designToken
-                                                        .radius
-                                                        .lg),
-                                              ),
-                                            ),
+                                              color: AppTheme.of(context)
+                                                  .secondaryBackground,
+                                              boxShadow: [
+                                                AppTheme.of(context)
+                                                    .designToken
+                                                    .radius
+                                                    .lg),
                                           ),
-                                          Material(
-                                            color: Colors.transparent,
-                                            elevation: 0.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(
-                                                    AppTheme.of(context)
-                                                        .designToken
-                                                        .radius
-                                                        .lg),
-                                                bottomRight: Radius.circular(
-                                                    AppTheme.of(context)
-                                                        .designToken
-                                                        .radius
-                                                        .lg),
-                                              ),
-                                            ),
-                                            child: Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: AppTheme.of(context)
-                                                    .secondaryBackground,
-                                                boxShadow: [
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .shadow
-                                                      .sm
-                                                ],
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft: Radius.circular(
-                                                      AppTheme.of(context)
-                                                          .designToken
-                                                          .radius
-                                                          .lg),
-                                                  bottomRight: Radius.circular(
-                                                      AppTheme.of(context)
-                                                          .designToken
-                                                          .radius
-                                                          .lg),
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                EdgeInsets.all(valueOrDefault<double>(
-                                                  AppConstants.childPadding,
-                                                  0.0,
-                                                )),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      ' Need something done',
-                                                      style: AppTheme.of(context)
-                                                          .headlineSmall
-                                                          .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight: FontWeight.w800,
-                                                          fontStyle:
-                                                          AppTheme.of(
-                                                              context)
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                              valueOrDefault<double>(
+                                            AppConstants.childPadding,
+                                            0.0,
+                                          )),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                ' Need something done',
+                                                style: AppTheme.of(context)
+                                                    .headlineSmall
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.w800,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .headlineSmall
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      fontStyle:
+                                                          AppTheme.of(context)
                                                               .headlineSmall
                                                               .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight: FontWeight.w800,
-                                                        fontStyle:
-                                                        AppTheme.of(
-                                                            context)
-                                                            .headlineSmall
-                                                            .fontStyle,
-                                                      ),
                                                     ),
-                                                    Text(
-                                                      'Post your job and get responses from\ntrusted tradespeople.',
-                                                      style: AppTheme.of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                        font: GoogleFonts.manrope(
-                                                          fontWeight:
-                                                          AppTheme.of(
-                                                              context)
+                                              ),
+                                              Text(
+                                                'Post your job and get responses from\ntrusted tradespeople.',
+                                                style: AppTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.manrope(
+                                                        fontWeight:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            AppTheme.of(context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          AppTheme.of(context)
+                                                              .secondaryText,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          AppTheme.of(context)
                                                               .bodyMedium
                                                               .fontWeight,
-                                                          fontStyle:
-                                                          AppTheme.of(
-                                                              context)
+                                                      fontStyle:
+                                                          AppTheme.of(context)
                                                               .bodyMedium
                                                               .fontStyle,
-                                                        ),
-                                                        color: AppTheme.of(
-                                                            context)
-                                                            .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                        AppTheme.of(
-                                                            context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                        fontStyle:
-                                                        AppTheme.of(
-                                                            context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                      ),
                                                     ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(2.0),
-                                                      child: AppButton(
-                                                        onPressed: () async {
-                                                          context.pushNamed(
-                                                              AddJobWidget.routeName);
-                                                        },
-                                                        text: 'Post a Job',
-                                                        icon: const Icon(
-                                                          Icons.arrow_forward,
-                                                          size: 30.0,
-                                                        ),
-                                                        options: AppButtonOptions(
-                                                          width: double.infinity,
-                                                          height: 60.0,
-                                                          padding: const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              16.0, 0.0, 16.0, 0.0),
-                                                          iconAlignment:
-                                                          IconAlignment.end,
-                                                          iconPadding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                              0.0, 0.0, 0.0, 0.0),
-                                                          color:
-                                                          AppTheme.of(context)
-                                                              .primary,
-                                                          textStyle:
-                                                          AppTheme.of(context)
-                                                              .titleSmall
-                                                              .override(
-                                                            font:
-                                                            GoogleFonts.inter(
-                                                              fontWeight:
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2.0),
+                                                child: AppButton(
+                                                  onPressed: () async {
+                                                    context.pushNamed(
+                                                        AddJobWidget.routeName);
+                                                  },
+                                                  text: 'Post a Job',
+                                                  icon: const Icon(
+                                                    Icons.arrow_forward,
+                                                    size: 30.0,
+                                                  ),
+                                                  options: AppButtonOptions(
+                                                    width: double.infinity,
+                                                    height: 60.0,
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                            16.0, 0.0),
+                                                    iconAlignment:
+                                                        IconAlignment.end,
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                    color: AppTheme.of(context)
+                                                        .primary,
+                                                    textStyle: AppTheme.of(
+                                                            context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                AppTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
                                                               AppTheme.of(
-                                                                  context)
+                                                                      context)
                                                                   .titleSmall
                                                                   .fontWeight,
-                                                              fontStyle:
+                                                          fontStyle:
                                                               AppTheme.of(
-                                                                  context)
+                                                                      context)
                                                                   .titleSmall
                                                                   .fontStyle,
-                                                            ),
-                                                            color: Colors.white,
-                                                            letterSpacing: 0.0,
+                                                        ),
+                                                    elevation: 0.0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            AppTheme.of(context)
+                                                                .designToken
+                                                                .radius
+                                                                .lg),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(2.0),
+                                                    child: AppButton(
+                                                      onPressed: () async {
+                                                        context.pushNamed(
+                                                            AddJobWidget.routeName);
+                                                      },
+                                                      text: 'Post a Job',
+                                                      icon: const Icon(
+                                                        Icons.arrow_forward,
+                                                        size: 30.0,
+                                                      ),
+                                                      options: AppButtonOptions(
+                                                        width: double.infinity,
+                                                        height: 60.0,
+                                                        padding: const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            16.0, 0.0, 16.0, 0.0),
+                                                        iconAlignment:
+                                                        IconAlignment.end,
+                                                        iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                        color:
+                                                        AppTheme.of(context)
+                                                            .primary,
+                                                        textStyle:
+                                                        AppTheme.of(context)
+                                                            .titleSmall
+                                                            .override(
+                                                          font:
+                                                          GoogleFonts.inter(
                                                             fontWeight:
                                                             AppTheme.of(
                                                                 context)
@@ -420,7 +438,9 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                       AppConstants.childSpacing)),
                                                 ),
                                               ),
-                                            ),
+                                            ].divide(const SizedBox(
+                                                height:
+                                                    AppConstants.childSpacing)),
                                           ),
                                         ],
                                       ),
@@ -440,77 +460,73 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                         valueColor: AppTheme.of(context).primary,
                                       ),
                                     ),
-                                    wrapWithModel(
-                                      model: _model.statsModel2,
-                                      updateCallback: () => _provider.update(() {}),
-                                      child: StatsWidget(
-                                        iconBackgroundColor:
-                                        AppTheme.of(context).accent2,
-                                        icon: Icon(
-                                          Icons.forum_rounded,
-                                          color: AppTheme.of(context).secondary,
-                                          size: 30.0,
-                                        ),
-                                        value: functions.sumList(AppState()
-                                            .jobCache
-                                            .jobs
-                                            .map((e) => e.applications.firstOrNull?.count)
-                                            .withoutNulls
-                                            .toList()),
-                                        title: 'Responses',
-                                        valueColor:
-                                        AppTheme.of(context).secondary,
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'RECENT ACTIVITY',
-                                          style: AppTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle: AppTheme.of(context)
-                                                  .headlineSmall
-                                                  .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
+                                  ),
+                                  value: AppState().jobCache.jobs.length,
+                                  title: 'Active Jobs',
+                                  valueColor: AppTheme.of(context).primary,
+                                ),
+                              ),
+                              wrapWithModel(
+                                model: _model.statsModel2,
+                                updateCallback: () => _provider.update(() {}),
+                                child: StatsWidget(
+                                  iconBackgroundColor:
+                                      AppTheme.of(context).accent2,
+                                  icon: Icon(
+                                    Icons.forum_rounded,
+                                    color: AppTheme.of(context).secondary,
+                                    size: 30.0,
+                                  ),
+                                  value: functions.sumList(AppState()
+                                      .jobCache
+                                      .jobs
+                                      .map((e) =>
+                                          e.applications.firstOrNull?.count)
+                                      .withoutNulls
+                                      .toList()),
+                                  title: 'Responses',
+                                  valueColor: AppTheme.of(context).secondary,
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'RECENT ACTIVITY',
+                                    style: AppTheme.of(context)
+                                        .headlineSmall
+                                        .override(
+                                          font: GoogleFonts.inter(
                                             fontWeight: FontWeight.w600,
                                             fontStyle: AppTheme.of(context)
                                                 .headlineSmall
                                                 .fontStyle,
                                           ),
                                         ),
-                                        wrapWithModel(
-                                          model: _model.textButtonModel,
-                                          updateCallback: () => _provider.update(() {}),
-                                          child: TextButtonWidget(
-                                            label: 'View All',
-                                            color: AppTheme.of(context).primary,
-                                            action: () async {
-                                              context.pushNamed(
-                                                  CustomerAllJobsWidget.routeName);
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    wrapWithModel(
-                                      model: _model.jobsListModel,
-                                      updateCallback: () => _provider.update(() {}),
-                                      child: const JobsListWidget(
-                                        jobViewType: JobsViewType.DASHBOARD,
-                                      ),
+                                  ),
+                                  wrapWithModel(
+                                    model: _model.textButtonModel,
+                                    updateCallback: () =>
+                                        _provider.update(() {}),
+                                    child: TextButtonWidget(
+                                      label: 'View All',
+                                      color: AppTheme.of(context).primary,
+                                      action: () async {
+                                        context.pushNamed(
+                                            CustomerAllJobsWidget.routeName);
+                                      },
                                     ),
                                   ]
                                       .divide(const SizedBox(height: AppConstants.spacing))
                                       .addToEnd(const SizedBox(height: 100.0)),
                                 ),
                               ),
-                            ],
+                            ]
+                                .divide(const SizedBox(
+                                    height: AppConstants.spacing))
+                                .addToEnd(const SizedBox(height: 100.0)),
                           ),
                         ),
                       );

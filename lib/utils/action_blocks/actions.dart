@@ -76,6 +76,7 @@ Future clearAppData(BuildContext context) async {
       '{\"jobs\":\"[]\",\"last_cursor\":\"0\",\"first_cursor\":\"0\",\"has_more\":\"true\"}'));
   AppState().submittedJobListCache = [];
   AppState().totalMessagesCount = 0;
+  AppState().unreadNotificationsCount = 0;
   AppState().currentDeviceToken = '';
 }
 

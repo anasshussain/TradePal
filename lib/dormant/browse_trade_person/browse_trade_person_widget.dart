@@ -36,10 +36,11 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
+
   Future<ApiCallResponse> _fetchTradePersons() async {
     // Placeholder — real API call ready hote hi yahan replace karna hai.
     await Future.delayed(const Duration(milliseconds: 800));
-    final response = ApiCallResponse(null, {}, 200);
+    const response = ApiCallResponse(null, {}, 200);
     _hasLoadedTradePersonsOnce = true;
     return response;
   }
@@ -77,7 +78,7 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
           centerTitle: false,
         ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Stack(
             children: [
               Padding(
@@ -113,7 +114,8 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
                                 updateCallback: () => safeSetState(() {}),
                                 child: const PageHeaderSectiomWidget(
                                   tag: 'DISCOVER EXCELLENCE',
-                                  title: 'Expert Hands for\nProfessional\nResults',
+                                  title:
+                                      'Expert Hands for\nProfessional\nResults',
                                   subtitle: 'default text',
                                   numberOfItems: 100,
                                   itemText: 'Vetted Pros',
@@ -161,7 +163,7 @@ class _BrowseTradePersonWidgetState extends State<BrowseTradePersonWidget> {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 5,
       separatorBuilder: (_, __) =>
-      const SizedBox(height: AppConstants.childPadding),
+          const SizedBox(height: AppConstants.childPadding),
       itemBuilder: (context, index) => Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(

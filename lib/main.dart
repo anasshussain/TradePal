@@ -75,10 +75,6 @@ class _MyAppState extends State<MyApp> {
     return matchList.uri.path;
   }
 
-  List<String> getRouteStack() =>
-      _router.routerDelegate.currentConfiguration.matches
-          .map((e) => getRoute(e))
-          .toList();
   late Stream<BaseAuthUser> userStream;
 
   @override

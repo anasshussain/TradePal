@@ -110,7 +110,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
           elevation: 0.0,
         ),
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(

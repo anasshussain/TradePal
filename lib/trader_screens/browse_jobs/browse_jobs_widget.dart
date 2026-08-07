@@ -73,82 +73,66 @@ class _BrowseJobsWidgetState extends State<BrowseJobsWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: ((didPop, result) async {
-        if(didPop) return;
-        await showDialog(
-            context: context,
-            builder: (dialogContext) => Dialog(
-          elevation: 0,
-                insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              child: ExitConfirmationDialog(
-                onConfirm: () => SystemNavigator.pop(),
-              ),
-        )
-        );
-      }),
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor: AppTheme.of(context).primaryBackground,
-          // appBar: AppBar(
-          //   backgroundColor: AppTheme.of(context).primaryBackground,
-          //   automaticallyImplyLeading: false,
-          //   title: wrapWithModel(
-          //     model: _model.appbarComponentModel,
-          //     updateCallback: () => _provider.update(() {}),
-          //     child: AppbarComponentWidget(
-          //       title: 'Home',
-          //       showAction: true,
-          //       actionIcon: SvgPicture.asset(
-          //         'assets/images/bell.svg',
-          //         width: 21.5,
-          //         height: 21.5,
-          //         colorFilter: const ColorFilter.mode(
-          //           Color(0xFF1B7FA3),
-          //           BlendMode.srcIn,
-          //         ),
-          //       ),
-          //       action: () async {
-          //         context.pushNamed(NotificationPageWidget.routeName);
-          //       },
-          //     ),
-          //   ),
-          //   actions: const [],
-          //   centerTitle: false,
-          //   elevation: 0.0,
-          // ),
-          body: SafeArea(
-            top: true,
-            child: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(valueOrDefault<double>(
-                    AppConstants.parentPagePadding,
-                    0.0,
-                  )),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Skeletonizer(
-                          enabled: BrowseJobsProvider.isLoading,
-                          child: wrapWithModel(
-                            model: _model.pageHeaderSectiomModel,
-                            updateCallback: () => _provider.update(() {}),
-                            child: const PageHeaderWidget(
-                              tag: 'MARKETPLACE',
-                              title: 'Available Jobs',
-                              subtitle:
-                              'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
-                              ),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: AppTheme.of(context).primaryBackground,
+        // appBar: AppBar(
+        //   backgroundColor: AppTheme.of(context).primaryBackground,
+        //   automaticallyImplyLeading: false,
+        //   title: wrapWithModel(
+        //     model: _model.appbarComponentModel,
+        //     updateCallback: () => _provider.update(() {}),
+        //     child: AppbarComponentWidget(
+        //       title: 'Home',
+        //       showAction: true,
+        //       actionIcon: SvgPicture.asset(
+        //         'assets/images/bell.svg',
+        //         width: 21.5,
+        //         height: 21.5,
+        //         colorFilter: const ColorFilter.mode(
+        //           Color(0xFF1B7FA3),
+        //           BlendMode.srcIn,
+        //         ),
+        //       ),
+        //       action: () async {
+        //         context.pushNamed(NotificationPageWidget.routeName);
+        //       },
+        //     ),
+        //   ),
+        //   actions: const [],
+        //   centerTitle: false,
+        //   elevation: 0.0,
+        // ),
+        body: SafeArea(
+          // top: true,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(valueOrDefault<double>(
+                  AppConstants.parentPagePadding,
+                  0.0,
+                )),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Skeletonizer(
+                        enabled: BrowseJobsProvider.isLoading,
+                        child: wrapWithModel(
+                          model: _model.pageHeaderSectiomModel,
+                          updateCallback: () => _provider.update(() {}),
+                          child: const PageHeaderWidget(
+                            tag: 'MARKETPLACE',
+                            title: 'Available Jobs',
+                            subtitle:
+                            'Browse premium local contracts and expand your artisan portfolio. Verified clients only.',
                             ),
+                            itemText: 'Jobs',
                           ),
                         if (responsiveVisibility(
                           context: context,

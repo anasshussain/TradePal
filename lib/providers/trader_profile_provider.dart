@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 class TraderProfileProvider extends ChangeNotifier {
   static bool isLoading = true;
 
+  // Expand/collapse state for the profile's accordion-style sections.
+  // Collapsed by default; the user taps a header to reveal its content.
+  bool personalDetailsExpanded = false;
+  bool skillsExpertiseExpanded = false;
+  bool insuranceStatusExpanded = false;
+
   List<String> images = [
     'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',
     'https://images.pexels.com/photos/36815599/pexels-photo-36815599.jpeg',

@@ -44,7 +44,7 @@ class _LoadingComponentWidgetState extends State<LoadingComponentWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<ApiCallResponse>(
-      future: SupabaseTablesGroup.getMessagesCall.call(),
+      future: _model.getMessagesFuture,
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {

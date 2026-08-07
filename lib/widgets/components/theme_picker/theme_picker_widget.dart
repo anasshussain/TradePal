@@ -1,13 +1,25 @@
-import '/widgets/app_radio_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
-import '/core/utils/form_field_controller.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/viewmodels/theme_picker_model.dart';
 export '/viewmodels/theme_picker_model.dart';
+
+class _ThemeOption {
+  const _ThemeOption(this.label, this.icon, this.mode);
+
+  final String label;
+  final IconData icon;
+  final ThemeMode mode;
+}
+
+const _themeOptions = [
+  _ThemeOption('Light Mode', Icons.light_mode_rounded, ThemeMode.light),
+  _ThemeOption('Dark Mode', Icons.dark_mode_rounded, ThemeMode.dark),
+  _ThemeOption(
+      'System Default', Icons.brightness_auto_rounded, ThemeMode.system),
+];
 
 class ThemePickerWidget extends StatefulWidget {
   const ThemePickerWidget({super.key});
@@ -19,13 +31,9 @@ class ThemePickerWidget extends StatefulWidget {
 class _ThemePickerWidgetState extends State<ThemePickerWidget> {
   late ThemePickerModel _model;
 
-  // 👇 NEW: helper to always resolve a valid theme value
   String _resolveTheme() {
     final current = AppState().selectedTheme;
-    if (current.isEmpty) {
-      return 'System Default';
-    }
-    return current;
+    return current.isEmpty ? 'System Default' : current;
   }
 
   @override
@@ -40,18 +48,9 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
     _model = createModel(context, () => ThemePickerModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // yahan explicitly latest value set karo
-      final resolvedTheme = _resolveTheme(); // 👈 NEW
-
-      _model.radioButtonValueController ??=
-          FormFieldController<String>(resolvedTheme);
-      _model.radioButtonValueController!.value = resolvedTheme;
-
-      // 👇 NEW: agar pehli baar empty tha to AppState mein bhi save kar do
       if (AppState().selectedTheme.isEmpty) {
-        AppState().selectedTheme = resolvedTheme;
+        AppState().selectedTheme = _resolveTheme();
       }
-
       safeSetState(() {});
     });
   }
@@ -62,102 +61,151 @@ class _ThemePickerWidgetState extends State<ThemePickerWidget> {
     super.dispose();
   }
 
+  void _selectTheme(_ThemeOption option) {
+    if (_resolveTheme() == option.label) return;
+    safeSetState(() {
+      AppState().selectedTheme = option.label;
+    });
+    setDarkModeSetting(context, option.mode);
+  }
+
   @override
   Widget build(BuildContext context) {
     context.watch<AppState>();
+    final selectedLabel = _resolveTheme();
 
-    final resolvedTheme = _resolveTheme(); // 👈 NEW
-
-    _model.radioButtonValueController ??=
-        FormFieldController<String>(resolvedTheme);
-    if (_model.radioButtonValueController!.value != resolvedTheme) {
-      _model.radioButtonValueController!.value = resolvedTheme;
-    }
     return Container(
-      width: 300.0,
-      height: 170.0,
+      width: 320.0,
       decoration: BoxDecoration(
         color: AppTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.circular(13.0),
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [AppTheme.of(context).designToken.shadow.md],
       ),
       child: Padding(
-        padding: EdgeInsets.all(valueOrDefault<double>(
-          AppConstants.childPadding,
-          0.0,
-        )),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Choose Theme',
-              style: AppTheme.of(context).titleSmall.override(
-                font: GoogleFonts.manrope(
-                  fontWeight:
-                  AppTheme.of(context).titleSmall.fontWeight,
-                  fontStyle:
-                  AppTheme.of(context).titleSmall.fontStyle,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Appearance',
+                  style: AppTheme.of(context).titleMedium.override(
+                        font: GoogleFonts.manrope(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                        ),
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: AppTheme.of(context).titleMedium.fontStyle,
+                      ),
                 ),
-                letterSpacing: 0.0,
-                fontWeight:
-                AppTheme.of(context).titleSmall.fontWeight,
-                fontStyle:
-                AppTheme.of(context).titleSmall.fontStyle,
+                InkWell(
+                  borderRadius: BorderRadius.circular(16.0),
+                  onTap: () => Navigator.of(context).maybePop(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Icon(
+                      Icons.close_rounded,
+                      size: 20.0,
+                      color: AppTheme.of(context).secondaryText,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0, bottom: 16.0),
+              child: Text(
+                'Choose how My Trade Pal looks on this device.',
+                style: AppTheme.of(context).bodySmall.override(
+                      font: GoogleFonts.inter(
+                        fontWeight: AppTheme.of(context).bodySmall.fontWeight,
+                        fontStyle: AppTheme.of(context).bodySmall.fontStyle,
+                      ),
+                      color: AppTheme.of(context).secondaryText,
+                      letterSpacing: 0.0,
+                      fontWeight: AppTheme.of(context).bodySmall.fontWeight,
+                      fontStyle: AppTheme.of(context).bodySmall.fontStyle,
+                    ),
               ),
             ),
-            AppRadioButton(
-              options: ['Dark Mode', 'Light Mode', 'System Default'].toList(),
-              onChanged: (val) async {
-                safeSetState(() {});
-                AppState().selectedTheme = _model.radioButtonValue!;
-                safeSetState(() {});
-                if (_model.radioButtonValue == 'Dark Mode') {
-                  setDarkModeSetting(context, ThemeMode.dark);
-                } else if (_model.radioButtonValue == 'Light Mode') {
-                  setDarkModeSetting(context, ThemeMode.light);
-                } else {
-                  setDarkModeSetting(context, ThemeMode.system);
-                }
-              },
-              controller: _model.radioButtonValueController!,
-              // FormFieldController<String>(AppState().selectedTheme),
-              optionHeight: 32.0,
-              textStyle: AppTheme.of(context).bodyLarge.override(
-                font: GoogleFonts.manrope(
-                  fontWeight:
-                  AppTheme.of(context).bodyLarge.fontWeight,
-                  fontStyle:
-                  AppTheme.of(context).bodyLarge.fontStyle,
-                ),
-                letterSpacing: 0.0,
-                fontWeight:
-                AppTheme.of(context).bodyLarge.fontWeight,
-                fontStyle: AppTheme.of(context).bodyLarge.fontStyle,
-              ),
-              selectedTextStyle:
-              AppTheme.of(context).bodyMedium.override(
-                font: GoogleFonts.manrope(
-                  fontWeight: FontWeight.bold,
-                  fontStyle:
-                  AppTheme.of(context).bodyMedium.fontStyle,
-                ),
-                color: AppTheme.of(context).primaryText,
-                fontSize: 18.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.bold,
-                fontStyle:
-                AppTheme.of(context).bodyMedium.fontStyle,
-              ),
-              buttonPosition: RadioButtonPosition.left,
-              direction: Axis.vertical,
-              radioButtonColor: AppTheme.of(context).primaryText,
-              inactiveRadioButtonColor:
-              AppTheme.of(context).secondaryText,
-              toggleable: false,
-              horizontalAlignment: WrapAlignment.start,
-              verticalAlignment: WrapCrossAlignment.start,
-            ),
-          ].divide(const SizedBox(height: AppConstants.spacing)),
+            ..._themeOptions
+                .map((option) {
+                  final isSelected = option.label == selectedLabel;
+                  return Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(14.0),
+                      onTap: () => _selectTheme(option),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 150),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14.0, vertical: 12.0),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? AppTheme.of(context).primary.withOpacity(0.1)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(14.0),
+                          border: Border.all(
+                            color: isSelected
+                                ? AppTheme.of(context).primary
+                                : AppTheme.of(context).alternate,
+                            width: isSelected ? 1.5 : 1.0,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              option.icon,
+                              size: 20.0,
+                              color: isSelected
+                                  ? AppTheme.of(context).primary
+                                  : AppTheme.of(context).secondaryText,
+                            ),
+                            const SizedBox(width: 12.0),
+                            Expanded(
+                              child: Text(
+                                option.label,
+                                style: AppTheme.of(context).bodyMedium.override(
+                                      font: GoogleFonts.manrope(
+                                        fontWeight: isSelected
+                                            ? FontWeight.w600
+                                            : FontWeight.normal,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      color: isSelected
+                                          ? AppTheme.of(context).primary
+                                          : AppTheme.of(context).primaryText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: isSelected
+                                          ? FontWeight.w600
+                                          : FontWeight.normal,
+                                      fontStyle: AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ),
+                            if (isSelected)
+                              Icon(
+                                Icons.check_circle_rounded,
+                                size: 20.0,
+                                color: AppTheme.of(context).primary,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                })
+                .toList()
+                .divide(const SizedBox(height: 10.0)),
+          ],
         ),
       ),
     );

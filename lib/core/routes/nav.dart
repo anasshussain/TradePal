@@ -143,11 +143,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const StripeConnectAccountRefreshWidget(),
         ),
         AppRoute(
-          name: PasswordChangedSuccessPageWidget.routeName,
-          path: PasswordChangedSuccessPageWidget.routePath,
-          builder: (context, params) => const PasswordChangedSuccessPageWidget(),
-        ),
-        AppRoute(
           name: ChoosePathWidget.routeName,
           path: ChoosePathWidget.routePath,
           builder: (context, params) => const ChoosePathWidget(),

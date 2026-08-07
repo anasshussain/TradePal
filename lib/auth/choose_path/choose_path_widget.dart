@@ -72,7 +72,7 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
-          top: true,
+          // top: true,
           child: Stack(
             children: [
               Padding(
@@ -123,14 +123,27 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await CreateStripeCustomerCall.call(
-                              token: currentJwtToken);
-                          await action_blocks.updateChoosePathOnboarding(
-                            context,
-                            selectedRole: UserRole.customer,
-                          );
-                        },
+                        onTap: _provider.isProcessing
+                            ? null
+                            : () async {
+                                _provider.update(() =>
+                                    _provider.processingRole =
+                                        UserRole.customer);
+                                try {
+                                  await CreateStripeCustomerCall.call(
+                                      token: currentJwtToken);
+                                  await action_blocks
+                                      .updateChoosePathOnboarding(
+                                    context,
+                                    selectedRole: UserRole.customer,
+                                  );
+                                } finally {
+                                  if (mounted) {
+                                    _provider.update(
+                                        () => _provider.processingRole = null);
+                                  }
+                                }
+                              },
                         child: wrapWithModel(
                           model: _model.choosePathComponentModel1,
                           updateCallback: () => _provider.update(() {}),
@@ -149,6 +162,10 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                                 _provider.selectedRole == UserRole.customer
                                     ? AppTheme.of(context).accent1
                                     : AppTheme.of(context).secondaryBackground,
+                            // isLoading:
+                            //     _provider.processingRole == UserRole.customer,
+                            isDisabled: _provider.isProcessing &&
+                                _provider.processingRole != UserRole.customer,
                           ),
                         ),
                       ),
@@ -157,14 +174,27 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await CreateStripeCustomerCall.call(
-                              token: currentJwtToken);
-                          await action_blocks.updateChoosePathOnboarding(
-                            context,
-                            selectedRole: UserRole.trades_person,
-                          );
-                        },
+                        onTap: _provider.isProcessing
+                            ? null
+                            : () async {
+                                _provider.update(() =>
+                                    _provider.processingRole =
+                                        UserRole.trades_person);
+                                try {
+                                  await CreateStripeCustomerCall.call(
+                                      token: currentJwtToken);
+                                  await action_blocks
+                                      .updateChoosePathOnboarding(
+                                    context,
+                                    selectedRole: UserRole.trades_person,
+                                  );
+                                } finally {
+                                  if (mounted) {
+                                    _provider.update(
+                                        () => _provider.processingRole = null);
+                                  }
+                                }
+                              },
                         child: wrapWithModel(
                           model: _model.choosePathComponentModel2,
                           updateCallback: () => _provider.update(() {}),
@@ -183,6 +213,11 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                                 _provider.selectedRole == UserRole.trades_person
                                     ? AppTheme.of(context).accent2
                                     : AppTheme.of(context).secondaryBackground,
+                            // isLoading: _provider.processingRole ==
+                            //     UserRole.trades_person,
+                            isDisabled: _provider.isProcessing &&
+                                _provider.processingRole !=
+                                    UserRole.trades_person,
                           ),
                         ),
                       ),
@@ -272,6 +307,70 @@ class _ChoosePathWidgetState extends State<ChoosePathWidget> {
                     ),
                   ),
                 ),
+              Positioned.fill(
+                child: IgnorePointer(
+                  ignoring: !_provider.isProcessing,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 200),
+                    opacity: _provider.isProcessing ? 1.0 : 0.0,
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
+                      child: Container(
+                        color: Colors.black.withOpacity(0.15),
+                        child: Center(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 14.0),
+                            decoration: BoxDecoration(
+                              color: AppTheme.of(context).secondaryBackground,
+                              borderRadius: BorderRadius.circular(
+                                  AppTheme.of(context).designToken.radius.lg),
+                              boxShadow: [
+                                AppTheme.of(context).designToken.shadow.sm,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  width: 20.0,
+                                  height: 20.0,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: AppTheme.of(context).primary,
+                                  ),
+                                ),
+                                const SizedBox(width: 12.0),
+                                Text(
+                                  _provider.processingRole ==
+                                          UserRole.trades_person
+                                      ? 'Setting up your Tradesperson account…'
+                                      : 'Setting up your Customer account…',
+                                  style: AppTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.manrope(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: AppTheme.of(context)
+                                              .bodyMedium
+                                              .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: AppTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
