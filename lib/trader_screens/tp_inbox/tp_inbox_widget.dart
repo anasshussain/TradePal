@@ -1,6 +1,7 @@
 import 'package:my_trade_pal/widgets/components/empty_list_component/empty_list_component_widget.dart';
 import 'package:my_trade_pal/widgets/page_header.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../browse_jobs/browse_jobs_widget.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/models/structs/index.dart';
@@ -127,10 +128,20 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        context.goNamed(
+          BrowseJobsWidget.routeName,
+          extra: <String, dynamic>{
+            '__transition_info__': const TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
       },
       child: Scaffold(
         key: scaffoldKey,
@@ -356,8 +367,8 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                         .searchTextControllerValidator
                                         .asValidator(context),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(height: AppConstants.spacing),
@@ -408,6 +419,28 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                         description:
                                             'Try searching with a different name or keyword.',
                                       ),
+                                      physics:
+                                      const AlwaysScrollableScrollPhysics(),
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: conversation.length,
+                                      separatorBuilder: (_, __) =>
+                                          SizedBox(height: AppConstants.childSpacing),
+                                      itemBuilder: (context, conversationIndex) {
+                                        final conversationItem =
+                                        conversation[conversationIndex];
+                                        return InboxItemWidget(
+                                          key: Key(
+                                              'Keydpz_${conversationIndex}_of_${conversation.length}'),
+                                          members: conversationItem
+                                              .conversations.conversationParticipants
+                                              .where((e) =>
+                                          currentUserUid != e.members.id)
+                                              .toList()
+                                              .firstOrNull!
+                                              .members,
+                                          conversation: conversationItem,
+                                        );
+                                      },
                                     );
                                   }
                                   return ListView.separated(
@@ -443,24 +476,24 @@ class _TpInboxWidgetState extends State<TpInboxWidget> {
                                 },
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.tpNavbarModel,
-                  updateCallback: () => _provider.notify(),
-                  child: const TpNavbarWidget(
-                    selectedIndex: 2,
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  child: wrapWithModel(
+                    model: _model.tpNavbarModel,
+                    updateCallback: () => _provider.notify(),
+                    child: const TpNavbarWidget(
+                      selectedIndex: 2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

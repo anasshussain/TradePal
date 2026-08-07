@@ -1,4 +1,5 @@
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter/services.dart';
+import 'package:my_trade_pal/widgets/exit_confirmation_dialog.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../widgets/page_header.dart';
 import '/auth/supabase_auth/auth_util.dart';
@@ -18,7 +19,6 @@ import '/utils/custom_functions.dart' as functions;
 import '/core/routes/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/providers/customer_dashboard_provider.dart';
@@ -231,93 +231,15 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                   .lg),
                                         ),
                                       ),
-                                      // child: Column(
-                                      //   mainAxisSize: MainAxisSize.max,
-                                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                                      //   children: [
-                                      //     Text(
-                                      //       'DASHBOARD',
-                                      //       style: AppTheme.of(context)
-                                      //           .bodyLarge
-                                      //           .override(
-                                      //         font: GoogleFonts.manrope(
-                                      //           fontWeight:
-                                      //           AppTheme.of(context)
-                                      //               .bodyLarge
-                                      //               .fontWeight,
-                                      //           fontStyle:
-                                      //           AppTheme.of(context)
-                                      //               .bodyLarge
-                                      //               .fontStyle,
-                                      //         ),
-                                      //         color: AppTheme.of(context)
-                                      //             .primary,
-                                      //         letterSpacing: 1.6,
-                                      //         fontWeight:
-                                      //         AppTheme.of(context)
-                                      //             .bodyLarge
-                                      //             .fontWeight,
-                                      //         fontStyle:
-                                      //         AppTheme.of(context)
-                                      //             .bodyLarge
-                                      //             .fontStyle,
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // ),
                                     ),
-                                  ),
-                                  Container(
-                                    decoration: const BoxDecoration(),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: double.infinity,
-                                          height: 8.0,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                AppTheme.of(context).primary,
-                                                AppTheme.of(context).secondary
-                                              ],
-                                              stops: const [0.0, 1.0],
-                                              begin: const AlignmentDirectional(-1.0, 0.14),
-                                              end: const AlignmentDirectional(1.0, -0.14),
-                                            ),
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .radius
-                                                      .lg),
-                                              topRight: Radius.circular(
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .radius
-                                                      .lg),
-                                            ),
-                                          ),
-                                        ),
-                                        Material(
-                                          color: Colors.transparent,
-                                          elevation: 0.0,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .radius
-                                                      .lg),
-                                              bottomRight: Radius.circular(
-                                                  AppTheme.of(context)
-                                                      .designToken
-                                                      .radius
-                                                      .lg),
-                                            ),
-                                          ),
-                                          child: Container(
+                                    Container(
+                                      decoration: const BoxDecoration(),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
                                             width: double.infinity,
+                                            height: 8.0,
                                             decoration: BoxDecoration(
                                               color: AppTheme.of(context)
                                                   .secondaryBackground,
@@ -500,55 +422,43 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                                 .titleSmall
                                                                 .fontStyle,
                                                           ),
-                                                          color: Colors.white,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                          AppTheme.of(
-                                                              context)
-                                                              .titleSmall
-                                                              .fontWeight,
-                                                          fontStyle:
-                                                          AppTheme.of(
-                                                              context)
-                                                              .titleSmall
-                                                              .fontStyle,
+                                                          elevation: 0.0,
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              AppTheme.of(
+                                                                  context)
+                                                                  .designToken
+                                                                  .radius
+                                                                  .lg),
                                                         ),
-                                                        elevation: 0.0,
-                                                        borderRadius:
-                                                        BorderRadius.circular(
-                                                            AppTheme.of(
-                                                                context)
-                                                                .designToken
-                                                                .radius
-                                                                .lg),
                                                       ),
                                                     ),
-                                                  ),
-                                                ].divide(const SizedBox(
-                                                    height:
-                                                    AppConstants.childSpacing)),
+                                                  ].divide(const SizedBox(
+                                                      height:
+                                                      AppConstants.childSpacing)),
+                                                ),
                                               ),
                                             ].divide(const SizedBox(
                                                 height:
                                                     AppConstants.childSpacing)),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  wrapWithModel(
-                                    model: _model.statsModel1,
-                                    updateCallback: () => _provider.update(() {}),
-                                    child: StatsWidget(
-                                      iconBackgroundColor: const Color(0x4E2C4EB8),
-                                      icon: Icon(
-                                        Icons.work_outline,
-                                        color: AppTheme.of(context).primary,
-                                        size: 30.0,
+                                        ],
                                       ),
-                                      value: AppState().jobCache.jobs.length,
-                                      title: 'Active Jobs',
-                                      valueColor: AppTheme.of(context).primary,
+                                    ),
+                                    wrapWithModel(
+                                      model: _model.statsModel1,
+                                      updateCallback: () => _provider.update(() {}),
+                                      child: StatsWidget(
+                                        iconBackgroundColor: const Color(0x4E2C4EB8),
+                                        icon: Icon(
+                                          Icons.work_outline,
+                                          color: AppTheme.of(context).primary,
+                                          size: 30.0,
+                                        ),
+                                        value: AppState().jobCache.jobs.length,
+                                        title: 'Active Jobs',
+                                        valueColor: AppTheme.of(context).primary,
+                                      ),
                                     ),
                                   ),
                                   value: AppState().jobCache.jobs.length,
@@ -594,11 +504,6 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                                 .headlineSmall
                                                 .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle: AppTheme.of(context)
-                                              .headlineSmall
-                                              .fontStyle,
                                         ),
                                   ),
                                   wrapWithModel(
@@ -613,10 +518,10 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                             CustomerAllJobsWidget.routeName);
                                       },
                                     ),
-                                  ),
-                                ]
-                                    .divide(const SizedBox(height: AppConstants.spacing))
-                                    .addToEnd(const SizedBox(height: 100.0)),
+                                  ]
+                                      .divide(const SizedBox(height: AppConstants.spacing))
+                                      .addToEnd(const SizedBox(height: 100.0)),
+                                ),
                               ),
                             ]
                                 .divide(const SizedBox(
@@ -624,22 +529,22 @@ class _CustomerDashboardWidgetState extends State<CustomerDashboardWidget> {
                                 .addToEnd(const SizedBox(height: 100.0)),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.customerNavbarModel,
-                  updateCallback: () => _provider.update(() {}),
-                  child: const CustomerNavbarWidget(
-                    selectedIndex: 0,
+                      );
+                    },
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  child: wrapWithModel(
+                    model: _model.customerNavbarModel,
+                    updateCallback: () => _provider.update(() {}),
+                    child: const CustomerNavbarWidget(
+                      selectedIndex: 0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../widgets/page_header.dart';
+import '../browse_jobs/browse_jobs_widget.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
 import '/utils/enums/enums.dart';
@@ -126,10 +127,20 @@ class _TpMyJobsWidgetState extends State<TpMyJobsWidget>
   }
 
   Widget _buildContent(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        context.goNamed(
+          BrowseJobsWidget.routeName,
+          extra: <String, dynamic>{
+            '__transition_info__': const TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
       },
       child: Scaffold(
         key: scaffoldKey,
