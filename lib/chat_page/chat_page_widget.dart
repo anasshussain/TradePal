@@ -366,7 +366,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
             elevation: 0.0,
           ),
           body: SafeArea(
-            // top: true,
+            top: true,
             child: Stack(
               children: [
                 Column(

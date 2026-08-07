@@ -81,6 +81,7 @@ Future checkUserSession(BuildContext context) async {
 
   // 🎯 Role selection
 
+  //if (onboardingStep == 1) {
   // 🏁 Final destination
   if (userRole == 1) {
     context.go('/customerDashboard');
@@ -90,4 +91,5 @@ Future checkUserSession(BuildContext context) async {
     // fallback (safety)
     context.go('/login');
   }
+  // }
 }

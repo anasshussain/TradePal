@@ -16,13 +16,9 @@ import 'package:provider/provider.dart';
 class ChoosePathProvider extends ChangeNotifier {
   ///  Local state fields for this page.
 
+
   UserRole? selectedRole = UserRole.customer;
 
-  /// The role currently being submitted, or null when idle. Tracking the
-  /// specific role (rather than a plain bool) lets the UI show the spinner
-  /// on the exact card the user tapped instead of a generic full-screen one.
-  UserRole? processingRole;
-  bool get isProcessing => processingRole != null;
 
   bool _disposed = false;
 

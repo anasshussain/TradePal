@@ -61,7 +61,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
               color: Colors.white.withOpacity(0.08),
               width: 1,
             ),
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
@@ -115,7 +115,7 @@ class _BankCardComponentWidgetState extends State<BankCardComponentWidget> {
                 right: 0,
                 bottom: 0,
                 child: Padding(
-                    padding: const EdgeInsets.only(
+                    padding: EdgeInsets.only(
                       top: 0,
                       left: 17,
                     ),

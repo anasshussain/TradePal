@@ -113,17 +113,19 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                       style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w300,
-                              fontStyle:
-                                  AppTheme.of(context).labelSmall.fontStyle,
+                              fontStyle: AppTheme.of(context)
+                                  .labelSmall
+                                  .fontStyle,
                             ),
-                            color: widget!.selectedIndex == 0
+                            color: widget!.selectedIndex == 3
                                 ? AppTheme.of(context).primary
                                 : AppTheme.of(context).secondaryText,
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w300,
-                            fontStyle:
-                                AppTheme.of(context).labelSmall.fontStyle,
+                            fontStyle: AppTheme.of(context)
+                                .labelSmall
+                                .fontStyle,
                           ),
                     ),
                   ],
@@ -155,7 +157,6 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                 child: Align(
                   alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Stack(
-                    clipBehavior: Clip.none,
                     children: [
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -171,60 +172,61 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                           ),
                           Text(
                             'Chats',
-                            style: AppTheme.of(context).labelSmall.override(
+                            style: AppTheme.of(context)
+                                .labelSmall
+                                .override(
                                   font: GoogleFonts.inter(
                                     fontWeight: FontWeight.w300,
                                     fontStyle: AppTheme.of(context)
                                         .labelSmall
                                         .fontStyle,
                                   ),
-                                  color: widget!.selectedIndex == 1
+                                  color: widget!.selectedIndex == 3
                                       ? AppTheme.of(context).primary
-                                      : AppTheme.of(context).secondaryText,
+                                      : AppTheme.of(context)
+                                          .secondaryText,
                                   fontSize: 10.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w300,
-                                  fontStyle:
-                                      AppTheme.of(context).labelSmall.fontStyle,
+                                  fontStyle: AppTheme.of(context)
+                                      .labelSmall
+                                      .fontStyle,
                                 ),
                           ),
                         ],
                       ),
                       if (AppState().totalMessagesCount > 0)
-                        Positioned(
-                          top: -2.0,
-                          right: -8.0,
-                          child: Container(
-                            constraints: const BoxConstraints(
-                              minWidth: 16.0,
-                              minHeight: 16.0,
-                            ),
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFF3B30),
-                              borderRadius: BorderRadius.circular(999.0),
-                              border: Border.all(
-                                color: AppTheme.of(context).primaryBackground,
-                                width: 1.5,
-                              ),
-                            ),
-                            alignment: Alignment.center,
+                        Container(
+                          width: 14.0,
+                          height: 14.0,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFFF3B30),
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
+                          child: Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Text(
-                              AppState().totalMessagesCount > 99
-                                  ? '99+'
-                                  : AppState().totalMessagesCount.toString(),
-                              style: AppTheme.of(context).bodyMedium.override(
+                              valueOrDefault<String>(
+                                AppState().totalMessagesCount.toString(),
+                                '0',
+                              ),
+                              style: AppTheme.of(context)
+                                  .bodyMedium
+                                  .override(
                                     font: GoogleFonts.manrope(
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: AppTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
                                       fontStyle: AppTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: Colors.white,
-                                    fontSize: 9.0,
+                                    fontSize: 10.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: AppTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
                                     fontStyle: AppTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
@@ -276,17 +278,19 @@ class _CustomerNavbarWidgetState extends State<CustomerNavbarWidget> {
                       style: AppTheme.of(context).labelSmall.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w300,
-                              fontStyle:
-                                  AppTheme.of(context).labelSmall.fontStyle,
+                              fontStyle: AppTheme.of(context)
+                                  .labelSmall
+                                  .fontStyle,
                             ),
-                            color: widget!.selectedIndex == 2
+                            color: widget!.selectedIndex == 4
                                 ? AppTheme.of(context).primary
                                 : AppTheme.of(context).secondaryText,
                             fontSize: 10.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w300,
-                            fontStyle:
-                                AppTheme.of(context).labelSmall.fontStyle,
+                            fontStyle: AppTheme.of(context)
+                                .labelSmall
+                                .fontStyle,
                           ),
                     ),
                   ],

@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-
 import '/widgets/app_icon_button.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
@@ -187,12 +185,12 @@ class _UploadFileComponentWidgetState extends State<UploadFileComponentWidget> {
                       color: const Color(0x75000088),
                       image: DecorationImage(
                         fit: BoxFit.contain,
-                        image: CachedNetworkImageProvider(
+                        image: Image.network(
                           widget!.existingImageUrl != null &&
                                   widget!.existingImageUrl != ''
                               ? widget!.existingImageUrl!
                               : 'https://i.sstatic.net/l60Hf.png',
-                        ),
+                        ).image,
                       ),
                       shape: BoxShape.circle,
                       border: Border.all(

@@ -86,7 +86,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).primaryBackground,
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Align(
             alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
@@ -674,32 +674,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     .totalCount(_model
                                                         .totalCount?.jsonBody) ??
                                                 0;
-                                      }
-                                    }),
-                                    Future(() async {
-                                      final notificationsResult =
-                                          await SupabaseTablesGroup
-                                              .getNotificationsCall
-                                              .call(
-                                        userId: currentUserUid,
-                                      );
-                                      if (notificationsResult.succeeded) {
-                                        final fetchedNotifications = ((notificationsResult
-                                                        .jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .map<NotificationsStruct?>(
-                                                    NotificationsStruct
-                                                        .maybeFromMap)
-                                                .toList()
-                                            as Iterable<NotificationsStruct?>)
-                                                .withoutNulls
-                                                .toList()
-                                                .cast<NotificationsStruct>();
-                                        AppState().unreadNotificationsCount =
-                                            fetchedNotifications
-                                                .where((n) => !n.isRead)
-                                                .length;
                                       }
                                     }),
                                   ]);

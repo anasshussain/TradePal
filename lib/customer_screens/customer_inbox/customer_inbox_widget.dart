@@ -7,7 +7,6 @@ import '/models/structs/index.dart';
 import '/widgets/components/customer_navbar/customer_navbar_widget.dart';
 import '/widgets/components/empty_list_component/empty_list_component_widget.dart';
 import '/widgets/components/inbox_item/inbox_item_widget.dart';
-import '/widgets/page_header.dart';
 import '/core/theme/app_theme.dart';
 import '/utils/util.dart';
 import 'dart:ui';
@@ -123,56 +122,90 @@ class _CustomerInboxWidgetState extends State<CustomerInboxWidget> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: AppTheme.of(context).primaryBackground,
-        body: SafeArea(
-          // top: true,
-          child: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(valueOrDefault<double>(
-                  AppConstants.parentPagePadding,
-                  0.0,
-                )),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const PageHeaderWidget(
-                      title: 'Inbox',
-                      subtitle:
-                          'Manage your professional communications and project updates.',
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextFormField(
-                        controller: _model.searchTextController,
-                        focusNode: _model.searchFocusNode,
-                        onChanged: (_) => EasyDebounce.debounce(
-                          '_model.searchTextController',
-                          const Duration(milliseconds: 300),
-                              () async {
-                            _model.searchJobApiRespone = await SupbaseRpcGroup
-                                .searchConversationsCall
-                                .call(
-                              userId: currentUserUid,
-                              searchText: _model.searchTextController.text,
-                            );
-
-                            if ((_model.searchJobApiRespone?.succeeded ??
-                                true)) {
-                              if (_model.searchTextController.text != null &&
-                                  _model.searchTextController.text != '') {
-                                _provider.showSearchList = true;
-                                _provider.notify();
-                              } else {
-                                _provider.showSearchList = false;
-                                _provider.notify();
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: ((didPop, result) async {
+        if(didPop) return;
+        context.goNamed(
+          CustomerDashboardWidget.routeName,
+          extra: <String, dynamic>{
+            '__transition_info__': const TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
+      }),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: AppTheme.of(context).primaryBackground,
+          // appBar: AppBar(
+          //   backgroundColor: AppTheme.of(context).primaryBackground,
+          //   automaticallyImplyLeading: false,
+          //   title: wrapWithModel(
+          //     model: _model.appbarComponentModel,
+          //     updateCallback: () => _provider.notify(),
+          //     child: AppbarComponentWidget(
+          //       title: 'Inbox',
+          //       showAction: false,
+          //       action: () async {},
+          //     ),
+          //   ),
+          //   actions: const [],
+          //   centerTitle: false,
+          // ),
+          body: SafeArea(
+            top: true,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(valueOrDefault<double>(
+                    AppConstants.parentPagePadding,
+                    0.0,
+                  )),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      wrapWithModel(
+                        model: _model.pageHeaderSectiomModel,
+                        updateCallback: () => _provider.notify(),
+                        child: const PageHeaderWidget(
+                          title: 'Inbox',
+                          subtitle: 'Manage your professional communications and\nproject updates.',
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          controller: _model.searchTextController,
+                          focusNode: _model.searchFocusNode,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.searchTextController',
+                            const Duration(milliseconds: 300),
+                                () async {
+                              _model.searchJobApiRespone = await SupbaseRpcGroup
+                                  .searchConversationsCall
+                                  .call(
+                                userId: currentUserUid,
+                                searchText: _model.searchTextController.text,
+                              );
+      
+                              if ((_model.searchJobApiRespone?.succeeded ??
+                                  true)) {
+                                if (_model.searchTextController.text != null &&
+                                    _model.searchTextController.text != '') {
+                                  _provider.showSearchList = true;
+                                  _provider.notify();
+                                } else {
+                                  _provider.showSearchList = false;
+                                  _provider.notify();
+                                }
                               }
       
                               _provider.notify();

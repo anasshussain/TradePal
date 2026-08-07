@@ -11,25 +11,10 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future updateTotalCount(dynamic value) async {
-  final countToSubtract = _coerceToInt(value) ?? 0;
+Future updateTotalCount(int? value) async {
+  final countToSubtract = value ?? 0;
 
   AppState().totalMessagesCount =
       (AppState().totalMessagesCount - countToSubtract).clamp(0, 999999);
-  debugPrint('Updated totalMessagesCount: ${AppState().totalMessagesCount}');
-}
-
-int? _coerceToInt(dynamic value) {
-  if (value == null) return null;
-  if (value is int) return value;
-  if (value is num) return value.toInt();
-  if (value is String) return int.tryParse(value);
-  if (value is List && value.isNotEmpty) return _coerceToInt(value.first);
-  if (value is Map) {
-    for (final key in ['count', 'unread_count', 'mark_conversation_read']) {
-      if (value.containsKey(key)) return _coerceToInt(value[key]);
-    }
-    if (value.length == 1) return _coerceToInt(value.values.first);
-  }
-  return null;
+      debugPrint('Updated totalMessagesCount: ${AppState().totalMessagesCount}');
 }

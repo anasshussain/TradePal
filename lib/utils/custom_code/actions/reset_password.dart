@@ -17,10 +17,7 @@ import 'package:flutter/material.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Returns null on success, or a user-facing error message on failure (e.g.
-/// Supabase rejects a new password that matches the current one with
-/// "New password should be different from the old password.").
-Future<String?> resetPassword(String newPassword) async {
+Future<bool> resetPassword(String newPassword) async {
   final supabase = Supabase.instance.client;
 
   try {
@@ -28,10 +25,8 @@ Future<String?> resetPassword(String newPassword) async {
       UserAttributes(password: newPassword),
     );
 
-    return null;
-  } on AuthException catch (e) {
-    return e.message;
+    return true;
   } catch (e) {
-    return 'Something went wrong. Please try again.';
+    return false;
   }
 }

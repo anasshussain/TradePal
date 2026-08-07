@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-
 import '/core/utils/image_decode_size.dart';
 import '/auth/supabase_auth/auth_util.dart';
 import '/repositories/api_requests/api_calls.dart';
@@ -274,15 +272,15 @@ class _TradepersonPreviewWidgetState extends State<TradepersonPreviewWidget> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: CachedNetworkImage(
-                          imageUrl: valueOrDefault<String>(
+                        child: Image.network(
+                          valueOrDefault<String>(
                             _model.user?.avatarUrl,
                             'https://images-ext-1.discordapp.net/external/AO96cLsz1bw1R0zy6qWuphMKgA7a3OkU2M3-zUSxcXM/%3Fq%3Dtbn%3AANd9GcTpRGUcBVltEkFutN21fIqebRvrgP7fOv4CjcNwuka3BtXR_-jhpd7GheJ_RkvMtSsnsA8%26usqp%3DCAU/https/encrypted-tbn0.gstatic.com/images?format=webp&width=562&height=360',
                           ),
                           width: 40.0,
                           height: 40.0,
-                          memCacheWidth: decodeCacheSize(context, 40.0),
-                          memCacheHeight: decodeCacheSize(context, 40.0),
+                          cacheWidth: decodeCacheSize(context, 40.0),
+                          cacheHeight: decodeCacheSize(context, 40.0),
                           fit: BoxFit.cover,
                         ),
                       ),

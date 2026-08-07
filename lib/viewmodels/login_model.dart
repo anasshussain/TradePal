@@ -42,14 +42,6 @@ class LoginModel extends AppModel<LoginWidget> {
   TextEditingController? passwordTextController;
   late bool passwordVisibility;
   String? Function(BuildContext, String?)? passwordTextControllerValidator;
-  String? _passwordTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Password is required';
-    }
-
-    return null;
-  }
-
   // Stores action output result for [Backend Call - API (get user)] action in Button widget.
   ApiCallResponse? apiResultUserProfile;
   // Stores action output result for [Backend Call - API (get total unread)] action in Button widget.
@@ -60,7 +52,6 @@ class LoginModel extends AppModel<LoginWidget> {
     applogoComponentModel = createModel(context, () => ApplogoComponentModel());
     emailTextControllerValidator = _emailTextControllerValidator;
     passwordVisibility = false;
-    passwordTextControllerValidator = _passwordTextControllerValidator;
   }
 
   @override

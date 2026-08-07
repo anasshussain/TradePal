@@ -131,7 +131,7 @@ class _CustomerAllJobsWidgetState extends State<CustomerAllJobsWidget> {
           centerTitle: false,
         ),
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Skeletonizer(
             enabled: _provider.loading,
             child: Padding(

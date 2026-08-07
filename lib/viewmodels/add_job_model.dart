@@ -31,21 +31,6 @@ class AddJobModel extends AppModel<AddJobWidget> {
   FocusNode? budgetFocusNode;
   TextEditingController? budgetTextController;
   String? Function(BuildContext, String?)? budgetTextControllerValidator;
-  String? _budgetTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Budget is required';
-    }
-    final budget = int.tryParse(val);
-    if (budget == null) {
-      return 'Enter a valid budget';
-    }
-    if (budget <= 0) {
-      return 'Budget must be greater than 0';
-    }
-
-    return null;
-  }
-
   // State field(s) for description widget.
   FocusNode? descriptionFocusNode;
   TextEditingController? descriptionTextController;
@@ -84,7 +69,6 @@ class AddJobModel extends AppModel<AddJobWidget> {
   void initState(BuildContext context) {
     appbarComponentModel = createModel(context, () => AppbarComponentModel());
     jobTitleTextControllerValidator = _jobTitleTextControllerValidator;
-    budgetTextControllerValidator = _budgetTextControllerValidator;
     descriptionTextControllerValidator = _descriptionTextControllerValidator;
     jobDetailsLoaderModel = createModel(context, () => JobDetailsLoaderModel());
   }

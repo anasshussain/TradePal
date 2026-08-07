@@ -14,7 +14,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '/utils/custom_code/actions/index.dart' as actions;
 
 class ConnectStripeScreen extends StatefulWidget {
-  const ConnectStripeScreen({
+  ConnectStripeScreen({
     super.key,
     required this.onConnectStripe,
     required this.onManagePayouts,
@@ -86,8 +86,7 @@ class _ConnectStripeScreenState extends State<ConnectStripeScreen>
   }
 
   Future<void> _loadStripeAccount() async {
-    debugPrint(
-        '[PayoutDebug] _loadStripeAccount: currentUserUid=$currentUserUid');
+    debugPrint('[PayoutDebug] _loadStripeAccount: currentUserUid=$currentUserUid');
 
     final response = await SupabaseTablesGroup.getStripeRowCall
         .call(userId: 'eq.$currentUserUid');
@@ -111,7 +110,8 @@ class _ConnectStripeScreenState extends State<ConnectStripeScreen>
       // the fully onboarded one instead of blindly taking the first row,
       // which could be a stale/incomplete duplicate.
       stripeRow = rows.firstWhere(
-        (r) => (r['payouts_enabled'] == true) && (r['charges_enabled'] == true),
+        (r) =>
+            (r['payouts_enabled'] == true) && (r['charges_enabled'] == true),
         orElse: () => rows.firstWhere(
           (r) => (r['stripe_account_id'] ?? '').toString().isNotEmpty,
           orElse: () => rows.first,
@@ -206,8 +206,7 @@ class _ConnectStripeScreenState extends State<ConnectStripeScreen>
         defaultBankAccount = accounts.isEmpty
             ? null
             : (accounts.firstWhereOrNull(
-                  (a) =>
-                      a.defaultForCurrency && a.currency.toLowerCase() == 'gbp',
+                  (a) => a.defaultForCurrency && a.currency.toLowerCase() == 'gbp',
                 ) ??
                 accounts.firstWhereOrNull((a) => a.defaultForCurrency) ??
                 accounts.first);
@@ -450,8 +449,8 @@ class _ConnectStripeScreenState extends State<ConnectStripeScreen>
               options: AppButtonOptions(
                 width: double.infinity,
                 height: 54.0,
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(
+                    20.0, 0.0, 20.0, 0.0),
                 iconAlignment: IconAlignment.end,
                 iconPadding:
                     const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),

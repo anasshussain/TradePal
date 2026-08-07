@@ -64,7 +64,7 @@ class _TabLabelBarRenderer extends RenderFlex {
 // upon layout. The tab widths are only used at paint time (see _IndicatorPainter)
 // or in response to input.
 class _TabLabelBar extends Flex {
-  const _TabLabelBar({
+  _TabLabelBar({
     required List<Widget> children,
     required this.onPerformLayout,
   }) : super(
@@ -236,7 +236,8 @@ class _TabBarScrollController extends ScrollController {
 }
 
 /// A widget that displays a horizontal row of tabs.
-class AppButtonTabBar extends StatefulWidget implements PreferredSizeWidget {
+class AppButtonTabBar extends StatefulWidget
+    implements PreferredSizeWidget {
   /// The [tabs] argument must not be null and its length must match the [controller]'s
   /// [TabController.length].
   ///
@@ -375,7 +376,8 @@ class AppButtonTabBar extends StatefulWidget implements PreferredSizeWidget {
   }
 
   @override
-  State<AppButtonTabBar> createState() => _AppButtonTabBarState();
+  State<AppButtonTabBar> createState() =>
+      _AppButtonTabBarState();
 }
 
 class _AppButtonTabBarState extends State<AppButtonTabBar>

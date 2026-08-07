@@ -32,7 +32,5 @@ class OnboardingModel extends AppModel<OnboardingWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    pageViewController?.dispose();
-  }
+  void dispose() {}
 }

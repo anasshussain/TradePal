@@ -83,7 +83,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
         key: scaffoldKey,
         backgroundColor: AppTheme.of(context).secondaryBackground,
         body: SafeArea(
-          // top: true,
+          top: true,
           child: Padding(
             padding: EdgeInsets.all(valueOrDefault<double>(
               AppConstants.parentPagePadding,

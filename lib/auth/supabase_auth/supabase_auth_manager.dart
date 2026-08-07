@@ -12,6 +12,9 @@ export '/auth/base_auth_user_provider.dart';
 
 class SupabaseAuthManager extends AuthManager with EmailSignInManager {
   @override
+  // Future signOut() {
+  //   return SupaFlow.client.auth.signOut();
+  // }
   Future signOut() async {
     await SupaFlow.client.auth.signOut();
 

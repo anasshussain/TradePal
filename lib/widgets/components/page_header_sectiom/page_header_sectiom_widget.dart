@@ -161,10 +161,7 @@ class _PageHeaderSectiomWidgetState extends State<PageHeaderSectiomWidget> {
                         size: 14.0,
                       ),
                       Text(
-                        [
-                          widget!.numberOfItems?.toString(),
-                          valueOrDefault<String>(widget!.itemText, ''),
-                        ].where((s) => s != null && s.isNotEmpty).join(' '),
+                        '${widget!.numberOfItems?.toString()} ${widget!.itemText}',
                         style: AppTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.manrope(
                                 fontWeight: AppTheme.of(context)
